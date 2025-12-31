@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_GUID: 8ae69caa87d75de4a951c5e9b4709838
+  m_SerializeEntries:
+  - m_GUID: 0ae305696bd24364c84f3dce509b582b
+    m_Address: Assets/Addressables/Prefab/Monster/TreasureChest.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ingame
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 517f4a79e3aa91442ac3dd635d561375
+    m_Address: Assets/Addressables/Prefab/UI/Notice/UIStageTitleNotice.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ingame
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 577e02325167be74b8eb99ec2a3eae09
+    m_Address: Assets/Addressables/Atlas/atlas_ui.spriteatlasv2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ingame
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5bdae017423ab2743b7fb486cbaf31bd
+    m_Address: Assets/Addressables/Prefab/UI/Popup/UIPurchasePopup.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ingame
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 639f34b97d47d424f92e28e911d69426
+    m_Address: Assets/Addressables/Prefab/UI/Notice/UICurrencyObtainedNotice.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ingame
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6a10b5cf9a5d42346b2d7f8146343699
+    m_Address: Assets/Addressables/Prefab/PlayerCharacter.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ingame
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9b327578e2bfff645ab591cdd0c24dea
+    m_Address: Assets/Addressables/Atlas/atlas_item.spriteatlasv2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ingame
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c7125cbb71e3107449098bdcc3818625
+    m_Address: Assets/Addressables/Prefab/UI/Follow/UIFloatyText.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ingame
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c7722133c32d1164b8903ce9b2ac954a
+    m_Address: Assets/Addressables/Prefab/UI/Notice/UIStatPointShortageNotice.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ingame
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cd2aeea7a8853a141975a77d675335f1
+    m_Address: Assets/Addressables/Prefab/UI/Notice/UICurrencyShortageNotice.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ingame
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cf65f72866f858649aede54d0db5eed5
+    m_Address: Assets/Addressables/Prefab/UI/Popup/UICharacterInfoPopup.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ingame
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d0e914d5f9f147b47abcacd3abec69b4
+    m_Address: Assets/Addressables/Prefab/UI/Gauge/UIPlayerGauge.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ingame
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eb8d74baaf4a0ab47a9bfda9ef9fdeb0
+    m_Address: Assets/Addressables/Prefab/UI/Gauge/UIEnemyGauge.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ingame
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fdddf1ba0a86278429c07f96ba4ec604
+    m_Address: Assets/Addressables/Prefab/UI/Notice/UIExperienceShortageNotice.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ingame
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 0bfdb79b140772546ac483b0ad9449ba, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: ad9f79755341e0542831109420a7a191, type: 2}
+    - {fileID: 11400000, guid: 21ff8c20e7f0d7443a35c0da228baa2e, type: 2}

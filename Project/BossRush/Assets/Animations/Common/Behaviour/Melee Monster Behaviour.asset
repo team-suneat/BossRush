@@ -1,0 +1,423 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: Melee Monster Behaviour
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"type":"NodeCanvas.BehaviourTrees.BehaviourTree","nodes":[{"dynamic":true,"_position":{"x":945.0,"y":195.0},"_comment":"\ud558\ub098\ub77c\ub3c4
+    \ub9de\uc73c\uba74 \ub118\uc5b4\uac00\uc9c0 \uc54a\uc74c","$type":"NodeCanvas.BehaviourTrees.Selector","$id":"0"},{"dynamic":true,"_condition":{"checkMode":1,"conditions":[{"_invert":true,"$type":"TeamSuneat.CheckOwnerAlive"},{"$type":"TeamSuneat.CheckOwnerBlockMovable"},{"$type":"TeamSuneat.CheckPlayingAllAnimations"}],"$type":"NodeCanvas.Framework.ConditionList"},"_name":"","_position":{"x":780.0,"y":330.0},"_comment":"","$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"1"},{"_action":{"$type":"TeamSuneat.ActionResetCommand"},"_name":"","_position":{"x":705.0,"y":495.0},"_comment":"","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"2"},{"dynamic":true,"_condition":{"$type":"TeamSuneat.CheckOwnerSetTarget"},"_name":"","_position":{"x":960.0,"y":495.0},"_comment":"","$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"3"},{"dynamic":true,"_condition":{"$type":"TeamSuneat.CheckTargetAlive"},"_name":"","_position":{"x":780.0,"y":675.0},"_comment":"","$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"4"},{"dynamic":true,"_condition":{"$type":"TeamSuneat.CheckTargetInAttackableArea"},"_name":"","_position":{"x":615.0,"y":825.0},"_comment":"","$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"5"},{"dynamic":true,"_condition":{"$type":"TeamSuneat.CheckFaceTarget"},"_name":"","_position":{"x":465.0,"y":990.0},"_comment":"","$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"6"},{"_action":{"$type":"TeamSuneat.ActionExecuteAttackCommand"},"_name":"","_position":{"x":315.0,"y":1155.0},"_comment":"","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"7"},{"_action":{"$type":"TeamSuneat.ActionExecuteFaceTarget"},"_name":"","_position":{"x":555.0,"y":1155.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"8"},{"isDynamic":true,"_condition":{"$type":"TeamSuneat.CheckChaseGround"},"_name":"","_position":{"x":825.0,"y":990.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"9"},{"_action":{"$type":"TeamSuneat.ActionChaseGround"},"_name":"","_position":{"x":825.0,"y":1155.0},"_comment":"","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"10"},{"_action":{"$type":"TeamSuneat.ActionResetTarget"},"_name":"","_position":{"x":900.0,"y":825.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"11"},{"dynamic":true,"_condition":{"$type":"TeamSuneat.CheckOwnerSetPatrolTargetPosition"},"_name":"","_position":{"x":1155.0,"y":675.0},"_comment":"","$type":"NodeCanvas.BehaviourTrees.BinarySelector","$id":"12"},{"isDynamic":true,"_condition":{"$type":"TeamSuneat.CheckPatrolPossible"},"_name":"","_position":{"x":1155.0,"y":825.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"13"},{"_action":{"$type":"TeamSuneat.ActionPatrol"},"_name":"","_position":{"x":1155.0,"y":975.0},"_comment":"","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"14"},{"_action":{"$type":"TeamSuneat.ActionSetTargetPatrolPosition"},"_name":"","_position":{"x":1350.0,"y":825.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"15"},{"_action":{"$type":"TeamSuneat.ActionResetCommand"},"_name":"","_position":{"x":1035.0,"y":330.0},"_comment":"","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"16"}],"connections":[{"_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"1"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"16"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"1"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"1"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"3"},"_targetNode":{"$ref":"12"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"11"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"9"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"7"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"8"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"9"},"_targetNode":{"$ref":"10"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"13"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"12"},"_targetNode":{"$ref":"15"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"13"},"_targetNode":{"$ref":"14"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"canvasGroups":[],"localBlackboard":{"_variables":{}},"derivedData":{"repeat":true,"updateInterval":0.2,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _graphSource:
+    _version: 3.05
+    _category: Monster
+    _comments: 
+    _translation: {x: 277, y: -30.000002}
+    _zoomFactor: 0.7500043
+  _haltSerialization: 0
+#---GRAPH_START---
+#The pretty formatted json serialization bellow is only a reference to help in version control diff. Other than that it is not used at all.
+#{
+#    "type": "NodeCanvas.BehaviourTrees.BehaviourTree",
+#    "nodes": [
+#        {
+#            "dynamic": true,
+#            "_position": {
+#                "x": 945.0,
+#                "y": 195.0
+#            },
+#            "_comment": "\ud558\ub098\ub77c\ub3c4 \ub9de\uc73c\uba74 \ub118\uc5b4\uac00\uc9c0 \uc54a\uc74c",
+#            "$type": "NodeCanvas.BehaviourTrees.Selector",
+#            "$id": "0"
+#        },
+#        {
+#            "dynamic": true,
+#            "_condition": {
+#                "checkMode": 1,
+#                "conditions": [
+#                    {
+#                        "_invert": true,
+#                        "$type": "TeamSuneat.CheckOwnerAlive"
+#                    },
+#                    {
+#                        "$type": "TeamSuneat.CheckOwnerBlockMovable"
+#                    },
+#                    {
+#                        "$type": "TeamSuneat.CheckPlayingAllAnimations"
+#                    }
+#                ],
+#                "$type": "NodeCanvas.Framework.ConditionList"
+#            },
+#            "_name": "",
+#            "_position": {
+#                "x": 780.0,
+#                "y": 330.0
+#            },
+#            "_comment": "",
+#            "$type": "NodeCanvas.BehaviourTrees.BinarySelector",
+#            "$id": "1"
+#        },
+#        {
+#            "_action": {
+#                "$type": "TeamSuneat.ActionResetCommand"
+#            },
+#            "_name": "",
+#            "_position": {
+#                "x": 705.0,
+#                "y": 495.0
+#            },
+#            "_comment": "",
+#            "$type": "NodeCanvas.BehaviourTrees.ActionNode",
+#            "$id": "2"
+#        },
+#        {
+#            "dynamic": true,
+#            "_condition": {
+#                "$type": "TeamSuneat.CheckOwnerSetTarget"
+#            },
+#            "_name": "",
+#            "_position": {
+#                "x": 960.0,
+#                "y": 495.0
+#            },
+#            "_comment": "",
+#            "$type": "NodeCanvas.BehaviourTrees.BinarySelector",
+#            "$id": "3"
+#        },
+#        {
+#            "dynamic": true,
+#            "_condition": {
+#                "$type": "TeamSuneat.CheckTargetAlive"
+#            },
+#            "_name": "",
+#            "_position": {
+#                "x": 780.0,
+#                "y": 675.0
+#            },
+#            "_comment": "",
+#            "$type": "NodeCanvas.BehaviourTrees.BinarySelector",
+#            "$id": "4"
+#        },
+#        {
+#            "dynamic": true,
+#            "_condition": {
+#                "$type": "TeamSuneat.CheckTargetInAttackableArea"
+#            },
+#            "_name": "",
+#            "_position": {
+#                "x": 615.0,
+#                "y": 825.0
+#            },
+#            "_comment": "",
+#            "$type": "NodeCanvas.BehaviourTrees.BinarySelector",
+#            "$id": "5"
+#        },
+#        {
+#            "dynamic": true,
+#            "_condition": {
+#                "$type": "TeamSuneat.CheckFaceTarget"
+#            },
+#            "_name": "",
+#            "_position": {
+#                "x": 465.0,
+#                "y": 990.0
+#            },
+#            "_comment": "",
+#            "$type": "NodeCanvas.BehaviourTrees.BinarySelector",
+#            "$id": "6"
+#        },
+#        {
+#            "_action": {
+#                "$type": "TeamSuneat.ActionExecuteAttackCommand"
+#            },
+#            "_name": "",
+#            "_position": {
+#                "x": 315.0,
+#                "y": 1155.0
+#            },
+#            "_comment": "",
+#            "$type": "NodeCanvas.BehaviourTrees.ActionNode",
+#            "$id": "7"
+#        },
+#        {
+#            "_action": {
+#                "$type": "TeamSuneat.ActionExecuteFaceTarget"
+#            },
+#            "_name": "",
+#            "_position": {
+#                "x": 555.0,
+#                "y": 1155.0
+#            },
+#            "$type": "NodeCanvas.BehaviourTrees.ActionNode",
+#            "$id": "8"
+#        },
+#        {
+#            "isDynamic": true,
+#            "_condition": {
+#                "$type": "TeamSuneat.CheckChaseGround"
+#            },
+#            "_name": "",
+#            "_position": {
+#                "x": 825.0,
+#                "y": 990.0
+#            },
+#            "$type": "NodeCanvas.BehaviourTrees.ConditionalEvaluator",
+#            "$id": "9"
+#        },
+#        {
+#            "_action": {
+#                "$type": "TeamSuneat.ActionChaseGround"
+#            },
+#            "_name": "",
+#            "_position": {
+#                "x": 825.0,
+#                "y": 1155.0
+#            },
+#            "_comment": "",
+#            "$type": "NodeCanvas.BehaviourTrees.ActionNode",
+#            "$id": "10"
+#        },
+#        {
+#            "_action": {
+#                "$type": "TeamSuneat.ActionResetTarget"
+#            },
+#            "_name": "",
+#            "_position": {
+#                "x": 900.0,
+#                "y": 825.0
+#            },
+#            "$type": "NodeCanvas.BehaviourTrees.ActionNode",
+#            "$id": "11"
+#        },
+#        {
+#            "dynamic": true,
+#            "_condition": {
+#                "$type": "TeamSuneat.CheckOwnerSetPatrolTargetPosition"
+#            },
+#            "_name": "",
+#            "_position": {
+#                "x": 1155.0,
+#                "y": 675.0
+#            },
+#            "_comment": "",
+#            "$type": "NodeCanvas.BehaviourTrees.BinarySelector",
+#            "$id": "12"
+#        },
+#        {
+#            "isDynamic": true,
+#            "_condition": {
+#                "$type": "TeamSuneat.CheckPatrolPossible"
+#            },
+#            "_name": "",
+#            "_position": {
+#                "x": 1155.0,
+#                "y": 825.0
+#            },
+#            "$type": "NodeCanvas.BehaviourTrees.ConditionalEvaluator",
+#            "$id": "13"
+#        },
+#        {
+#            "_action": {
+#                "$type": "TeamSuneat.ActionPatrol"
+#            },
+#            "_name": "",
+#            "_position": {
+#                "x": 1155.0,
+#                "y": 975.0
+#            },
+#            "_comment": "",
+#            "$type": "NodeCanvas.BehaviourTrees.ActionNode",
+#            "$id": "14"
+#        },
+#        {
+#            "_action": {
+#                "$type": "TeamSuneat.ActionSetTargetPatrolPosition"
+#            },
+#            "_name": "",
+#            "_position": {
+#                "x": 1350.0,
+#                "y": 825.0
+#            },
+#            "$type": "NodeCanvas.BehaviourTrees.ActionNode",
+#            "$id": "15"
+#        },
+#        {
+#            "_action": {
+#                "$type": "TeamSuneat.ActionResetCommand"
+#            },
+#            "_name": "",
+#            "_position": {
+#                "x": 1035.0,
+#                "y": 330.0
+#            },
+#            "_comment": "",
+#            "$type": "NodeCanvas.BehaviourTrees.ActionNode",
+#            "$id": "16"
+#        }
+#    ],
+#    "connections": [
+#        {
+#            "_sourceNode": {
+#                "$ref": "0"
+#            },
+#            "_targetNode": {
+#                "$ref": "1"
+#            },
+#            "$type": "NodeCanvas.BehaviourTrees.BTConnection"
+#        },
+#        {
+#            "_sourceNode": {
+#                "$ref": "0"
+#            },
+#            "_targetNode": {
+#                "$ref": "16"
+#            },
+#            "$type": "NodeCanvas.BehaviourTrees.BTConnection"
+#        },
+#        {
+#            "_sourceNode": {
+#                "$ref": "1"
+#            },
+#            "_targetNode": {
+#                "$ref": "2"
+#            },
+#            "$type": "NodeCanvas.BehaviourTrees.BTConnection"
+#        },
+#        {
+#            "_sourceNode": {
+#                "$ref": "1"
+#            },
+#            "_targetNode": {
+#                "$ref": "3"
+#            },
+#            "$type": "NodeCanvas.BehaviourTrees.BTConnection"
+#        },
+#        {
+#            "_sourceNode": {
+#                "$ref": "3"
+#            },
+#            "_targetNode": {
+#                "$ref": "4"
+#            },
+#            "$type": "NodeCanvas.BehaviourTrees.BTConnection"
+#        },
+#        {
+#            "_sourceNode": {
+#                "$ref": "3"
+#            },
+#            "_targetNode": {
+#                "$ref": "12"
+#            },
+#            "$type": "NodeCanvas.BehaviourTrees.BTConnection"
+#        },
+#        {
+#            "_sourceNode": {
+#                "$ref": "4"
+#            },
+#            "_targetNode": {
+#                "$ref": "5"
+#            },
+#            "$type": "NodeCanvas.BehaviourTrees.BTConnection"
+#        },
+#        {
+#            "_sourceNode": {
+#                "$ref": "4"
+#            },
+#            "_targetNode": {
+#                "$ref": "11"
+#            },
+#            "$type": "NodeCanvas.BehaviourTrees.BTConnection"
+#        },
+#        {
+#            "_sourceNode": {
+#                "$ref": "5"
+#            },
+#            "_targetNode": {
+#                "$ref": "6"
+#            },
+#            "$type": "NodeCanvas.BehaviourTrees.BTConnection"
+#        },
+#        {
+#            "_sourceNode": {
+#                "$ref": "5"
+#            },
+#            "_targetNode": {
+#                "$ref": "9"
+#            },
+#            "$type": "NodeCanvas.BehaviourTrees.BTConnection"
+#        },
+#        {
+#            "_sourceNode": {
+#                "$ref": "6"
+#            },
+#            "_targetNode": {
+#                "$ref": "7"
+#            },
+#            "$type": "NodeCanvas.BehaviourTrees.BTConnection"
+#        },
+#        {
+#            "_sourceNode": {
+#                "$ref": "6"
+#            },
+#            "_targetNode": {
+#                "$ref": "8"
+#            },
+#            "$type": "NodeCanvas.BehaviourTrees.BTConnection"
+#        },
+#        {
+#            "_sourceNode": {
+#                "$ref": "9"
+#            },
+#            "_targetNode": {
+#                "$ref": "10"
+#            },
+#            "$type": "NodeCanvas.BehaviourTrees.BTConnection"
+#        },
+#        {
+#            "_sourceNode": {
+#                "$ref": "12"
+#            },
+#            "_targetNode": {
+#                "$ref": "13"
+#            },
+#            "$type": "NodeCanvas.BehaviourTrees.BTConnection"
+#        },
+#        {
+#            "_sourceNode": {
+#                "$ref": "12"
+#            },
+#            "_targetNode": {
+#                "$ref": "15"
+#            },
+#            "$type": "NodeCanvas.BehaviourTrees.BTConnection"
+#        },
+#        {
+#            "_sourceNode": {
+#                "$ref": "13"
+#            },
+#            "_targetNode": {
+#                "$ref": "14"
+#            },
+#            "$type": "NodeCanvas.BehaviourTrees.BTConnection"
+#        }
+#    ],
+#    "canvasGroups": [],
+#    "localBlackboard": {
+#        "_variables": {
+#
+#        }
+#    },
+#    "derivedData": {
+#        "repeat": true,
+#        "updateInterval": 0.2,
+#        "$type": "NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"
+#    }
+#}
+#---GRAPH_END---

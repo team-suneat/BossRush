@@ -1,0 +1,26 @@
+{
+    "name": "Slayer.Runtime",
+    "rootNamespace": "TeamSuneat",
+    "references": [
+        "LeanPool",
+        "LeanCommon",
+        "DOTween.Modules",
+        "SpriteTrail",
+        "Unity.Cinemachine",
+        "Unity.TextMeshPro",
+        "Unity.RenderPipelines.Universal.2D.Runtime",
+        "UnityEngine.UI",
+        "Unity.InputSystem",
+        "Unity.Addressables",
+        "Unity.ResourceManager"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

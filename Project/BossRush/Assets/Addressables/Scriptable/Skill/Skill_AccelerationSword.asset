@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90974ea28620a374eba2daf9138a8e1e, type: 3}
+  m_Name: Skill_AccelerationSword
+  m_EditorClassIdentifier: 
+  NameString: AccelerationSword
+  Data:
+    IsChangingAsset: 0
+    Name: 27
+    Attribute: 4
+    Type: 2
+    Grade: 3
+    MaxLevel: 10
+    Description: "\uC804\uD22C \uB3CC\uC785 \uD6C4, 5\uD68C \uACF5\uACA9\uB9C8\uB2E4
+      \uACF5\uACA9\uC18D\uB3C4 +n% (\uCD5C\uB300 20\uD68C)"
+    Icon: {fileID: 0}
+    EffectPrefab: {fileID: 0}
+    CooldownType: 2
+    BaseCooldownTime: 0
+    CooldownTimeByLevel: 0
+    BaseCooldownAttackCount: 5
+    CooldownAttackCountByLevel: 0
+    BaseManaCost: 0
+    ManaCostByLevel: 0
+    BaseEffectValue: 7
+    EffectValueByLevel: 0.35
+    EffectMultiplier: 1
+    BaseHitCount: 1
+    HitCountByLevel: 0
+    BaseRange: 0
+    RangeByLevel: 0
+    HasFreezeEffect: 0
+    FreezeChance: 0
+    HasStunEffect: 0
+    StunChance: 0
+    HasTimeStop: 0
+    IsPiercing: 0
+    RequiresSkillCard: 0
+    RequiredWeapon: 0
+    RequiredAccessory: 0
+    MinRequiredGrade: 0
+    LevelUpCosts: 
+    AttributeAsString: Wind
+    TypeAsString: Passive
+    GradeAsString: Rare
+    CooldownTypeAsString: AttackCountBased
+    RequiredWeaponAsString: None
+    RequiredAccessoryAsString: None
+    MinRequiredGradeAsString: None

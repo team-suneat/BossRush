@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a06c599e26bfbc4cbd6e6be9cd62d69, type: 3}
+  m_Name: Flicker_Dash
+  m_EditorClassIdentifier: 
+  NameString: Dash
+  IsChangingAsset: 0
+  Name: 10
+  FlickerColor: {r: 1, g: 1, b: 1, a: 1}
+  FlickerBlend: 0.5
+  FlickerSpeed: 0.1
+  FlickerDuration: 0.2

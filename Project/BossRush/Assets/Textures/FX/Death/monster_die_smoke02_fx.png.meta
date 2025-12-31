@@ -1,0 +1,608 @@
+fileFormatVersion: 2
+guid: ece933ee26caa894791b9b712b3cceb3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -436313193331813247
+    second: monster_die_smoke02_fx_0
+  - first:
+      213: 5556495060304779774
+    second: monster_die_smoke02_fx_1
+  - first:
+      213: -5984439659759969403
+    second: monster_die_smoke02_fx_2
+  - first:
+      213: 4750064143191690164
+    second: monster_die_smoke02_fx_3
+  - first:
+      213: 719135606201203874
+    second: monster_die_smoke02_fx_4
+  - first:
+      213: -8510273267122099050
+    second: monster_die_smoke02_fx_5
+  - first:
+      213: -3502118035319255228
+    second: monster_die_smoke02_fx_6
+  - first:
+      213: -5681591708351392624
+    second: monster_die_smoke02_fx_7
+  - first:
+      213: -5337923411437300364
+    second: monster_die_smoke02_fx_8
+  - first:
+      213: 4016203485803148081
+    second: monster_die_smoke02_fx_9
+  - first:
+      213: 5238771835924889113
+    second: monster_die_smoke02_fx_10
+  - first:
+      213: 4154909720261501732
+    second: monster_die_smoke02_fx_11
+  - first:
+      213: -6465232956235022086
+    second: monster_die_smoke02_fx_12
+  - first:
+      213: 1701440320802917681
+    second: monster_die_smoke02_fx_13
+  - first:
+      213: -2302053481352025546
+    second: monster_die_smoke02_fx_14
+  - first:
+      213: -1475331034436712235
+    second: monster_die_smoke02_fx_15
+  - first:
+      213: 7033746527183655614
+    second: monster_die_smoke02_fx_16
+  - first:
+      213: -3652161716837418235
+    second: monster_die_smoke02_fx_17
+  - first:
+      213: 5802766995034273936
+    second: monster_die_smoke02_fx_18
+  - first:
+      213: -100902829772099988
+    second: monster_die_smoke02_fx_19
+  - first:
+      213: 9041820215262124213
+    second: monster_die_smoke02_fx_20
+  - first:
+      213: 6048862691474251414
+    second: monster_die_smoke02_fx_21
+  - first:
+      213: -14627069228719681
+    second: monster_die_smoke02_fx_22
+  - first:
+      213: -7253124120525613183
+    second: monster_die_smoke02_fx_23
+  - first:
+      213: 1901522938554096410
+    second: monster_die_smoke02_fx_24
+  - first:
+      213: -6332430125281542661
+    second: monster_die_smoke02_fx_25
+  - first:
+      213: 2142493046480490830
+    second: monster_die_smoke02_fx_26
+  - first:
+      213: 3414766824548037725
+    second: monster_die_smoke02_fx_27
+  - first:
+      213: -7455529868773119606
+    second: monster_die_smoke02_fx_28
+  - first:
+      213: -6884159735058080723
+    second: monster_die_smoke02_fx_29
+  - first:
+      213: 3533964144731948214
+    second: monster_die_smoke02_fx_30
+  - first:
+      213: 5969732552329855112
+    second: monster_die_smoke02_fx_31
+  - first:
+      213: 773442357915198966
+    second: monster_die_smoke02_fx_32
+  - first:
+      213: 8073828337685212410
+    second: monster_die_smoke02_fx_33
+  - first:
+      213: 6720307793611537764
+    second: monster_die_smoke02_fx_34
+  - first:
+      213: 9037500360123564820
+    second: monster_die_smoke02_fx_35
+  - first:
+      213: -9092694769937013497
+    second: monster_die_smoke02_fx_36
+  - first:
+      213: -6321393134345654677
+    second: monster_die_smoke02_fx_37
+  - first:
+      213: -2768582782719602330
+    second: monster_die_smoke02_fx_38
+  - first:
+      213: -8518502807357066614
+    second: monster_die_smoke02_fx_39
+  - first:
+      213: -7064493560155324568
+    second: monster_die_smoke02_fx_40
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: monster_die_smoke02_fx_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18414ac5677e1f9f0800000000000000
+      internalID: -436313193331813247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monster_die_smoke02_fx_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef9dda951d2ac1d40800000000000000
+      internalID: 5556495060304779774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monster_die_smoke02_fx_2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58b5f3c16dff2fca0800000000000000
+      internalID: -5984439659759969403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monster_die_smoke02_fx_3
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bbc24bdb2e9be140800000000000000
+      internalID: 4750064143191690164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monster_die_smoke02_fx_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ac35f01602eaf900800000000000000
+      internalID: 719135606201203874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monster_die_smoke02_fx_5
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69c2fab8d8f65e980800000000000000
+      internalID: -8510273267122099050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monster_die_smoke02_fx_6
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44f8e4fa33af56fc0800000000000000
+      internalID: -3502118035319255228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monster_die_smoke02_fx_7
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09419e0917ee621b0800000000000000
+      internalID: -5681591708351392624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monster_die_smoke02_fx_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 475d90750f2ebe5b0800000000000000
+      internalID: -5337923411437300364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monster_die_smoke02_fx_9
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1337bf4aacb6cb730800000000000000
+      internalID: 4016203485803148081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monster_die_smoke02_fx_10
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91ebf938a3bd3b840800000000000000
+      internalID: 5238771835924889113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monster_die_smoke02_fx_11
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 423210e706439a930800000000000000
+      internalID: 4154909720261501732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monster_die_smoke02_fx_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af0867d61e0e646a0800000000000000
+      internalID: -6465232956235022086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monster_die_smoke02_fx_13
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13d0cf705fabc9710800000000000000
+      internalID: 1701440320802917681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monster_die_smoke02_fx_14
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63aaf063e867d00e0800000000000000
+      internalID: -2302053481352025546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monster_die_smoke02_fx_15
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d84a46ad32968be0800000000000000
+      internalID: -1475331034436712235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: eb24757b965f98e4ea0d68200a124dd5
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      monster_die_smoke02_fx_0: -436313193331813247
+      monster_die_smoke02_fx_1: 5556495060304779774
+      monster_die_smoke02_fx_10: 5238771835924889113
+      monster_die_smoke02_fx_11: 4154909720261501732
+      monster_die_smoke02_fx_12: -6465232956235022086
+      monster_die_smoke02_fx_13: 1701440320802917681
+      monster_die_smoke02_fx_14: -2302053481352025546
+      monster_die_smoke02_fx_15: -1475331034436712235
+      monster_die_smoke02_fx_2: -5984439659759969403
+      monster_die_smoke02_fx_3: 4750064143191690164
+      monster_die_smoke02_fx_4: 719135606201203874
+      monster_die_smoke02_fx_5: -8510273267122099050
+      monster_die_smoke02_fx_6: -3502118035319255228
+      monster_die_smoke02_fx_7: -5681591708351392624
+      monster_die_smoke02_fx_8: -5337923411437300364
+      monster_die_smoke02_fx_9: 4016203485803148081
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

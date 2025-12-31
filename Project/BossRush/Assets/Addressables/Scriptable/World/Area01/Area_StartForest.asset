@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2390526872a55543be59eb506b645e0, type: 3}
+  m_Name: Area_StartForest
+  m_EditorClassIdentifier: 
+  NameString: StartForest
+  AreaName: 1
+  NormalMonsters: e9030000ea030000eb030000ec030000ed030000ee030000ef030000
+  BossMonsters: 1b0400001c0400001d0400001e0400001f040000
+  NormalMonstersString:
+  - Area01_Mushroom
+  - Area01_KingMushroom
+  - Area01_Goblin
+  - Area01_StrongGoblin
+  - Area01_Slime
+  - Area01_Boar
+  - Area01_Wolf
+  BossMonstersString:
+  - Area01_Boss_MushroomKing
+  - Area01_Boss_SlimeKing
+  - Area01_Boss_GoblinChief
+  - Area01_Boss_BoarLord
+  - Area01_Boss_WolfKing

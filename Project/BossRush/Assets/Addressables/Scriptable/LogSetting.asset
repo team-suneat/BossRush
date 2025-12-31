@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20561f5caa90d224382ef8fbfb77dd3c, type: 3}
+  m_Name: LogSetting
+  m_EditorClassIdentifier: 
+  Analytics: 0
+  Character: 0
+  Player: 0
+  Monster: 1
+  Elite: 0
+  Boss: 0
+  Ability: 0
+  CharacterSpawn: 1
+  Animation: 0
+  Renderer: 0
+  Attack: 0
+  Buff: 0
+  Damage: 0
+  Effect: 0
+  Passive: 0
+  Stat: 0
+  Vital: 0
+  BattleResource: 0
+  Skill: 0
+  Currency: 0
+  Item: 0
+  Weapon: 0
+  DropObject: 0
+  Quest: 0
+  Tutorial: 0
+  Timeline: 0
+  PositionGroup: 0
+  Time: 0
+  Data: 0
+  GamePref: 0
+  JsonData: 0
+  Resource: 0
+  ScriptableData: 0
+  Path: 0
+  GameData: 0
+  GameData_Character: 0
+  GameData_Skill: 0
+  GameData_Stage: 0
+  GameData_Statistics: 0
+  GameData_Weapon: 0
+  Setting: 0
+  Audio: 0
+  Camera: 0
+  Global: 0
+  Input: 0
+  Stage: 0
+  Scene: 0
+  String: 0
+  Font: 0
+  Develop: 0
+  UI: 0
+  UI_Button: 1
+  UI_Gauge: 0
+  UI_Toggle: 0
+  UI_Page: 0
+  UI_Notice: 0
+  UI_Inventory: 0
+  UI_Popup: 0
+  UI_Details: 0
+  UI_Skill: 0
+  UI_Relic: 0
+  LoadString: 0

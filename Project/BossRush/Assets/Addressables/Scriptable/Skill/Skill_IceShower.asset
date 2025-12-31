@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90974ea28620a374eba2daf9138a8e1e, type: 3}
+  m_Name: Skill_IceShower
+  m_EditorClassIdentifier: 
+  NameString: IceShower
+  Data:
+    IsChangingAsset: 0
+    Name: 14
+    Attribute: 2
+    Type: 1
+    Grade: 2
+    MaxLevel: 10
+    Description: "\uBC94\uC704 8 \uC774\uB0B4\uC758 \uC784\uC758\uC758 \uC801\uB4E4\uC5D0\uAC8C
+      n%\xD71.5 \xD73 \uB370\uBBF8\uC9C0\uC758 \uC5BC\uC74C\uC720\uC131 \uC18C\uD658.
+      \uBE59\uACB0\uB41C \uC801\uC5D0\uAC8C \uAC00\uD558\uB294 \uB370\uBBF8\uC9C0
+      \uC99D\uAC00"
+    Icon: {fileID: 0}
+    EffectPrefab: {fileID: 0}
+    CooldownType: 1
+    BaseCooldownTime: 7
+    CooldownTimeByLevel: 0
+    BaseCooldownAttackCount: 0
+    CooldownAttackCountByLevel: 0
+    BaseManaCost: 25
+    ManaCostByLevel: 0
+    BaseEffectValue: 310
+    EffectValueByLevel: 31
+    EffectMultiplier: 1.5
+    BaseHitCount: 3
+    HitCountByLevel: 0
+    BaseRange: 8
+    RangeByLevel: 0
+    HasFreezeEffect: 1
+    FreezeChance: 0
+    HasStunEffect: 0
+    StunChance: 0
+    HasTimeStop: 0
+    IsPiercing: 0
+    RequiresSkillCard: 0
+    RequiredWeapon: 0
+    RequiredAccessory: 0
+    MinRequiredGrade: 0
+    LevelUpCosts: 
+    AttributeAsString: Water
+    TypeAsString: Active
+    GradeAsString: Grand
+    CooldownTypeAsString: TimeBased
+    RequiredWeaponAsString: None
+    RequiredAccessoryAsString: None
+    MinRequiredGradeAsString: None

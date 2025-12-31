@@ -1,0 +1,449 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Scriptable
+  m_EditorClassIdentifier: 
+  m_GroupName: Scriptable
+  m_GUID: 9c8a3fb1d489a2043a3b1d63467b7d70
+  m_SerializeEntries:
+  - m_GUID: 08d2a91b262cd164f9295756576efb9a
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_WindingBlade.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0d48137926bcd45478fdd57bf815e0aa
+    m_Address: Assets/Addressables/Scriptable/Skill/Config/SkillSlotUnlock.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0fc68872778e9f945bddf6f31a8d4cdd
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_GigaStrike.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 109052b60f2d3ff4fa40308ab0b9aef9
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_Mantra.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 11486964440e7a24d89c972eb114b036
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_SteelWill.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 12e15795c7014914e9e9282095d015df
+    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_Area01_Boss_BoarLord.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 19822ce5db2b6aa488f90894c818c93f
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_WindSword.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1b1617770278a8c429de7c84e4c02d4a
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_HighSpeedMovement.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 25badc8fef5005d4097bcc56aaef6017
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_Torrent.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 25f84aefe586af54eb82a75b566e2ec3
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_Blizzard.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2b7ad402fbfae294e84580c1b56f5174
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_FireSlash.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2cc909dbd55810749b2736dff821e0ca
+    m_Address: Assets/Addressables/Scriptable/Floaty/Floaty_PlayerDamaged.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2f550f54a9b9be94288c9413c5a7cb36
+    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_Area01_Boss_SlimeKing.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3005de02f394c444e97ed0f33b8b8cd3
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_PowerStrike.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 33da283afde72b148a0eddacaa59b029
+    m_Address: Assets/Addressables/Scriptable/Floaty/Floaty_RestoreMana.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3b7ba038c926a5a4bb686db5f3b03384
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_FireSword.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3d987a5d4464bef49b800af371985ff5
+    m_Address: Assets/Addressables/Scriptable/Skill/Config/SkillLevelUpCost.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3e20fd224a61c684cb9fdebaf41f5aba
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_ThunderStrike.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 492fdb9a0918e794b9894bc008e355bd
+    m_Address: Assets/Addressables/Scriptable/Character/MonsterStatConfig.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 56bad3e5f711b0746bbbe278a7b05c32
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_TrueHeatWave.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5931069aec364454ba718f5e54b8fed2
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_EarthBlessing.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5ce62921ee649b740a79d267065c5be7
+    m_Address: Assets/Addressables/Scriptable/Flicker/Flicker_Dash.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 69dcdc3aa0006eb45a2600a6674f03f0
+    m_Address: Assets/Addressables/Scriptable/Floaty/Floaty_Content.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6bf528203aec78a4a9dfaa9d52113f8b
+    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_Area01_Boss_WolfKing.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 71b209307f5cefa49842eb7c7b06aecc
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_HellfireSlash.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 71ce6c2ad87d54546927dc4942f5e1c6
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_WaveSlash.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 71f384ea2e014f44e87d470490e206d3
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_ThunderGod.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 721f4bb44c554c543b4c739757ef61e8
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_HeatWave.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 746e186fea8ee6148a647f72fe4ce213
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_GigaImpact.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 751b94256fa13af49954152221056101
+    m_Address: Assets/Addressables/Scriptable/Floaty/Floaty_HealHealth.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 75daeb547f12df342a6016cb2a7aae06
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_FirePillar.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 78bbd76ef0a1b104daa5b23c35ae77b8
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_LightningFast.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 79dc1a29ae48f724f83bf23f9c361d6e
+    m_Address: Assets/Addressables/Scriptable/Floaty/Floaty_CriticalDamage.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7b1487cc02c57e94faf7da716764cc14
+    m_Address: Assets/Addressables/Scriptable/Character/PlayerCharacterStatConfig.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7e82f9aef20f96e419ffc2220569864b
+    m_Address: Assets/Addressables/Scriptable/Floaty/Floaty_Damage.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 872c280518a161d4e97f3e63cf7076cd
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_DancingWave.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 87dbdde701324cd4d87e9a795fb16343
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_AsuraLightningSlash.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 90bef338bc87e494bb498a45ccab18ac
+    m_Address: Assets/Addressables/Scriptable/Character/ExperienceConfig.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9c989444c7d63f44f93c584c308dfc89
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_IceStone.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9e183cbf5047abf498f4f4785c7a7b50
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_AccelerationSword.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a869449aa4eb7414fb589d91d0d1ab8c
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_SuperhumanStrength.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: abb14edae447d1741ab776444eefa2bf
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_ManaBlessing.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ad054745a1ae1624aa24a4931ec339e6
+    m_Address: Assets/Addressables/Scriptable/Character/GrowthConfig.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ae02db9debacf8c4e9939958292d7641
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_FireWave.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ae8f3ff0034d0a04a97ffa972479f9bb
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_PowerImpact.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b0fb6b5c659ddd049a3184c5cebd5133
+    m_Address: Assets/Addressables/Scriptable/Floaty/Floaty_ChargeShield.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b18612ba7d3033b4bb39f7a9b3238fad
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_BeastHunt.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b2ac13d15d2add040b77aa7103a7bb54
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_IceTime.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b4e151c35838f4e43b453646f61cdc3f
+    m_Address: Assets/Addressables/Scriptable/Skill/Config/SkillCardUnlock.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bcda2444c97475343b1ce9bd66a93d85
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_IceShower.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bf0839536a140cc4c8c3155b6f126869
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_StoneStrike.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c0fb7ad719c70da43b0ec0f28df82f4b
+    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_Area01_Boss_MushroomKing.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c1fa8cce5a610cb46a1289d35432806a
+    m_Address: Assets/Addressables/Scriptable/Flicker/Flicker_Damage.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: caf72331fe8c180489a7f21ebf131f2b
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_LightningSlash.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cc8e045c91d41df4f8d598300f116475
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_Swiftness.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d07bec1f703cc954e8d0e519484977a0
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_ThunderSlash.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d5e6ed6c5dffb8941b26033e855f309d
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_Rave.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d9a68cc971c0c6c4b89e403dfe13dac6
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_LifeMana.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: da35bca226e1ec94f91d903e99e53c2e
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_FlameSlash.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dc2c2d83729d231438ab89f97faf24e1
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_BurningSword.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e19bfdfdf88b2144180ab8c9ca8551fe
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_RedThunder.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e299236a4753f19488109a8e87fba950
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_WarriorBurn.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e76dee3bfc696ab49b5e3e4d77eb3dda
+    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_PlayerCharacter.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ea96c92820bd27a4a9144454a9875c61
+    m_Address: Assets/Addressables/Scriptable/Character/MonsterExperienceDropConfig.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ef05a843586c67049a01f2555910cd1b
+    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_Area01_Boss_GoblinChief.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f2af02920d7351a418b549673dc864c5
+    m_Address: Assets/Addressables/Scriptable/Character/EnhancementConfig.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f3b4818f1851ae2469c2755a81cfebd8
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_FlowingBlade.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f6436ff00b34c524a8fd8fed3a5e92e3
+    m_Address: Assets/Addressables/Scriptable/Floaty/Floaty_Execution.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f719a85cf5ead2549ac3fb0260172505
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_Rage.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fb0a55d7ea558924e87bd56327176bc0
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_EarthWill.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fddf0af30960a4a4bab4d1fb4458d007
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_Meditation.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 0bfdb79b140772546ac483b0ad9449ba, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 8e869c6e5330ecd459ce637600229b7e, type: 2}
+    - {fileID: 11400000, guid: e07249ca9063d0b40a96199d677cbc33, type: 2}

@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90974ea28620a374eba2daf9138a8e1e, type: 3}
+  m_Name: Skill_LightningFast
+  m_EditorClassIdentifier: 
+  NameString: LightningFast
+  Data:
+    IsChangingAsset: 0
+    Name: 28
+    Attribute: 4
+    Type: 1
+    Grade: 4
+    MaxLevel: 10
+    Description: "\uBE60\uB974\uAC8C \uB3CC\uC9C4\uD558\uC5EC \uBC94\uC704 3\uC774\uB0B4\uC758
+      \uC801 \uBAA8\uB450\uC5D0\uAC8C \uACF5\uACA9\uB825\uC758 n%\xD73 \xD73\uB85C
+      1\uD68C \uACF5\uACA9"
+    Icon: {fileID: 0}
+    EffectPrefab: {fileID: 0}
+    CooldownType: 1
+    BaseCooldownTime: 0.5
+    CooldownTimeByLevel: 0
+    BaseCooldownAttackCount: 0
+    CooldownAttackCountByLevel: 0
+    BaseManaCost: 10
+    ManaCostByLevel: -5
+    BaseEffectValue: 80
+    EffectValueByLevel: 8
+    EffectMultiplier: 3
+    BaseHitCount: 1
+    HitCountByLevel: 0
+    BaseRange: 3
+    RangeByLevel: 0
+    HasFreezeEffect: 0
+    FreezeChance: 0
+    HasStunEffect: 0
+    StunChance: 0
+    HasTimeStop: 0
+    IsPiercing: 0
+    RequiresSkillCard: 0
+    RequiredWeapon: 0
+    RequiredAccessory: 0
+    MinRequiredGrade: 0
+    LevelUpCosts: 
+    AttributeAsString: Wind
+    TypeAsString: Active
+    GradeAsString: Epic
+    CooldownTypeAsString: TimeBased
+    RequiredWeaponAsString: None
+    RequiredAccessoryAsString: None
+    MinRequiredGradeAsString: None

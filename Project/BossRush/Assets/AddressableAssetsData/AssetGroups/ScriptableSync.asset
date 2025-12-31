@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: ScriptableSync
+  m_EditorClassIdentifier: 
+  m_GroupName: ScriptableSync
+  m_GUID: 9dccccf0b897c6544b01b86f855f0d14
+  m_SerializeEntries:
+  - m_GUID: 66a6e2fd0b92cc743835183fc23dc09c
+    m_Address: Assets/Addressables/Scriptable/Font/Font_English.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ScriptableSync
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7517224cbbcd5f542a9945d3b5c1cd57
+    m_Address: Assets/Addressables/Scriptable/LogSetting.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ScriptableSync
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7e493870cf5dd9d4fb7ffc6b1671c7f2
+    m_Address: Assets/Addressables/Scriptable/Font/Font_Korean.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ScriptableSync
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f8e89ddd967dbd94386820034bee2ff4
+    m_Address: Assets/Addressables/Scriptable/GameDefine.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ScriptableSync
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 0bfdb79b140772546ac483b0ad9449ba, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 3c849a7e508e73a41861b004bc84e815, type: 2}
+    - {fileID: 11400000, guid: 1bf37a10c426eda42ab0099aa206e7bc, type: 2}

@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44a1fdb7a9d3e48429d7d49c64140db0, type: 3}
+  m_Name: Hitmark_Area01_Boss_SlimeKing
+  m_EditorClassIdentifier: 
+  NameString: Area01_Boss_SlimeKingAttack
+  Data:
+    IsChangingAsset: 0
+    Name: 1052
+    AttackTargetType: 2
+    IsCrowdControl: 0
+    DamageType: 1
+    IgnoreEvasion: 0
+    NotPlayDamageAnimation: 0
+    ApplyToSelf: 0
+    ApplyMultiplierToSelf: 0
+    ExecutionConditionalTargetHealthRate: 0
+    MinDamageValue: 1
+    FixedDamage: 0
+    FixedDamageByLevel: 0
+    UseWeaponDamage: 0
+    LinkedDamageType: 0
+    LinkedStateEffect: 0
+    LinkedHitmarkMagnification: 0
+    LinkedValueMagnificationByLevel: 0
+    LinkedValueMagnificationByStack: 0
+    DamageTypeString: Normal
+    LinkedDamageTypeString: None
+    LinkedStateEffectString: None
+    NameOnHitString: 
+    BuffOnHitString: 
+    UseWeaponDamageString: False
+    DiminishingType: 0
+    DiminishingRate: 0
+    ApplyDiminishingFromFirst: 0
+    StopAttackAnimationOnResourceLack: 0
+    UseResourceOnActivate: 0
+    UseResourceOnApply: 0
+    UseResourceOnAttack: 0
+    UseResourceOnAttackSucceeded: 0
+    UseResourceOnAttackFailed: 0
+    UseResourceOnInactive: 0
+    UseResourceValue: 0
+    RestoreResourceValue: 0
+    ResourceConsumeType: 0
+    ForceResourceConsume: 0
+    IgnoreDeathByConsume: 0
+    ConsumeDelayTime: 0
+    AttackTargetTypeString: TargetOfOwner
+    DiminishingTypeString: None
+    ResourceConsumeTypeString: None

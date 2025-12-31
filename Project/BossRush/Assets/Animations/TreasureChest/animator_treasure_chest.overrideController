@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: animator_treasure_chest
+  m_Controller: {fileID: 9100000, guid: 1290522602583274aa790fa747fdedab, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: e56b04c71e88d6e4392b5d13aabcfd0f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b98cbd547fe855b4db40a62abc7af833, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 04800106f432c8d47950965c0c41e9a0, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 304ca7ae7cc8e2c4883c0a5a950abb55, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 122d5891e3d9d104fa4de6d8c0660136, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 962a697daf5534d4abd0c3ae0ef4ddc3, type: 2}

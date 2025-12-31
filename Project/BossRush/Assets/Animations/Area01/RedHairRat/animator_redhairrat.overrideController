@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: animator_redhairrat
+  m_Controller: {fileID: 9100000, guid: 1290522602583274aa790fa747fdedab, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: e56b04c71e88d6e4392b5d13aabcfd0f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 50030fd657027a743b49e120d0f338f1, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 04800106f432c8d47950965c0c41e9a0, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ab107bacbceaa3347a9bc22491bde014, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 122d5891e3d9d104fa4de6d8c0660136, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b28bcf90d3ab4d140b5f1a450e4a7b66, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: cb2f30a986b2a064aa07a1bae80d0e6e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 68649c80c5387294fbe0998985b18bb8, type: 2}

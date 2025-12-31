@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90974ea28620a374eba2daf9138a8e1e, type: 3}
+  m_Name: Skill_Torrent
+  m_EditorClassIdentifier: 
+  NameString: Torrent
+  Data:
+    IsChangingAsset: 0
+    Name: 22
+    Attribute: 2
+    Type: 2
+    Grade: 6
+    MaxLevel: 10
+    Description: "\uC804\uD22C\uB3CC\uC785 2\uCD08 \uB4A4 6\uCD08\uAC04 \uACF5\uACA9\uC18D\uB3C4
+      \uC99D\uAC00 n%"
+    Icon: {fileID: 0}
+    EffectPrefab: {fileID: 0}
+    CooldownType: 1
+    BaseCooldownTime: 50
+    CooldownTimeByLevel: 0
+    BaseCooldownAttackCount: 0
+    CooldownAttackCountByLevel: 0
+    BaseManaCost: 0
+    ManaCostByLevel: 0
+    BaseEffectValue: 350
+    EffectValueByLevel: 10
+    EffectMultiplier: 1
+    BaseHitCount: 1
+    HitCountByLevel: 0
+    BaseRange: 0
+    RangeByLevel: 0
+    HasFreezeEffect: 0
+    FreezeChance: 0
+    HasStunEffect: 0
+    StunChance: 0
+    HasTimeStop: 0
+    IsPiercing: 0
+    RequiresSkillCard: 0
+    RequiredWeapon: 0
+    RequiredAccessory: 0
+    MinRequiredGrade: 0
+    LevelUpCosts: 
+    AttributeAsString: Water
+    TypeAsString: Passive
+    GradeAsString: Mythic
+    CooldownTypeAsString: TimeBased
+    RequiredWeaponAsString: None
+    RequiredAccessoryAsString: None
+    MinRequiredGradeAsString: None

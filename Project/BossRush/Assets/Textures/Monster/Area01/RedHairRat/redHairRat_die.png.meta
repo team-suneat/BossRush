@@ -1,0 +1,581 @@
+fileFormatVersion: 2
+guid: 18bef5f02e776d44999afc32e91dee67
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4661548718466789241
+    second: redHairRat_die_0
+  - first:
+      213: -7259371657750707249
+    second: redHairRat_die_1
+  - first:
+      213: -892649233172328950
+    second: redHairRat_die_2
+  - first:
+      213: 3049021898102077246
+    second: redHairRat_die_3
+  - first:
+      213: 4767350525676840695
+    second: redHairRat_die_4
+  - first:
+      213: -2496245504328935334
+    second: redHairRat_die_5
+  - first:
+      213: 5868615622022468583
+    second: redHairRat_die_6
+  - first:
+      213: 5348788336580266893
+    second: redHairRat_die_7
+  - first:
+      213: -6477682317293658145
+    second: redHairRat_die_8
+  - first:
+      213: -628014941099909153
+    second: redHairRat_die_9
+  - first:
+      213: -493716100497448481
+    second: redHairRat_die_10
+  - first:
+      213: -6752858585410980855
+    second: redHairRat_die_11
+  - first:
+      213: -8889958045877894194
+    second: redHairRat_die_12
+  - first:
+      213: 3147673415388016584
+    second: redHairRat_die_13
+  - first:
+      213: 978245250274712815
+    second: redHairRat_die_14
+  - first:
+      213: 3434427617588290897
+    second: redHairRat_die_15
+  - first:
+      213: -6174779438496340275
+    second: redHairRat_die_0
+  - first:
+      213: 4536933940876738738
+    second: redHairRat_die_1
+  - first:
+      213: -6980275543314383654
+    second: redHairRat_die_2
+  - first:
+      213: -5303733200018240249
+    second: redHairRat_die_3
+  - first:
+      213: -6372615413293660803
+    second: redHairRat_die_4
+  - first:
+      213: 1431963566254783353
+    second: redHairRat_die_5
+  - first:
+      213: 5253708297148621209
+    second: redHairRat_die_6
+  - first:
+      213: -5914435170351484789
+    second: redHairRat_die_7
+  - first:
+      213: -1265419479236875522
+    second: redHairRat_die_8
+  - first:
+      213: 3475530690960570508
+    second: redHairRat_die_9
+  - first:
+      213: 1631204036905137512
+    second: redHairRat_die_10
+  - first:
+      213: 4777372222569491445
+    second: redHairRat_die_11
+  - first:
+      213: -5258787877082763338
+    second: redHairRat_die_12
+  - first:
+      213: 2912489740238128882
+    second: redHairRat_die_13
+  - first:
+      213: 2382427138827541386
+    second: redHairRat_die_14
+  - first:
+      213: -1608744925158829811
+    second: redHairRat_die_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  swizzle: 50462976
+  cookieLightType: 1
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: redHairRat_die_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc62a0ae0d6ce4aa0800000000000000
+      internalID: 4661548718466789241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: redHairRat_die_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 384
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b00f5ba16d66fe30800000000000000
+      internalID: -7259371657750707249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: redHairRat_die_2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 384
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adc366e5064112f90800000000000000
+      internalID: -892649233172328950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: redHairRat_die_3
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 384
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70d877541ca5566b0800000000000000
+      internalID: 3049021898102077246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: redHairRat_die_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d75c3709b0cef87a0800000000000000
+      internalID: 4767350525676840695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: redHairRat_die_5
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97bfae1d64b5fd310800000000000000
+      internalID: -2496245504328935334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: redHairRat_die_6
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 991e0156cdbe8e840800000000000000
+      internalID: 5868615622022468583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: redHairRat_die_7
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 256
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b807f107c84bbeda0800000000000000
+      internalID: 5348788336580266893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: redHairRat_die_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efae93820b3507ee0800000000000000
+      internalID: -6477682317293658145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: redHairRat_die_9
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c883ca0dfb09b3030800000000000000
+      internalID: -628014941099909153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: redHairRat_die_10
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 865f9e7dd6333a610800000000000000
+      internalID: -493716100497448481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: redHairRat_die_11
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 128
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fba21e89b2ac4240800000000000000
+      internalID: -6752858585410980855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: redHairRat_die_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bfe95db9480507b0800000000000000
+      internalID: -8889958045877894194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: redHairRat_die_13
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f60ddadcfd3b6820800000000000000
+      internalID: 3147673415388016584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: redHairRat_die_14
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8bd0113cd4101120800000000000000
+      internalID: 978245250274712815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: redHairRat_die_15
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0112b993079ca9e0800000000000000
+      internalID: 3434427617588290897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      redHairRat_die_0: 4661548718466789241
+      redHairRat_die_1: -7259371657750707249
+      redHairRat_die_10: -493716100497448481
+      redHairRat_die_11: -6752858585410980855
+      redHairRat_die_12: -8889958045877894194
+      redHairRat_die_13: 3147673415388016584
+      redHairRat_die_14: 978245250274712815
+      redHairRat_die_15: 3434427617588290897
+      redHairRat_die_2: -892649233172328950
+      redHairRat_die_3: 3049021898102077246
+      redHairRat_die_4: 4767350525676840695
+      redHairRat_die_5: -2496245504328935334
+      redHairRat_die_6: 5868615622022468583
+      redHairRat_die_7: 5348788336580266893
+      redHairRat_die_8: -6477682317293658145
+      redHairRat_die_9: -628014941099909153
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

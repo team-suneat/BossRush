@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: fx_monster_death
+  m_Controller: {fileID: 9100000, guid: a4e7a026bcc2f0c43893c73e5fbcdbf3, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 313a3d8c84548b342b73c30604d305b1, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b48cec8afb884764cb1e8de4475c5e0e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 47bfec9f0ff8c924dba1a658090d0911, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 011393478aaa4df4099135acd06f449d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2bafef14f2b1903488f61be260e7f347, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 39d9037ba7cb9f240a52aaead29c1d76, type: 2}

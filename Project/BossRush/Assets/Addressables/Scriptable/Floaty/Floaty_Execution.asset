@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50660d23962ca2b4fae6acc47986400c, type: 3}
+  m_Name: Floaty_Execution
+  m_EditorClassIdentifier: Assembly-CSharp:TeamSuneat.Data:FloatyAssetAsset
+  NameString: Execution
+  IsChangingAsset: 0
+  Name: 4
+  FontType: 1
+  TextColor: {r: 1, g: 1, b: 1, a: 1}
+  SpawnArea: {x: 0, y: 0}
+  SpawnOffset: {x: 0, y: 0, z: 0}
+  Type: 1
+  RandomFace: 0
+  DelayTime: 0.1
+  Duration: 0.5
+  Velocity: {x: 0, y: 100, z: 0}
+  JumpEndValue: {x: 0, y: 0, z: 0}
+  JumpPower: 0
+  NumberOfJumps: 0
+  UseFadeOut: 1
+  FadeDuration: 0.4
+  FadeDelayTime: 0.1
+  FadeTargetAlpha: 0.1
+  UsePunchScale: 1
+  PunchEase: 1
+  PunchScale: {x: -0.1, y: -0.1}
+  PunchScaleDuration: 0.1
+  PunchScaleVibrato: 1
+  TypeString: Velocity
+  FontTypeString: Title

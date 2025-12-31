@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90974ea28620a374eba2daf9138a8e1e, type: 3}
+  m_Name: Skill_Swiftness
+  m_EditorClassIdentifier: 
+  NameString: Swiftness
+  Data:
+    IsChangingAsset: 0
+    Name: 32
+    Attribute: 4
+    Type: 1
+    Grade: 6
+    MaxLevel: 10
+    Description: "\uB3CC\uACA9\uD558\uBA70 \uBC94\uC704 7 \uC774\uB0B4\uC758 \uC801\uB4E4\uC5D0\uAC8C
+      \uACF5\uACA9\uB825\uC758 n%\xD73 \xD73 \uB370\uBBF8\uC9C0\uB97C \uC785\uD78C\uB2E4.
+      6\uC5F0\uC18D \uB3CC\uC9C4 \uACF5\uACA9. \uC77C\uBC18 \uBAAC\uC2A4\uD130\uC5D0\uAC8C
+      \uAC00\uD558\uB294 \uB370\uBBF8\uC9C0 \uC99D\uAC00"
+    Icon: {fileID: 0}
+    EffectPrefab: {fileID: 0}
+    CooldownType: 1
+    BaseCooldownTime: 5
+    CooldownTimeByLevel: 0
+    BaseCooldownAttackCount: 0
+    CooldownAttackCountByLevel: 0
+    BaseManaCost: 20
+    ManaCostByLevel: 0
+    BaseEffectValue: 260
+    EffectValueByLevel: 26
+    EffectMultiplier: 3
+    BaseHitCount: 6
+    HitCountByLevel: 0
+    BaseRange: 7
+    RangeByLevel: 0
+    HasFreezeEffect: 0
+    FreezeChance: 0
+    HasStunEffect: 0
+    StunChance: 0
+    HasTimeStop: 0
+    IsPiercing: 0
+    RequiresSkillCard: 0
+    RequiredWeapon: 0
+    RequiredAccessory: 0
+    MinRequiredGrade: 0
+    LevelUpCosts: 
+    AttributeAsString: Wind
+    TypeAsString: Active
+    GradeAsString: Mythic
+    CooldownTypeAsString: TimeBased
+    RequiredWeaponAsString: None
+    RequiredAccessoryAsString: None
+    MinRequiredGradeAsString: None

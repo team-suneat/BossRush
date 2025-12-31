@@ -1,0 +1,581 @@
+fileFormatVersion: 2
+guid: 1c4f6a727600d274d9fd941b1d935f1e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1619718547311592366
+    second: chainsawrat_die_0
+  - first:
+      213: -3891321262846637732
+    second: chainsawrat_die_1
+  - first:
+      213: 315815429850838471
+    second: chainsawrat_die_2
+  - first:
+      213: -8655528644379597320
+    second: chainsawrat_die_3
+  - first:
+      213: 4862342503454697660
+    second: chainsawrat_die_4
+  - first:
+      213: 1175036133566282805
+    second: chainsawrat_die_5
+  - first:
+      213: 3615973472410063619
+    second: chainsawrat_die_6
+  - first:
+      213: -8430485549916645182
+    second: chainsawrat_die_7
+  - first:
+      213: 4604776874691422691
+    second: chainsawrat_die_8
+  - first:
+      213: -2590141668696033724
+    second: chainsawrat_die_9
+  - first:
+      213: -819936531425038898
+    second: chainsawrat_die_10
+  - first:
+      213: 2827449479422160277
+    second: chainsawrat_die_11
+  - first:
+      213: -2010912401929697924
+    second: chainsawrat_die_12
+  - first:
+      213: -560497440642039496
+    second: chainsawrat_die_13
+  - first:
+      213: -3740013317161408175
+    second: chainsawrat_die_14
+  - first:
+      213: -6053099264377031027
+    second: chainsawrat_die_15
+  - first:
+      213: -1590713347031198986
+    second: chainsawrat_die_0
+  - first:
+      213: -3454841277767018
+    second: chainsawrat_die_1
+  - first:
+      213: -753586355646249836
+    second: chainsawrat_die_2
+  - first:
+      213: -1623333028418832041
+    second: chainsawrat_die_3
+  - first:
+      213: -3461892568779538544
+    second: chainsawrat_die_4
+  - first:
+      213: -8572532484729293278
+    second: chainsawrat_die_5
+  - first:
+      213: 7132133395378707702
+    second: chainsawrat_die_6
+  - first:
+      213: -1773191896221083995
+    second: chainsawrat_die_7
+  - first:
+      213: 7076199702927415039
+    second: chainsawrat_die_8
+  - first:
+      213: -1303987594953745975
+    second: chainsawrat_die_9
+  - first:
+      213: -244773901021835740
+    second: chainsawrat_die_10
+  - first:
+      213: 5058450560383427078
+    second: chainsawrat_die_11
+  - first:
+      213: 5142041965300765760
+    second: chainsawrat_die_12
+  - first:
+      213: -4081465806797922802
+    second: chainsawrat_die_13
+  - first:
+      213: -3047443349256396815
+    second: chainsawrat_die_14
+  - first:
+      213: -2529447799579930002
+    second: chainsawrat_die_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  swizzle: 50462976
+  cookieLightType: 1
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 256
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 256
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: chainsawrat_die_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f29bba83a6ace9e0800000000000000
+      internalID: 1619718547311592366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_die_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69222e417d9b3fff0800000000000000
+      internalID: -3891321262846637732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_die_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 494cf14c339ba85f0800000000000000
+      internalID: 315815429850838471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_die_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 759bfe02633c879e0800000000000000
+      internalID: -8655528644379597320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_die_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09fb453fc03e4ffc0800000000000000
+      internalID: 4862342503454697660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_die_5
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 226b636df1f380980800000000000000
+      internalID: 1175036133566282805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_die_6
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fc9f32198d6af260800000000000000
+      internalID: 3615973472410063619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_die_7
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a6142b7d5b5467e0800000000000000
+      internalID: -8430485549916645182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_die_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff696b47326b33260800000000000000
+      internalID: 4604776874691422691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_die_9
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c91443f03e47ede0800000000000000
+      internalID: -2590141668696033724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_die_10
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42e8e431f636a9cf0800000000000000
+      internalID: -819936531425038898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_die_11
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 602a78ddbf9333640800000000000000
+      internalID: 2827449479422160277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_die_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04457e97ce33c5740800000000000000
+      internalID: -2010912401929697924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_die_13
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0e18e62978bb57c0800000000000000
+      internalID: -560497440642039496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_die_14
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ff127e7b6e45b5d0800000000000000
+      internalID: -3740013317161408175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_die_15
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e62152cb0a895ecd0800000000000000
+      internalID: -6053099264377031027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      chainsawrat_die_0: 1619718547311592366
+      chainsawrat_die_1: -3891321262846637732
+      chainsawrat_die_10: -819936531425038898
+      chainsawrat_die_11: 2827449479422160277
+      chainsawrat_die_12: -2010912401929697924
+      chainsawrat_die_13: -560497440642039496
+      chainsawrat_die_14: -3740013317161408175
+      chainsawrat_die_15: -6053099264377031027
+      chainsawrat_die_2: 315815429850838471
+      chainsawrat_die_3: -8655528644379597320
+      chainsawrat_die_4: 4862342503454697660
+      chainsawrat_die_5: 1175036133566282805
+      chainsawrat_die_6: 3615973472410063619
+      chainsawrat_die_7: -8430485549916645182
+      chainsawrat_die_8: 4604776874691422691
+      chainsawrat_die_9: -2590141668696033724
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

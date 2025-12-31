@@ -1,0 +1,514 @@
+fileFormatVersion: 2
+guid: 73a8b795d0eb7ed44b7b7c7bd984e3f3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: mice2_idle_0
+  - first:
+      213: 21300002
+    second: mice2_idle_1
+  - first:
+      213: 21300004
+    second: mice2_idle_2
+  - first:
+      213: 21300006
+    second: mice2_idle_3
+  - first:
+      213: 21300008
+    second: mice2_idle_4
+  - first:
+      213: 21300010
+    second: mice2_idle_5
+  - first:
+      213: 21300012
+    second: mice2_idle_6
+  - first:
+      213: 21300014
+    second: mice2_idle_7
+  - first:
+      213: 21300016
+    second: mice2_idle_8
+  - first:
+      213: 21300018
+    second: mice2_idle_9
+  - first:
+      213: 21300020
+    second: mice2_idle_10
+  - first:
+      213: 21300022
+    second: mice2_idle_11
+  - first:
+      213: 21300024
+    second: chainsawrat_idle_0
+  - first:
+      213: 21300026
+    second: chainsawrat_idle_1
+  - first:
+      213: 21300028
+    second: chainsawrat_idle_2
+  - first:
+      213: 21300030
+    second: chainsawrat_idle_3
+  - first:
+      213: 21300032
+    second: chainsawrat_idle_4
+  - first:
+      213: 21300034
+    second: chainsawrat_idle_5
+  - first:
+      213: 21300036
+    second: chainsawrat_idle_6
+  - first:
+      213: 21300038
+    second: chainsawrat_idle_7
+  - first:
+      213: 21300040
+    second: chainsawrat_idle_8
+  - first:
+      213: 21300042
+    second: chainsawrat_idle_9
+  - first:
+      213: 21300044
+    second: chainsawrat_idle_10
+  - first:
+      213: 21300046
+    second: chainsawrat_idle_11
+  - first:
+      213: 8744089802862161294
+    second: chainsawrat_idle_0
+  - first:
+      213: -7184595842829240595
+    second: chainsawrat_idle_1
+  - first:
+      213: -9041241678530663799
+    second: chainsawrat_idle_2
+  - first:
+      213: -4529353280751498755
+    second: chainsawrat_idle_3
+  - first:
+      213: 2630060661021169629
+    second: chainsawrat_idle_4
+  - first:
+      213: 5790762573560904777
+    second: chainsawrat_idle_5
+  - first:
+      213: 6551836915975266972
+    second: chainsawrat_idle_6
+  - first:
+      213: 96690131849236933
+    second: chainsawrat_idle_7
+  - first:
+      213: 2377847710707542722
+    second: chainsawrat_idle_8
+  - first:
+      213: -6197486117582105050
+    second: chainsawrat_idle_9
+  - first:
+      213: -4750231316979285207
+    second: chainsawrat_idle_10
+  - first:
+      213: 6998742294316625615
+    second: chainsawrat_idle_11
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 1
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  swizzle: 50462976
+  cookieLightType: 1
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: chainsawrat_idle_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 100
+        width: 150
+        height: 100
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8de6b7f85f395970800000000000000
+      internalID: 21300024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_idle_1
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 100
+        width: 150
+        height: 100
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de63a6585203b4c90800000000000000
+      internalID: 21300026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_idle_2
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 100
+        width: 150
+        height: 100
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98a29be889e078280800000000000000
+      internalID: 21300028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_idle_3
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 100
+        width: 150
+        height: 100
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df98e8e40318421c0800000000000000
+      internalID: 21300030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_idle_4
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 100
+        width: 150
+        height: 100
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd755ed8c3adf7420800000000000000
+      internalID: 21300032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_idle_5
+      rect:
+        serializedVersion: 2
+        x: 750
+        y: 100
+        width: 150
+        height: 100
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94c79bf31ebec5050800000000000000
+      internalID: 21300034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_idle_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 150
+        height: 100
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c922ff246fcccea50800000000000000
+      internalID: 21300036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_idle_7
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 0
+        width: 150
+        height: 100
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c1d822a923875100800000000000000
+      internalID: 21300038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_idle_8
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 0
+        width: 150
+        height: 100
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cae2bef4efcff020800000000000000
+      internalID: 21300040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_idle_9
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 0
+        width: 150
+        height: 100
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6269a15363b1ef9a0800000000000000
+      internalID: 21300042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_idle_10
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 0
+        width: 150
+        height: 100
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9238386f8c9c31eb0800000000000000
+      internalID: 21300044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chainsawrat_idle_11
+      rect:
+        serializedVersion: 2
+        x: 750
+        y: 0
+        width: 150
+        height: 100
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fceae372907802160800000000000000
+      internalID: 21300046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: af463c568f0daf44988c2eff4c1f443f
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      chainsawrat_idle_0: 21300024
+      chainsawrat_idle_1: 21300026
+      chainsawrat_idle_10: 21300044
+      chainsawrat_idle_11: 21300046
+      chainsawrat_idle_2: 21300028
+      chainsawrat_idle_3: 21300030
+      chainsawrat_idle_4: 21300032
+      chainsawrat_idle_5: 21300034
+      chainsawrat_idle_6: 21300036
+      chainsawrat_idle_7: 21300038
+      chainsawrat_idle_8: 21300040
+      chainsawrat_idle_9: 21300042
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
