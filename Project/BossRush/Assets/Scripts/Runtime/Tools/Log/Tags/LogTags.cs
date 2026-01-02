@@ -6,6 +6,9 @@
 
         Analytics,
 
+        /// <summary> 물리 </summary>
+        Physics,
+
         #region Character
 
         /// <summary> 캐릭터 </summary>
@@ -58,6 +61,12 @@
         Vital,
 
         #endregion Character-Battle
+
+        /// <summary> 강제 이동</summary>
+        ForceVelocity,
+
+        /// <summary> 발사체 </summary>
+        Projectile,
 
         #region Character-Data
 
@@ -166,13 +175,12 @@
         /// <summary> 카메라 </summary>
         Camera,
 
-
         /// <summary> 글로벌 이벤트 </summary>
         Global,
 
         /// <summary> 입력 </summary>
         Input,
-
+        Input_ButtonState,
 
         #endregion Setting
 
@@ -233,9 +241,9 @@
         /// <summary> UI 알림 </summary>
         UI_Notice,
 
-        #endregion UI
+        #endregion UI (일반)
 
-        #region  UI (특수)
+        #region UI (특수)
 
         /// <summary> UI 인벤토리 </summary>
         UI_Inventory,
@@ -252,7 +260,6 @@
         /// <summary> UI 유물 </summary>
         UI_Relic,
 
-        #endregion
-
+        #endregion UI (특수)
     }
 }

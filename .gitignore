@@ -1,0 +1,45 @@
+# ===== 로그 파일 =====
+logs/
+*.log
+
+# ===== OS =====
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.lnk
+
+# ===== IDE =====
+.vscode/
+.idea/
+.vs/
+.gradle/
+ExportedObj/
+.consulo/
+*.sln
+*.suo
+*.csproj
+*.unityproj
+*.user
+*.userprefs
+*.tmp
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.csproj.DotSettings.user
+
+# ===== 빌드 툴 산출물 =====
+bin/
+obj/
+dist/
+out/
+Project/Engine
+Project/BuildRoot
+Project/Epic Store

@@ -1,11 +1,21 @@
 using Sirenix.OdinInspector;
 using TeamSuneat.Feedbacks;
+using TeamSuneat.Passive;
 using UnityEngine;
 
 namespace TeamSuneat
 {
     public partial class Character
     {
+        public enum ControllerTypes
+        { Player, AI }
+
+        public enum FacingDirections
+        { Left, Right }
+
+        public enum SpawnFacingDirections
+        { Left, Right }
+
         [FoldoutGroup("#Character")] public CharacterNames Name;
         [FoldoutGroup("#Character")] public string NameString;
         [FoldoutGroup("#Character")] public bool FixedTargetCharacterCamp;
@@ -17,14 +27,23 @@ namespace TeamSuneat
         [FoldoutGroup("#Character/Component")][ChildGameObjectsOnly] public Animator Animator;
 
         [FoldoutGroup("#Character/Component")]
-        [ChildGameObjectsOnly] public PhysicsController Controller;
+        [ChildGameObjectsOnly] public PhysicsController PhysicsController;
 
         [FoldoutGroup("#Character/Component")][ChildGameObjectsOnly] public AttackSystem Attack;
         [FoldoutGroup("#Character/Component")][ChildGameObjectsOnly] public BuffSystem Buff;
         [FoldoutGroup("#Character/Component")][ChildGameObjectsOnly] public PassiveSystem Passive;
+        [FoldoutGroup("#Character/Component")][ChildGameObjectsOnly] public SkillSystem Skill;
         [FoldoutGroup("#Character/Component")][ChildGameObjectsOnly] public StatSystem Stat;
         [FoldoutGroup("#Character/Component")][ChildGameObjectsOnly] public Vital MyVital;
         [FoldoutGroup("#Character/Component")][ChildGameObjectsOnly] public CharacterAbility[] Abilities;
+
+        // ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+        [FoldoutGroup("#Character/Abilities")]
+        public CharacterHorizontalMovement HorizontalMovement;
+
+        [FoldoutGroup("#Character/Abilities")]
+        public CharacterFly Fly;
 
         // ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -64,6 +83,15 @@ namespace TeamSuneat
 
         // ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
+        [FoldoutGroup("#Character/Direction")]
+        public SpawnFacingDirections DirectionOnStart = SpawnFacingDirections.Right;
+
+        [FoldoutGroup("#Character/Direction")]
+        [Tooltip("여기서 캐릭터가 스폰될 때 향해야 하는 방향을 강제할 수 있습니다. 기본값으로 설정하면 모델의 초기 방향과 일치합니다")]
+        public SpawnFacingDirections DirectionOnSpawn = SpawnFacingDirections.Right;
+
+        // ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
         [FoldoutGroup("#Character/Events")]
         [Tooltip("이 옵션이 true이면 캐릭터의 상태 변경 시 이벤트를 보내거나 받을 수 있는 이벤트를 활성화합니다")]
         public bool SendStateChangeEvents = true;
@@ -73,6 +101,9 @@ namespace TeamSuneat
         public bool SendStateUpdateEvents = true;
 
         // ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+        [FoldoutGroup("#Character/State Machine")]
+        public StateMachine<MovementStates> MovementState;
 
         [FoldoutGroup("#Character/State Machine")]
         public StateMachine<CharacterConditions> ConditionState;
@@ -99,7 +130,6 @@ namespace TeamSuneat
         protected Color _initialColor;
         protected float _originalGravity;
 
-        protected Vector3 _targetModelRotation;
         protected Vector3 _cameraOffset = Vector3.zero;
 
         protected float _animatorRandomNumber;

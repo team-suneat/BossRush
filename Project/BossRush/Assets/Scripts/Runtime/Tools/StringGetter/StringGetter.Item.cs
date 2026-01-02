@@ -196,11 +196,6 @@ namespace TeamSuneat
 
         // 장비 (Equipment)
 
-        public static string GetGambleString(this EquipmentSlotTypes key)
-        {
-            return JsonDataManager.FindStringClone(key.ToString());
-        }
-
         public static string GetLocalizedString(this GradeNames key)
         {
             return GetLocalizedString(key, GameSetting.Instance.Language.Name);

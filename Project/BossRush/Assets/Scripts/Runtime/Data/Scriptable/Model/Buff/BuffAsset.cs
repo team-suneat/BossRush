@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using TeamSuneat.Passive;
+using UnityEditor;
 using UnityEngine;
 
 namespace TeamSuneat.Data

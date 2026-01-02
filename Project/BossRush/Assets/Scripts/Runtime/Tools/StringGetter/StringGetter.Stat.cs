@@ -8,27 +8,6 @@ namespace TeamSuneat
 {
     public static partial class StringGetter
     {
-        public static string GetStringKey(this CharacterGrowthTypes key)
-        {
-            return $"Growth_Type_{key}";
-        }
-
-        public static string GetLocalizedString(this CharacterGrowthTypes key)
-        {
-            return GetLocalizedString(key, GameSetting.Instance.Language.Name);
-        }
-
-        public static string GetLocalizedString(this CharacterGrowthTypes key, LanguageNames languageName)
-        {
-            string result = JsonDataManager.FindStringClone(key.GetStringKey(), languageName);
-            if (!string.IsNullOrEmpty(result))
-            {
-                return result;
-            }
-
-            return key.ToString();
-        }
-
         public static string GetStringKey(this StatNames key)
         {
             return $"Stat_Name_{key}";

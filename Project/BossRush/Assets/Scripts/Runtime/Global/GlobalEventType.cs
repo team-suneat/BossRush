@@ -210,14 +210,6 @@ namespace TeamSuneat
         ///<summary> 기술의 레벨이 변경됩니다 </summary>
         GAME_DATA_CHARACTER_SKILL_LEVEL_REFRESH,
 
-        ///<summary> 강화 능력치 레벨이 변경됩니다 </summary>
-        GAME_DATA_CHARACTER_ENHANCEMENT_LEVEL_CHANGED,
-
-        ///<summary> 성장 능력치 레벨이 변경됩니다 </summary>
-        GAME_DATA_CHARACTER_GROWTH_LEVEL_CHANGED,
-
-        ///<summary> 성장 능력치 포인트가 변경됩니다 </summary>
-        GAME_DATA_CHARACTER_GROWTH_STAT_POINT_CHANGED,
 
         ///<summary> 기술을 전부 초기화합니다. </summary>
         GAME_DATA_CHARACTER_SKILL_LEVEL_RESET,

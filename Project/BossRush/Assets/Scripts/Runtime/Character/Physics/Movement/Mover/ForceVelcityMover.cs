@@ -60,8 +60,6 @@ namespace TeamSuneat
                 gravity = asset.Data.Gravity;
                 velocity = asset.Data.ForceVelocity;
 
-                ApplyStat();
-
                 InitializeDirection();
             }
         }
@@ -165,11 +163,11 @@ namespace TeamSuneat
 
                 ApplyAcceleration();
 
-                if (owner.Controller.Controller.IsGrounded)
+                if (owner.PhysicsController.Controller.IsGrounded)
                 {
                     ApplyFriction();
                 }
-                else if (owner.IsFlying)
+                else if (owner.AssetData.IsFlying)
                 {
                     ApplyAirResistInAir();
                 }
@@ -182,46 +180,11 @@ namespace TeamSuneat
 
                 SetVelocityY(Mathf.Clamp(Velocity.y, -kMaxVelocityY, kMaxVelocityY));
 
-                owner.Controller.Controller.Move(Velocity * Time.fixedDeltaTime, false);
+                owner.PhysicsController.Controller.Move(Velocity * Time.fixedDeltaTime, false);
             }
         }
 
-        private void ApplyStat()
-        {
-            if (owner == null)
-            {
-                return;
-            }
 
-            for (int i = 0; i < Data.Stats.Length; i++)
-            {
-                if (Data.Stats[i] == StatNames.None)
-                {
-                    continue;
-                }
-
-                if (false == owner.Stat.ContainsKey(Data.Stats[i]))
-                {
-                    continue;
-                }
-
-                CharacterStat stat = owner.Stat.Find(Data.Stats[i]);
-
-                if (stat.IsDefaultValue)
-                {
-                    continue;
-                }
-
-                if (Data.Stats[i] == StatNames.SkillFVDuration)
-                {
-                    duration = Data.Duration + stat.Value;
-                }
-                else if (Data.Stats[i] == StatNames.SkillFVSpeed)
-                {
-                    velocity *= stat.Value;
-                }
-            }
-        }
 
         private void InitializeDirection()
         {
@@ -307,6 +270,7 @@ namespace TeamSuneat
             }
         }
 
+
         private void SetDirectionToAttacker()
         {
             if (caster != null && owner != null)
@@ -329,9 +293,9 @@ namespace TeamSuneat
 
         private void SetDirectionToTarget()
         {
-            if (owner != null && owner.TargetVital != null)
+            if (owner != null && owner.Target != null)
             {
-                direction = owner.TargetVital.position - owner.position;
+                direction = owner.Target.position - owner.position;
                 direction.Normalize();
 
                 facingRight = direction.x > 0;
@@ -345,9 +309,9 @@ namespace TeamSuneat
 
         private void SetDirectionToTargetPosition()
         {
-            if (owner != null && owner.TargetVital != null)
+            if (owner != null && owner.Target != null)
             {
-                targetPosition = owner.TargetVital.position;
+                targetPosition = owner.Target.position;
 
                 direction = targetPosition - owner.position;
 
@@ -429,7 +393,7 @@ namespace TeamSuneat
 
             if (Data.UseAccelerationX)
             {
-                float accelerationX = Data.AccelerationX * (elapsedTime / duration);
+                float accelerationX = Data.Acceleration.x * (elapsedTime / duration);
                 if (false == facingRight)
                 {
                     accelerationX *= -1;
@@ -440,7 +404,7 @@ namespace TeamSuneat
 
             if (Data.UseAccelerationY)
             {
-                float accelerationY = Data.AccelerationY * (elapsedTime / duration);
+                float accelerationY = Data.Acceleration.y * (elapsedTime / duration);
                 if (velocity.y < 0)
                 {
                     accelerationY *= -1;
@@ -570,17 +534,17 @@ namespace TeamSuneat
                 return;
             }
 
-            if (owner.collisionController.IsCeiling)
+            if (owner.PhysicsController.Controller.IsCeiling)
             {
                 OnCelling();
             }
 
-            if (owner.collisionController.IsGrounded)
+            if (owner.PhysicsController.Controller.IsGrounded)
             {
                 OnGrounded();
             }
 
-            if (owner.collisionController.IsCollideX)
+            if (owner.PhysicsController.Controller.IsCollideX)
             {
                 OnCollideX();
             }
@@ -613,8 +577,7 @@ namespace TeamSuneat
                 if (owner != null)
                 {
                     Log.Info(LogTags.Physics, "{0}이 {1}로 인해 벽에 부딪혔습니다.", owner.Name.ToLogString(), Name.ToLogString());
-
-                    GlobalEvent<SID, FVNames>.Send(GlobalEventType.CHARACTER_COLLIDE_WITH_WALL, owner.SID, Name);
+                    // GlobalEvent<SID, FVNames>.Send(GlobalEventType.CHARACTER_COLLIDE_WITH_WALL, owner.SID, Name);
                 }
             }
         }

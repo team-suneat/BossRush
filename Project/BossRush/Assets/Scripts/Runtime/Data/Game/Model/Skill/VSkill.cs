@@ -9,6 +9,10 @@ namespace TeamSuneat.Data.Game
         public SkillNames Name;
         public string NameString; // 스킬 이름
 
+        [NonSerialized]
+        public ActionNames ActionName;
+        public string ActionNameString; // 스킬 이름
+
         public int Level; // 스킬 레벨
         public bool IsFirstAwakening; // 1차 각성 여부
         public bool IsSecondAwakening; // 2차 각성 여부
@@ -18,6 +22,7 @@ namespace TeamSuneat.Data.Game
         private VSkill()
         {
             NameString = string.Empty;
+            ActionNameString = string.Empty;
             Level = 0;
             IsFirstAwakening = false;
             IsSecondAwakening = false;
@@ -29,6 +34,8 @@ namespace TeamSuneat.Data.Game
         {
             Name = skillName;
             NameString = skillName.ToString();
+            ActionName = ActionNames.None;
+            ActionNameString = string.Empty;
             Level = 0;
             IsFirstAwakening = false;
             IsSecondAwakening = false;

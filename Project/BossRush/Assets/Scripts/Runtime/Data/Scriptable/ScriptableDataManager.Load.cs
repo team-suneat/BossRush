@@ -23,6 +23,8 @@ namespace TeamSuneat.Data
             else if (!_stateEffectAssets.IsValid()) { return false; }
             else if (!_passiveAssets.IsValid()) { return false; }
             else if (!_skillAssets.IsValid()) { return false; }
+            else if (!_characterAssets.IsValid()) { return false; }
+            else if (!_projectileAssets.IsValid()) { return false; }
             else if (!_hitmarkAssets.IsValid()) { return false; }
             else if (!_fontAssets.IsValid()) { return false; }
             else if (!_floatyAssets.IsValid()) { return false; }
@@ -31,8 +33,6 @@ namespace TeamSuneat.Data
             else if (!_stageAssets.IsValid()) { return false; }
             else if (!_areaAssets.IsValid()) { return false; }
             else if (!_forceVelocityAssets.IsValid()) { return false; }
-            else if (_enhancementDataAsset == null) { return false; }
-            else if (_growthDataAsset == null) { return false; }
             else if (_experienceConfigAsset == null) { return false; }
             else if (_monsterStatConfigAsset == null) { return false; }
             else if (_monsterDropConfigAsset == null) { return false; }
@@ -60,12 +60,6 @@ namespace TeamSuneat.Data
                 areaAsset?.OnLoadData();
             }
 
-            // 강화 시스템 데이터 OnLoadData() 메서드 호출
-            _enhancementDataAsset?.OnLoadData();
-
-            // 성장 시스템 데이터 OnLoadData() 메서드 호출
-            _growthDataAsset?.OnLoadData();
-
             // 경험치 설정 데이터 OnLoadData() 메서드 호출
             _experienceConfigAsset?.OnLoadData();
 
@@ -88,6 +82,27 @@ namespace TeamSuneat.Data
             foreach (var skillAsset in _skillAssets.Values)
             {
                 skillAsset?.OnLoadData();
+            }
+
+            // 스킬 애니메이션 에셋 OnLoadData() 메서드 호출
+            foreach (var skillAnimationList in _skillAnimationAssets.Values)
+            {
+                foreach (var skillAnimationAsset in skillAnimationList)
+                {
+                    skillAnimationAsset?.OnLoadData();
+                }
+            }
+
+            // 캐릭터 에셋 OnLoadData() 메서드 호출
+            foreach (var characterAsset in _characterAssets.Values)
+            {
+                characterAsset?.OnLoadData();
+            }
+
+            // 발사체 에셋 OnLoadData() 메서드 호출
+            foreach (var projectileAsset in _projectileAssets.Values)
+            {
+                projectileAsset?.OnLoadData();
             }
 
             // ForceVelocity 에셋 OnLoadData() 메서드 호출
@@ -133,6 +148,18 @@ namespace TeamSuneat.Data
                 {
                     count += 1;
                 }
+                else if (LoadSkillAnimationSync(path))
+                {
+                    count += 1;
+                }
+                else if (LoadCharacterSync(path))
+                {
+                    count += 1;
+                }
+                else if (LoadProjectileSync(path))
+                {
+                    count += 1;
+                }
                 else if (LoadHitmarkSync(path))
                 {
                     count += 1;
@@ -165,14 +192,6 @@ namespace TeamSuneat.Data
                 {
                     count += 1;
                 }
-                else if (LoadEnhancementDataSync(path))
-                {
-                    count += 1;
-                }
-                else if (LoadGrowthDataSync(path))
-                {
-                    count += 1;
-                }
                 else if (LoadExperienceConfigSync(path))
                 {
                     count += 1;
@@ -197,68 +216,6 @@ namespace TeamSuneat.Data
         }
 
         //
-
-        private bool LoadEnhancementDataSync(string filePath)
-        {
-            if (!filePath.Contains("EnhancementData"))
-            {
-                return false;
-            }
-
-            EnhancementConfigAsset asset = ResourcesManager.LoadResource<EnhancementConfigAsset>(filePath);
-            if (asset != null)
-            {
-                if (_enhancementDataAsset != null)
-                {
-                    Log.Warning(LogTags.ScriptableData, "강화 시스템 데이터 에셋이 중복으로 로드 되고 있습니다. 기존: {0}, 새로운: {1}",
-                        _enhancementDataAsset.name, asset.name);
-                }
-                else
-                {
-                    Log.Progress("스크립터블 데이터를 읽어왔습니다. Path: {0}", filePath);
-                    _enhancementDataAsset = asset;
-                }
-
-                return true;
-            }
-            else
-            {
-                Log.Warning("스크립터블 데이터를 읽을 수 없습니다. Path: {0}", filePath);
-            }
-
-            return false;
-        }
-
-        private bool LoadGrowthDataSync(string filePath)
-        {
-            if (!filePath.Contains("GrowthData"))
-            {
-                return false;
-            }
-
-            GrowthConfigAsset asset = ResourcesManager.LoadResource<GrowthConfigAsset>(filePath);
-            if (asset != null)
-            {
-                if (_growthDataAsset != null)
-                {
-                    Log.Warning(LogTags.ScriptableData, "성장 시스템 데이터 에셋이 중복으로 로드 되고 있습니다. 기존: {0}, 새로운: {1}",
-                        _growthDataAsset.name, asset.name);
-                }
-                else
-                {
-                    Log.Progress("스크립터블 데이터를 읽어왔습니다. Path: {0}", filePath);
-                    _growthDataAsset = asset;
-                }
-
-                return true;
-            }
-            else
-            {
-                Log.Warning("스크립터블 데이터를 읽을 수 없습니다. Path: {0}", filePath);
-            }
-
-            return false;
-        }
 
         private bool LoadExperienceConfigSync(string filePath)
         {
@@ -561,6 +518,35 @@ namespace TeamSuneat.Data
                         }
                         break;
 
+                    case SkillAnimationAsset skillAnimation:
+                        int skillAnimationTid = BitConvert.Enum32ToInt(skillAnimation.SkillName);
+                        if (skillAnimationTid != 0)
+                        {
+                            if (!_skillAnimationAssets.ContainsKey(skillAnimationTid))
+                            {
+                                _skillAnimationAssets[skillAnimationTid] = new List<SkillAnimationAsset>();
+                            }
+                            _skillAnimationAssets[skillAnimationTid].Add(skillAnimation);
+                            count++;
+                        }
+                        break;
+
+                    case CharacterAsset character:
+                        if (!_characterAssets.ContainsKey(character.TID))
+                        {
+                            _characterAssets[character.TID] = character;
+                            count++;
+                        }
+                        break;
+
+                    case ProjectileAsset projectile:
+                        if (!_projectileAssets.ContainsKey(projectile.TID))
+                        {
+                            _projectileAssets[projectile.TID] = projectile;
+                            count++;
+                        }
+                        break;
+
                     case HitmarkAsset hitmark:
                         if (!_hitmarkAssets.ContainsKey(hitmark.TID))
                         {
@@ -598,22 +584,6 @@ namespace TeamSuneat.Data
                         if (!_soundAssets.ContainsKey(sound.TID))
                         {
                             _soundAssets[sound.TID] = sound;
-                            count++;
-                        }
-                        break;
-
-                    case EnhancementConfigAsset enhancementData:
-                        if (_enhancementDataAsset == null)
-                        {
-                            _enhancementDataAsset = enhancementData;
-                            count++;
-                        }
-                        break;
-
-                    case GrowthConfigAsset growthData:
-                        if (_growthDataAsset == null)
-                        {
-                            _growthDataAsset = growthData;
                             count++;
                         }
                         break;

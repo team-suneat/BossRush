@@ -1,5 +1,6 @@
 using Sirenix.OdinInspector;
 using System.Text;
+using TeamSuneat.Passive;
 using UnityEditor;
 using UnityEngine;
 

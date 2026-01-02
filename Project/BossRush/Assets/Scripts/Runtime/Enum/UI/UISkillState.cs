@@ -22,5 +22,4 @@ namespace TeamSuneat
         /// </summary>
         AllLearned,
     }
-
 }

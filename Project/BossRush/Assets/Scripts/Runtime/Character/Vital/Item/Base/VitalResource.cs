@@ -44,6 +44,15 @@ namespace TeamSuneat
             }
         }
 
+        //
+
+        public void ResetCurrentValue()
+        {
+            Current = 0;
+        }
+
+        //
+
         public virtual void Initialize()
         {
             LoadMaxValue();
@@ -61,6 +70,21 @@ namespace TeamSuneat
 
             LogCurrentValueSet(Type, Current, Max);
         }
+
+        //
+
+        public virtual void LoadMaxValue()
+        {
+            RefreshMaxValue();
+        }
+
+        public virtual void LoadCurrentValue()
+        {
+            Current = Max;
+            LogInfo("현재 생명력을 최대 생명력 값으로 불러옵니다. {0}/{1}", Current, Max);
+        }
+
+        //
 
         public virtual bool AddCurrentValue(int value)
         {
@@ -90,6 +114,8 @@ namespace TeamSuneat
         protected virtual void OnAddCurrentValue(int value)
         {
         }
+
+        //
 
         public virtual bool UseCurrentValue(int value)
         {
@@ -125,6 +151,26 @@ namespace TeamSuneat
             SendGlobalEventOfUse(value);
         }
 
+        //
+
+        public virtual void Regenerate(int value)
+        {
+            if (AddCurrentValue(value))
+            {
+                OnAddCurrentValue(value);
+            }
+        }
+
+        public virtual void Recovery(int value)
+        {
+            if (AddCurrentValue(value))
+            {
+                OnAddCurrentValue(value);
+            }
+        }
+
+        //
+
         protected void SendGlobalEventOfUse(int useValue)
         {
             if (Vital.Owner != null)
@@ -154,32 +200,7 @@ namespace TeamSuneat
             }
         }
 
-        public virtual void LoadMaxValue()
-        {
-            RefreshMaxValue();
-        }
-
-        public virtual void LoadCurrentValue()
-        {
-            Current = Max;
-            LogInfo("현재 생명력을 최대 생명력 값으로 불러옵니다. {0}/{1}", Current, Max);
-        }
-
-        public virtual void Regenerate(int value)
-        {
-            if (AddCurrentValue(value))
-            {
-                OnAddCurrentValue(value);
-            }
-        }
-
-        public virtual void Recovery(int value)
-        {
-            if (AddCurrentValue(value))
-            {
-                OnAddCurrentValue(value);
-            }
-        }
+        //
 
         protected float FindStatValueByOwner(StatNames statName)
         {

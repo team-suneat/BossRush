@@ -12,7 +12,7 @@ namespace TeamSuneat
 
         private int _attackAnimationParameter;
 
-        #region Unity Lifecycle
+        #region Unity Healthcycle
 
         public override void Initialization()
         {
@@ -37,7 +37,7 @@ namespace TeamSuneat
             TryAttackTarget();
         }
 
-        #endregion Unity Lifecycle
+        #endregion Unity Healthcycle
 
         #region Public Methods
 

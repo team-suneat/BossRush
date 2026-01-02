@@ -38,7 +38,7 @@ namespace TeamSuneat
         HellfireSlash,           // 연옥 화염 베기
         DancingWave,             // 춤추는 파도
         WindSword,               // 바람의 검
-        LifeMana,                // 라이프 마나
+        HealthMana,                // 라이프 마나
 
         TrueHeatWave,            // 진 열풍
         IceTime,                 // 아이스 타임

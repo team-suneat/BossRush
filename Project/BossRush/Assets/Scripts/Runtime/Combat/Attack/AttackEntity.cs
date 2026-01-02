@@ -1,278 +1,328 @@
+using Sirenix.OdinInspector;
 using TeamSuneat.Data;
+using TeamSuneat.Passive;
 
 namespace TeamSuneat
 {
     public partial class AttackEntity : XBehaviour
     {
-        public Character Owner;
+        //----------------------------------------------------------------------------------------
+
+        [FoldoutGroup("#AttackEntity")]
         public HitmarkNames Name;
+
+        [FoldoutGroup("#AttackEntity")]
         public string NameString;
 
-        protected DamageCalculator _damageInfo = new DamageCalculator();
-        protected HitmarkAssetData AssetData;
+        [FoldoutGroup("#AttackEntity")]
+        public Character Owner;
+
+        [FoldoutGroup("#AttackEntity")]
+        public Projectile OwnerProjectile;
+
+        [FoldoutGroup("#AttackEntity")]
+        public Vital Vital;
+
+        [FoldoutGroup("#AttackEntity")]
+        public int Index;
+
+        [FoldoutGroup("#AttackEntity")]
+        [SuffixLabel("타겟을 오너 캐릭터의 타겟으로 자동 설정합니다.")]
+        public bool AutoSetTargetToCharacterTarget;
+
+        [FoldoutGroup("#AttackEntity")]
+        [SuffixLabel("타겟을 플레이어 캐릭터로 자동 설정합니다.")]
+        public bool AutoSetTargetToPlayer;
+
+        //----------------------------------------------------------------------------------------
+
+        protected DamageCalculator _damageInfo = new();
+
+        public HitmarkAssetData AssetData { get; private set; }
+
+        public SkillAssetData SkillAssetData { get; private set; }
 
         public Vital TargetVital { get; private set; }
 
-        public override void AutoGetComponents()
+        public bool IsActive { get; private set; }
+
+        public int Level => _damageInfo.Level;
+
+        public AttackEntityTypes EntityType
         {
-            base.AutoGetComponents();
+            get
+            {
+                if (this is AttackTargetEntity)
+                {
+                    return AttackEntityTypes.Target;
+                }
+                else if (this is AttackAreaEntity)
+                {
+                    return AttackEntityTypes.Area;
+                }
+                else if (this is AttackProjectileEntity)
+                {
+                    return AttackEntityTypes.Projectile;
+                }
 
-            Owner = this.FindFirstParentComponent<Character>();
-
-            AutoGetFeedbackComponents();
+                return AttackEntityTypes.None;
+            }
         }
 
-        private void OnValidate()
-        {
-            Validate();
-        }
+        // 공격 적용 횟수
+        protected int ApplyCount;
 
-        protected virtual void Validate()
-        {
-            EnumEx.ConvertTo(ref Name, NameString);
-        }
+        //----------------------------------------------------------------------------------------
 
-        public override void AutoSetting()
-        {
-            base.AutoSetting();
-
-            NameString = Name.ToString();
-        }
-
-        public override void AutoNaming()
-        {
-            SetGameObjectName(NameString);
-        }
-
-        public virtual void Initialize()
+        public virtual void Initialization()
         {
             LogInfo("공격 독립체를 초기화합니다.");
 
             InitializeFeedbacks();
-            LoadAndValidateAssetData();
-            SetupDamageCalculator();
-        }
+            LoadAssetData();
 
-        private void SetupDamageCalculator()
-        {
             _damageInfo.HitmarkAssetData = AssetData;
+            if (!_damageInfo.HitmarkAssetData.IsValid())
+            {
+                LogError("버프의 피해 정보에서 히트마크 정보를 읽어올 수 없습니다:{0}", Name.ToLogString());
+            }
+
             _damageInfo.SetAttacker(Owner);
             _damageInfo.AttackEntity = this;
+            _damageInfo.AttackProjectile = OwnerProjectile;
+
+            ApplyCount = 0;
         }
 
-        private void LoadAndValidateAssetData()
+        private void LoadAssetData()
         {
-            if (!ValidateHitmarkName())
+            if (Name != HitmarkNames.None)
             {
-                return;
+                AssetData = ScriptableDataManager.Instance.FindHitmarkClone(Name);
+                if (AssetData.IsValid())
+                {
+                    SkillAssetData = ScriptableDataManager.Instance.FindSkill(AssetData.SkillName);
+                    LogErrorOnLoadAssetData();
+                }
+                else
+                {
+                    Log.Error("공격 독립체의 히트마크 에셋이 설정되지 않았습니다. {0}, {1}", Name.ToLogString(), this.GetHierarchyPath());
+                }
             }
-
-            LoadHitmarkAsset();
-            ValidateAssetData();
-        }
-
-        private bool ValidateHitmarkName()
-        {
-            if (Name == HitmarkNames.None)
+            else
             {
                 Log.Error("공격 독립체의 히트마크 이름이 설정되지 않았습니다. {0}", this.GetHierarchyPath());
-                return false;
             }
-            return true;
         }
 
-        private void LoadHitmarkAsset()
+        private void LogErrorOnLoadAssetData()
         {
-            AssetData = ScriptableDataManager.Instance.FindHitmarkClone(Name);
-        }
-
-        private void ValidateAssetData()
-        {
-            if (!AssetData.IsValid())
+            switch (AssetData.EntityType)
             {
-                Log.Error("공격 독립체의 히트마크 에셋이 설정되지 않았습니다. {0}, {1}", Name.ToLogString(), this.GetHierarchyPath());
-                return;
+                case AttackEntityTypes.Target:
+                    if (this is AttackAreaEntity)
+                    {
+                        Log.Error("영역(Area) 공격 독립체의 독립체 타입이 에셋 데이터에 올바르게 설정되지 않았습니다. EntityType: {0}, Name: {1}, ", AssetData.EntityType, Name.ToLogString());
+                    }
+                    else if (this is AttackProjectileEntity)
+                    {
+                        Log.Error("발사체(Projectile) 공격 독립체의 독립체 타입이 에셋 데이터에 올바르게 설정되지 않았습니다. EntityType: {0}, Name: {1}, ", AssetData.EntityType, Name.ToLogString());
+                    }
+                    break;
+
+                case AttackEntityTypes.Area:
+                    if (this is AttackTargetEntity)
+                    {
+                        Log.Error("목표(Target) 공격 독립체의 독립체 타입이 에셋 데이터에 올바르게 설정되지 않았습니다. EntityType: {0}, Name: {1}, ", AssetData.EntityType, Name.ToLogString());
+                    }
+                    else if (this is AttackProjectileEntity)
+                    {
+                        Log.Error("발사체(Projectile) 공격 독립체의 독립체 타입이 에셋 데이터에 올바르게 설정되지 않았습니다. EntityType: {0}, Name: {1}, ", AssetData.EntityType, Name.ToLogString());
+                    }
+                    break;
             }
         }
 
         public virtual void OnBattleReady()
         {
+            // 자식 클래스에서 구현합니다.
         }
 
-        public virtual void OnOwnerDeath()
+        //----------------------------------------------------------------------------------------
+
+        public virtual void SetOwner(Character ownerCharacter)
         {
+            Owner = ownerCharacter;
         }
 
-        public virtual void Activate()
+        public virtual void SetLevel(int level)
         {
-            LogInfo("공격을 활성화합니다.");
+            _damageInfo?.SetLevel(level);
 
-            TriggerAttackStartFeedback();
+            LogInfo("공격 독립체의 레벨을 설정합니다. 레벨:{0} ", level);
         }
 
-        public virtual void Deactivate()
+        public virtual void SetStack(int stack)
         {
-            LogInfo("공격을 비활성화합니다.");
+            _damageInfo?.SetStack(stack);
+
+            LogInfo("공격 독립체의 스택을 설정합니다. 스택:{0} ", stack);
         }
 
-        public virtual void Execute()
+        public virtual void SetReferenceValues(PassiveTrigger triggerInfo)
         {
-            LogInfo("공격을 실행합니다.");
-        }
-
-        protected void OnExecute(bool isAttackSucceeded)
-        {               
-            // 모든 타겟 처리 후 WeaponDamageOverride 초기화
-            _damageInfo.WeaponDamageOverride = null;
-        }
-
-        public virtual void SetOwner(Character caster)
-        {
-            if (caster != null)
+            if (triggerInfo == null)
             {
-                Owner = caster;
+                return;
             }
+
+            _damageInfo.SetDamageRefrenceValue(triggerInfo.GetDamageValueToInt());
+
+            if (triggerInfo.SkillName != SkillNames.None)
+            {
+                SkillAssetData skillData = ScriptableDataManager.Instance.FindSkillClone(triggerInfo.SkillName);
+                if (skillData.IsValid())
+                {
+                    int resourceCost = skillData.GetResourceCost(Owner.MyVital, triggerInfo.Level);
+                    _damageInfo.SetResourceCostRefrenceValue(resourceCost);
+
+                    SkillEntity skillEntity = Owner.Skill.Find(triggerInfo.SkillName);
+                    if (skillEntity != null)
+                    {
+                        _damageInfo.SetCooldownRefrenceValue(skillEntity.CooldownTime);
+                    }
+                }
+            }
+
+            LogInfo("{0} 패시브의 피해량 {1}을 공격 독립체의 참조값으로 설정합니다. ", triggerInfo.Name.ToLogString(), triggerInfo.DamageValue);
         }
 
         public virtual void SetTarget(Vital targetVital)
         {
             TargetVital = targetVital;
+
+            LogInfo("공격 독립체의 타겟 바이탈을 설정합니다. {0}", targetVital.GetHierarchyName());
         }
 
-        public void SetWeaponDamageOverride(float? weaponDamage)
+        public virtual void AutoSetTarget()
         {
-            _damageInfo.WeaponDamageOverride = weaponDamage;
-        }
-
-        public virtual Vital GetTargetVital()
-        {
-            return TargetVital;
-        }
-
-        public virtual Vital GetTargetVital(int index)
-        {
-            return TargetVital;
-        }
-
-        protected virtual bool CheckDamageableVital(Vital targetVital)
-        {
-            if (targetVital == null)
+            if (AutoSetTargetToPlayer)
             {
-                return false;
-            }
-            else if (!targetVital.IsAlive)
-            {
-                return false;
-            }
-            else if (targetVital.Health.CheckInvulnerable())
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        protected virtual bool ValidateAttackConditions()
-        {
-            if (_damageInfo.TargetVital == null)
-            {
-                LogWarning("공격 독립체의 목표 바이탈이 설정되지 않았습니다. Hitmark: {0}, Entity: {1}", _damageInfo.HitmarkAssetData.Name.ToLogString(), this.GetHierarchyPath());
-                return false;
-            }
-
-            if (!_damageInfo.HitmarkAssetData.IsValid())
-            {
-                LogError("피해량 정보의 히트마크 에셋이 올바르지 않습니다. Hitmark:{0}, Entity: {1}", Name.ToLogString(), this.GetHierarchyPath());
-                return false;
-            }
-
-            return true;
-        }
-
-        protected virtual bool ProcessDamageResults()
-        {
-            if (!_damageInfo.DamageResults.IsValid())
-            {
-                LogWarning("공격 독립체의 피해 결과가 설정되지 않았습니다. Hitmark: {0}, Entity: {1}", _damageInfo.HitmarkAssetData.Name.ToLogString(), this.GetHierarchyPath());
-                return false;
-            }
-
-            bool isAttackSuccessed = false;
-            for (int i = 0; i < _damageInfo.DamageResults.Count; i++)
-            {
-                if (ProcessSingleDamageResult(_damageInfo.DamageResults[i]))
+                if (CharacterManager.Instance.Player != null)
                 {
-                    isAttackSuccessed = true;
+                    TargetVital = CharacterManager.Instance.Player.MyVital;
+                }
+            }
+            else if (AutoSetTargetToCharacterTarget)
+            {
+                if (Owner != null && Owner.TargetCharacter != null)
+                {
+                    TargetVital = Owner.TargetCharacter.MyVital;
+                }
+            }
+        }
+
+        //----------------------------------------------------------------------------------------
+
+        public virtual bool DetermineActivate()
+        {
+            // 'Determine'은 실제 처리를 하지 않고 여부에 대한 결과만을 반환합니다.
+            return true;
+        }
+
+        public virtual void Activate()
+        {
+            LogInfo("공격 독립체를 활성화합니다.");
+
+            AutoSetTarget();
+            TriggerAttackStartFeedback();
+
+            IsActive = true;
+        }
+
+        protected void OnActivate()
+        {
+            if (AssetData.IsValid())
+            {
+                if (AssetData.UseResourceOnActivate)
+                {
+                    StartUseAndRestoreResource();
+                }
+            }
+        }
+
+        //----------------------------------------------------------------------------------------
+
+        public virtual void Deactivate()
+        {
+            LogInfo("공격 독립체를 비활성화합니다.");
+
+            if (IsActive)
+            {
+                TriggerAttackStopFeedback();
+            }
+
+            StopAttackStartFeedback();
+
+            if (AssetData.IsValid())
+            {
+                if (AssetData.UseResourceOnDeactive)
+                {
+                    StartUseAndRestoreResource();
                 }
             }
 
-            return isAttackSuccessed;
+            IsActive = false;
+
+            StopUseAndRestoreResource();
         }
 
-        protected virtual bool ProcessSingleDamageResult(DamageResult damageResult)
+        //----------------------------------------------------------------------------------------
+
+        public virtual void Apply()
         {
-            switch (damageResult.DamageType)
+            TriggerAttackUsedFeedback();
+            StartSendExecuteAttackGlobalEvent();
+            OnApply();
+
+            ApplyCount += 1;
+        }
+
+        protected void OnAttack(bool isAttackSuccessed)
+        {
+            if (AssetData.IsValid())
             {
-                case DamageTypes.Heal:
-                case DamageTypes.HealOverTime:
-                    return ProcessHealDamage(damageResult);
-
-                case DamageTypes.RestoreMana:
-                case DamageTypes.RestoreManaOverTime:
-                    return ProcessRestoreManaDamage(damageResult);
-
-                case DamageTypes.ChargeShield:
-                    return ProcessChargeDamage(damageResult);
-
-                default:
-                    return ProcessRegularDamage(damageResult);
+                if (AssetData.UseResourceOnAttack)
+                {
+                    StartUseAndRestoreResource();
+                }
+                else if (AssetData.UseResourceOnAttackSuccessed && isAttackSuccessed)
+                {
+                    StartUseAndRestoreResource();
+                }
+                else if (AssetData.UseResourceOnAttackFailed && !isAttackSuccessed)
+                {
+                    StartUseAndRestoreResource();
+                }
             }
         }
 
-        protected virtual bool ProcessHealDamage(DamageResult damageResult)
+        protected void OnApply()
         {
-            _damageInfo.TargetVital.Heal(damageResult.DamageValueToInt);            
-            return true;
+            if (AssetData.IsValid())
+            {
+                if (AssetData.UseResourceOnApply)
+                {
+                    StartUseAndRestoreResource();
+                }
+            }
         }
 
-        protected virtual bool ProcessRestoreManaDamage(DamageResult damageResult)
+        //----------------------------------------------------------------------------------------
+
+        /// <summary> 소유자가 사망했을 시 </summary>
+        public virtual void OnOwnerDeath()
         {
-            _damageInfo.TargetVital.RestoreMana(damageResult.DamageValueToInt);            
-            return true;
-        }
-
-        protected virtual bool ProcessChargeDamage(DamageResult damageResult)
-        {
-            _damageInfo.TargetVital.Charge(damageResult.DamageValueToInt);            
-            return true;
-        }
-
-        protected virtual bool ProcessRegularDamage(DamageResult damageResult)
-        {
-            if (_damageInfo.TargetVital.CheckDamageImmunity(damageResult))
-            {
-                return false;
-            }
-
-            if (_damageInfo.TargetVital.TakeDamage(damageResult))
-            {
-                TriggerDamageFeedback();
-                return true;
-            }
-
-            return false;
-        }
-
-        protected virtual void TriggerDamageFeedback()
-        {
-            if (_damageInfo.TargetVital.IsAlive)
-            {
-                TriggerAttackOnHitDamageableFeedback(_damageInfo.TargetVital.position);
-            }
-            else
-            {
-                TriggerAttackOnKillFeedback(_damageInfo.TargetVital.position);
-            }
         }
     }
 }

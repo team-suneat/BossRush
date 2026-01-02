@@ -12,7 +12,7 @@ namespace TeamSuneat
         private float _attackInterval;
         private float _lastAttackTime;
 
-        #region Unity Lifecycle
+        #region Unity Healthcycle
 
         public override void Initialization()
         {
@@ -37,7 +37,7 @@ namespace TeamSuneat
             TryAttackPlayer();
         }
 
-        #endregion Unity Lifecycle
+        #endregion Unity Healthcycle
 
         #region Public Methods
 

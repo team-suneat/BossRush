@@ -233,5 +233,29 @@ namespace TeamSuneat
 
             return new Vector3(xDiff, yDiff, zDiff);
         }
+
+        public static Vector2 ApplyFacingRight(Vector2 vector, bool facingRight)
+        {
+            if (facingRight)
+            {
+                return new Vector2(Mathf.Abs(vector.x), vector.y);
+            }
+            else
+            {
+                return new Vector2(-Mathf.Abs(vector.x), vector.y);
+            }
+        }
+
+        public static Vector3 ApplyFacingRight(Vector3 vector, bool facingRight)
+        {
+            if (facingRight)
+            {
+                return new Vector3(Mathf.Abs(vector.x), vector.y);
+            }
+            else
+            {
+                return new Vector3(-Mathf.Abs(vector.x), vector.y);
+            }
+        }
     }
 }

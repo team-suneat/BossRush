@@ -14,6 +14,8 @@ namespace TeamSuneat
     {
         [SuffixLabel("애널리틱스")] public bool Analytics;
 
+        [FoldoutGroup("[물리]")][SuffixLabel("물리")] public bool Physics;
+
         [FoldoutGroup("[캐릭터]")][SuffixLabel("캐릭터")] public bool Character;
         [FoldoutGroup("[캐릭터]")][SuffixLabel("플레이어 캐릭터")] public bool Player;
         [FoldoutGroup("[캐릭터]")][SuffixLabel("몬스터 캐릭터")] public bool Monster;
@@ -68,7 +70,7 @@ namespace TeamSuneat
         [FoldoutGroup("[게임 설정]")][SuffixLabel("글로벌 이벤트")] public bool Global;
         [FoldoutGroup("[게임 설정]")][SuffixLabel("입력")] public bool Input;
 
-        [FoldoutGroup("[지역]")][SuffixLabel("스테이지")] public bool Stage;        
+        [FoldoutGroup("[지역]")][SuffixLabel("스테이지")] public bool Stage;
         [FoldoutGroup("[지역]")][SuffixLabel("씬")] public bool Scene;
 
         [FoldoutGroup("[글로벌]")][SuffixLabel("스트링 텍스트")] public bool String;
@@ -110,6 +112,7 @@ namespace TeamSuneat
         private void SwitchOnAll()
         {
             Analytics = true;
+            Physics = true;
 
             Character = true;
             Player = true;
@@ -165,7 +168,7 @@ namespace TeamSuneat
             Global = true;
             Input = true;
 
-            Stage = true;            
+            Stage = true;
             Scene = true;
 
             String = true;
@@ -188,6 +191,7 @@ namespace TeamSuneat
         private void SwitchOffAll()
         {
             Analytics = false;
+            Physics = false;
 
             Character = false;
             Player = false;
@@ -256,7 +260,7 @@ namespace TeamSuneat
             UI_Toggle = false;
             UI_Page = false;
             UI_Notice = false;
-            
+
             UI_Inventory = false;
             UI_Popup = false;
             UI_Details = false;
@@ -276,6 +280,7 @@ namespace TeamSuneat
             return logTag switch
             {
                 LogTags.Analytics => Analytics,
+                LogTags.Physics => Physics,
 
                 LogTags.Character => Character,
                 LogTags.Player => Player,
@@ -359,6 +364,7 @@ namespace TeamSuneat
             switch (logTag)
             {
                 case LogTags.Analytics: { Analytics = true; } break;
+                case LogTags.Physics: { Physics = true; } break;
 
                 case LogTags.Character: { Character = true; } break;
                 case LogTags.Player: { Player = true; } break;
@@ -440,6 +446,7 @@ namespace TeamSuneat
             switch (logTag)
             {
                 case LogTags.Analytics: { Analytics = false; } break;
+                case LogTags.Physics: { Physics = false; } break;
 
                 case LogTags.Character: { Character = false; } break;
                 case LogTags.Player: { Player = false; } break;

@@ -88,14 +88,7 @@ namespace TeamSuneat.UserInterface
 
         private void AddStatPoint(VProfile profile)
         {
-            ExperienceConfigAsset experienceConfigAsset = ScriptableDataManager.Instance.GetExperienceConfigAsset();
-            if (experienceConfigAsset == null)
-            {
-                return;
-            }
-
-            int statPointPerLevel = experienceConfigAsset.StatPointPerLevel;
-            profile.Growth.AddStatPoint(statPointPerLevel);
+            // CharacterGrowth 기능이 제거되었습니다.
         }
     }
 }

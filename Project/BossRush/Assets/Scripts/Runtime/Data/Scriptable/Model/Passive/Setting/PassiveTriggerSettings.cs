@@ -60,6 +60,12 @@ namespace TeamSuneat.Data
         // 기술
 
         [FoldoutGroup("패시브 발동 조건/기술")]
+        [GUIColor("GetSkillNameFieldColor")]
+        [EnableIf("IsChangingAsset")]
+        [SuffixLabel("패시브 발동 기술")]
+        public SkillNames TriggerSkill;
+
+        [FoldoutGroup("패시브 발동 조건/기술")]
         [GUIColor("GetTriggerSkillElementsColor")]
         [EnableIf("IsChangingAsset")]
         [SuffixLabel("패시브 발동 기술 속성들")]

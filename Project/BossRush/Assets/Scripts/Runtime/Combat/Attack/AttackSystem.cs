@@ -1,56 +1,56 @@
-using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using TeamSuneat.Data;
-using UnityEngine;
 
 namespace TeamSuneat
 {
     public class AttackSystem : XBehaviour
     {
-        [FoldoutGroup("#Attack Settings")]
-        [SuffixLabel("기본 공격 히트마크")]
-        [SerializeField] private HitmarkNames _basicAttackHitmark;
+        private Character _ownerCharacter;
 
-        [FoldoutGroup("#Attack Settings")]
-        [SerializeField] private string _basicAttackHitmarkString;
+        private Dictionary<HitmarkNames, AttackEntity> _entities = new();
 
-        [FoldoutGroup("#Attack Settings")]
-        [SuffixLabel("캐릭터")]
-        [SerializeField] private Character _ownerCharacter;
-
-        private readonly AttackEntityRegistry _registry = new();
-
-        public HitmarkNames BasicAttackHitmark => _basicAttackHitmark;
+        private List<HitmarkNames> _hitmarks = new List<HitmarkNames>();
 
         public override void AutoGetComponents()
         {
             base.AutoGetComponents();
 
-            _ownerCharacter = this.FindFirstParentComponent<Character>();
-        }
+            AttackEntity[] entities = GetComponentsInChildren<AttackEntity>();
+            if (entities.IsValid())
+            {
+                _entities.Clear();
 
-        private void OnValidate()
-        {
-            _ = EnumEx.ConvertTo(ref _basicAttackHitmark, _basicAttackHitmarkString);
-        }
-
-        public override void AutoSetting()
-        {
-            base.AutoSetting();
-
-            _basicAttackHitmarkString = _basicAttackHitmark.ToString();
+                for (int i = 0; i < entities.Length; i++)
+                {
+                    if (_entities.ContainsKey(entities[i].Name))
+                    {
+                        Log.Error("{0}, 같은 히트마크를 가진 공격 독립체가 있습니다. 등록에 실패했습니다.", entities[i].Name.ToLogString());
+                    }
+                    else
+                    {
+                        _entities.Add(entities[i].Name, entities[i]);
+                    }
+                }
+            }
         }
 
         public override void AutoNaming()
         {
-            SetGameObjectName($"#Attack({_ownerCharacter.NameString})");
+            SetGameObjectName("#Attack");
         }
 
-        //───────────────────────────────────────────────────────────────────────────────────────────────────────────────
+        //---------------------------------------------------------------------------------------------------------------
 
         private void Awake()
         {
-            _registry.Clear();
+            _ownerCharacter = this.FindFirstParentComponent<Character>();
+        }
+
+        public void Initialize()
+        {
+            _hitmarks.Clear();
+            _entities.Clear();
+
             RegisterAll();
         }
 
@@ -61,52 +61,63 @@ namespace TeamSuneat
             {
                 for (int i = 0; i < entities.Length; i++)
                 {
-                    RegisterSingleEntity(entities[i]);
+                    AttackEntity attackEntity = entities[i];
+                    HitmarkNames hitmarkName = entities[i].Name;
+
+                    if (!_hitmarks.Contains(hitmarkName))
+                    {
+                        _hitmarks.Add(hitmarkName);
+                    }
+
+                    if (!_entities.ContainsKey(hitmarkName))
+                    {
+                        entities[i].Initialization();
+                        _entities.Add(hitmarkName, attackEntity);
+                    }
+                    else
+                    {
+                        Log.Warning(LogTags.Attack, "{0}, 같은 히트마크를 가진 공격 독립체가 있습니다. 등록에 실패했습니다.", entities[i].Name.ToLogString());
+                    }
                 }
             }
         }
 
-        private void RegisterSingleEntity(AttackEntity attackEntity)
-        {
-            attackEntity.Initialize();
-            _registry.Register(attackEntity);
-        }
-
-        public void Initialize()
-        {
-        }
-
         public void OnBattleReady()
         {
-            if (_registry.IsValid())
+            if (_entities.IsValid())
             {
-                foreach (KeyValuePair<HitmarkNames, AttackEntity> item in _registry.GetAllEntities())
+                foreach (KeyValuePair<HitmarkNames, AttackEntity> item in _entities)
                 {
                     item.Value.OnBattleReady();
                 }
             }
         }
 
-        //───────────────────────────────────────────────────────────────────────────────────────────────────────────────
+        //---------------------------------------------------------------------------------------------------------------
 
-        public void ActivateBasic()
+        public void Activate()
         {
-            if (_basicAttackHitmark != HitmarkNames.None)
+            if (_hitmarks.IsValid())
             {
-                Activate(_basicAttackHitmark);
-            }
-            else
-            {
-                Log.Warning("기본 공격 히트마크가 설정되지 않았습니다.");
+                HitmarkNames hitmarkName = _hitmarks[0];
+                AttackEntity entity = FindEntity(hitmarkName);
+                if (entity != null)
+                {
+                    entity.Activate();
+                }
+                else
+                {
+                    LogFailedToFindEntity(hitmarkName);
+                }
             }
         }
 
-        public void Activate(string hitmarkNameString, float? weaponDamageOverride = null)
+        public void Activate(string hitmarkNameString)
         {
             HitmarkNames hitmarkName = DataConverter.ToEnum<HitmarkNames>(hitmarkNameString);
             if (hitmarkName != HitmarkNames.None)
             {
-                Activate(hitmarkName, weaponDamageOverride);
+                Activate(hitmarkName);
             }
             else
             {
@@ -114,18 +125,11 @@ namespace TeamSuneat
             }
         }
 
-        public void Activate(HitmarkNames hitmarkName, float? weaponDamageOverride = null)
+        public void Activate(HitmarkNames hitmarkName)
         {
-            if (!ValidateHitmarkName(hitmarkName))
+            if (_entities.ContainsKey(hitmarkName))
             {
-                return;
-            }
-
-            AttackEntity entity = _registry.Find(hitmarkName);
-            if (entity != null)
-            {
-                entity.SetWeaponDamageOverride(weaponDamageOverride);
-                entity.Activate();
+                _entities[hitmarkName].Activate();
             }
             else
             {
@@ -148,26 +152,29 @@ namespace TeamSuneat
 
         public void Deactivate(HitmarkNames hitmarkName)
         {
-            if (!ValidateHitmarkName(hitmarkName) || !_registry.IsValid() || !_registry.Contains(hitmarkName))
+            if (!_entities.IsValid() || !_entities.ContainsKey(hitmarkName))
             {
                 return;
             }
 
-            AttackEntity attackEntity = _registry.Find(hitmarkName);
-            attackEntity?.Deactivate();
+            AttackEntity attackEntity = _entities[hitmarkName];
+            if (attackEntity.Level == 0)
+            {
+                LogFailedToDeactivate(attackEntity);
+                return;
+            }
+
+            attackEntity.Deactivate();
         }
 
         public void DeactivateAll()
         {
-            if (!_registry.IsValid())
+            if (_hitmarks.IsValid())
             {
-                return;
-            }
-
-            var hitmarks = _registry.GetAllHitmarks();
-            for (int i = 0; i < hitmarks.Count; i++)
-            {
-                Deactivate(hitmarks[i]);
+                for (int i = 0; i < _hitmarks.Count; i++)
+                {
+                    Deactivate(_hitmarks[i]);
+                }
             }
         }
 
@@ -175,48 +182,57 @@ namespace TeamSuneat
 
         public void OnDeath()
         {
-            if (!_registry.IsValid())
+            for (int i = 0; i < _hitmarks.Count; i++)
             {
-                return;
-            }
-
-            var hitmarks = _registry.GetAllHitmarks();
-            for (int i = 0; i < hitmarks.Count; i++)
-            {
-                NotifyEntityOwnerDeath(hitmarks[i]);
-            }
-        }
-
-        private void NotifyEntityOwnerDeath(HitmarkNames hitmarkName)
-        {
-            AttackEntity entity = _registry.Find(hitmarkName);
-            if (entity != null)
-            {
-                entity.OnOwnerDeath();
+                if (_entities.ContainsKey(_hitmarks[i]))
+                {
+                    _entities[_hitmarks[i]].OnOwnerDeath();
+                }
             }
         }
 
         public bool ContainEntity(HitmarkNames hitmarkName)
         {
-            return _registry.Contains(hitmarkName);
+            if (_entities.ContainsKey(hitmarkName))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public AttackEntity FindEntity(HitmarkNames hitmarkName)
         {
-            return _registry.Find(hitmarkName);
+            if (_entities.ContainsKey(hitmarkName))
+            {
+                return _entities[hitmarkName];
+            }
+
+            return null;
         }
 
         public AttackEntity CreateAndRegisterEntity(HitmarkAssetData assetData)
         {
-            if (_registry.Contains(assetData.Name))
+            if (_entities.ContainsKey(assetData.Name))
             {
-                return _registry.Find(assetData.Name);
+                return _entities[assetData.Name];
             }
 
-            AttackEntity attackEntity = ResourcesManager.SpawnAttackEntity(assetData.Name, transform);
+            AttackEntity attackEntity = null;
+
+            if (assetData.EntityType == AttackEntityTypes.Target)
+            {
+                attackEntity = GameObjectEx.CreateGameObject<AttackTargetEntity>(assetData.Name.ToString(), transform);
+            }
+
             if (attackEntity != null)
             {
-                SetupEntity(attackEntity, assetData.Name);
+                attackEntity.Name = assetData.Name;
+                attackEntity.AutoGetOwnerComponents();
+                attackEntity.Initialization();
+
+                _entities.Add(assetData.Name, attackEntity);
+                _hitmarks.Add(assetData.Name);
             }
             else
             {
@@ -226,40 +242,26 @@ namespace TeamSuneat
             return attackEntity;
         }
 
-        private void SetupEntity(AttackEntity attackEntity, HitmarkNames hitmarkName)
-        {
-            attackEntity.Name = hitmarkName;
-            attackEntity.Initialize();
-            _registry.Register(attackEntity);
-        }
-
         public AttackEntity SpawnAndRegisterEntity(HitmarkNames hitmarkName)
         {
-            if (_registry.Contains(hitmarkName))
+            if (!_entities.ContainsKey(hitmarkName))
             {
-                return null;
+                AttackEntity attackEntity = ResourcesManager.SpawnAttackEntity(hitmarkName, transform);
+                if (attackEntity != null)
+                {
+                    attackEntity.Name = hitmarkName;
+                    attackEntity.SetOwner(_ownerCharacter);
+                    attackEntity.AutoGetOwnerComponents();
+                    attackEntity.Initialization();
+
+                    _entities.Add(hitmarkName, attackEntity);
+                    _hitmarks.Add(hitmarkName);
+                }
+
+                return attackEntity;
             }
 
-            AttackEntity attackEntity = ResourcesManager.SpawnAttackEntity(hitmarkName, transform);
-            if (attackEntity != null)
-            {
-                attackEntity.SetOwner(_ownerCharacter);
-                SetupEntity(attackEntity, hitmarkName);
-            }
-
-            return attackEntity;
-        }
-
-        // Validation Methods
-
-        private bool ValidateHitmarkName(HitmarkNames hitmarkName)
-        {
-            if (hitmarkName == HitmarkNames.None)
-            {
-                Log.Warning(LogTags.Attack, "유효하지 않은 히트마크 이름입니다: {0}", hitmarkName.ToLogString());
-                return false;
-            }
-            return true;
+            return null;
         }
 
         // Log Methods
@@ -277,6 +279,14 @@ namespace TeamSuneat
             if (Log.LevelWarning)
             {
                 Log.Warning(LogTags.Attack, "{0} ({1}), 설정된 히트마크 이름을 가진 Attack Entity로 찾을 수 없습니다.", hitmarkName.ToLogString(), hitmarkNameString);
+            }
+        }
+
+        private void LogFailedToDeactivate(AttackEntity attackEntity)
+        {
+            if (Log.LevelProgress)
+            {
+                Log.Progress("공격 독립체({0}의 레벨이 설정되지 않았습니다. 비활성화할 수 없습니다.", attackEntity.Name.ToLogString());
             }
         }
     }

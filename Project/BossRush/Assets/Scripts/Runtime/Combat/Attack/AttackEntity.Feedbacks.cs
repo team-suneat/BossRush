@@ -4,27 +4,27 @@ using UnityEngine;
 
 namespace TeamSuneat
 {
-    public partial class AttackEntity
+    public partial class AttackEntity : XBehaviour
     {
         [FoldoutGroup("#AttackEntity-Feedbacks")]
         [SuffixLabel("시작")]
-        public GameFeedbacks AttackStartFeedback;
+        public GameFeedbacks AttackStartTSFeedback;
 
         [FoldoutGroup("#AttackEntity-Feedbacks")]
         [SuffixLabel("사용")]
-        public GameFeedbacks AttackUsedFeedback;
+        public GameFeedbacks AttackUsedTSFeedback;
 
         [FoldoutGroup("#AttackEntity-Feedbacks")]
         [SuffixLabel("종료")]
-        public GameFeedbacks AttackStopFeedback;
+        public GameFeedbacks AttackStopTSFeedback;
 
         [FoldoutGroup("#AttackEntity-Feedbacks")]
         [SuffixLabel("재장전")]
-        public GameFeedbacks AttackReloadFeedback;
+        public GameFeedbacks AttackReloadTSFeedback;
 
         [FoldoutGroup("#AttackEntity-Feedbacks")]
         [SuffixLabel("재장전 필요")]
-        public GameFeedbacks AttackReloadNeededFeedback;
+        public GameFeedbacks AttackReloadNeededTSFeedback;
 
         [FoldoutGroup("#AttackEntity-Feedbacks")]
         [SuffixLabel("빗나감*")]
@@ -47,9 +47,9 @@ namespace TeamSuneat
 
         protected void AutoGetFeedbackComponents()
         {
-            AttackStartFeedback = this.FindComponent<GameFeedbacks>("#Feedbacks/AttackStart");
-            AttackUsedFeedback = this.FindComponent<GameFeedbacks>("#Feedbacks/AttackUse");
-            AttackStopFeedback = this.FindComponent<GameFeedbacks>("#Feedbacks/AttackStop");
+            AttackStartTSFeedback = this.FindComponent<GameFeedbacks>("#Feedbacks/AttackStart");
+            AttackUsedTSFeedback = this.FindComponent<GameFeedbacks>("#Feedbacks/AttackUse");
+            AttackStopTSFeedback = this.FindComponent<GameFeedbacks>("#Feedbacks/AttackStop");
             AttackOnMissFeedback = this.FindComponent<GameFeedbacks>("#Feedbacks/AttackMiss");
             AttackOnHitDamageableFeedback = this.FindComponent<GameFeedbacks>("#Feedbacks/OnHitDamageable");
             AttackOnHitNonDamageableFeedback = this.FindComponent<GameFeedbacks>("#Feedbacks/OnHitNonDamageable");
@@ -58,11 +58,11 @@ namespace TeamSuneat
 
         protected void InitializeFeedbacks()
         {
-            AttackStartFeedback?.Initialization(Owner);
-            AttackUsedFeedback?.Initialization(Owner);
-            AttackStopFeedback?.Initialization(Owner);
-            AttackReloadNeededFeedback?.Initialization(Owner);
-            AttackReloadFeedback?.Initialization(Owner);
+            AttackStartTSFeedback?.Initialization(Owner);
+            AttackUsedTSFeedback?.Initialization(Owner);
+            AttackStopTSFeedback?.Initialization(Owner);
+            AttackReloadNeededTSFeedback?.Initialization(Owner);
+            AttackReloadTSFeedback?.Initialization(Owner);
             AttackOnMissFeedback?.Initialization(Owner);
             AttackOnHitDamageableFeedback?.Initialization(Owner);
             AttackOnHitNonDamageableFeedback?.Initialization(Owner);
@@ -73,41 +73,41 @@ namespace TeamSuneat
 
         protected void TriggerAttackStartFeedback()
         {
-            if (AttackStartFeedback != null)
+            if (AttackStartTSFeedback != null)
             {
-                AttackStartFeedback.PlayFeedbacks(position, 0);
+                AttackStartTSFeedback.PlayFeedbacks(position, 0);
             }
         }
 
         protected void TriggerAttackUsedFeedback()
         {
-            if (AttackUsedFeedback != null)
+            if (AttackUsedTSFeedback != null)
             {
-                AttackUsedFeedback.PlayFeedbacks(position, 0);
+                AttackUsedTSFeedback.PlayFeedbacks(position, 0);
             }
         }
 
         protected void TriggerAttackStopFeedback()
         {
-            if (AttackStopFeedback != null)
+            if (AttackStopTSFeedback != null)
             {
-                AttackStopFeedback.PlayFeedbacks(position, 0);
+                AttackStopTSFeedback.PlayFeedbacks(position, 0);
             }
         }
 
         protected void TriggerAttackReloadNeededFeedback()
         {
-            if (AttackReloadNeededFeedback != null)
+            if (AttackReloadNeededTSFeedback != null)
             {
-                AttackReloadNeededFeedback.PlayFeedbacks(position, 0);
+                AttackReloadNeededTSFeedback.PlayFeedbacks(position, 0);
             }
         }
 
         protected void TriggerAttackReloadFeedback()
         {
-            if (AttackReloadFeedback != null)
+            if (AttackReloadTSFeedback != null)
             {
-                AttackReloadFeedback.PlayFeedbacks(position, 0);
+                AttackReloadTSFeedback.PlayFeedbacks(position, 0);
             }
         }
 
@@ -145,10 +145,10 @@ namespace TeamSuneat
 
         protected void StopAttackStartFeedback()
         {
-            if (AttackStartFeedback != null)
+            if (AttackStartTSFeedback != null)
             {
-                AttackStartFeedback.StopFeedbacks(position);
+                AttackStartTSFeedback.StopFeedbacks(position);
             }
-        }   
+        }
     }
 }

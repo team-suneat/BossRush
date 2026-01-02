@@ -57,6 +57,7 @@ namespace TeamSuneat
         public HitmarkAssetData HitmarkAssetData { get; set; }
         public Character Attacker { get; private set; }
         public AttackEntity AttackEntity { get; set; }
+        public Projectile AttackProjectile { get; set; }
         public List<DamageResult> DamageResults { get; private set; }
         public float ReferenceValue { get; set; }
         public float DamageReferenceValue { get; private set; }

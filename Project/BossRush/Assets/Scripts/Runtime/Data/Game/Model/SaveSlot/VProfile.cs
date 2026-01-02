@@ -6,9 +6,6 @@ namespace TeamSuneat.Data.Game
         /// <summary> 할당한 아이템의 고유 번호</summary>
         public int IssuedItemSID;
         public VCharacterLevel Level;
-        public VCharacterEnhancement Enhancement;
-        public VCharacterGrowth Growth;
-
         public VCharacterWeapon Weapon;
         public VCharacterAccessory Accessory;
         public VCharacterItem Item;
@@ -31,8 +28,6 @@ namespace TeamSuneat.Data.Game
             Stage.OnLoadGameData();
             Slot.OnLoadGameData();
             Skill.OnLoadGameData();
-            Enhancement.OnLoadGameData();
-            Growth.OnLoadGameData();
             Statistics.OnLoadGameData();
         }
 
@@ -46,8 +41,6 @@ namespace TeamSuneat.Data.Game
             Stage ??= VCharacterStage.CreateDefault();
             Slot ??= VCharacterSlot.CreateDefault();
             Skill ??= VCharacterSkill.CreateDefault();
-            Enhancement ??= VCharacterEnhancement.CreateDefault();
-            Growth ??= VCharacterGrowth.CreateDefault();
             Statistics ??= VStatistics.CreateDefault();
         }
 

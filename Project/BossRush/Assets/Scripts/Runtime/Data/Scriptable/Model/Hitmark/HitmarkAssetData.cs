@@ -1,6 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using System;
 using System.Linq;
+using TeamSuneat.Passive;
 using UnityEngine;
 
 namespace TeamSuneat.Data
@@ -16,8 +17,16 @@ namespace TeamSuneat.Data
         public HitmarkNames Name;
 
         [EnableIf("IsChangingAsset")]
+        [SuffixLabel("기술 이름")]
+        public SkillNames SkillName;
+
+        [EnableIf("IsChangingAsset")]
         [SuffixLabel("목표 설정 방식")]
         public AttackTargetTypes AttackTargetType;
+
+        [EnableIf("IsChangingAsset")]
+        [SuffixLabel("독립체 방식")]
+        public AttackEntityTypes EntityType;
 
         [SuffixLabel("군중제어기 여부")]
         public bool IsCrowdControl;
@@ -216,6 +225,7 @@ namespace TeamSuneat.Data
 
         #region 스트링 (String)
 
+        [FoldoutGroup("#String")] public string SkillNameString;
         [FoldoutGroup("#String")] public string AttackTargetTypeString;
         [FoldoutGroup("#String")] public string DiminishingTypeString;
         [FoldoutGroup("#String")] public string ResourceConsumeTypeString;
@@ -231,6 +241,10 @@ namespace TeamSuneat.Data
         {
             if (!IsChangingAsset)
             {
+                if (!EnumEx.ConvertTo(ref SkillName, SkillNameString))
+                {
+                    Log.Error("Hitmark 에셋 데이터의 SkillNameString 변수를 변환할 수 없습니다. {0} ({1}), {2}", Name, Name.ToLogString(), SkillNameString);
+                }
                 if (!EnumEx.ConvertTo(ref AttackTargetType, AttackTargetTypeString))
                 {
                     Log.Error("Hitmark 에셋 데이터의 AttackTargetTypeString 변수를 변환할 수 없습니다. {0} ({1}), {2}", Name, Name.ToLogString(), AttackTargetTypeString);
@@ -253,6 +267,7 @@ namespace TeamSuneat.Data
         {
             base.Refresh();
 
+            SkillNameString = SkillName.ToString();
             AttackTargetTypeString = AttackTargetType.ToString();
             DiminishingTypeString = DiminishingType.ToString();
             ResourceConsumeTypeString = ResourceConsumeType.ToString();
@@ -275,7 +290,9 @@ namespace TeamSuneat.Data
             HitmarkAssetData clone = new()
             {
                 Name = Name,
+                SkillName = SkillName,
                 AttackTargetType = AttackTargetType,
+                EntityType = EntityType,
 
                 IsCrowdControl = IsCrowdControl,
 

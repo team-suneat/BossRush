@@ -255,11 +255,6 @@ namespace TeamSuneat
             return GetColorString(GameColors.Item, content.ToString());
         }
 
-        public static string ToLogString(this EquipmentSlotTypes content)
-        {
-            return GetColorString(GameColors.Item, content.ToString());
-        }
-
         public static string ToLogString(this PassiveNames content)
         {
             if (content != 0)

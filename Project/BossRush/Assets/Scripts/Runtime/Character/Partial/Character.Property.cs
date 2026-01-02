@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TeamSuneat.Data;
 using TeamSuneat.Data.Game;
 using UnityEngine;
 
@@ -73,7 +74,43 @@ namespace TeamSuneat
 
         public Vector3 DamageDirection { get; protected set; }
 
+        public bool IsFacingRight
+        {
+            get
+            {
+                if (CharacterModel != null)
+                {
+                    return CharacterModel.transform.localScale.x > 0;
+                }
+
+                return localScale.x > 0;
+            }
+        }
+
+        private bool _canFlip;
+
+        public bool CanFlip
+        {
+            get => _canFlip;
+            set
+            {
+                if (_canFlip != value)
+                {
+                    _canFlip = value;
+                    if (value)
+                    {
+                        LogInfo("캐릭터가 반전할 수 있습니다. {0}", value.ToBoolString());
+                    }
+                    else
+                    {
+                        LogInfo("캐릭터가 반전할 수 없습니다. {0}", value.ToBoolString());
+                    }
+                }
+            }
+        }
+
         //
+        public bool IsBlockInput { get; set; }
 
         public bool IsCrowdControl
         {
@@ -89,6 +126,8 @@ namespace TeamSuneat
         }
 
         public VProfile ProfileInfo => GameApp.GetSelectedProfile();
+
+        public CharacterAssetData AssetData { get; protected set; }
 
         public virtual LogTags LogTag => LogTags.Character;
     }

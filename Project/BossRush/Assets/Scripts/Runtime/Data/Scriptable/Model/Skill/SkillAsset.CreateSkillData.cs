@@ -784,7 +784,7 @@ namespace TeamSuneat.Data
                     data.Description = "전체 공격력 +n%";
                     break;
 
-                case SkillNames.LifeMana: // 라이프 마나 - 영웅 등급
+                case SkillNames.HealthMana: // 라이프 마나 - 영웅 등급
                     data.Attribute = SkillAttributeTypes.Earth;
                     data.Type = SkillTypes.Passive;
                     data.Grade = GradeNames.Epic;

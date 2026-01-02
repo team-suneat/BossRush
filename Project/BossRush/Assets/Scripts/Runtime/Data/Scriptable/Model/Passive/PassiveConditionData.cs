@@ -1,4 +1,5 @@
 ﻿using Sirenix.OdinInspector;
+using TeamSuneat.Passive;
 
 namespace TeamSuneat.Data
 {

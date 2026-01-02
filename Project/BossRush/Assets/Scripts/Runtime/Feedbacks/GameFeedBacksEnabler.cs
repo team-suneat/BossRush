@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace TeamSuneat.Feedbacks
 {
@@ -11,7 +9,7 @@ namespace TeamSuneat.Feedbacks
     [AddComponentMenu("")]
     public class GameFeedbacksEnabler : MonoBehaviour
     {
-        /// 파일럿에 대한 TS 피드백
+        /// 파일럿에 대한 피드백
         public GameFeedbacks TargetGameFeedbacks { get; set; }
 
         /// <summary>
@@ -26,4 +24,3 @@ namespace TeamSuneat.Feedbacks
         }
     }
 }
-

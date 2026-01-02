@@ -78,6 +78,8 @@ namespace TeamSuneat
         {
             LogInfo("새로운 캐릭터의 상태를 초기화합니다.");
 
+            LoadCharacterData();
+
             AddDefaultStats();
             AddCharacterStats();
             InitializeStateMachines();
@@ -92,6 +94,17 @@ namespace TeamSuneat
             CharacterRenderer?.ResetRenderer();
 
             _ = CoroutineNextFrame(BattleReady);
+        }
+
+
+        private void LoadCharacterData()
+        {
+            AssetData = ScriptableDataManager.Instance.FindCharacterClone(Name);
+            if (!AssetData.IsValid())
+            {
+                Log.Error("캐릭터 데이터를 찾을 수 없습니다. {0}", Name.ToString());
+                return;
+            }
         }
 
         private void InitializeStateMachines()

@@ -1,11 +1,10 @@
-﻿using TeamSuneat;
-
-namespace TeamSuneat.Setting
+﻿namespace TeamSuneat.Setting
 {
     public class GameSetting : Singleton<GameSetting>
     {
         public GameAudio Audio = new GameAudio();
         public GameLanguage Language = new GameLanguage();
+        public GameVideo Video = new GameVideo();
         public GameInput Input = new GameInput();
         public GameCheat Cheat = new GameCheat();
         public GameStatistics Statistics = new GameStatistics();
@@ -15,6 +14,7 @@ namespace TeamSuneat.Setting
         {
             Audio.Load();
             Language.Load();
+            Video.Load();
             Input.ResetInput();
             Statistics.Clear();
             Play.Load();

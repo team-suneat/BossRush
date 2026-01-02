@@ -69,13 +69,13 @@ namespace TeamSuneat
 
             if (Owner != null)
             {
-                if (Owner.Controller != null)
+                if (Owner.PhysicsController != null)
                 {
-                    Owner.Controller.UseOnceFollowing = true;
-                    m_defaultSpeedMultiplier = Owner.Controller.MoveSpeedMultiplier;
-                    Owner.Controller.MoveSpeedMultiplier = SpeedMultipliers[index];
-                    Owner.Controller.SetTargetToFollow(targetPosition);
-                    Owner.Controller.SetFollowCompletedEvent(CallMovedArrivalEvent);
+                    Owner.PhysicsController.UseOnceFollowing = true;
+                    m_defaultSpeedMultiplier = Owner.PhysicsController.MoveSpeedMultiplier;
+                    Owner.PhysicsController.MoveSpeedMultiplier = SpeedMultipliers[index];
+                    Owner.PhysicsController.SetTargetToFollow(targetPosition);
+                    Owner.PhysicsController.SetFollowCompletedEvent(CallMovedArrivalEvent);
                 }
             }
         }
@@ -94,11 +94,11 @@ namespace TeamSuneat
         {
             if (Owner != null)
             {
-                if (Owner.Controller != null)
+                if (Owner.PhysicsController != null)
                 {
-                    Owner.Controller.MoveSpeedMultiplier = m_defaultSpeedMultiplier;
+                    Owner.PhysicsController.MoveSpeedMultiplier = m_defaultSpeedMultiplier;
 
-                    Owner.Controller.ResetTargetToFollow();
+                    Owner.PhysicsController.ResetTargetToFollow();
                 }
             }
 

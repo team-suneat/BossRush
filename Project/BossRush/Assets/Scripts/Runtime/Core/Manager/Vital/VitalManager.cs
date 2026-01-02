@@ -49,5 +49,66 @@ namespace TeamSuneat
 
             Log.Info(LogTags.Vital, "[Manager] 모든 생명체 바이탈을 초기화/제거합니다.");
         }
+
+        //
+
+        public Vital[] FindInArea(Vector3 position, Vector2 boxSize, LayerMask layerMask)
+        {
+            List<Vital> results = new List<Vital>();
+
+            if (_vitals != null)
+            {
+                for (int i = 0; i < _vitals.Count; i++)
+                {
+                    if (_vitals[i] == null)
+                    {
+                        continue;
+                    }
+
+                    
+                    if (false == LayerEx.IsInMask(_vitals[i].gameObject.layer, layerMask))
+                    {
+                        continue;
+                    }
+
+                    if (_vitals[i].CheckColliderInArea(position, boxSize))
+                    {
+                        results.Add(_vitals[i]);
+                    }
+                }
+            }
+
+            return results.ToArray();
+        }
+
+        public Vital[] FindInArea(Vector3 position, float radius, LayerMask layerMask)
+        {
+            List<Vital> results = new List<Vital>();
+
+            if (_vitals != null)
+            {
+                for (int i = 0; i < _vitals.Count; i++)
+                {
+                    if (_vitals[i] == null)
+                    {
+                        continue;
+                    }
+
+                    if (false == LayerEx.IsInMask(_vitals[i].gameObject.layer, layerMask))
+                    {
+                        continue;
+                    }
+
+                    if (_vitals[i].CheckColliderInArea(position, radius))
+                    {
+                        results.Add(_vitals[i]);
+
+                        Log.Info(LogTags.Vital, "후보 바이탈을 타겟에 추가합니다. {0}", _vitals[i].GetHierarchyPath());
+                    }
+                }
+            }
+
+            return results.ToArray();
+        }
     }
 }

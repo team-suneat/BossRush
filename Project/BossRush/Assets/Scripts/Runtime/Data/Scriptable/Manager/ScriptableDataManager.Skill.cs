@@ -23,7 +23,45 @@ namespace TeamSuneat.Data
             return _skillAssets.ContainsKey(tid) ? _skillAssets[tid] : null;
         }
 
+        public SkillAssetData FindSkillClone(SkillNames key)
+        {
+            return FindSkillClone(BitConvert.Enum32ToInt(key));
+        }
+
+        private SkillAssetData FindSkillClone(int tid)
+        {
+            SkillAsset asset = FindSkill(tid);
+            if (asset != null)
+            {
+                return asset.Data;
+            }
+
+            return null;
+        }
+
         #endregion Skill Find Methods
+
+        #region SkillAnimation Find Methods
+
+        /// <summary>
+        /// 스킬 애니메이션 에셋 목록을 찾습니다.
+        /// </summary>
+        public List<SkillAnimationAsset> FindSkillAnimations(SkillNames skillName)
+        {
+            return FindSkillAnimations(BitConvert.Enum32ToInt(skillName));
+        }
+
+        private List<SkillAnimationAsset> FindSkillAnimations(int tid)
+        {
+            if (_skillAnimationAssets.ContainsKey(tid))
+            {
+                return _skillAnimationAssets[tid];
+            }
+
+            return new List<SkillAnimationAsset>();
+        }
+
+        #endregion SkillAnimation Find Methods
 
         #region Skill Load Methods
 
@@ -67,6 +105,49 @@ namespace TeamSuneat.Data
 
         #endregion Skill Load Methods
 
+        #region SkillAnimation Load Methods
+
+        /// <summary>
+        /// 스킬 애니메이션 에셋을 동기적으로 로드합니다.
+        /// </summary>
+        private bool LoadSkillAnimationSync(string filePath)
+        {
+            if (!filePath.Contains("SkillAnimation_"))
+            {
+                return false;
+            }
+
+            SkillAnimationAsset asset = ResourcesManager.LoadResource<SkillAnimationAsset>(filePath);
+            if (asset != null)
+            {
+                int tid = BitConvert.Enum32ToInt(asset.SkillName);
+                if (tid == 0)
+                {
+                    Log.Warning(LogTags.ScriptableData, "{0}, 스킬 애니메이션의 스킬 이름이 설정되어있지 않습니다. {1}", asset.name, filePath);
+                }
+                else
+                {
+                    if (!_skillAnimationAssets.ContainsKey(tid))
+                    {
+                        _skillAnimationAssets[tid] = new List<SkillAnimationAsset>();
+                    }
+
+                    _skillAnimationAssets[tid].Add(asset);
+                    Log.Progress("스크립터블 데이터를 읽어왔습니다. Path: {0}", filePath);
+                }
+
+                return true;
+            }
+            else
+            {
+                Log.Warning("스크립터블 데이터를 읽을 수 없습니다. Path: {0}", filePath);
+            }
+
+            return false;
+        }
+
+        #endregion SkillAnimation Load Methods
+
         #region Skill Refresh Methods
 
         /// <summary>
@@ -83,6 +164,29 @@ namespace TeamSuneat.Data
         }
 
         #endregion Skill Refresh Methods
+
+        #region SkillAnimation Refresh Methods
+
+        /// <summary>
+        /// 모든 스킬 애니메이션 에셋을 리프레시합니다.
+        /// </summary>
+        public void RefreshAllSkillAnimation()
+        {
+            foreach (KeyValuePair<int, List<SkillAnimationAsset>> item in _skillAnimationAssets)
+            {
+                foreach (SkillAnimationAsset asset in item.Value)
+                {
+                    Refresh(asset);
+                }
+            }
+        }
+
+        private void Refresh(SkillAnimationAsset skillAnimationAsset)
+        {
+            skillAnimationAsset?.Refresh();
+        }
+
+        #endregion SkillAnimation Refresh Methods
 
         #region SkillCardUnlock Get Methods
 
@@ -109,4 +213,3 @@ namespace TeamSuneat.Data
         #endregion SkillSlotUnlock Get Methods
     }
 }
-

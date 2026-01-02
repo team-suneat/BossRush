@@ -1,3 +1,4 @@
+using TeamSuneat.Passive;
 using UnityEngine;
 
 namespace TeamSuneat
@@ -15,6 +16,7 @@ namespace TeamSuneat
             Attack = GetComponentInChildren<AttackSystem>();
             Buff = GetComponentInChildren<BuffSystem>();
             Passive = GetComponentInChildren<PassiveSystem>();
+            Skill = GetComponentInChildren<SkillSystem>();
             Stat = GetComponentInChildren<StatSystem>();
             MyVital = GetComponentInChildren<Vital>();
 

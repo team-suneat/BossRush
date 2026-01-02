@@ -16,11 +16,11 @@
             }
         }
 
-        public static bool IS_DEVELOPMENT_BUILD
+        public static bool DEVELOPMENT_BUILD
         {
             get
             {
-#if DEVELOPMENT_BUILD
+#if DEVELOPMENT_BUILD || TS_DEVELOPMENT_BUILD
                 return true;
 #endif
 
@@ -28,11 +28,11 @@
             }
         }
 
-        public static bool IS_EDITOR_OR_DEVELOPMENT_BUILD
+        public static bool EDITOR_OR_DEVELOPMENT_BUILD
         {
             get
             {
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
+#if UNITY_EDITOR || DEVELOPMENT_BUILD || TS_DEVELOPMENT_BUILD
                 return true;
 #endif
 
