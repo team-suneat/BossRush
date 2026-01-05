@@ -6,6 +6,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 21676
   packageName: Rewired
-  packageVersion: 1.1.58.4
-  assetPath: Assets/Rewired/Internal/Data/Controllers/HardwareMaps/Joysticks/ThrustmasterT500RS.asset
-  uploadId: 727838
+  packageVersion: 1.1.59.0
+  assetPath: Assets/Plugins/Rewired/Internal/Data/Controllers/HardwareMaps/Joysticks/ThrustmasterT500RS.asset
+  uploadId: 763092

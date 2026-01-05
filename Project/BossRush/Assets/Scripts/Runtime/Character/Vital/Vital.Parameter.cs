@@ -2,40 +2,40 @@
 {
     public partial class Vital : Entity
     {
-        public int CurrentHealth
+        public int CurrentLife
         {
-            get => Health != null ? Health.Current : 0;
+            get => Life != null ? Life.Current : 0;
             set
             {
-                if (Health != null)
+                if (Life != null)
                 {
-                    Health.Current = value;
+                    Life.Current = value;
                 }
             }
         }
 
-        public float HealthRate => Health != null ? Health.Rate : 0f;
+        public float LifeRate => Life != null ? Life.Rate : 0f;
 
-        public int MaxHealth
+        public int MaxLife
         {
-            get => Health != null ? Health.Max : 0;
+            get => Life != null ? Life.Max : 0;
             set
             {
-                if (Health != null)
+                if (Life != null)
                 {
-                    Health.Max = value;
+                    Life.Max = value;
                 }
             }
         }
 
         public int CurrentShield
         {
-            get => Shield != null ? Shield.Current : 0;
+            get => Barrier != null ? Barrier.Current : 0;
             set
             {
-                if (Shield != null)
+                if (Barrier != null)
                 {
-                    Shield.Current = value;
+                    Barrier.Current = value;
                 }
             }
         }
@@ -44,7 +44,7 @@
         {
             get
             {
-                if (Shield != null)
+                if (Barrier != null)
                 {
                     return CurrentShield.SafeDivide(MaxShield);
                 }
@@ -55,25 +55,25 @@
 
         public int MaxShield
         {
-            get => Shield != null ? Shield.Max : 0;
+            get => Barrier != null ? Barrier.Max : 0;
             set
             {
-                if (Shield != null)
+                if (Barrier != null)
                 {
-                    Shield.Max = value;
+                    Barrier.Max = value;
                 }
             }
         }
 
-        public bool IsAlive => CurrentHealth > 0;
+        public bool IsAlive => CurrentLife > 0;
 
         public bool IsInvulnerable
         {
             get
             {
-                if (Health != null)
+                if (Life != null)
                 {
-                    return Health.CheckInvulnerable();
+                    return Life.CheckInvulnerable();
                 }
                 return false;
             }

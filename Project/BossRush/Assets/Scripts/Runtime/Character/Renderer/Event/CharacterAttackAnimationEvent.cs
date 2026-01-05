@@ -18,7 +18,7 @@ namespace TeamSuneat
         {
             if (_character != null && _character.Attack != null)
             {
-                _character.Attack.ActivateBasic();
+                _character.Attack.Activate();
             }
         }
 

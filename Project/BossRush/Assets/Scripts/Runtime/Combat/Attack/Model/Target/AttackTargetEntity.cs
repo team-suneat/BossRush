@@ -77,7 +77,7 @@ namespace TeamSuneat
         {
             base.SetTarget(targetVital);
 
-            _damageInfo.SetTargetVital(targetVital);
+            _damageCaculator.SetTargetVital(targetVital);
         }
 
         private void RefreshTarget()
@@ -87,7 +87,7 @@ namespace TeamSuneat
                 return;
             }
 
-            if (_damageInfo.TargetVital != null)
+            if (_damageCaculator.TargetVital != null)
             {
                 return;
             }
@@ -113,19 +113,11 @@ namespace TeamSuneat
                     }
                     break;
 
-                case AttackTargetTypes.TargetOfProjectile:
-                    {
-                        if (OwnerProjectile != null)
-                        {
-                            targetVital = OwnerProjectile.TargetVital;
-                        }
-                    }
-                    break;
             }
 
             if (CheckDamageableVital(targetVital))
             {
-                _damageInfo.SetTargetVital(targetVital);
+                _damageCaculator.SetTargetVital(targetVital);
             }
         }
 
@@ -139,7 +131,7 @@ namespace TeamSuneat
             {
                 return false;
             }
-            else if (targetVital.Health.CheckInvulnerable())
+            else if (targetVital.Life.CheckInvulnerable())
             {
                 return false;
             }
@@ -168,86 +160,56 @@ namespace TeamSuneat
 
         private bool AttackToTarget()
         {
-            if (_damageInfo.TargetVital == null)
+            if (_damageCaculator.TargetVital == null)
             {
-                LogWarning("공격 독립체의 목표 바이탈이 설정되지 않았습니다. Hitmark: {0}, Entity: {1}", _damageInfo.HitmarkAssetData.Name.ToLogString(), this.GetHierarchyPath());
+                LogWarning("공격 독립체의 목표 바이탈이 설정되지 않았습니다. Hitmark: {0}, Entity: {1}", _damageCaculator.HitmarkAssetData.Name.ToLogString(), this.GetHierarchyPath());
 
                 return false;
             }
 
-            if (!_damageInfo.HitmarkAssetData.IsValid())
+            if (!_damageCaculator.HitmarkAssetData.IsValid())
             {
                 LogError("피해량 정보의 히트마크 에셋이 올바르지 않습니다. Hitmark:{0}, Entity: {1}", Name.ToLogString(), this.GetHierarchyPath());
                 return false;
             }
 
-            ApplyDecrescenceDamageFromProjectile();
-            _damageInfo.Execute();
-            if (!_damageInfo.DamageResults.IsValid())
+            _damageCaculator.Execute();
+            if (!_damageCaculator.DamageResults.IsValid())
             {
-                LogWarning("공격 독립체의 피해 결과가 설정되지 않았습니다. Hitmark: {0}, Entity: {1}", _damageInfo.HitmarkAssetData.Name.ToLogString(), this.GetHierarchyPath());
+                LogWarning("공격 독립체의 피해 결과가 설정되지 않았습니다. Hitmark: {0}, Entity: {1}", _damageCaculator.HitmarkAssetData.Name.ToLogString(), this.GetHierarchyPath());
 
                 return false;
             }
 
             bool isAttackSuccessed = false;
             DamageResult damageResult;
-            for (int i = 0; i < _damageInfo.DamageResults.Count; i++)
+            for (int i = 0; i < _damageCaculator.DamageResults.Count; i++)
             {
-                damageResult = _damageInfo.DamageResults[i];
+                damageResult = _damageCaculator.DamageResults[i];
 
                 switch (damageResult.DamageType)
                 {
                     case DamageTypes.Heal:
                     case DamageTypes.HealOverTime:
                         {
-                            _damageInfo.TargetVital.Heal(damageResult.DamageValueToInt);
-                            _damageInfo.TargetVital.DamageBuffOnHit(damageResult);
+                            _damageCaculator.TargetVital.Heal(damageResult.DamageValueToInt);
                             isAttackSuccessed = true;
-                        }
-                        break;
-
-                    case DamageTypes.Restore:
-                        {
-                            _damageInfo.TargetVital.Restore(damageResult.DamageValueToInt);
-                            _damageInfo.TargetVital.DamageBuffOnHit(damageResult);
-
-                            isAttackSuccessed = true;
-                        }
-                        break;
-
-                    case DamageTypes.Charge:
-                        {
-                            _damageInfo.TargetVital.Charge(damageResult.DamageValueToInt);
-                            _damageInfo.TargetVital.DamageBuffOnHit(damageResult);
-
-                            isAttackSuccessed = true;
-                        }
-                        break;
-
-                    case DamageTypes.CooldownTimeReduction:
-                        {
-                            if (TryReduceSkillCooldownTime(damageResult))
-                            {
-                                _damageInfo.TargetVital.DamageBuffOnHit(damageResult);
-                                isAttackSuccessed = true;
-                            }
                         }
                         break;
 
                     default:
                         {
-                            if (!_damageInfo.TargetVital.CheckDamageImmunity(damageResult))
+                            if (!_damageCaculator.TargetVital.CheckDamageImmunity(damageResult))
                             {
-                                if (_damageInfo.TargetVital.TakeDamage(damageResult))
+                                if (_damageCaculator.TargetVital.TakeDamage(damageResult))
                                 {
-                                    if (_damageInfo.TargetVital.IsAlive)
+                                    if (_damageCaculator.TargetVital.IsAlive)
                                     {
-                                        TriggerAttackOnHitDamageableFeedback(_damageInfo.TargetVital.position);
+                                        TriggerAttackOnHitDamageableFeedback(_damageCaculator.TargetVital.position);
                                     }
                                     else
                                     {
-                                        TriggerAttackOnKillFeedback(_damageInfo.TargetVital.position);
+                                        TriggerAttackOnKillFeedback(_damageCaculator.TargetVital.position);
                                     }
                                 }
 
@@ -261,38 +223,6 @@ namespace TeamSuneat
             return isAttackSuccessed;
         }
 
-        private void ApplyDecrescenceDamageFromProjectile()
-        {
-            if (OwnerProjectile != null)
-            {
-                if (OwnerProjectile.IsDecrescenceDamageByPenetration)
-                {
-                    int penetrationsCount = OwnerProjectile.PenetrationsCount - OwnerProjectile.RemainingPenetrationsCount;
-                    int hitCount = penetrationsCount + AdditionalHitCount;
-
-                    _damageInfo.SetDecrescenceRate(hitCount, ApplyCount);
-                }
-            }
-        }
-
-        private bool TryReduceSkillCooldownTime(DamageResult damageResult)
-        {
-            if (_damageInfo.TargetCharacter != null && _damageInfo.TargetCharacter.Skill != null)
-            {
-                bool isAttackSuccessed = false;
-                List<SkillEntity> entities = _damageInfo.TargetCharacter.Skill.FindAll(damageResult.Asset.LinkedSkillCategory);
-                for (int j = 0; j < entities.Count; j++)
-                {
-                    entities[j].ReduceCooldownTime(damageResult.DamageValue);
-                    isAttackSuccessed = true;
-                }
-
-                return isAttackSuccessed;
-            }
-
-            return false;
-        }
-
         #region Log
 
         protected override void LogProgress(string content)
@@ -301,11 +231,7 @@ namespace TeamSuneat
             {
                 if (Owner != null)
                 {
-                    Log.Progress(LogTags.Attack_Target, TSStringGetter.ConcatStringWithComma(Owner.Name.ToLogString(), Name.ToLogString(), content));
-                }
-                else if (OwnerProjectile != null)
-                {
-                    Log.Progress(LogTags.Attack_Target, TSStringGetter.ConcatStringWithComma(OwnerProjectile.Name.ToLogString(), Name.ToLogString(), content));
+                    Log.Progress(LogTags.Attack, StringGetter.ConcatStringWithComma(Owner.Name.ToLogString(), Name.ToLogString(), content));
                 }
             }
         }
@@ -316,11 +242,7 @@ namespace TeamSuneat
             {
                 if (Owner != null)
                 {
-                    Log.Info(LogTags.Attack_Target, TSStringGetter.ConcatStringWithComma(Owner.Name.ToLogString(), Name.ToLogString(), content));
-                }
-                else if (OwnerProjectile != null)
-                {
-                    Log.Info(LogTags.Attack_Target, TSStringGetter.ConcatStringWithComma(OwnerProjectile.Name.ToLogString(), Name.ToLogString(), content));
+                    Log.Info(LogTags.Attack, StringGetter.ConcatStringWithComma(Owner.Name.ToLogString(), Name.ToLogString(), content));
                 }
             }
         }
@@ -331,12 +253,9 @@ namespace TeamSuneat
             {
                 if (Owner != null)
                 {
-                    Log.Warning(LogTags.Attack_Target, TSStringGetter.ConcatStringWithComma(Owner.Name.ToLogString(), Name.ToLogString(), content));
+                    Log.Warning(LogTags.Attack, StringGetter.ConcatStringWithComma(Owner.Name.ToLogString(), Name.ToLogString(), content));
                 }
-                else if (OwnerProjectile != null)
-                {
-                    Log.Warning(LogTags.Attack_Target, TSStringGetter.ConcatStringWithComma(OwnerProjectile.Name.ToLogString(), Name.ToLogString(), content));
-                }
+                
             }
         }
 

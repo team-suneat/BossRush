@@ -41,11 +41,8 @@ namespace TeamSuneat
         public static string ReplaceLoadingString(string content)
         {
             content = ReplaceCharacterName(content);
-            content = ReplaceAreaName(content);
             content = ReplaceStageName(content);
-            
             content = ReplaceStatName(content);
-            content = ReplaceStateEffect(content);
 
             return content;
         }

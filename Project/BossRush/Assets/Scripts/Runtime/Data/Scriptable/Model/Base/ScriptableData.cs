@@ -22,22 +22,8 @@ namespace TeamSuneat.Data
 
         #region Inspector
 
-        protected Color GetPassiveNameColor(PassiveNames key)
-        {
-            return GetFieldColor(key);
-        }
 
         protected Color GetCharacterNameColor(CharacterNames key)
-        {
-            return GetFieldColor(key);
-        }
-
-        protected Color GetBuffNameColor(BuffNames key)
-        {
-            return GetFieldColor(key);
-        }
-
-        protected Color GetBuffTypeColor(BuffTypes key)
         {
             return GetFieldColor(key);
         }
@@ -69,27 +55,12 @@ namespace TeamSuneat.Data
             }
         }
 
-        protected Color GetAreaNameColor(AreaNames key)
-        {
-            return GetFieldColor(key);
-        }
-
         protected Color GetStageNameColor(StageNames key)
         {
             return GetFieldColor(key);
         }
 
         protected Color GetItemNameColor(ItemNames key)
-        {
-            return GetFieldColor(key);
-        }
-
-        protected Color GetSkillNameColor(SkillNames key)
-        {
-            return GetFieldColor(key);
-        }
-
-        protected Color GetProjectileNameColor(ProjectileNames key)
         {
             return GetFieldColor(key);
         }

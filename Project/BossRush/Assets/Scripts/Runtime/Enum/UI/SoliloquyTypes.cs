@@ -97,9 +97,6 @@ namespace TeamSuneat
         /// <summary> {0} 효과가 사라집니다. </summary>
         UnstackEffect,
 
-        /// <summary> {0} 의 재사용 대기시간({1}초)이 종료되었습니다.조건을 만족하면 자동으로 발동됩니다. </summary>
-        PassiveCooldownComplete,
-
         /// <summary> {0}을 사용합니다. </summary>
         UseItem,
 

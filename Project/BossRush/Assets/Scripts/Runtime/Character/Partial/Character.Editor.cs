@@ -1,4 +1,3 @@
-using TeamSuneat.Passive;
 using UnityEngine;
 
 namespace TeamSuneat
@@ -14,13 +13,9 @@ namespace TeamSuneat
             Animator = this.FindComponent<Animator>("Model");
 
             Attack = GetComponentInChildren<AttackSystem>();
-            Buff = GetComponentInChildren<BuffSystem>();
-            Passive = GetComponentInChildren<PassiveSystem>();
-            Skill = GetComponentInChildren<SkillSystem>();
             Stat = GetComponentInChildren<StatSystem>();
             MyVital = GetComponentInChildren<Vital>();
 
-            Abilities = GetComponents<CharacterAbility>();
             CharacterModel = this.FindGameObject("Model");
         }
 

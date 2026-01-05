@@ -72,20 +72,6 @@ namespace TeamSuneat
 
         #endregion 능력치 검색 (Stat Find)
 
-        #region 상태이상 검색 (State Effect Find)
-
-        /// <summary>
-        /// 피격자가 해당 상태이상을 가지고 있는지 확인합니다.
-        /// </summary>
-        /// <param name="stateEffect">확인할 상태이상</param>
-        /// <returns>상태이상을 가지고 있으면 true</returns>
-        private bool ContainsTargetCharacterStateEffect(StateEffects stateEffect)
-        {
-            return TargetCharacter != null && TargetCharacter.Buff.ContainsStateEffect(stateEffect);
-        }
-
-        #endregion 상태이상 검색 (State Effect Find)
-
         #region 능력치 헬퍼 (Stat Helper)
 
         /// <summary>

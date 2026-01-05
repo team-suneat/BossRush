@@ -27,10 +27,7 @@ namespace TeamSuneat
         Enemies,
         Friendlies,
 
-        Projectiles,
-
         InteractionObject,
-        DropObject,
         Detectable,
         Breakable,
     }

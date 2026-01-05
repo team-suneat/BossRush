@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace TeamSuneat
 {
-    public class HighestHealthCharacterDetector : ICharacterDetector
+    public class HighestLifeCharacterDetector : ICharacterDetector
     {
         public override Character DoDetectCharacter(Vector3 detectPosition)
         {
-            float maxHealth = 0;
+            float maxLife = 0;
             float distanceBetweenTarget;
 
             Character candidate;
@@ -22,7 +22,7 @@ namespace TeamSuneat
                     continue;
                 }
 
-                if (candidate.CurrentHealth == 0)
+                if (candidate.CurrentLife == 0)
                 {
                     continue;
                 }
@@ -39,9 +39,9 @@ namespace TeamSuneat
                     continue;
                 }
 
-                if (candidate.CurrentHealth > maxHealth)
+                if (candidate.CurrentLife > maxLife)
                 {
-                    maxHealth = candidate.CurrentHealth;
+                    maxLife = candidate.CurrentLife;
                     targetCharacter = candidate;
                 }
             }

@@ -13,7 +13,7 @@ namespace TeamSuneat
 
         public bool IsPlayer => this is PlayerCharacter;
 
-        public bool IsBoss => this is BossCharacter;
+        public bool IsBoss => this is MonsterCharacter monsterCharacter && monsterCharacter.IsBoss;
 
         // Target
 
@@ -23,9 +23,9 @@ namespace TeamSuneat
 
         // Vital
 
-        public int CurrentHealth => MyVital.CurrentHealth;
+        public int CurrentLife => MyVital.CurrentLife;
 
-        public int MaxHealth => MyVital.MaxHealth;
+        public int MaxLife => MyVital.MaxLife;
 
         public int CurrentShield => MyVital.CurrentShield;
 

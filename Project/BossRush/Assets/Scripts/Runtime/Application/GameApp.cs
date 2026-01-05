@@ -52,9 +52,6 @@ namespace TeamSuneat
             // SETTING
             GameSetting.Instance.Initialize();
 
-            // PREF DATA
-            GamePrefs.ClearOnEntryPoint();
-
             // FIXED DATA
             LoadAsync();
         }

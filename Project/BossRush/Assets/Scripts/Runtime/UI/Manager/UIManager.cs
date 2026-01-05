@@ -41,8 +41,7 @@ namespace TeamSuneat.UserInterface
         public void Clear()
         {
             PopupManager?.ResetValues();
-            GaugeManager?.Clear();
-            NoticeManager?.Clear();
+            GaugeManager?.Clear();            
         }
 
         public CanvasOrder GetCanvas(CanvasOrderNames canvasOrderName)
@@ -58,7 +57,6 @@ namespace TeamSuneat.UserInterface
             }
 
             PopupManager?.LogicUpdate();
-            HUDManager?.LogicUpdate();
             NoticeManager?.LogicUpdate();
         }
 

@@ -79,9 +79,8 @@ namespace TeamSuneat.Data.Game
             }
 
             string saveFilePath = GetSaveFilePath(index);
-            string chunkAES = TryApplyAES() ? Encrypt(chunk) : chunk;
 
-            if (Write(saveFilePath, chunkAES))
+            if (Write(saveFilePath, chunk))
             {
                 // 백그라운드에서는 customTimestamp 사용, 동기에서는 Time.time 사용
                 if (isBackground)
@@ -113,11 +112,6 @@ namespace TeamSuneat.Data.Game
 
             if (Data != null)
             {
-                if (string.IsNullOrEmpty(Data.Profile.Stage.CurrentAreaString))
-                {
-                    Log.Warning("현재 지역의 스트링이 유효하지 않습니다.");
-                    return null;
-                }
                 chunk = SerializeObject(Data);
             }
 
@@ -195,19 +189,18 @@ namespace TeamSuneat.Data.Game
 
             // 메인 스레드에서 최소한의 정보만 준비
             bool needsBackup = _saveCount >= GAME_DATA_SAVE_INTERVAL_COUNT;
-            bool useEncryption = TryApplyAES();
             float currentTimestamp = Time.time; // 메인 스레드에서 미리 계산
 
             TeamSuneat.Log.Progress("게임 데이터를 저장합니다: {0}/{1}", _saveCount, GAME_DATA_SAVE_INTERVAL_COUNT);
 
             // 모든 무거운 작업을 백그라운드 스레드로 이동
-            _ = System.Threading.Tasks.Task.Run(() => PerformFullAsyncSave(needsBackup, useEncryption, currentTimestamp));
+            _ = System.Threading.Tasks.Task.Run(() => PerformFullAsyncSave(needsBackup, currentTimestamp));
         }
 
         /// <summary>
-        /// 완전한 비동기 저장 작업을 수행합니다 (직렬화, 암호화, 파일 쓰기 모두 백그라운드에서).
+        /// 완전한 비동기 저장 작업을 수행합니다 (직렬화, 파일 쓰기 모두 백그라운드에서).
         /// </summary>
-        private void PerformFullAsyncSave(bool needsBackup, bool useEncryption, float timestamp)
+        private void PerformFullAsyncSave(bool needsBackup, float timestamp)
         {
             bool saveSuccess = false;
             bool backupSuccess = true;

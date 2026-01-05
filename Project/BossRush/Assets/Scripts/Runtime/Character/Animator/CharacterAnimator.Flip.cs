@@ -23,19 +23,7 @@ namespace TeamSuneat
 
         private void StartFlipLock(float animationLength)
         {
-            SkillAnimationAsset playingAnimationAsset = GetPlayingAnimation();
-            if (playingAnimationAsset == null) { return; }
-            if (playingAnimationAsset.isFlipable) { return; }
-
             LockFlip();
-
-            if (playingAnimationAsset.ReleaseFlipableTimeRate.InRange(0, 1))
-            {
-                StopXCoroutine(ref _flipLockCoroutine);
-
-                float releaseDelayTime = animationLength * playingAnimationAsset.ReleaseFlipableTimeRate;
-                _flipLockCoroutine = StartXCoroutine(ProcessFlipLock(releaseDelayTime));
-            }
         }
 
         private IEnumerator ProcessFlipLock(float delayTime)

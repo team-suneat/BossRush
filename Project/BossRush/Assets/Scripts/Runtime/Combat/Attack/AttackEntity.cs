@@ -1,6 +1,5 @@
 using Sirenix.OdinInspector;
 using TeamSuneat.Data;
-using TeamSuneat.Passive;
 
 namespace TeamSuneat
 {
@@ -18,9 +17,6 @@ namespace TeamSuneat
         public Character Owner;
 
         [FoldoutGroup("#AttackEntity")]
-        public Projectile OwnerProjectile;
-
-        [FoldoutGroup("#AttackEntity")]
         public Vital Vital;
 
         [FoldoutGroup("#AttackEntity")]
@@ -36,17 +32,15 @@ namespace TeamSuneat
 
         //----------------------------------------------------------------------------------------
 
-        protected DamageCalculator _damageInfo = new();
+        protected DamageCalculator _damageCaculator = new();
 
         public HitmarkAssetData AssetData { get; private set; }
-
-        public SkillAssetData SkillAssetData { get; private set; }
 
         public Vital TargetVital { get; private set; }
 
         public bool IsActive { get; private set; }
 
-        public int Level => _damageInfo.Level;
+        public int Level => _damageCaculator.Level;
 
         public AttackEntityTypes EntityType
         {
@@ -59,10 +53,6 @@ namespace TeamSuneat
                 else if (this is AttackAreaEntity)
                 {
                     return AttackEntityTypes.Area;
-                }
-                else if (this is AttackProjectileEntity)
-                {
-                    return AttackEntityTypes.Projectile;
                 }
 
                 return AttackEntityTypes.None;
@@ -81,15 +71,14 @@ namespace TeamSuneat
             InitializeFeedbacks();
             LoadAssetData();
 
-            _damageInfo.HitmarkAssetData = AssetData;
-            if (!_damageInfo.HitmarkAssetData.IsValid())
+            _damageCaculator.HitmarkAssetData = AssetData;
+            if (!_damageCaculator.HitmarkAssetData.IsValid())
             {
-                LogError("버프의 피해 정보에서 히트마크 정보를 읽어올 수 없습니다:{0}", Name.ToLogString());
+                LogError("피해 정보에서 히트마크 정보를 읽어올 수 없습니다:{0}", Name.ToLogString());
             }
 
-            _damageInfo.SetAttacker(Owner);
-            _damageInfo.AttackEntity = this;
-            _damageInfo.AttackProjectile = OwnerProjectile;
+            _damageCaculator.SetAttacker(Owner);
+            _damageCaculator.AttackEntity = this;
 
             ApplyCount = 0;
         }
@@ -99,12 +88,7 @@ namespace TeamSuneat
             if (Name != HitmarkNames.None)
             {
                 AssetData = ScriptableDataManager.Instance.FindHitmarkClone(Name);
-                if (AssetData.IsValid())
-                {
-                    SkillAssetData = ScriptableDataManager.Instance.FindSkill(AssetData.SkillName);
-                    LogErrorOnLoadAssetData();
-                }
-                else
+                if (!AssetData.IsValid())
                 {
                     Log.Error("공격 독립체의 히트마크 에셋이 설정되지 않았습니다. {0}, {1}", Name.ToLogString(), this.GetHierarchyPath());
                 }
@@ -124,20 +108,12 @@ namespace TeamSuneat
                     {
                         Log.Error("영역(Area) 공격 독립체의 독립체 타입이 에셋 데이터에 올바르게 설정되지 않았습니다. EntityType: {0}, Name: {1}, ", AssetData.EntityType, Name.ToLogString());
                     }
-                    else if (this is AttackProjectileEntity)
-                    {
-                        Log.Error("발사체(Projectile) 공격 독립체의 독립체 타입이 에셋 데이터에 올바르게 설정되지 않았습니다. EntityType: {0}, Name: {1}, ", AssetData.EntityType, Name.ToLogString());
-                    }
                     break;
 
                 case AttackEntityTypes.Area:
                     if (this is AttackTargetEntity)
                     {
                         Log.Error("목표(Target) 공격 독립체의 독립체 타입이 에셋 데이터에 올바르게 설정되지 않았습니다. EntityType: {0}, Name: {1}, ", AssetData.EntityType, Name.ToLogString());
-                    }
-                    else if (this is AttackProjectileEntity)
-                    {
-                        Log.Error("발사체(Projectile) 공격 독립체의 독립체 타입이 에셋 데이터에 올바르게 설정되지 않았습니다. EntityType: {0}, Name: {1}, ", AssetData.EntityType, Name.ToLogString());
                     }
                     break;
             }
@@ -157,44 +133,16 @@ namespace TeamSuneat
 
         public virtual void SetLevel(int level)
         {
-            _damageInfo?.SetLevel(level);
+            _damageCaculator?.SetLevel(level);
 
             LogInfo("공격 독립체의 레벨을 설정합니다. 레벨:{0} ", level);
         }
 
         public virtual void SetStack(int stack)
         {
-            _damageInfo?.SetStack(stack);
+            _damageCaculator?.SetStack(stack);
 
             LogInfo("공격 독립체의 스택을 설정합니다. 스택:{0} ", stack);
-        }
-
-        public virtual void SetReferenceValues(PassiveTrigger triggerInfo)
-        {
-            if (triggerInfo == null)
-            {
-                return;
-            }
-
-            _damageInfo.SetDamageRefrenceValue(triggerInfo.GetDamageValueToInt());
-
-            if (triggerInfo.SkillName != SkillNames.None)
-            {
-                SkillAssetData skillData = ScriptableDataManager.Instance.FindSkillClone(triggerInfo.SkillName);
-                if (skillData.IsValid())
-                {
-                    int resourceCost = skillData.GetResourceCost(Owner.MyVital, triggerInfo.Level);
-                    _damageInfo.SetResourceCostRefrenceValue(resourceCost);
-
-                    SkillEntity skillEntity = Owner.Skill.Find(triggerInfo.SkillName);
-                    if (skillEntity != null)
-                    {
-                        _damageInfo.SetCooldownRefrenceValue(skillEntity.CooldownTime);
-                    }
-                }
-            }
-
-            LogInfo("{0} 패시브의 피해량 {1}을 공격 독립체의 참조값으로 설정합니다. ", triggerInfo.Name.ToLogString(), triggerInfo.DamageValue);
         }
 
         public virtual void SetTarget(Vital targetVital)
@@ -264,14 +212,6 @@ namespace TeamSuneat
 
             StopAttackStartFeedback();
 
-            if (AssetData.IsValid())
-            {
-                if (AssetData.UseResourceOnDeactive)
-                {
-                    StartUseAndRestoreResource();
-                }
-            }
-
             IsActive = false;
 
             StopUseAndRestoreResource();
@@ -293,10 +233,6 @@ namespace TeamSuneat
             if (AssetData.IsValid())
             {
                 if (AssetData.UseResourceOnAttack)
-                {
-                    StartUseAndRestoreResource();
-                }
-                else if (AssetData.UseResourceOnAttackSuccessed && isAttackSuccessed)
                 {
                     StartUseAndRestoreResource();
                 }

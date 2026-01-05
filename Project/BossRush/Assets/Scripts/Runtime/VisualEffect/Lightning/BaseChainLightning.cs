@@ -47,7 +47,7 @@ namespace TeamSuneat
         public void AddTarget(Transform targetPoint)
         {
             _targetPoints.Add(targetPoint);
-            _offsetPosition.Add(TSRandomEx.GetVector3Value(RandomOffset));
+            _offsetPosition.Add(RandomEx.GetVector3Value(RandomOffset));
 
             SpawnLightinigBlot();
         }

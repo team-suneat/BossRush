@@ -21,17 +21,14 @@ namespace TeamSuneat
         [FoldoutGroup("[캐릭터]")][SuffixLabel("몬스터 캐릭터")] public bool Monster;
         [FoldoutGroup("[캐릭터]")][SuffixLabel("엘리트 캐릭터")] public bool Elite;
         [FoldoutGroup("[캐릭터]")][SuffixLabel("보스캐릭터")] public bool Boss;
-        [FoldoutGroup("[캐릭터]")][SuffixLabel("캐릭터 능력")] public bool Ability;
         [FoldoutGroup("[캐릭터]")][SuffixLabel("캐릭터 생성")] public bool CharacterSpawn;
 
         [FoldoutGroup("[캐릭터 랜더러]")][SuffixLabel("애니메이션")] public bool Animation;
         [FoldoutGroup("[캐릭터 랜더러]")][SuffixLabel("랜더러")] public bool Renderer;
 
         [FoldoutGroup("[전투]")][SuffixLabel("공격")] public bool Attack;
-        [FoldoutGroup("[전투]")][SuffixLabel("버프")] public bool Buff;
         [FoldoutGroup("[전투]")][SuffixLabel("피해량 계산")] public bool Damage;
         [FoldoutGroup("[전투]")][SuffixLabel("이펙트")] public bool Effect;
-        [FoldoutGroup("[전투]")][SuffixLabel("패시브")] public bool Passive;
         [FoldoutGroup("[전투]")][SuffixLabel("능력치")] public bool Stat;
         [FoldoutGroup("[전투]")][SuffixLabel("캐릭터 전투자원")] public bool Vital;
         [FoldoutGroup("[전투]")][SuffixLabel("전투자원")] public bool BattleResource;
@@ -41,7 +38,6 @@ namespace TeamSuneat
         [FoldoutGroup("[아이템]")][SuffixLabel("재화")] public bool Currency;
         [FoldoutGroup("[아이템]")][SuffixLabel("아이템")] public bool Item;
         [FoldoutGroup("[아이템]")][SuffixLabel("무기")] public bool Weapon;
-        [FoldoutGroup("[아이템]")][SuffixLabel("드랍 오브젝트")] public bool DropObject;
 
         [FoldoutGroup("[해금]")][SuffixLabel("퀘스트")] public bool Quest;
         [FoldoutGroup("[해금]")][SuffixLabel("튜토리얼")] public bool Tutorial;
@@ -119,7 +115,6 @@ namespace TeamSuneat
             Monster = true;
             Elite = true;
             Boss = true;
-            Ability = true;
             CharacterSpawn = true;
 
             Animation = true;
@@ -127,10 +122,8 @@ namespace TeamSuneat
 
             Attack = true;
             BattleResource = true;
-            Buff = true;
             Damage = true;
             Effect = true;
-            Passive = true;
             Stat = true;
             Vital = true;
 
@@ -139,7 +132,6 @@ namespace TeamSuneat
             Currency = true;
             Item = true;
             Weapon = true;
-            DropObject = true;
 
             Quest = true;
             Tutorial = true;
@@ -198,7 +190,6 @@ namespace TeamSuneat
             Monster = false;
             Elite = false;
             Boss = false;
-            Ability = false;
             CharacterSpawn = false;
 
             Animation = false;
@@ -206,10 +197,8 @@ namespace TeamSuneat
 
             Attack = false;
             BattleResource = false;
-            Buff = false;
             Damage = false;
             Effect = false;
-            Passive = false;
             Stat = false;
             Vital = false;
 
@@ -218,7 +207,6 @@ namespace TeamSuneat
             Currency = false;
             Item = false;
             Weapon = false;
-            DropObject = false;
 
             Quest = false;
             Tutorial = false;
@@ -287,7 +275,6 @@ namespace TeamSuneat
                 LogTags.Monster => Monster,
                 LogTags.Elite => Elite,
                 LogTags.Boss => Boss,
-                LogTags.Ability => Ability,
                 LogTags.CharacterSpawn => CharacterSpawn,
 
                 LogTags.Animation => Animation,
@@ -295,10 +282,8 @@ namespace TeamSuneat
 
                 LogTags.Attack => Attack,
                 LogTags.BattleResource => BattleResource,
-                LogTags.Buff => Buff,
                 LogTags.Damage => Damage,
                 LogTags.Effect => Effect,
-                LogTags.Passive => Passive,
                 LogTags.Stat => Stat,
                 LogTags.Vital => Vital,
 
@@ -307,7 +292,6 @@ namespace TeamSuneat
                 LogTags.Currency => Currency,
                 LogTags.Item => Item,
                 LogTags.Weapon => Weapon,
-                LogTags.DropObject => DropObject,
 
                 LogTags.Quest => Quest,
                 LogTags.Tutorial => Tutorial,
@@ -371,7 +355,6 @@ namespace TeamSuneat
                 case LogTags.Monster: { Monster = true; } break;
                 case LogTags.Elite: { Elite = true; } break;
                 case LogTags.Boss: { Boss = true; } break;
-                case LogTags.Ability: { Ability = true; } break;
                 case LogTags.CharacterSpawn: { CharacterSpawn = true; } break;
 
                 case LogTags.Animation: { Animation = true; } break;
@@ -379,10 +362,8 @@ namespace TeamSuneat
 
                 case LogTags.Attack: { Attack = true; } break;
                 case LogTags.BattleResource: { BattleResource = true; } break;
-                case LogTags.Buff: { Buff = true; } break;
                 case LogTags.Damage: { Damage = true; } break;
                 case LogTags.Effect: { Effect = true; } break;
-                case LogTags.Passive: { Passive = true; } break;
                 case LogTags.Stat: { Stat = true; } break;
                 case LogTags.Vital: { Vital = true; } break;
 
@@ -391,7 +372,6 @@ namespace TeamSuneat
                 case LogTags.Currency: { Currency = true; } break;
                 case LogTags.Item: { Item = true; } break;
                 case LogTags.Weapon: { Weapon = true; } break;
-                case LogTags.DropObject: { DropObject = true; } break;
 
                 case LogTags.Quest: { Quest = true; } break;
                 case LogTags.Tutorial: { Tutorial = true; } break;
@@ -453,7 +433,6 @@ namespace TeamSuneat
                 case LogTags.Monster: { Monster = false; } break;
                 case LogTags.Elite: { Elite = false; } break;
                 case LogTags.Boss: { Boss = false; } break;
-                case LogTags.Ability: { Ability = false; } break;
                 case LogTags.CharacterSpawn: { CharacterSpawn = false; } break;
 
                 case LogTags.Animation: { Animation = false; } break;
@@ -461,10 +440,8 @@ namespace TeamSuneat
 
                 case LogTags.Attack: { Attack = false; } break;
                 case LogTags.BattleResource: { BattleResource = false; } break;
-                case LogTags.Buff: { Buff = false; } break;
                 case LogTags.Damage: { Damage = false; } break;
                 case LogTags.Effect: { Effect = false; } break;
-                case LogTags.Passive: { Passive = false; } break;
                 case LogTags.Stat: { Stat = false; } break;
                 case LogTags.Vital: { Vital = false; } break;
 
@@ -473,7 +450,6 @@ namespace TeamSuneat
                 case LogTags.Currency: { Currency = false; } break;
                 case LogTags.Item: { Item = false; } break;
                 case LogTags.Weapon: { Weapon = false; } break;
-                case LogTags.DropObject: { DropObject = false; } break;
 
                 case LogTags.Quest: { Quest = false; } break;
                 case LogTags.Tutorial: { Tutorial = false; } break;

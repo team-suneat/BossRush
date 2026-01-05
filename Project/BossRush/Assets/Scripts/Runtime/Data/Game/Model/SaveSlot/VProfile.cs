@@ -5,7 +5,6 @@ namespace TeamSuneat.Data.Game
     {
         /// <summary> 할당한 아이템의 고유 번호</summary>
         public int IssuedItemSID;
-        public VCharacterLevel Level;
         public VCharacterWeapon Weapon;
         public VCharacterAccessory Accessory;
         public VCharacterItem Item;
@@ -13,7 +12,6 @@ namespace TeamSuneat.Data.Game
 
         public VCharacterStage Stage;
         public VCharacterSlot Slot;
-        public VCharacterSkill Skill;
         public VStatistics Statistics;
 
         public void OnLoadGameData()
@@ -27,20 +25,17 @@ namespace TeamSuneat.Data.Game
 
             Stage.OnLoadGameData();
             Slot.OnLoadGameData();
-            Skill.OnLoadGameData();
             Statistics.OnLoadGameData();
         }
 
         public void CreateEmptyData()
         {
-            Level ??= VCharacterLevel.CreateDefault();
             Weapon ??= VCharacterWeapon.CreateDefault();
             Accessory ??= VCharacterAccessory.CreateDefault();
             Item ??= VCharacterItem.CreateDefault();
             Currency ??= VCurrency.CreateDefault();
             Stage ??= VCharacterStage.CreateDefault();
             Slot ??= VCharacterSlot.CreateDefault();
-            Skill ??= VCharacterSkill.CreateDefault();
             Statistics ??= VStatistics.CreateDefault();
         }
 

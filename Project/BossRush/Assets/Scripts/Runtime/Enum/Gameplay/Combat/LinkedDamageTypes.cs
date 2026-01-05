@@ -14,12 +14,12 @@ namespace TeamSuneat
         /// <summary>
         /// 공격자의 현재 생명력
         /// </summary>
-        CurrentHealthOfAttacker,
+        CurrentLifeOfAttacker,
 
         /// <summary>
         /// 공격자의 최대 생명력
         /// </summary>
-        MaxHealthOfAttacker,
+        MaxLifeOfAttacker,
 
         /// <summary>
         /// 공격자의 현재 보호막
@@ -34,18 +34,11 @@ namespace TeamSuneat
         /// <summary>
         /// 피격자의 현재 생명력
         /// </summary>
-        CurrentHealthOfTarget,
+        CurrentLifeOfTarget,
 
         /// <summary>
         /// 피격자의 최대 생명력
         /// </summary>
-        MaxHealthOfTarget,
-
-        // 능력치
-
-        /// <summary>
-        /// 공격자의 기술 재사용 대기시간
-        /// </summary>
-        SkillCooldownTime,
+        MaxLifeOfTarget,
     }
 }

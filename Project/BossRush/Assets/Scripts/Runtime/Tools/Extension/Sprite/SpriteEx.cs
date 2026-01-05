@@ -7,7 +7,6 @@ namespace TeamSuneat
     {
         // 아이콘 스트링 포맷
         private const string CHARACTER_ICON_FORMAT = "ui_character_icon_";
-        private const string PASSIVE_ICON_FORMAT = "ui_passive_icon_";
         private const string ITEM_ICON_FORMAT = "ui_item_icon_";
         private const string CURRENCY_ICON_FORMAT = "ui_currency_icon_";
 
@@ -22,15 +21,6 @@ namespace TeamSuneat
         {
             _ = _stringBuilder.Clear();
             _ = _stringBuilder.Append(CHARACTER_ICON_FORMAT);
-            _ = _stringBuilder.Append(key.ToLowerString());
-
-            return _stringBuilder.ToString();
-        }
-
-        public static string GetSpriteName(this PassiveNames key)
-        {
-            _ = _stringBuilder.Clear();
-            _ = _stringBuilder.Append(PASSIVE_ICON_FORMAT);
             _ = _stringBuilder.Append(key.ToLowerString());
 
             return _stringBuilder.ToString();

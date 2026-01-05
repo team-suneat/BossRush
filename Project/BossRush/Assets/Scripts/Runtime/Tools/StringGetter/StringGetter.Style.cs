@@ -31,7 +31,6 @@ namespace TeamSuneat
                 string output = input;
 
                 output = ConvertStyleFormatString("SkillName", @"<b><color=white>$1</color></b>", output);
-                output = ConvertStyleFormatString("BuffName", @"<i><color=white>$1</color></i>", output);
                 output = ConvertStyleFormatString("StateEffect", @"<i><color=white>$1</color></i>", output);
                 if (output.Contains("StateEffect"))
                 {

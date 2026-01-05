@@ -18,7 +18,6 @@ namespace TeamSuneat
         {
             if (base.AddCurrentValue(value))
             {
-                Vital.RefreshResourceGauge();
                 return true;
             }
             return false;
@@ -28,7 +27,6 @@ namespace TeamSuneat
         {
             if (base.UseCurrentValue(value))
             {
-                Vital.RefreshResourceGauge();
                 return true;
             }
             return false;
@@ -37,7 +35,6 @@ namespace TeamSuneat
         protected override void OnAddCurrentValue(int value)
         {
             base.OnAddCurrentValue(value);
-            Vital.RefreshResourceGauge();
         }
 
         public override void RefreshMaxValue(bool shouldAddExcessToCurrent = false)

@@ -22,7 +22,6 @@ namespace TeamSuneat
         {
             base.BattleReady();
 
-            Buff?.OnBattleReady();
             CharacterManager.Instance.RegisterPlayer(this);
             SetupAnimatorLayerWeight();
 
@@ -58,33 +57,6 @@ namespace TeamSuneat
             base.PhysicsUpdate();
         }
 
-        //
-
-        public override void SetupLevel()
-        {
-            base.SetupLevel();
-
-            Level = ProfileInfo.Level.Level;
-        }
-
-        public void OnLevelup(int addedLevel)
-        {
-            SetupLevel();
-
-            if (OnLevelUpFeedbacks != null)
-            {
-                OnLevelUpFeedbacks.PlayFeedbacks(position, 0);
-            }
-
-            SpawnLevelUpText(addedLevel);
-        }
-
-        public void OnLevelDown()
-        {
-            SetupLevel();
-            MyVital?.OnLevelDown();
-        }
-
         private void SpawnLevelUpText(int addedLevel)
         {
             if (addedLevel == 0)
@@ -113,18 +85,10 @@ namespace TeamSuneat
         private void ApplyBaseStats(PlayerCharacterStatConfigAsset asset)
         {
             if (!asset.IsValid()) return;
-            Stat.AddWithSourceInfo(StatNames.Health, asset.BaseHealth, this, NameString, "CharacterBase");
+            Stat.AddWithSourceInfo(StatNames.Life, asset.BaseLife, this, NameString, "CharacterBase");
             Stat.AddWithSourceInfo(StatNames.Attack, asset.BaseAttack, this, NameString, "CharacterBase");
-            Stat.AddWithSourceInfo(StatNames.HealthRegen, asset.BaseHealthRegen, this, NameString, "CharacterBase");
             Stat.AddWithSourceInfo(StatNames.AttackSpeed, asset.BaseAttackSpeed, this, NameString, "CharacterBase");
-            Stat.AddWithSourceInfo(StatNames.CriticalChance, asset.BaseCriticalChance, this, NameString, "CharacterBase");
-            Stat.AddWithSourceInfo(StatNames.CriticalDamage, asset.BaseCriticalDamage, this, NameString, "CharacterBase");
             Stat.AddWithSourceInfo(StatNames.Mana, asset.BaseMana, this, NameString, "CharacterBase");
-            Stat.AddWithSourceInfo(StatNames.ManaRegen, asset.BaseManaRegen, this, NameString, "CharacterBase");
-            Stat.AddWithSourceInfo(StatNames.Accuracy, asset.BaseAccuracy, this, NameString, "CharacterBase");
-            Stat.AddWithSourceInfo(StatNames.Dodge, asset.BaseDodge, this, NameString, "CharacterBase");
-            Stat.AddWithSourceInfo(StatNames.GoldGain, asset.BaseGoldGain, this, NameString, "CharacterBase");
-            Stat.AddWithSourceInfo(StatNames.XPGain, asset.BaseXPGain, this, NameString, "CharacterBase");
         }
 
         //

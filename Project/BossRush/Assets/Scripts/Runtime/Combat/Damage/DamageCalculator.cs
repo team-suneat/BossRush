@@ -57,7 +57,6 @@ namespace TeamSuneat
         public HitmarkAssetData HitmarkAssetData { get; set; }
         public Character Attacker { get; private set; }
         public AttackEntity AttackEntity { get; set; }
-        public Projectile AttackProjectile { get; set; }
         public List<DamageResult> DamageResults { get; private set; }
         public float ReferenceValue { get; set; }
         public float DamageReferenceValue { get; private set; }
@@ -89,26 +88,13 @@ namespace TeamSuneat
                 return;
             }
 
-            ResetDamageResults();
-            DetermineImmuneCC(HitmarkAssetData.IsCrowdControl);
+            ResetDamageCalculators();
 
             HitmarkAssetData damageAsset = HitmarkAssetData;
             DamageResult damageResult = CreateDamageResult(damageAsset);
 
             RefreshReferenceValue(damageAsset);
             ComputeByType(damageAsset, ref damageResult);
-
-            // 치명타 이벤트 발송
-            if (damageResult.IsCritical)
-            {
-                GlobalEvent<DamageResult>.Send(GlobalEventType.PLAYER_CHARACTER_ATTACK_MONSTER_CRITICAL, damageResult);
-            }
-
-            // 회심의 일격 이벤트 발송
-            if (damageResult.IsDevastatingStrike)
-            {
-                GlobalEvent<DamageResult>.Send(GlobalEventType.PLAYER_CHARACTER_ATTACK_MONSTER_DEVASTATING_STRIKE, damageResult);
-            }
 
             DamageResults.Add(damageResult);
         }
@@ -120,7 +106,7 @@ namespace TeamSuneat
                 return;
             }
 
-            ResetDamageResults();
+            ResetDamageCalculators();
 
             HitmarkAssetData damageAsset = HitmarkAssetData;
             DamageResult damageResult = CreateDamageResult(damageAsset);
@@ -142,7 +128,7 @@ namespace TeamSuneat
             };
         }
 
-        private void ResetDamageResults()
+        private void ResetDamageCalculators()
         {
             if (DamageResults == null)
             {
@@ -153,7 +139,7 @@ namespace TeamSuneat
                 DamageResults.Clear();
             }
 
-            LogProgressResetDamageResults();
+            LogProgressResetDamageCalculators();
         }
 
         public void SetAttacker(Character attacker)

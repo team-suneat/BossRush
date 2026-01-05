@@ -15,9 +15,7 @@ namespace TeamSuneat
         public const int Player = 10;
         public const int Enemies = 11;
         public const int Friendlies = 12;
-        public const int Projectiles = 13;
-        public const int InteractionObject = 14;
-        public const int DropObject = 15;
+        public const int InteractionObject = 13;
 
         public const int Detectable = 20;
         public const int Breakable = 21;
@@ -37,9 +35,7 @@ namespace TeamSuneat
             public const int Player = 1 << GameLayers.Player;
             public const int Enemies = 1 << GameLayers.Enemies;
             public const int Friendlies = 1 << GameLayers.Friendlies;
-            public const int Projectiles = 1 << GameLayers.Projectiles;
             public const int InteractionObject = 1 << GameLayers.InteractionObject;
-            public const int DropObject = 1 << GameLayers.DropObject;
             public const int Detectable = 1 << GameLayers.Detectable;
             public const int Breakable = 1 << GameLayers.Breakable;
         }

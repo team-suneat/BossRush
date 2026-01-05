@@ -7,7 +7,6 @@ namespace TeamSuneat
     {
         None,
         OwnerCharacter,
-        OwnerProjectile,
     }
 
     [System.Serializable]

@@ -8,8 +8,6 @@
         MapObject,
         MonsterCharacter,
         PlayerCharacter,
-        DropObject,
-        Projectile,
         Effect,
         Foreground,
         UI,

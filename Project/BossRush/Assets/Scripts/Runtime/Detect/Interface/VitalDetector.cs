@@ -26,8 +26,8 @@ namespace TeamSuneat
             {
                 case DetectTypes.Nearest: { Comparer = new NearestVitalComparer(); } break;
                 case DetectTypes.Farthest: { Comparer = new FarthestVitalComparer(); } break;
-                case DetectTypes.LowestHealth: { Comparer = new LowestHealthVitalComparer(); } break;
-                case DetectTypes.HighestHealth: { Comparer = new HighestHealthVitalComparer(); } break;
+                case DetectTypes.LowestLife: { Comparer = new LowestLifeVitalComparer(); } break;
+                case DetectTypes.HighestLife: { Comparer = new HighestLifeVitalComparer(); } break;
             }
         }
 

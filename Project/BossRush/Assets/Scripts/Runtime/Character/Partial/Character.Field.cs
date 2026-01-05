@@ -1,6 +1,5 @@
 using Sirenix.OdinInspector;
 using TeamSuneat.Feedbacks;
-using TeamSuneat.Passive;
 using UnityEngine;
 
 namespace TeamSuneat
@@ -27,32 +26,17 @@ namespace TeamSuneat
         [FoldoutGroup("#Character/Component")][ChildGameObjectsOnly] public Animator Animator;
 
         [FoldoutGroup("#Character/Component")]
-        [ChildGameObjectsOnly] public PhysicsController PhysicsController;
+        [ChildGameObjectsOnly] public PlayerPhysics PhysicsController;
 
         [FoldoutGroup("#Character/Component")][ChildGameObjectsOnly] public AttackSystem Attack;
-        [FoldoutGroup("#Character/Component")][ChildGameObjectsOnly] public BuffSystem Buff;
-        [FoldoutGroup("#Character/Component")][ChildGameObjectsOnly] public PassiveSystem Passive;
-        [FoldoutGroup("#Character/Component")][ChildGameObjectsOnly] public SkillSystem Skill;
         [FoldoutGroup("#Character/Component")][ChildGameObjectsOnly] public StatSystem Stat;
         [FoldoutGroup("#Character/Component")][ChildGameObjectsOnly] public Vital MyVital;
-        [FoldoutGroup("#Character/Component")][ChildGameObjectsOnly] public CharacterAbility[] Abilities;
 
         // ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-        [FoldoutGroup("#Character/Abilities")]
-        public CharacterHorizontalMovement HorizontalMovement;
-
-        [FoldoutGroup("#Character/Abilities")]
-        public CharacterFly Fly;
-
-        // ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-        [FoldoutGroup("#Character/Component/Point")][ChildGameObjectsOnly] public Transform ShieldPoint;
+        [FoldoutGroup("#Character/Component/Point")][ChildGameObjectsOnly] public Transform BarrierPoint;
         [FoldoutGroup("#Character/Component/Point")][ChildGameObjectsOnly] public Transform WarningTextPoint;
         [FoldoutGroup("#Character/Component/Point")][ChildGameObjectsOnly] public Transform MinimapPoint;
-
-        [FoldoutGroup("#Character/Component/Point")] public Vector2 BuffSpawnArea;
-        [FoldoutGroup("#Character/Component/Point")] public bool UseCustomBuffVFXPosition;
 
         // ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -108,6 +92,8 @@ namespace TeamSuneat
         [FoldoutGroup("#Character/State Machine")]
         public StateMachine<CharacterConditions> ConditionState;
 
+        [FoldoutGroup("#Character/Target")]
+        public LayerMask TargetMask;
         // ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
         protected Vector3 _raycastOrigin;

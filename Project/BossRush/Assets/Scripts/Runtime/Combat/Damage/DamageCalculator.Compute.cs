@@ -65,8 +65,6 @@ namespace TeamSuneat
 
         private void HandleComputeDamage(HitmarkAssetData damageAsset, ref DamageResult damageResult)
         {
-            if (DetermineEvasion(damageResult)) { damageResult.IsEvasion = true; return; }
-            if (DetermineExecute(damageResult)) { damageResult.DamageValue = float.MaxValue; return; }
             if (TryApplyReferenceDamage(damageAsset, ref damageResult))
             {
                 return;
@@ -100,8 +98,7 @@ namespace TeamSuneat
         // 피해 계산
         // 문서 공식 (5.4 캐릭터 실제 피해량 계산식):
         // 1단계: 총 공격력 = 기본 공격력 + 장비 공격력 + 강화 공격력
-        // 2단계: 치명타 피해 = 기본 데미지 × (1 + 치명타 피해%)
-        // 3단계: 총 데미지 = (평타/스킬 계수) × 총 공격력 × ... + 회심의 일격 보너스
+        // 2단계: 총 데미지 = (평타/스킬 계수) × 총 공격력
         private void ComputeDamage(HitmarkAssetData damageAsset, int hitmarkLevel, ref DamageResult damageResult)
         {
             ClearLogBuilder();
@@ -120,20 +117,15 @@ namespace TeamSuneat
             // 피해 감소 계산
             float damageReduction = CalculateDamageReduction(damageResult);
 
-            // 피해 증폭 계산 (치명타 + 회심의 일격)
-            // 2단계: 치명타 피해 = 기본 데미지 × (1 + 치명타 피해%)
-            // 회심의 일격 피해 = 기본 데미지 × (1 + 회심의 일격%)
-            float damageAmplification = CalculateDamageAmplification(damageAsset, damageResult);
-
             /*
              * 계산 공식:
              * 총 피해량 = 기본 피해량 × 스킬 계수
-             * 최종 피해량 = 총 피해량 × 피해 감소 × 피해 증폭(치명타/회심의 일격)
+             * 최종 피해량 = 총 피해량 × 피해 감소
              * 감소된 피해량 = 총 피해량 × (1 - 피해 감소 배율)
              */
 
             float totalDamage = baseDamage * damageMultiplier;
-            float finalDamageValue = totalDamage * damageReduction * damageAmplification;
+            float finalDamageValue = totalDamage * damageReduction;
             float reducedDamageValue = totalDamage * (1f - damageReduction);
 
             LogDamageCalculationStart(
@@ -142,7 +134,6 @@ namespace TeamSuneat
                 baseDamage,
                 damageMultiplier,
                 damageReduction,
-                damageAmplification,
                 finalDamageValue);
 
             LogInfo(GetLogString());
@@ -172,16 +163,13 @@ namespace TeamSuneat
             float damageReduction = CalculateDamageReduction(damageResult);
             LogDamageReduction("지속", damageReduction);
 
-            // 최종 피해 계산
-            float damageAmplification = CalculateDamageAmplification(damageAsset, damageResult);
-
             /*
-             * 최종 지속 피해량 = (기본 피해량 × 피해 배율) × 피해 감소 × 피해 증폭
+             * 최종 지속 피해량 = (기본 피해량 × 피해 배율) × 피해 감소
              * 감소된 지속 피해량 = (기본 피해량 × 피해 배율) × (1 - 피해 감소)
              */
 
             float totalDamage = baseDamage * damageMultiplier;
-            float finalDamageValue = totalDamage * damageReduction * damageAmplification;
+            float finalDamageValue = totalDamage * damageReduction;
             float reducedDamageValue = totalDamage * (1f - damageReduction);
 
             LogDamageCalculationStart(
@@ -190,7 +178,6 @@ namespace TeamSuneat
                 baseDamage,
                 damageMultiplier,
                 damageReduction,
-                damageAmplification,
                 finalDamageValue);
 
             LogInfo(GetLogString());
@@ -220,16 +207,13 @@ namespace TeamSuneat
             float damageReduction = CalculateDamageReduction(damageResult);
             LogDamageReduction("가시", damageReduction);
 
-            // 피해 증폭 계산
-            float damageAmplification = CalculateDamageAmplification(damageAsset, damageResult);
-
             /*
-             * 최종 가시 피해량 = (기본 피해 × 배율) × 피해 감소 × 증폭
+             * 최종 가시 피해량 = (기본 피해 × 배율) × 피해 감소
              * 감소된 가시 피해량 = 총 피해량 × (1 - 피해 감소 배율)
              */
 
             float totalThornsDamage = (thornsDamage * thornsDamageMultiplier);
-            float finalDamageValue = totalThornsDamage * damageReduction * damageAmplification;
+            float finalDamageValue = totalThornsDamage * damageReduction;
             float reducedDamageValue = totalThornsDamage * (1f - damageReduction);
 
             LogDamageCalculationStart(
@@ -238,7 +222,6 @@ namespace TeamSuneat
                 thornsDamage,
                 thornsDamageMultiplier,
                 damageReduction,
-                damageAmplification,
                 finalDamageValue);
 
             LogInfo(GetLogString());

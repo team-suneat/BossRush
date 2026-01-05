@@ -11,19 +11,5 @@ namespace TeamSuneat.Data
         {
             _playerCharacterStatAsset?.Refresh();
         }
-
-        #region 경험치 (EXP)
-
-        public ExperienceConfigAsset GetExperienceConfigAsset()
-        {
-            return _experienceConfigAsset;
-        }
-
-        public void RefreshExperienceConfig()
-        {
-            _experienceConfigAsset?.Refresh();
-        }
-
-        #endregion 경험치 (EXP)
     }
 }

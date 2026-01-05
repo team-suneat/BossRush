@@ -232,12 +232,10 @@ namespace TeamSuneat
 
         public static Color EquipmentCategory => new Color32(0, 70, 131, 255); // #004683
         public static Color Stat => ReunoYellow; // #FFC400
-        public static Color Buff => Aquamarine; // #7FFFDC
         public static Color Character => Violet; // #EE82EE
         public static Color Hitmark => Brown; // #A52A2A
         public static Color Item => SkyBlue; // #87CEEB
         public static Color Item2 => SteelBlue; // #4682B4
-        public static Color Passive => YellowGreen; // #9ACD32
         public static Color Stage => new Color32(82, 122, 54, 255); // 527A36
         public static Color LogStage => DarkSeaGreen; // #8FBC8F
         public static Color LogArea => LightSeaGreen; // #20B2AA

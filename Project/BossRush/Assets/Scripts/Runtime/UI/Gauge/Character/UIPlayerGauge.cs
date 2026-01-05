@@ -32,6 +32,7 @@ namespace TeamSuneat.UserInterface
         }
 
         public void Despawn() => _poolHandler?.Despawn();
+
         public void SetDespawnMark() => _poolHandler?.SetDespawnMark();
 
         public void LogicUpdate()
@@ -76,17 +77,17 @@ namespace TeamSuneat.UserInterface
                 _vital.DieEvent.AddListener(OnVitalDied);
             }
 
-            if (_vital.Health != null)
+            if (_vital.Life != null)
             {
-                _vital.Health.OnValueChanged += OnHealthChanged;
-                SetHealth(_vital.Health);
+                _vital.Life.OnValueChanged += OnLifeChanged;
+                SetLife(_vital.Life);
             }
 
-            if (_vital.Shield != null)
+            if (_vital.Barrier != null)
             {
-                _vital.Shield.OnValueChanged += OnShieldChanged;
+                _vital.Barrier.OnValueChanged += OnShieldChanged;
             }
-            SetShield(_vital.Shield);
+            SetShield(_vital.Barrier);
 
             if (_vital.Mana != null)
             {
@@ -94,7 +95,7 @@ namespace TeamSuneat.UserInterface
             }
             SetResource(_vital.Mana);
 
-            Transform anchor = _vital.GaugePoint != null ? _vital.GaugePoint : _character.transform;
+            Transform anchor = _character.transform;
             SetupFollow(anchor);
         }
 
@@ -113,14 +114,9 @@ namespace TeamSuneat.UserInterface
 
             if (_vital != null)
             {
-                if (_vital.Health != null)
+                if (_vital.Life != null)
                 {
-                    _vital.Health.OnValueChanged -= OnHealthChanged;
-                }
-
-                if (_vital.Shield != null)
-                {
-                    _vital.Shield.OnValueChanged -= OnShieldChanged;
+                    _vital.Life.OnValueChanged -= OnLifeChanged;
                 }
 
                 if (_vital.Mana != null)
@@ -135,7 +131,7 @@ namespace TeamSuneat.UserInterface
             _followObject?.StopFollowing();
         }
 
-        public void SetHealth(VitalResource resource)
+        public void SetLife(VitalResource resource)
         {
             if (_healthGauge == null)
             {
@@ -222,14 +218,14 @@ namespace TeamSuneat.UserInterface
             _followObject.Setup(anchor);
         }
 
-        private void OnHealthChanged(int current, int max)
+        private void OnLifeChanged(int current, int max)
         {
-            SetHealth(_vital?.Health);
+            SetLife(_vital?.Life);
         }
 
         private void OnShieldChanged(int current, int max)
         {
-            SetShield(_vital?.Shield);
+            SetShield(_vital?.Barrier);
         }
 
         private void OnResourceChanged(int current, int max)

@@ -1,5 +1,6 @@
-﻿using TeamSuneat.UserInterface;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
+using System.Collections.Generic;
+using TeamSuneat.Feedbacks;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,69 +8,56 @@ namespace TeamSuneat
 {
     public partial class Vital : Entity
     {
+        [FoldoutGroup("#Vital")]
+        [SuffixLabel("Vital의 충돌체 크기를 캐릭터의 충돌체 크기에 비례합니다")]
+        public bool BasedOnOwnerCollider = true;
+
+        [FoldoutGroup("#Vital")]
+        public bool UseIndividualCollider;
+
+        [FoldoutGroup("#Vital")]
+        public VitalColliderHandler VitalColliderHandler = new();
+
+        //--------------------------------------------------------------------------------------------------------=
+
         [FoldoutGroup("#Vital-Components")]
         public Character Owner;
 
         [FoldoutGroup("#Vital-Components")]
-        public Transform GaugePoint;
+        public BoxCollider2D Collider;
 
-        //──────────────────────────────────────────────────────────────────────────────────────────────────────
+        [FoldoutGroup("#Vital-Components")]
+        public BoxCollider2D[] Colliders;
+
+        //--------------------------------------------------------------------------------------------------------=
 
         [FoldoutGroup("#Vital-Battle Resource")]
         public VitalResourceTypes ResourceType;
 
         [FoldoutGroup("#Vital-Battle Resource")]
-        public Health Health;
+        public Life Life;
 
         [FoldoutGroup("#Vital-Battle Resource")]
-        public Shield Shield;
+        public Barrier Barrier;
 
         [FoldoutGroup("#Vital-Battle Resource")]
         public Mana Mana;
 
-        //──────────────────────────────────────────────────────────────────────────────────────────────────────
-        [FoldoutGroup("#Vital-Gauge")]
-        public bool UseGauge;
+        //--------------------------------------------------------------------------------------------------------=
 
-        [FoldoutGroup("#Vital-Gauge")]
-        public bool UseSpawnGaugeOnInit;
+        [FoldoutGroup("#Vital-Guard")]
+        public List<int> GuardColliderIndexes = new();
 
-        [FoldoutGroup("#Vital-Gauge")]
-        [ReadOnly]
-        public UIEnemyGauge EnemyGauge
-        {
-            get
-            {
-                if (UIManager.Instance != null)
-                {
-                    ICharacterGaugeView view = UIManager.Instance.GaugeManager.FindCharacter(this);
-                    return view as UIEnemyGauge;
-                }
+        [FoldoutGroup("#Vital-Guard")]
+        [SuffixLabel("설정된 인덱스의 충돌체는 보호막만 피해입음")]
+        public List<int> OnlyUseBarrierColliderIndexes = new();
 
-                return null;
-            }
-        }
-
-        [FoldoutGroup("#Vital-Gauge")]
-        [ReadOnly]
-        public UIPlayerGauge PlayerGauge
-        {
-            get
-            {
-                if (UIManager.Instance != null)
-                {
-                    ICharacterGaugeView view = UIManager.Instance.GaugeManager.FindCharacter(this);
-                    return view as UIPlayerGauge;
-                }
-
-                return null;
-            }
-        }
-
-
-        //──────────────────────────────────────────────────────────────────────────────────────────────────────
+        //--------------------------------------------------------------------------------------------------------=
 
         [FoldoutGroup("#Vital-Event")]
         public UnityEvent DieEvent; // 파괴 가능한 오브젝트에서 사용
+
+        [FoldoutGroup("#Vital-Feedback")]
+        public GameFeedbacks GuardFeedbacks;
     }
 }

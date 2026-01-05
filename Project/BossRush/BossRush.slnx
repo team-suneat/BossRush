@@ -1,10 +1,10 @@
 ﻿<Solution>
-  <Project Path="Slayer.Runtime.csproj" />
+  <Project Path="BossRush.Runtime.csproj" />
   <Project Path="Assembly-CSharp-firstpass.csproj" />
   <Project Path="SpriteTrail.csproj" />
   <Project Path="LeanCommon.csproj" />
   <Project Path="AllIn1SpriteShaderAssembly.csproj" />
-  <Project Path="Slayer.Editor.csproj" />
+  <Project Path="BossRush.Editor.csproj" />
   <Project Path="Assembly-CSharp-Editor-firstpass.csproj" />
   <Project Path="CW.Common.csproj" />
   <Project Path="DOTween.Modules.csproj" />

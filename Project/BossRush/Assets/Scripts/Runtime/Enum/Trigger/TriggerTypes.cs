@@ -9,8 +9,6 @@ namespace TeamSuneat
         OnDamage,
         OnHeal,
         OnSkillUse,
-        OnBuffApply,
-        OnBuffRemove,
         OnLevelUp,
         OnDeath,
         OnCritical,

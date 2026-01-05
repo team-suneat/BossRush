@@ -108,7 +108,7 @@ namespace TeamSuneat.Audio
             }
         }
 
-        // BGM
+        // MUSIC
 
         private bool CheckPlayableBGM(AudioClip clip)
         {
@@ -126,7 +126,7 @@ namespace TeamSuneat.Audio
             {
                 if (Log.LevelWarning)
                 {
-                    Log.Warning(LogTags.Audio, "(Manager) BGM 클립이 null입니다.");
+                    Log.Warning(LogTags.Audio, "(Manager) MUSIC 클립이 null입니다.");
                 }
 
                 return false;
@@ -166,7 +166,7 @@ namespace TeamSuneat.Audio
 
                 if (Log.LevelInfo)
                 {
-                    Log.Info(LogTags.Audio, "(Manager) 배경음(BGM)을 재생합니다: {0}", clip.name);
+                    Log.Info(LogTags.Audio, "(Manager) 배경음(MUSIC)을 재생합니다: {0}", clip.name);
                 }
             }
 
@@ -177,7 +177,7 @@ namespace TeamSuneat.Audio
         {
             if (_bgmAudioObject != null)
             {
-                Log.Info(LogTags.Audio, "(Manager) 배경음(BGM) 페이드를 정지합니다. {0}", _bgmAudioObject.name);
+                Log.Info(LogTags.Audio, "(Manager) 배경음(MUSIC) 페이드를 정지합니다. {0}", _bgmAudioObject.name);
             }
 
             _bgmFader.StopFade();
@@ -205,7 +205,7 @@ namespace TeamSuneat.Audio
             {
                 if (Log.LevelWarning)
                 {
-                    Log.Warning(LogTags.Audio, "(Manager) 같은 이름의 배경음(BGM)을 재생하지 않습니다: {0}", soundName);
+                    Log.Warning(LogTags.Audio, "(Manager) 같은 이름의 배경음(MUSIC)을 재생하지 않습니다: {0}", soundName);
                 }
 
                 return false;
@@ -226,7 +226,7 @@ namespace TeamSuneat.Audio
 
                 if (Log.LevelInfo)
                 {
-                    Log.Info(LogTags.Audio, "(Manager) 배경음(BGM)을 페이드 변경합니다: {0} >> {1}", _bgmAudioObject.name, audioClip.name);
+                    Log.Info(LogTags.Audio, "(Manager) 배경음(MUSIC)을 페이드 변경합니다: {0} >> {1}", _bgmAudioObject.name, audioClip.name);
                 }
 
                 _bgmFader.StartFade(_bgmAudioObject, newAudioObject, CROSS_FADE_DURATION, result =>

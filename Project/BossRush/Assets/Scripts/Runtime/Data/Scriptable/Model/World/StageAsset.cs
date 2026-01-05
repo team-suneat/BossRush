@@ -12,8 +12,6 @@ namespace TeamSuneat.Data
         [LabelText("스테이지 ID (지역 내 1~20)")]
         public StageNames Name;
 
-        [LabelText("소속 지역 ID")]
-        public AreaNames AreaName;
 
         [LabelText("장비 등급 (일반, 고급, 레어, 희귀, 영웅, 전설)")]
         public GradeNames EquipmentGrade;
@@ -30,22 +28,21 @@ namespace TeamSuneat.Data
         public ItemTypes ItemType;
 
         [Title("몬스터 설정")]
+        [LabelText("생성할 몬스터 이름 (우선 사용)")]
+        public CharacterNames MonsterCharacterName = CharacterNames.None;
+
         [LabelText("일반 몬스터 후보 (지역에 설정된 일반 몬스터 종류 인덱스)")]
         public List<int> MonsterCandidates = new List<int>();
 
         [LabelText("보스 몬스터 후보 (지역에 설정된 보스 몬스터 종류 인덱스)")]
         public int BossMonsterIndex;
 
-        [Title("웨이브 설정")]
-        [LabelText("웨이브 수 (기본 20웨이브)")]
-        public int WaveCount = 20;
-
-        [LabelText("웨이브당 생성 몬스터 수")]
+        [Title("몬스터 생성 설정")]
+        [LabelText("생성 몬스터 수")]
         public int MonsterCountPerWave = 5;
 
         //
 
-        [FoldoutGroup("#String", 2)] private string AreaNameString;
         [FoldoutGroup("#String", 2)] private string EquipmentGradeString;
         [FoldoutGroup("#String", 2)] private string ItemTypeString;
 
@@ -62,17 +59,9 @@ namespace TeamSuneat.Data
             {
                 Log.Error("스테이지 ID가 유효하지 않습니다 (1~20): {0}", name);
             }
-            if (AreaName == AreaNames.None)
-            {
-                Log.Error("지역 ID가 유효하지 않습니다 (1~41): {0}", name);
-            }
-            if (WaveCount < 1)
-            {
-                Log.Error("웨이브 수가 1보다 작습니다: {0}", name);
-            }
             if (MonsterCountPerWave < 1)
             {
-                Log.Error("웨이브당 생성 몬스터 수가 1보다 작습니다: {0}", name);
+                Log.Error("생성 몬스터 수가 1보다 작습니다: {0}", name);
             }
             if (MonsterCandidates == null || MonsterCandidates.Count == 0)
             {
@@ -83,7 +72,7 @@ namespace TeamSuneat.Data
 
         public int GetStageMonsterCount()
         {
-            return WaveCount * MonsterCountPerWave - 1;
+            return MonsterCountPerWave;
         }
 
 #if UNITY_EDITOR
@@ -92,7 +81,6 @@ namespace TeamSuneat.Data
         {
             base.Validate();
             EnumEx.ConvertTo(ref Name, NameString);
-            EnumEx.ConvertTo(ref AreaName, AreaNameString);
             EnumEx.ConvertTo(ref EquipmentGrade, EquipmentGradeString);
             EnumEx.ConvertTo(ref ItemType, ItemTypeString);
         }
@@ -102,10 +90,6 @@ namespace TeamSuneat.Data
             if (Name != StageNames.None)
             {
                 NameString = Name.ToString();
-            }
-            if (AreaName != AreaNames.None)
-            {
-                AreaNameString = AreaName.ToString();
             }
             if (EquipmentGrade != GradeNames.None)
             {

@@ -1,12 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
 
 public partial class Excel4Unity : Editor
 {
+    private sealed class ListWrapper<T>
+    {
+        public List<T> items;
+    }
+
     [MenuItem("Tools/Excel/모든 엑셀 파일 불러오기")]
     public static void ConvertAllExcelToJSON()
     {
@@ -125,9 +132,6 @@ public partial class Excel4Unity : Editor
         int tableColumn = 0;
         string v = string.Empty;
 
-        StringBuilder stringBuilder = new StringBuilder();
-        LitJson.JsonWriter writer = new LitJson.JsonWriter(stringBuilder);
-
         try
         {
             bool language = tableName.ToLower().Contains("language");
@@ -136,7 +140,7 @@ public partial class Excel4Unity : Editor
                 return null;
             }
 
-            writer.WriteArrayStart();
+            List<Dictionary<string, object>> items = new List<Dictionary<string, object>>();
 
             // row 0 : 키값
             // row 1 : 타입
@@ -157,7 +161,7 @@ public partial class Excel4Unity : Editor
                     break;
                 }
 
-                writer.WriteObjectStart();
+                Dictionary<string, object> item = new Dictionary<string, object>();
 
                 for (int column = 1; column <= table.NumberOfColumns; column++)
                 {
@@ -193,7 +197,7 @@ public partial class Excel4Unity : Editor
                             tableName, currentPropName, currentPropType, tableRow, tableColumn);
                     }
 
-                    writer.WritePropertyName(propName);
+                    object parsedValue = null;
 
                     switch (propType)
                     {
@@ -201,11 +205,12 @@ public partial class Excel4Unity : Editor
                             {
                                 if (v.Equals("-"))
                                 {
-                                    writer.Write(false);
-                                    continue;
+                                    parsedValue = false;
                                 }
-
-                                writer.Write(bool.Parse(v));
+                                else
+                                {
+                                    parsedValue = bool.Parse(v);
+                                }
                             }
                             break;
 
@@ -213,11 +218,12 @@ public partial class Excel4Unity : Editor
                             {
                                 if (v.Equals("-"))
                                 {
-                                    writer.Write(0);
-                                    continue;
+                                    parsedValue = 0;
                                 }
-                                int value = v.Length > 0 ? int.Parse(v) : 0;
-                                writer.Write(value);
+                                else
+                                {
+                                    parsedValue = v.Length > 0 ? int.Parse(v) : 0;
+                                }
                             }
                             break;
 
@@ -225,10 +231,12 @@ public partial class Excel4Unity : Editor
                             {
                                 if (v.Equals("-"))
                                 {
-                                    writer.Write("0");
-                                    continue;
+                                    parsedValue = "0";
                                 }
-                                writer.Write(v);
+                                else
+                                {
+                                    parsedValue = v;
+                                }
                             }
                             break;
 
@@ -236,13 +244,13 @@ public partial class Excel4Unity : Editor
                             {
                                 if (v.Equals("-"))
                                 {
-                                    writer.Write(0f);
+                                    parsedValue = 0f;
                                 }
                                 else
                                 {
                                     float value = float.Parse(v);
                                     value = MathF.Round(value, 4);
-                                    writer.Write(value);
+                                    parsedValue = value;
                                 }
                             }
                             break;
@@ -251,11 +259,12 @@ public partial class Excel4Unity : Editor
                             {
                                 if (v.Equals("-"))
                                 {
-                                    writer.Write("0");
-                                    continue;
+                                    parsedValue = "0";
                                 }
-
-                                writer.Write(v);
+                                else
+                                {
+                                    parsedValue = v;
+                                }
                             }
                             break;
 
@@ -263,87 +272,79 @@ public partial class Excel4Unity : Editor
                             {
                                 if (v.Equals("-"))
                                 {
-                                    writer.Write(0);
-                                    continue;
+                                    parsedValue = 0;
                                 }
-
-                                double value = v.Length > 0 ? double.Parse(v) : 0;
-                                writer.Write(value);
+                                else
+                                {
+                                    parsedValue = v.Length > 0 ? double.Parse(v) : 0;
+                                }
                             }
                             break;
 
                         case "enum":
                             {
-                                if (v.Equals("-"))
+                                if (v.Equals("-") || string.IsNullOrEmpty(v))
                                 {
-                                    writer.Write("None");
-                                    continue;
+                                    parsedValue = "None";
                                 }
-                                else if (string.IsNullOrEmpty(v))
+                                else
                                 {
-                                    writer.Write("None");
-                                    continue;
+                                    parsedValue = v;
                                 }
-
-                                writer.Write(v);
                             }
                             break;
 
                         case "enum[]":
                             {
-                                if (v.Equals("-"))
+                                if (v.Equals("-") || string.IsNullOrEmpty(v))
                                 {
-                                    writer.Write("None");
-                                    continue;
+                                    parsedValue = "None";
                                 }
-                                else if (string.IsNullOrEmpty(v))
+                                else
                                 {
-                                    writer.Write("None");
-                                    continue;
+                                    // 정규식 패턴을 사용하여 _x000D_ 시퀀스를 제거합니다.
+                                    parsedValue = Regex.Replace(v, @"_x000D_", Environment.NewLine);
                                 }
-
-                                // 정규식 패턴을 사용하여 _x000D_ 시퀀스를 제거합니다.
-                                v = Regex.Replace(v, @"_x000D_", Environment.NewLine);
-
-                                writer.Write(v);
                             }
                             break;
 
                         case "string":
                         case "string[]":
                             {
-                                if (v.Equals("-"))
+                                if (v.Equals("-") || string.IsNullOrEmpty(v))
                                 {
-                                    writer.Write(string.Empty);
-                                    continue;
+                                    parsedValue = string.Empty;
                                 }
-                                else if (string.IsNullOrEmpty(v))
+                                else
                                 {
-                                    writer.Write(string.Empty);
-                                    continue;
+                                    // 정규식 패턴을 사용하여 _x000D_ 시퀀스를 제거합니다.
+                                    parsedValue = Regex.Replace(v, @"_x000D_", Environment.NewLine);
                                 }
-
-                                // 정규식 패턴을 사용하여 _x000D_ 시퀀스를 제거합니다.
-                                v = Regex.Replace(v, @"_x000D_", Environment.NewLine);
-
-                                writer.Write(v);
                             }
                             break;
 
                         case "struct":
                             {
-                                writer.Write(v);
+                                parsedValue = v;
                             }
                             break;
                     }
+
+                    if (parsedValue != null)
+                    {
+                        item[propName] = parsedValue;
+                    }
                 }
 
-                writer.WriteObjectEnd();
+                items.Add(item);
             }
 
-            writer.WriteArrayEnd();
+            ListWrapper<Dictionary<string, object>> wrapper = new ListWrapper<Dictionary<string, object>>
+            {
+                items = items
+            };
 
-            return stringBuilder.ToString();
+            return JsonConvert.SerializeObject(wrapper, Formatting.None);
         }
         catch (System.Exception e)
         {

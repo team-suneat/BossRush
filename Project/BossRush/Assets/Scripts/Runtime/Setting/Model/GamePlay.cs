@@ -8,10 +8,9 @@
         private bool _useMonsterGauge;          // 몬스터 게이지 사용
         private bool _useDamageText;            // 피해량 텍스트 사용
         private bool _useStateEffectText;       // 상테이상 텍스트 사용
-        private bool _showMonsterHealthText;      // 몬스터 생맹력 텍스트 사용
+        private bool _showMonsterLifeText;      // 몬스터 생맹력 텍스트 사용
         private bool _showItemOptionRange;      // 아이템 옵션 범위 사용
         private bool _showItemOptionCompare;    // 아이템 옵션 비교 사용
-        private bool _showAllBuffIcons;         // 모든 버프 아이콘 가시화 사용
         private bool _showStatusCalculations;   // 능력치 계산식 가시화 사용
         private bool _useGameplayTimer;         // 게임플레이 타이머 사용
 
@@ -53,14 +52,14 @@
         }
 
         /// <summary> 몬스터의 생명력 텍스트를 표시합니다. </summary>
-        public bool ShowMonsterHealthText
+        public bool ShowMonsterLifeText
         {
-            get => _showMonsterHealthText;
+            get => _showMonsterLifeText;
             set
             {
-                if (_showMonsterHealthText != value)
+                if (_showMonsterLifeText != value)
                 {
-                    _showMonsterHealthText = value;
+                    _showMonsterLifeText = value;
                     GamePrefs.SetBool(GamePrefTypes.OPTION_SHOW_MONSTER_LIFE_TEXT, value);
                     _ = GlobalEvent<bool>.Send(GlobalEventType.GAME_PLAY_SHOW_GAUGE_VALUE_TEXT, value);
                 }
@@ -196,21 +195,6 @@
             }
         }
 
-        /// <summary> 플레이어의 모든 버프를 Icon으로 보여줍니다. </summary>
-        public bool ShowAllBuffIcons
-        {
-            get => _showAllBuffIcons;
-            set
-            {
-                if (_showAllBuffIcons != value)
-                {
-                    _showAllBuffIcons = value;
-                    GamePrefs.SetBool(GamePrefTypes.OPTION_SHOW_ALL_BUFF_ICONS, value);
-                    _ = GlobalEvent<bool>.Send(GlobalEventType.GAME_PLAY_SHOW_ALL_BUFF_ICON, value);
-                }
-            }
-        }
-
         public bool ShowStatusCalculations
         {
             get => _showStatusCalculations;
@@ -289,11 +273,11 @@
 
             if (GamePrefs.HasKey(GamePrefTypes.OPTION_SHOW_MONSTER_LIFE_TEXT))
             {
-                _showMonsterHealthText = GamePrefs.GetBool(GamePrefTypes.OPTION_SHOW_MONSTER_LIFE_TEXT);
+                _showMonsterLifeText = GamePrefs.GetBool(GamePrefTypes.OPTION_SHOW_MONSTER_LIFE_TEXT);
             }
             else
             {
-                _showMonsterHealthText = false;
+                _showMonsterLifeText = false;
             }
 
             if (GamePrefs.HasKey(GamePrefTypes.OPTION_SHOW_MONSTER_ATTACK_COOLDOWN))
@@ -305,14 +289,6 @@
                 _showMonsterAttackCooldown = false;
             }
 
-            if (GamePrefs.HasKey(GamePrefTypes.OPTION_SHOW_ALL_BUFF_ICONS))
-            {
-                _showAllBuffIcons = GamePrefs.GetBool(GamePrefTypes.OPTION_SHOW_ALL_BUFF_ICONS);
-            }
-            else
-            {
-                _showAllBuffIcons = true;
-            }
 
             if (GamePrefs.HasKey(GamePrefTypes.OPTION_SHOW_STATUS_CALCULATIONS))
             {

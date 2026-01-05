@@ -23,7 +23,7 @@ namespace TeamSuneat.Setting
                 {
                     _bgmVolume = value;
                     AudioManager.Instance.SetMixerVolume("Music", BGMVolume, MuteBGM);
-                    GamePrefs.SetFloat(GamePrefTypes.OPTION_BGM_VOLUME, value);
+                    GamePrefs.SetFloat(GamePrefTypes.OPTION_MUSIC_VOLUME, value);
                 }
             }
         }
@@ -51,7 +51,7 @@ namespace TeamSuneat.Setting
                 {
                     _muteBGM = value;
                     AudioManager.Instance.SetMixerVolume("Music", BGMVolume, MuteBGM);
-                    GamePrefs.SetBool(GamePrefTypes.OPTION_MUTE_BGM, value);
+                    GamePrefs.SetBool(GamePrefTypes.OPTION_MUTE_MUSIC, value);
                 }
             }
         }
@@ -72,10 +72,10 @@ namespace TeamSuneat.Setting
 
         public void Load()
         {
-            // BGM 볼륨 로드 (기존 Music 볼륨과 호환)
-            if (GamePrefs.HasKey(GamePrefTypes.OPTION_BGM_VOLUME))
+            // MUSIC 볼륨 로드 (기존 Music 볼륨과 호환)
+            if (GamePrefs.HasKey(GamePrefTypes.OPTION_MUSIC_VOLUME))
             {
-                _bgmVolume = GamePrefs.GetFloat(GamePrefTypes.OPTION_BGM_VOLUME);
+                _bgmVolume = GamePrefs.GetFloat(GamePrefTypes.OPTION_MUSIC_VOLUME);
             }
             else
             {
@@ -91,10 +91,10 @@ namespace TeamSuneat.Setting
                 _sfxVolume = DEFAULT_SFX_VOLUME;
             }
 
-            // BGM 음소거 로드 (기존 Music 음소거와 호환)
-            if (GamePrefs.HasKey(GamePrefTypes.OPTION_MUTE_BGM))
+            // MUSIC 음소거 로드 (기존 Music 음소거와 호환)
+            if (GamePrefs.HasKey(GamePrefTypes.OPTION_MUTE_MUSIC))
             {
-                _muteBGM = GamePrefs.GetBool(GamePrefTypes.OPTION_MUTE_BGM);
+                _muteBGM = GamePrefs.GetBool(GamePrefTypes.OPTION_MUTE_MUSIC);
             }
             else
             {
@@ -114,7 +114,7 @@ namespace TeamSuneat.Setting
             AudioManager.Instance.SetMixerVolume("Music", BGMVolume, MuteBGM);
             AudioManager.Instance.SetMixerVolume("SFX", SFXVolume, MuteSFX);
 
-            Log.Info(LogTags.Setting, "사운드를 설정합니다. BGM 볼륨: {0}, 효과음 볼륨: {1}, BGM 음소거: {2}, 효과음 음소거: {3}",
+            Log.Info(LogTags.Setting, "사운드를 설정합니다. MUSIC 볼륨: {0}, 효과음 볼륨: {1}, MUSIC 음소거: {2}, 효과음 음소거: {3}",
                 _bgmVolume.ToString(), _sfxVolume.ToString(), _muteBGM.ToBoolString(), _muteSFX.ToBoolString());
         }
 
@@ -125,7 +125,7 @@ namespace TeamSuneat.Setting
             MuteBGM = DEFAULT_MUTE_BGM;
             MuteSFX = DEFAULT_MUTE_SFX;
 
-            Log.Info(LogTags.Setting, "사운드를 초기화합니다. BGM 볼륨: {0}, 효과음 볼륨: {1}, BGM 음소거: {2}, 효과음 음소거: {3}",
+            Log.Info(LogTags.Setting, "사운드를 초기화합니다. MUSIC 볼륨: {0}, 효과음 볼륨: {1}, MUSIC 음소거: {2}, 효과음 음소거: {3}",
                 _bgmVolume.ToString(), _sfxVolume.ToString(), _muteBGM.ToBoolString(), _muteSFX.ToBoolString());
         }
     }

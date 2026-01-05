@@ -23,7 +23,7 @@ namespace TeamSuneat
                     continue;
                 }
 
-                if (candidate.MyVital.CurrentHealth == 0)
+                if (candidate.MyVital.CurrentLife == 0)
                 {
                     continue;
                 }
@@ -66,7 +66,7 @@ namespace TeamSuneat
                     continue;
                 }
 
-                if (candidate.CurrentHealth == 0)
+                if (candidate.CurrentLife == 0)
                 {
                     continue;
                 }

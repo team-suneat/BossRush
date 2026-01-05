@@ -72,16 +72,5 @@
 
             return result;
         }
-
-        // 치명타 피해량 배율을 계산합니다.
-        // 공식: 기본 데미지 × (1 + 치명타 피해%)
-        private float CalculateCriticalDamageMultiplier(DamageResult damageResult)
-        {
-            float criticalDamageMultiplier = 0f;
-            _ = TryAddAttackerStatValue(StatNames.CriticalDamage, ref criticalDamageMultiplier, LogCriticalDamageRate);
-
-            // 기본 데미지 × (1 + 치명타 피해%)
-            return 1f + criticalDamageMultiplier;
-        }
     }
 }

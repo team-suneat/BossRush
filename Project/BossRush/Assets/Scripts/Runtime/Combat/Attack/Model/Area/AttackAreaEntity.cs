@@ -147,7 +147,7 @@ namespace TeamSuneat
 
             if (StatNameOfSize != StatNames.None || StatNameOfActiveDuration != StatNames.None)
             {
-                Owner.Stat.RegisterRefreshEvent(OnRefreshStat);
+                Owner.Stat.RegisterOnRefresh(OnRefreshStat);
             }
         }
 
@@ -161,7 +161,7 @@ namespace TeamSuneat
 
             if (StatNameOfSize != StatNames.None || StatNameOfActiveDuration != StatNames.None)
             {
-                Owner.Stat.UnregisterRefreshEvent(OnRefreshStat);
+                Owner.Stat.RegisterOnRefresh(OnRefreshStat);
             }
         }
 
@@ -184,9 +184,7 @@ namespace TeamSuneat
                 ClearIgnoringObjects();
                 ClearTargetsOfChainLightning();
 
-                StartAttackForce();
                 StartTimer();
-                SetActiveAnimatorParameter(true);
 
                 base.OnActivate();
             }
@@ -207,25 +205,6 @@ namespace TeamSuneat
             DeactivateCollider();
             ClearIgnoringObjects();
             StopTimer();
-
-            if (AssetData.IsValid() && AssetData.StopAttackForceOnDeactive)
-            {
-                StopForce(AssetData.AttackForce);
-            }
-
-            SetActiveAnimatorParameter(false);
-            SetHitAnimatorParameter(false);
-        }
-
-        private void TryDeactivateOnHit()
-        {
-            if (AssetData.UseDeactivateOnHit)
-            {
-                if (AssetData.DeactivateHitCount <= _hitCountAtTime)
-                {
-                    Deactivate();
-                }
-            }
         }
 
         public override void OnOwnerDeath()
@@ -254,7 +233,7 @@ namespace TeamSuneat
         {
             base.SetOwner(ownerCharacter);
 
-            _damageInfo?.SetAttacker(ownerCharacter);
+            _damageCaculator?.SetAttacker(ownerCharacter);
         }
 
         public override void SetTarget(Vital targetVital)
@@ -263,7 +242,7 @@ namespace TeamSuneat
             {
                 base.SetTarget(targetVital);
 
-                _damageInfo?.SetTargetVital(targetVital);
+                _damageCaculator?.SetTargetVital(targetVital);
             }
         }
 
@@ -351,36 +330,6 @@ namespace TeamSuneat
                 // 충돌체가 목표 레이어를 가지지 않았다면
                 return false;
             }
-            else if (AssetData.HitCountAtTime > 0)
-            {
-                if (AssetData.HitCountAtTime <= _hitCountAtTime)
-                {
-                    LogWarning("1회 공격시 공격할 수 있는 최대 횟수({0})를 초과합니다. 충돌하지 않습니다.", AssetData.HitCountAtTime);
-                    return false;
-                }
-            }
-            else if (AssetData.MinHitCountAtTime > 0)
-            {
-                Data.Game.VProfile projectileInfo = GameApp.GetSelectedProfile();
-                if (projectileInfo == null)
-                {
-                    LogWarning("프로필 정보를 가져올 수 없습니다.");
-                    return false;
-                }
-
-                if (projectileInfo.Inventory == null)
-                {
-                    LogWarning("인벤토리 정보를 가져올 수 없습니다.");
-                    return false;
-                }
-
-                int hitCountAtTime = projectileInfo.Inventory.GetHitCountAtTimeFromLegendary(AssetData);
-                if (hitCountAtTime <= _hitCountAtTime)
-                {
-                    LogWarning("1회 공격시 공격할 수 있는 최대 횟수({0})를 초과합니다. 충돌하지 않습니다.", hitCountAtTime);
-                    return false;
-                }
-            }
 
             return true;
         }
@@ -392,7 +341,7 @@ namespace TeamSuneat
             {
                 return false;
             }
-            if (_colliderVital.Health == null)
+            if (_colliderVital.Life == null)
             {
                 return false;
             }
@@ -400,11 +349,12 @@ namespace TeamSuneat
             {
                 return false;
             }
-            if (_colliderVital.Health.CheckInvulnerable())
+            if (_colliderVital.Life.CheckInvulnerable())
             {
                 return false;
             }
-            return !_colliderVital.CheckGuardCollider(_collidingCollider);
+
+            return true;
         }
 
         protected void OnCollideWithDamageable()
@@ -430,13 +380,9 @@ namespace TeamSuneat
                 {
                     TriggerAttackOnKillFeedback(collidingCollider.transform.position);
                 }
-
-                StartDamageForce();
             }
 
             OnAttack(true);
-            TryDeactivateOnHit();
-            SetHitAnimatorParameter(true);
         }
 
         protected void OnCollideWithNonDamageable()
@@ -445,28 +391,22 @@ namespace TeamSuneat
 
             TriggerAttackOnHitNonDamageableFeedback(_collidingCollider.transform.position);
 
-            if (_colliderVital != null)
-            {
-                _colliderVital.SpawnGuardVFX(_collidingCollider.transform.position, true);
-            }
-
             OnAttack(false);
         }
 
         private bool ApplyToTargetVital(Vital targetVital)
         {
-            _damageInfo.SetTargetVital(targetVital);
-            _damageInfo.SetDecrescenceRate(_hitCountAtTime, ApplyCount + AdditionalApplyCount);
-            _damageInfo.Execute();
+            _damageCaculator.SetTargetVital(targetVital);
+            _damageCaculator.Execute();
 
             DamageResult damageResult;
             bool _isApplyAnyDamage = false;
 
-            if (_damageInfo.DamageResults.IsValid())
+            if (_damageCaculator.DamageResults.IsValid())
             {
-                for (int i = 0; i < _damageInfo.DamageResults.Count; i++)
+                for (int i = 0; i < _damageCaculator.DamageResults.Count; i++)
                 {
-                    damageResult = _damageInfo.DamageResults[i];
+                    damageResult = _damageCaculator.DamageResults[i];
                     if (damageResult.DamageType.IsHeal())
                     {
                         _colliderVital.Heal(damageResult.DamageValueToInt);

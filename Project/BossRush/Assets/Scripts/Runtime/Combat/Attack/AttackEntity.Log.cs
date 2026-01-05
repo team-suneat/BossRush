@@ -10,11 +10,7 @@ namespace TeamSuneat
             {
                 if (Owner != null)
                 {
-                    Log.Progress(LogTags.Attack, TSStringGetter.ConcatStringWithComma(Owner.Name.ToLogString(), Name.ToLogString(), content));
-                }
-                else if (OwnerProjectile != null)
-                {
-                    Log.Progress(LogTags.Attack, TSStringGetter.ConcatStringWithComma(OwnerProjectile.Name.ToLogString(), Name.ToLogString(), content));
+                    Log.Progress(LogTags.Attack, StringGetter.ConcatStringWithComma(Owner.Name.ToLogString(), Name.ToLogString(), content));
                 }
             }
         }
@@ -25,11 +21,7 @@ namespace TeamSuneat
             {
                 if (Owner != null)
                 {
-                    Log.Info(LogTags.Attack, TSStringGetter.ConcatStringWithComma(Owner.Name.ToLogString(), Name.ToLogString(), content));
-                }
-                else if (OwnerProjectile != null)
-                {
-                    Log.Info(LogTags.Attack, TSStringGetter.ConcatStringWithComma(OwnerProjectile.Name.ToLogString(), Name.ToLogString(), content));
+                    Log.Info(LogTags.Attack, StringGetter.ConcatStringWithComma(Owner.Name.ToLogString(), Name.ToLogString(), content));
                 }
             }
         }
@@ -40,11 +32,7 @@ namespace TeamSuneat
             {
                 if (Owner != null)
                 {
-                    Log.Warning(LogTags.Attack, TSStringGetter.ConcatStringWithComma(Owner.Name.ToLogString(), Name.ToLogString(), content));
-                }
-                else if (OwnerProjectile != null)
-                {
-                    Log.Warning(LogTags.Attack, TSStringGetter.ConcatStringWithComma(OwnerProjectile.Name.ToLogString(), Name.ToLogString(), content));
+                    Log.Warning(LogTags.Attack, StringGetter.ConcatStringWithComma(Owner.Name.ToLogString(), Name.ToLogString(), content));
                 }
             }
         }
@@ -55,11 +43,7 @@ namespace TeamSuneat
             {
                 if (Owner != null)
                 {
-                    Log.Error(TSStringGetter.ConcatStringWithComma(Owner.Name.ToLogString(), Name.ToLogString(), content));
-                }
-                else if (OwnerProjectile != null)
-                {
-                    Log.Error(TSStringGetter.ConcatStringWithComma(OwnerProjectile.Name.ToLogString(), Name.ToLogString(), content));
+                    Log.Error(StringGetter.ConcatStringWithComma(Owner.Name.ToLogString(), Name.ToLogString(), content));
                 }
             }
         }

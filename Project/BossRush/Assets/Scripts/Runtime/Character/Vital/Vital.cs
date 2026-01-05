@@ -9,28 +9,22 @@ namespace TeamSuneat
         protected override void OnStart()
         {
             base.OnStart();
-            Health?.RegisterOnDeathEvent(OnDeath);
+            Life?.RegisterOnDeathEvent(OnDeath);
         }
 
         protected override void OnRelease()
         {
             base.OnRelease();
-            Health?.UnregisterOnDeathEvent(OnDeath);
-            UIManager.Instance?.GaugeManager?.UnregisterCharacter(this);
+            Life?.UnregisterOnDeathEvent(OnDeath);
         }
 
         public virtual void OnBattleReady()
         {
             Generate();
 
-            Health?.Initialize();
+            Life?.Initialize();
             Mana?.Initialize();
-            Shield?.Initialize();
-
-            if (UseSpawnGaugeOnInit)
-            {
-                SpawnCharacterGauge();
-            }
+            Barrier?.Initialize();
 
             RegisterVital();
             StartRegenerate();
@@ -54,41 +48,38 @@ namespace TeamSuneat
             }
         }
 
-        public void OnLevelUp(StatSystem statSystem, int previousHealth)
+        public void OnLevelUp(StatSystem statSystem, int previousLife)
         {
-            if (Health != null)
+            if (Life != null)
             {
-                Health.RefreshMaxValue();
+                Life.RefreshMaxValue();
 
-                if (previousHealth > CurrentHealth)
+                if (previousLife > CurrentLife)
                 {
                     // 레벨 업을 통해 능력치가 재조정됨에 따라 현재 생명력이 더 낮아졌다면, 되돌립니다.
-                    CurrentHealth = previousHealth;
+                    CurrentLife = previousLife;
                 }
-
-                RefreshHealthGauge();
             }
         }
 
         public void OnLevelDown()
         {
-            if (Health != null)
+            if (Life != null)
             {
-                Health.RefreshMaxValue();
-                RefreshHealthGauge();
+                Life.RefreshMaxValue();
             }
         }
 
         public bool CheckDamageImmunity(DamageResult damageResult)
         {
-            if (Health.CheckInvulnerable())
+            if (Life.CheckInvulnerable())
             {
-                Health.UseZero();
+                Life.UseZero();
                 return true;
             }
             else if (damageResult.IsEvasion)
             {
-                Health.UseZero();
+                Life.UseZero();
                 return true;
             }
 
@@ -97,7 +88,7 @@ namespace TeamSuneat
 
         public bool TakeDamage(DamageResult damageResult)
         {
-            if (CurrentHealth <= 0)
+            if (CurrentLife <= 0)
             {
                 LogWarning("캐릭터의 현재 체력이 0입니다. 피해를 받지 않습니다.");
                 return false;
@@ -109,7 +100,7 @@ namespace TeamSuneat
             }
             else if (damageResult.DamageValue > 0)
             {
-                Health.TakeDamage(damageResult, damageResult.Attacker);
+                Life.TakeDamage(damageResult, damageResult.Attacker);
                 SendGlobalEventOfDamaged(damageResult);
 
                 return true;
@@ -190,7 +181,7 @@ namespace TeamSuneat
 
         public void Heal(int value)
         {
-            Health?.Heal(value);
+            Life?.Heal(value);
         }
 
         public void RestoreMana(int value)
@@ -200,28 +191,28 @@ namespace TeamSuneat
 
         public void Charge(int value)
         {
-            Shield?.AddCurrentValue(value);
+            Barrier?.AddCurrentValue(value);
         }
 
         public void AddCurrentValue(VitalConsumeTypes consumeType, float value)
         {
             switch (consumeType)
             {
-                case VitalConsumeTypes.FixedHealth:
+                case VitalConsumeTypes.FixedLife:
                     {
                         Heal((int)value);
                     }
                     break;
 
-                case VitalConsumeTypes.MaxHealthPercent:
+                case VitalConsumeTypes.MaxLifePercent:
                     {
-                        Heal(Mathf.RoundToInt(MaxHealth * value));
+                        Heal(Mathf.RoundToInt(MaxLife * value));
                     }
                     break;
 
-                case VitalConsumeTypes.CurrentHealthPercent:
+                case VitalConsumeTypes.CurrentLifePercent:
                     {
-                        Heal(Mathf.RoundToInt(CurrentHealth * value));
+                        Heal(Mathf.RoundToInt(CurrentLife * value));
                     }
                     break;
 
@@ -237,9 +228,9 @@ namespace TeamSuneat
         {
             switch (consumeType)
             {
-                case VitalConsumeTypes.FixedHealth:
-                case VitalConsumeTypes.MaxHealthPercent:
-                case VitalConsumeTypes.CurrentHealthPercent:
+                case VitalConsumeTypes.FixedLife:
+                case VitalConsumeTypes.MaxLifePercent:
+                case VitalConsumeTypes.CurrentLifePercent:
                     {
                         Heal(value);
                     }
@@ -257,15 +248,15 @@ namespace TeamSuneat
         {
             switch (hitmarkAssetData.ResourceConsumeType)
             {
-                case VitalConsumeTypes.FixedHealth:
-                case VitalConsumeTypes.MaxHealthPercent:
-                case VitalConsumeTypes.CurrentHealthPercent:
+                case VitalConsumeTypes.FixedLife:
+                case VitalConsumeTypes.MaxLifePercent:
+                case VitalConsumeTypes.CurrentLifePercent:
                     {
-                        if (Health != null)
+                        if (Life != null)
                         {
                             if (value > 0)
                             {
-                                Health.Use(value, Owner, hitmarkAssetData.IgnoreDeathByConsume);
+                                Life.Use(value, Owner, hitmarkAssetData.IgnoreDeathByConsume);
                                 return;
                             }
                         }
@@ -275,9 +266,6 @@ namespace TeamSuneat
 
             LogErrorUseBattleResource(hitmarkAssetData, value);
         }
-
-        public virtual void ProcessAbility()
-        { }
 
         public virtual bool CheckConsumingPotion()
         {
@@ -293,10 +281,10 @@ namespace TeamSuneat
                 case VitalResourceTypes.None:
                     return 0;
 
-                case VitalResourceTypes.Health:
-                    if (Health != null)
+                case VitalResourceTypes.Life:
+                    if (Life != null)
                     {
-                        return Health.Current;
+                        return Life.Current;
                     }
                     break;
             }
@@ -312,10 +300,10 @@ namespace TeamSuneat
                 case VitalConsumeTypes.None:
                     return 0;
 
-                case VitalConsumeTypes.CurrentHealthPercent:
-                case VitalConsumeTypes.MaxHealthPercent:
-                case VitalConsumeTypes.FixedHealth:
-                    return CurrentHealth;
+                case VitalConsumeTypes.CurrentLifePercent:
+                case VitalConsumeTypes.MaxLifePercent:
+                case VitalConsumeTypes.FixedLife:
+                    return CurrentLife;
             }
 
             LogErrorFindCurrentResource(consumeType);
@@ -330,10 +318,10 @@ namespace TeamSuneat
                 case VitalConsumeTypes.None:
                     return 0;
 
-                case VitalConsumeTypes.CurrentHealthPercent:
-                case VitalConsumeTypes.MaxHealthPercent:
-                case VitalConsumeTypes.FixedHealth:
-                    return MaxHealth;
+                case VitalConsumeTypes.CurrentLifePercent:
+                case VitalConsumeTypes.MaxLifePercent:
+                case VitalConsumeTypes.FixedLife:
+                    return MaxLife;
             }
 
             LogErrorFindMaxResource(consumeType);
@@ -348,10 +336,10 @@ namespace TeamSuneat
                 case VitalResourceTypes.None:
                     return 0;
 
-                case VitalResourceTypes.Health:
-                    if (Health != null)
+                case VitalResourceTypes.Life:
+                    if (Life != null)
                     {
-                        return Health.Rate;
+                        return Life.Rate;
                     }
                     break;
             }

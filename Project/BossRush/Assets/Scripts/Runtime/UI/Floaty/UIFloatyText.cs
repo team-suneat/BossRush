@@ -40,12 +40,12 @@ namespace TeamSuneat.UserInterface
         {
             if (damageResult.TargetCharacter != null && damageResult.TargetCharacter.IsPlayer)
             {
-                if (vitalResourceType == VitalResourceTypes.Health)
+                if (vitalResourceType == VitalResourceTypes.Life)
                 {
                     return UIFloatyMoveNames.PlayerDamaged;
                 }
 
-                if (vitalResourceType == VitalResourceTypes.Shield)
+                if (vitalResourceType == VitalResourceTypes.Barrier)
                 {
                     return UIFloatyMoveNames.ChargeShield;
                 }
@@ -55,7 +55,7 @@ namespace TeamSuneat.UserInterface
             {
                 case DamageTypes.Heal:
                 case DamageTypes.HealOverTime:
-                    return UIFloatyMoveNames.HealHealth;
+                    return UIFloatyMoveNames.HealLife;
 
                 case DamageTypes.RestoreMana:
                 case DamageTypes.RestoreManaOverTime:

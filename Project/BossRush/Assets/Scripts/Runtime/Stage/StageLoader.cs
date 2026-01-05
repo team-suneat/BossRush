@@ -46,10 +46,10 @@ namespace TeamSuneat
                     return;
                 }
 
-                // 지역 리소스 로드
-                AreaNames currentArea = profileInfo.Stage.CurrentArea;
-                int areaIndex = (int)currentArea;
-                string label = string.Format(AddressableLabels.AreaFormat, areaIndex);
+                // 스테이지 리소스 로드
+                StageNames currentStage = profileInfo.Stage.CurrentStage;
+                int stageIndex = (int)currentStage;
+                string label = string.Format(AddressableLabels.AreaFormat, stageIndex);
 
                 await ResourcesManager.LoadResourcesByLabelAsync<GameObject>(label);
                 await ResourcesManager.LoadResourcesByLabelAsync<SpriteAtlas>(label);

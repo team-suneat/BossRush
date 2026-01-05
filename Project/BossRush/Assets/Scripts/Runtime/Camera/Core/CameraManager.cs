@@ -372,14 +372,6 @@ namespace TeamSuneat
         #region 게임용 카메라 기능
 
         /// <summary>
-        /// 웨이브 시작 시 카메라 효과
-        /// </summary>
-        public void OnWaveStart()
-        {
-            TurnBasedController?.OnWaveStart();
-        }
-
-        /// <summary>
         /// 보스 전투 시 카메라 효과
         /// </summary>
         public void OnBossFight()

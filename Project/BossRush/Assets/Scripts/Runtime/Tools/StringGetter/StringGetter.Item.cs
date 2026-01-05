@@ -213,7 +213,7 @@ namespace TeamSuneat
         public static string ReplaceItemSubDesc(string content)
         {
             content = ReplaceStatName(content);
-            content = ReplaceAreaName(content);
+            
             content = ReplaceStageName(content);
 
             content = ReplaceMonsterName(content);

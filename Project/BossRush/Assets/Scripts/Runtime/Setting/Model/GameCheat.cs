@@ -12,27 +12,18 @@ namespace TeamSuneat.Setting
             NoCritical,
         }
 
-        public enum TriggerChanceTypes
-        {
-            None,
-            Pass,
-            Ignore,
-        }
-
         private bool _isInitialized;
         private bool _infinityDamage;
         private bool _percentDamage;
         private bool _oneDamageAttack;
 
         private CriticalTypes _criticalType;
-        private TriggerChanceTypes _triggerChanceType;
 
         private bool _notCostResoures;
         private bool _noCooldownTime;
         private bool _receiveDamageOnlyOne;
         private bool _notDead;
         private bool _notCrowdControl;
-        private bool _dontDropItem;
 
         private bool _useItemOptionMaxStat;
         private GradeNames _customRelicGrade;
@@ -121,26 +112,7 @@ namespace TeamSuneat.Setting
             set
             {
                 _criticalType = value;
-                GamePrefs.SetInt(GamePrefTypes.GAME_CHEAT_PASSIVE_TRIGGER_CHANCE_TYPE, _criticalType.ToInt());
-            }
-        }
-
-        public TriggerChanceTypes TriggerChanceType
-        {
-            get
-            {
-                if (!GameDefine.IS_EDITOR_OR_DEVELOPMENT_BUILD) { return TriggerChanceTypes.None; }
-                if (!_isInitialized)
-                {
-                    Initialize();
-                }
-
-                return _triggerChanceType;
-            }
-            set
-            {
-                _triggerChanceType = value;
-                GamePrefs.SetInt(GamePrefTypes.GAME_CHEAT_PASSIVE_TRIGGER_CHANCE_TYPE, _triggerChanceType.ToInt());
+                GamePrefs.SetInt(GamePrefTypes.GAME_CHEAT_CRITICAL_TYPE, _criticalType.ToInt());
             }
         }
 
@@ -241,25 +213,6 @@ namespace TeamSuneat.Setting
             }
         }
 
-        public bool DontDropItem
-        {
-            get
-            {
-                if (!GameDefine.IS_EDITOR_OR_DEVELOPMENT_BUILD) { return false; }
-                if (!_isInitialized)
-                {
-                    Initialize();
-                }
-
-                return _dontDropItem;
-            }
-            set
-            {
-                _dontDropItem = value;
-                GamePrefs.SetBool(GamePrefTypes.GAME_CHEAT_DONT_DROP_ITEM, value);
-            }
-        }
-
         public bool UseItemOptionMaxStat
         {
             get
@@ -304,7 +257,6 @@ namespace TeamSuneat.Setting
             _oneDamageAttack = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_ONE_DAMAGE_ATTACK);
 
             _criticalType = GamePrefs.GetInt(GamePrefTypes.GAME_CHEAT_CRITICAL_TYPE).ToEnum<CriticalTypes>();
-            _triggerChanceType = GamePrefs.GetInt(GamePrefTypes.GAME_CHEAT_PASSIVE_TRIGGER_CHANCE_TYPE).ToEnum<TriggerChanceTypes>();
 
             _notCostResoures = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_NOT_COST_RESOURCE);
             _noCooldownTime = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_NO_COOLDOWN_TIME);
@@ -313,7 +265,6 @@ namespace TeamSuneat.Setting
             _notDead = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_NOT_DEAD);
             _notCrowdControl = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_NOT_CROWD_CONTROL);
 
-            _dontDropItem = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_DONT_DROP_ITEM);
             _useItemOptionMaxStat = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_ITEM_OPTION_MAX_STAT);
             _customRelicGrade = GamePrefs.GetInt(GamePrefTypes.GAME_CHEAT_CUSTOM_RELIC_GRADE).ToEnum<GradeNames>();
 

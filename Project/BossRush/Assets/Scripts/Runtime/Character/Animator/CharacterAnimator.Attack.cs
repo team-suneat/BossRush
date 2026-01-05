@@ -102,11 +102,7 @@ namespace TeamSuneat
 
         protected virtual void OnAnimatorAttackStateEnter()
         {
-            AnimatorLog.LogInfo("공격 상태의 애니메이션에 진입했습니다. PlayingSkillAnimationName: {0}", PlayingSkillAnimationName);
-
             _animator.UpdateAnimatorBool(ANIMATOR_IS_ATTACKING_PARAMETER_ID, true, AnimatorParameters);
-
-            _owner.ChangeMovementState(MovementStates.Attack);
 
             if (IgnoreFlipOnAttacking)
             {
@@ -140,11 +136,6 @@ namespace TeamSuneat
 
             _animator.UpdateAnimatorBool(ANIMATOR_IS_ATTACKING_PARAMETER_ID, false, AnimatorParameters);
 
-            if (_owner.MovementState.Compare(MovementStates.Attack))
-            {
-                _owner.ChangeMovementState(MovementStates.Idle);
-            }
-
             if (IgnoreFlipOnAttacking)
             {
                 UnlockFlip();
@@ -170,30 +161,6 @@ namespace TeamSuneat
         {
             IsBlockingDamageAnimationWhileAttack = false;
             AnimatorLog.LogInfo($"공격 중 피격 애니메이션 재생 차단: {false.ToBoolString()}");
-        }
-
-        public void SetBlockDamageAnimationWhileCast(SkillNames skillName)
-        {
-            if (!BlockingDamageAnimationWhileCast.Contains(skillName))
-            {
-                BlockingDamageAnimationWhileCast.Add(skillName);
-                AnimatorLog.LogInfo($"시전({skillName}) 중 피격 애니메이션 재생 차단: {true.ToBoolString()}");
-            }
-        }
-
-        public void ResetBlockDamageAnimationWhileCast(SkillNames skillName)
-        {
-            if (BlockingDamageAnimationWhileCast.Contains(skillName))
-            {
-                BlockingDamageAnimationWhileCast.Remove(skillName);
-                AnimatorLog.LogInfo($"시전({skillName}) 중 피격 애니메이션 재생 차단: {false.ToBoolString()}");
-            }
-        }
-
-        public void ClearBlockDamageAnimationWhileCast()
-        {
-            BlockingDamageAnimationWhileCast.Clear();
-            AnimatorLog.LogInfo($"등록된 모든 기술 시전 중 피격 애니메이션 재생 차단: {false.ToBoolString()}");
         }
 
         public void SetBlockDamageAnimationWhileGrab()

@@ -10,20 +10,9 @@ namespace TeamSuneat
 
             Owner = this.FindFirstParentComponent<Character>();
 
-            Health = GetComponent<Health>();
-            Shield = GetComponent<Shield>();
+            Life = GetComponent<Life>();
+            Barrier = GetComponent<Barrier>();
             Mana = GetComponent<Mana>();
-
-            AutoGetPointComponents();
-        }
-
-        private void AutoGetPointComponents()
-        {
-            GaugePoint = this.FindTransform("Point-Gauge");
-            if (GaugePoint == null)
-            {
-                GaugePoint = transform;
-            }
         }
 
         private Transform GetParentTransform()

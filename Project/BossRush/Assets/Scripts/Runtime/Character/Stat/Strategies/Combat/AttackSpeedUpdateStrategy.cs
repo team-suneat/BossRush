@@ -14,7 +14,7 @@ namespace TeamSuneat
 
             if (System.Owner.CharacterAnimator != null)
             {
-                System.Owner.CharacterAnimator.UpdateAttackSpeed(attackSpeed);
+                System.Owner.CharacterAnimator.SetAttackSpeed(attackSpeed);
             }
         }
     }

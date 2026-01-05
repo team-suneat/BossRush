@@ -100,14 +100,5 @@ namespace TeamSuneat
             string result = Format(data, values);
             return result;
         }
-
-        public static string GetLocalizedString(this ToggleSlotTypes key)
-        {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("Tab_Name_");
-            stringBuilder.Append(key.ToString());
-
-            return JsonDataManager.FindStringClone(stringBuilder.ToString());
-        }
     }
 }

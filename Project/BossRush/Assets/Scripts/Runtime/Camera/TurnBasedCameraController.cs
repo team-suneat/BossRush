@@ -21,9 +21,8 @@ namespace TeamSuneat
         [SerializeField] private float _transitionDuration = 1.0f;
         [SerializeField] private AnimationCurve _transitionCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
-        [Title("웨이브/챕터 전환")]
-        [InfoBox("웨이브나 챕터 전환 시 카메라 효과 설정입니다.")]
-        [SerializeField] private Transform _waveStartPosition;
+        [Title("챕터 전환")]
+        [InfoBox("챕터 전환 시 카메라 효과 설정입니다.")]
         [SerializeField] private Transform _bossFightPosition;
         [SerializeField] private Transform _rewardPhasePosition;
 
@@ -88,17 +87,6 @@ namespace TeamSuneat
             _transitionTimer = 0f;
 
             Log.Info(LogTags.Camera, "카메라 전환을 시작합니다: {0}", targetPosition);
-        }
-
-        /// <summary>
-        /// 웨이브 시작 시 카메라 효과
-        /// </summary>
-        public void OnWaveStart()
-        {
-            if (_waveStartPosition != null)
-            {
-                TransitionToPosition(_waveStartPosition.position);
-            }
         }
 
         /// <summary>

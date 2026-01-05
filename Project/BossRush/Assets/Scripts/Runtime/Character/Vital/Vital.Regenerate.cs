@@ -7,7 +7,7 @@ namespace TeamSuneat
     {
         private Coroutine _regenerateCoroutine;
 
-        protected int HealthRegeneratePoint { get; set; }
+        protected int LifeRegeneratePoint { get; set; }
 
         private const float DEFAULT_REGENERATE_INTERVAL_TIME = 60f;
 
@@ -49,7 +49,7 @@ namespace TeamSuneat
                     LogProgressFailedToRegenerateByNotAlive();
                     break;
                 }
-                if (HealthRegeneratePoint == 0)
+                if (LifeRegeneratePoint == 0)
                 {
                     LogProgressFailedToRegenerateByZeroPoint();
                     break;
@@ -65,17 +65,17 @@ namespace TeamSuneat
 
         private void Regenerate()
         {
-            if (Health != null)
+            if (Life != null)
             {
-                if (HealthRegeneratePoint > 0)
+                if (LifeRegeneratePoint > 0)
                 {
-                    Health.Regenerate(HealthRegeneratePoint);
-                    Health.SpawnHealFloatyText(HealthRegeneratePoint);
+                    Life.Regenerate(LifeRegeneratePoint);
+                    Life.SpawnHealFloatyText(LifeRegeneratePoint);
                 }
-                else if (HealthRegeneratePoint < 0)
+                else if (LifeRegeneratePoint < 0)
                 {
                     // 소모량을 양수로 넘깁니다.
-                    Health.Use(HealthRegeneratePoint * -1, Owner, true);
+                    Life.Use(LifeRegeneratePoint * -1, Owner, true);
                 }
             }
         }
@@ -84,7 +84,7 @@ namespace TeamSuneat
         {
             Log.Info(LogTags.Vital, "{0}, 생명력/마나 재생력을 비활성화합니다.", Owner.Name.ToLogString());
 
-            HealthRegeneratePoint = 0;
+            LifeRegeneratePoint = 0;
         }
     }
 }

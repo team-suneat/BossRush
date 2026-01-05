@@ -154,15 +154,6 @@ namespace TeamSuneat
             }
         }
 
-        private void LogDamageOnBuff(HitmarkNames hitmarkName, BuffNames buffName)
-        {
-            if (Log.LevelProgress)
-            {
-                LogProgress("캐릭터({0})가 공격({1})을 회피하면 적중시 버프 효과({2})도 함께 회피합니다.",
-                   Owner.Name.ToLogString(), hitmarkName.ToLogString(), buffName.ToLogString());
-            }
-        }
-
         private void LogEvasionAttack(HitmarkNames hitmarkName, HitmarkNames hitmarkNameOnHit)
         {
             if (Log.LevelProgress)
@@ -171,14 +162,6 @@ namespace TeamSuneat
                             Owner.Name.ToLogString(),
                             hitmarkName.ToLogString(),
                             hitmarkNameOnHit.ToLogString());
-            }
-        }
-
-        private void LogCoreSkillResourceCostRate(float coreSkillResourceCostRate)
-        {
-            if (Log.LevelProgress)
-            {
-                LogProgress("핵심 기술 자원 소모량을 적용합니다. {0}", ValueStringEx.GetPercentString(coreSkillResourceCostRate, 0));
             }
         }
 
@@ -311,13 +294,13 @@ namespace TeamSuneat
             }
         }
 
-        private void LogInfoHealthRegeneration()
+        private void LogInfoLifeRegeneration()
         {
             if (Log.LevelInfo)
             {
                 LogInfo("{0}, 생명력 재생력을 설정합니다. 재생량: {1}",
                     Owner.Name.ToLogString(),
-                    ValueStringEx.GetValueString(HealthRegeneratePoint, true));
+                    ValueStringEx.GetValueString(LifeRegeneratePoint, true));
             }
         }
     }

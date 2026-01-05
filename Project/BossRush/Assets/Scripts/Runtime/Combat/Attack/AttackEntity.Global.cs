@@ -15,7 +15,7 @@ namespace TeamSuneat
         {
             if (Owner == null) { yield break; }
             if (!Owner.IsPlayer) { yield break; }
-            if (_damageInfo == null)
+            if (_damageCaculator == null)
             {
                 Log.Error("데미지 클래스가 설정되지 않았습니다: {0}", Name.ToLogString());
                 yield break;
@@ -23,16 +23,16 @@ namespace TeamSuneat
 
             yield return null;
 
-            if (!_damageInfo.DamageResults.IsValid())
+            if (!_damageCaculator.DamageResults.IsValid())
             {
                 GlobalEvent<HitmarkNames, int, Vector3, AttackEntityTypes>.Send(GlobalEventType.PLAYER_CHARACTER_EXECUTE_ATTACK_FAILED,
                     Name, Index, position, EntityType);
             }
             else
             {
-                for (int i = 0; i < _damageInfo.DamageResults.Count; i++)
+                for (int i = 0; i < _damageCaculator.DamageResults.Count; i++)
                 {
-                    DamageResult item = _damageInfo.DamageResults[i];
+                    DamageResult item = _damageCaculator.DamageResults[i];
                     GlobalEvent<DamageResult, int>.Send(GlobalEventType.PLAYER_CHARACTER_EXECUTE_ATTACK_SUCCESS, item, Index);
                 }
             }

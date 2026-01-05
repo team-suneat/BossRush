@@ -267,37 +267,7 @@ namespace TeamSuneat.Data.Game
                 }
                 else
                 {
-                    Debug.LogWarning("[에디터 전용] JSON 형식: 유효하지 않음");
-
-                    // 암호화된 파일인지 확인
-                    if (IsEncryptedFile(content))
-                    {
-                        Debug.Log("[에디터 전용] 파일 상태: 암호화됨");
-
-                        // 복호화 시도
-                        string decryptedContent = TryDecryptContent(content);
-                        if (!string.IsNullOrEmpty(decryptedContent))
-                        {
-                            Debug.Log("[에디터 전용] 복호화: 성공");
-                            if (IsValidJson(decryptedContent))
-                            {
-                                Debug.Log("[에디터 전용] 복호화된 JSON: 유효함");
-                                LogMigrationInfo(decryptedContent);
-                            }
-                            else
-                            {
-                                Debug.LogError("[에디터 전용] 복호화된 JSON: 유효하지 않음");
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("[에디터 전용] 복호화: 실패");
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogError("[에디터 전용] 파일 상태: 손상됨 또는 알 수 없는 형식");
-                    }
+                    Debug.LogError("[에디터 전용] JSON 형식: 유효하지 않음");
                 }
             }
             catch (Exception ex)
@@ -457,7 +427,7 @@ namespace TeamSuneat.Data.Game
             try
             {
                 string saveDirectory = Application.persistentDataPath;
-                var allSaveFiles = Directory.GetFiles(saveDirectory, "*.dat")
+                var allSaveFiles = Directory.GetFiles(saveDirectory, "*.json")
                     .Where(f => Path.GetFileName(f).Contains(Application.productName))
                     .Select(f => new FileInfo(f))
                     .OrderByDescending(f => f.LastWriteTime)
@@ -510,31 +480,6 @@ namespace TeamSuneat.Data.Game
         }
 
         /// <summary>
-        /// 파일이 암호화되었는지 확인합니다.
-        /// </summary>
-        private bool IsEncryptedFile(string content)
-        {
-            // 간단한 암호화 여부 판단 (실제로는 더 정교한 로직 필요)
-            return !content.TrimStart().StartsWith("{") && !content.TrimStart().StartsWith("[");
-        }
-
-        /// <summary>
-        /// 암호화된 내용을 복호화 시도합니다.
-        /// </summary>
-        private string TryDecryptContent(string content)
-        {
-            try
-            {
-                string symmetricKey = AES.Encrypt(GameSymmetricIdentifier(), "pub");
-                return AES.Decrypt(content, symmetricKey);
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
         /// 손상된 내용을 복구 시도합니다.
         /// </summary>
         private string AttemptContentRecovery(string content)
@@ -545,17 +490,7 @@ namespace TeamSuneat.Data.Game
                 return content;
             }
 
-            // 2. 암호화된 파일이면 복호화 시도
-            if (IsEncryptedFile(content))
-            {
-                string decrypted = TryDecryptContent(content);
-                if (!string.IsNullOrEmpty(decrypted) && IsValidJson(decrypted))
-                {
-                    return decrypted;
-                }
-            }
-
-            // 3. 부분적 복구 시도 (JSON 부분만 추출)
+            // 2. 부분적 복구 시도 (JSON 부분만 추출)
             var jsonMatch = System.Text.RegularExpressions.Regex.Match(content, @"\{.*\}", System.Text.RegularExpressions.RegexOptions.Singleline);
             if (jsonMatch.Success && IsValidJson(jsonMatch.Value))
             {

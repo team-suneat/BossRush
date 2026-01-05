@@ -26,12 +26,6 @@ namespace TeamSuneat.Data.Game
         // 프로퍼티
         public bool IsSaving => _isAsyncSaving;
 
-        /// <summary>
-        /// 로컬 세이브 파일 암호화에 사용하는 대칭키를 구성한다.
-        /// 고정된 값으로 사용하여 어떤 기기이든 사용할 수 있게 한다.
-        /// </summary>
-        private readonly string _symmetricKey;
-
         private int _saveCount;
 
         private readonly JsonSerializerSettings _serializeSettings;
@@ -53,8 +47,6 @@ namespace TeamSuneat.Data.Game
 
             // 역직렬화는 private set을 허용해야 한다.
             _deserializeSettings = new JsonSerializerSettings { ContractResolver = new PrivateSetterContractResolver() };
-
-            _symmetricKey = AES.Encrypt(GameSymmetricIdentifier(), "pub");
 
             // 파일 경로 포맷 초기화
             SetSaveFilePath();

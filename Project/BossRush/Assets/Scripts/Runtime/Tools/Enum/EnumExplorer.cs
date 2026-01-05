@@ -131,43 +131,5 @@ namespace TeamSuneat
 
         #endregion 사용하는 능력치
 
-        #region 사용하는 버프
-
-        private static bool CheckBuffName(BuffNames buffName)
-        {
-            switch (buffName)
-            {
-                // case BuffNames.Stun:
-                //    return true;
-
-                default:
-                    return false;
-            }
-        }
-
-        public static void LogBuff(string type, string key, BuffNames buffName)
-        {
-#if UNITY_EDITOR
-            if (CheckBuffName(buffName))
-            {
-                Log.Info(LogTags.Buff, "{0}(:{1})에서 버프를 사용합니다. 능력치: {2}", key.ToValueString(), type, buffName.ToLogString());
-            }
-#endif
-        }
-
-        public static void LogBuff(string type, string key, BuffNames[] buffNames)
-        {
-#if UNITY_EDITOR
-            for (int i = 0; i < buffNames.Length; i++)
-            {
-                if (CheckBuffName(buffNames[i]))
-                {
-                    Log.Info(LogTags.Buff, "{0}(:{1})에서 버프를 사용합니다. 능력치: {2}", key.ToValueString(), type, buffNames[i].ToLogString());
-                }
-            }
-#endif
-        }
-
-        #endregion 사용하는 버프
     }
 }

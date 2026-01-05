@@ -178,27 +178,27 @@ namespace TeamSuneat
             {
                 if (IsFacingRight && position.x > Target.position.x)
                 {
-                    if (HorizontalMovement != null)
-                    {
-                        HorizontalMovement.SetHorizontalMove(-1);
-                    }
-
-                    if (Fly != null)
-                    {
-                        Fly.SetHorizontalMove(-1);
-                    }
+                    //  if (HorizontalMovement != null)
+                    //  {
+                    //      HorizontalMovement.SetHorizontalMove(-1);
+                    //  }
+                    //
+                    //  if (Fly != null)
+                    //  {
+                    //      Fly.SetHorizontalMove(-1);
+                    //  }
                 }
                 else if (!IsFacingRight && position.x < Target.position.x)
                 {
-                    if (HorizontalMovement != null)
-                    {
-                        HorizontalMovement.SetHorizontalMove(1);
-                    }
-
-                    if (Fly != null)
-                    {
-                        Fly.SetHorizontalMove(1);
-                    }
+                    // if (HorizontalMovement != null)
+                    // {
+                    //     HorizontalMovement.SetHorizontalMove(1);
+                    // }
+                    //
+                    // if (Fly != null)
+                    // {
+                    //     Fly.SetHorizontalMove(1);
+                    // }
                 }
             }
         }

@@ -14,7 +14,6 @@ namespace TeamSuneat
         None,
         MapObject,
         NPC,
-        DropObject,
     }
 
     public enum InteractionEnums

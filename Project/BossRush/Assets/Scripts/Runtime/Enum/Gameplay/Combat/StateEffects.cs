@@ -33,7 +33,7 @@ namespace TeamSuneat
 
         DamageOverTime, // 지속 피해
         HealingEffect, // 치유 효과
-        Shield, // 보호막
+        Barrier, // 보호막
         Incapacitated, // 행동 불가
         Elite, // 정예 적
         Ferocity, // 흉포

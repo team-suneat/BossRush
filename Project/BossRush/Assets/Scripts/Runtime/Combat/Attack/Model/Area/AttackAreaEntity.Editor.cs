@@ -35,7 +35,7 @@ namespace TeamSuneat
             {
                 StatNameOfActiveDurationString = StatNameOfActiveDuration.ToString();
             }
-            gameObject.layer = TSLayers.Detectable;
+            gameObject.layer = GameLayers.Detectable;
         }
 
         protected override void Validate()
@@ -64,7 +64,7 @@ namespace TeamSuneat
         {
             if (DamageCollider != null && DamageCollider.enabled)
             {
-                TSGizmoEx.DrawGizmoCube(position + (Vector3)DamageCollider.offset, DamageCollider.bounds.size, TSColors.Dev);
+                GizmoEx.DrawGizmoCube(position + (Vector3)DamageCollider.offset, DamageCollider.bounds.size, GameColors.Dev);
             }
         }
 
@@ -78,11 +78,7 @@ namespace TeamSuneat
             {
                 if (Owner != null)
                 {
-                    Log.Progress(LogTags.Attack_Area, TSStringGetter.ConcatStringWithComma(Owner.Name.ToLogString(), Name.ToLogString(), content));
-                }
-                else if (OwnerProjectile != null)
-                {
-                    Log.Progress(LogTags.Attack_Area, TSStringGetter.ConcatStringWithComma(OwnerProjectile.Name.ToLogString(), Name.ToLogString(), content));
+                    Log.Progress(LogTags.Attack, StringGetter.ConcatStringWithComma(Owner.Name.ToLogString(), Name.ToLogString(), content));
                 }
             }
         }
@@ -93,11 +89,7 @@ namespace TeamSuneat
             {
                 if (Owner != null)
                 {
-                    Log.Info(LogTags.Attack_Area, TSStringGetter.ConcatStringWithComma(Owner.Name.ToLogString(), Name.ToLogString(), content));
-                }
-                else if (OwnerProjectile != null)
-                {
-                    Log.Info(LogTags.Attack_Area, TSStringGetter.ConcatStringWithComma(OwnerProjectile.Name.ToLogString(), Name.ToLogString(), content));
+                    Log.Info(LogTags.Attack, StringGetter.ConcatStringWithComma(Owner.Name.ToLogString(), Name.ToLogString(), content));
                 }
             }
         }
@@ -108,12 +100,9 @@ namespace TeamSuneat
             {
                 if (Owner != null)
                 {
-                    Log.Warning(LogTags.Attack_Area, TSStringGetter.ConcatStringWithComma(Owner.Name.ToLogString(), Name.ToLogString(), content));
+                    Log.Warning(LogTags.Attack, StringGetter.ConcatStringWithComma(Owner.Name.ToLogString(), Name.ToLogString(), content));
                 }
-                else if (OwnerProjectile != null)
-                {
-                    Log.Warning(LogTags.Attack_Area, TSStringGetter.ConcatStringWithComma(OwnerProjectile.Name.ToLogString(), Name.ToLogString(), content));
-                }
+
             }
         }
 

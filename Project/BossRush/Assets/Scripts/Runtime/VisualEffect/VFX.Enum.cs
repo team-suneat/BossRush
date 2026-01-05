@@ -28,7 +28,7 @@ namespace TeamSuneat
         Grounded,
 
         /// <summary> 캐릭터의 실드 위치 </summary>
-        Shield,
+        Barrier,
 
         /// <summary> 캐릭터의 발 위치 </summary>
         Foot,

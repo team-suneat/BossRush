@@ -9,7 +9,7 @@ namespace TeamSuneat
         PlayerDamaged,
         Execution,
 
-        HealHealth,
+        HealLife,
         RestoreMana,
         ChargeShield,
 

@@ -18,16 +18,16 @@ namespace TeamSuneat
                     }
                     break;
 
-                case LinkedDamageTypes.CurrentHealthOfAttacker:
+                case LinkedDamageTypes.CurrentLifeOfAttacker:
                     {
-                        ReferenceValue = Attacker.MyVital.CurrentHealth;
+                        ReferenceValue = Attacker.MyVital.CurrentLife;
                         LogProgressReferenceValue("공격자의 현재 생명력", ReferenceValue);
                     }
                     break;
 
-                case LinkedDamageTypes.MaxHealthOfAttacker:
+                case LinkedDamageTypes.MaxLifeOfAttacker:
                     {
-                        ReferenceValue = Attacker.MyVital.MaxHealth;
+                        ReferenceValue = Attacker.MyVital.MaxLife;
                         LogProgressReferenceValue("공격자의 최대 생명력", ReferenceValue);
                     }
                     break;
@@ -46,24 +46,17 @@ namespace TeamSuneat
                     }
                     break;
 
-                case LinkedDamageTypes.CurrentHealthOfTarget:
+                case LinkedDamageTypes.CurrentLifeOfTarget:
                     {
-                        ReferenceValue = TargetVital.CurrentHealth;
+                        ReferenceValue = TargetVital.CurrentLife;
                         LogProgressReferenceValue("피격자의 현재 생명력", ReferenceValue);
                     }
                     break;
 
-                case LinkedDamageTypes.MaxHealthOfTarget:
+                case LinkedDamageTypes.MaxLifeOfTarget:
                     {
-                        ReferenceValue = TargetVital.MaxHealth;
+                        ReferenceValue = TargetVital.MaxLife;
                         LogProgressReferenceValue("피격자의 최대 생명력", ReferenceValue);
-                    }
-                    break;
-
-                case LinkedDamageTypes.SkillCooldownTime:
-                    {
-                        ReferenceValue = CooldownReferenceValue;
-                        LogProgressReferenceValue("기술의 재사용 대기시간", ReferenceValue);
                     }
                     break;
             }
@@ -71,15 +64,6 @@ namespace TeamSuneat
             if (ReferenceValue == 0)
             {
                 LogErrorReferenceValue(damageAsset.LinkedDamageType, damageAsset.LinkedStateEffect, ReferenceValue);
-            }
-            else if (damageAsset.LinkedStateEffect != StateEffects.None)
-            {
-                int stack = Attacker.Buff.FindStack(damageAsset.LinkedStateEffect);
-                if (stack > 0)
-                {
-                    ReferenceValue *= stack;
-                    LogProgressReferenceValue("공격자의 상태이상 스택 적용", ReferenceValue);
-                }
             }
         }
     }

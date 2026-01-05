@@ -1,8 +1,6 @@
-﻿using System.Collections;
+﻿using Sirenix.OdinInspector;
+using System.Collections;
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
-using TeamSuneat.Projectiles;
-
 using UnityEngine;
 
 namespace TeamSuneat
@@ -11,7 +9,6 @@ namespace TeamSuneat
     {
         [Title("#Detect System")]
         public Character Owner;
-        public Projectile OwnerProjectile;
         public DetectTypes DetectType;
 
         public bool UseCustomDetectMask;
@@ -58,7 +55,6 @@ namespace TeamSuneat
             base.AutoGetComponents();
 
             Owner = this.FindFirstParentComponent<Character>();
-            OwnerProjectile = this.FindFirstParentComponent<Projectile>();
         }
 
         public override void AutoSetting()
@@ -86,11 +82,11 @@ namespace TeamSuneat
         {
             if (DetectShape == DetectShapes.Box)
             {
-                TSGizmoEx.DrawGizmoRectangle(position, DetectBoxSize, TSColors.Detect);
+                GizmoEx.DrawGizmoRectangle(position, DetectBoxSize, GameColors.Dev);
             }
             else if (DetectShape == DetectShapes.Circle)
             {
-                TSGizmoEx.DrawWireSphere(position, DetectRadius, TSColors.Detect);
+                GizmoEx.DrawWireSphere(position, DetectRadius, GameColors.Dev);
             }
         }
 
@@ -210,11 +206,6 @@ namespace TeamSuneat
                         Owner.SetTarget(detectedVital);
                     }
 
-                    if (OwnerProjectile != null)
-                    {
-                        OwnerProjectile.SetTarget(detectedVital);
-                    }
-
                     if (IsSaveIgnoreVitals)
                     {
                         RegisterIgnoreVital(detectedVital);
@@ -234,12 +225,7 @@ namespace TeamSuneat
             {
                 _vitalDetector.SetComparerPosition(position);
                 List<Vital> detectedVitalList = null;
-                if (OwnerProjectile != null)
-                {
-                    // 부모 발사체가 있다면 발사체의 방향에 따라 바이탈을 탐지합니다.
-                    detectedVitalList = _vitalDetector.DoDetectVitalList(position, OwnerProjectile.IsDirectionRight);
-                }
-                else if (Owner != null)
+                if (Owner != null)
                 {
                     detectedVitalList = _vitalDetector.DoDetectVitalList(position, Owner.IsFacingRight);
                 }

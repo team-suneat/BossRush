@@ -36,39 +36,17 @@
 
         //
 
-        ProjectileNormal,
-
-        ProjectileCharge,
-
-        ProjectileSkill,
-
-        ProjectileSubWeapon,
-
-        ProjectileDash,
-
-        ProjectileParrying,
-
-        ProjectileDive,
-
-        //
-
         Heal, /// 체력 회복
 
-        ProjectileHeal, /// 발사체로 인한 체력 회복
-
-        HealByMaxHealth,
+        HealByMaxLife,
 
         ReCharge, /// 보호막 재충전
-
-        ProjectileReCharge, /// 발사체로 인한 보호막 재충전
 
         //
 
         BurnMana,   /// 마나 연소
 
         RecoveryMana, /// 마나 회복
-
-        ProjectileRecoveryMana, /// 발사체 마나 회복
 
         //
 
@@ -84,8 +62,6 @@
         Target,
 
         Area,
-
-        Projectile,
 
         Operate,
 
@@ -186,5 +162,11 @@
         SubWeapon,
 
         Core,
+    }
+
+    public enum AttackTargetTypes
+    {
+        None,
+        Owner, TargetOfOwner,
     }
 }

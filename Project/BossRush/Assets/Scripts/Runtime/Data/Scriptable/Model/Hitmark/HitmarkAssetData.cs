@@ -1,7 +1,6 @@
 ﻿using Sirenix.OdinInspector;
 using System;
 using System.Linq;
-using TeamSuneat.Passive;
 using UnityEngine;
 
 namespace TeamSuneat.Data
@@ -15,10 +14,6 @@ namespace TeamSuneat.Data
         [EnableIf("IsChangingAsset")]
         [SuffixLabel("히트마크 이름")]
         public HitmarkNames Name;
-
-        [EnableIf("IsChangingAsset")]
-        [SuffixLabel("기술 이름")]
-        public SkillNames SkillName;
 
         [EnableIf("IsChangingAsset")]
         [SuffixLabel("목표 설정 방식")]
@@ -70,7 +65,7 @@ namespace TeamSuneat.Data
         [Tooltip("피해 종류가 물리 또는 마법일 때 피격자의 생명력 비율이 일정 이하라면 적을 처형합니다.")]
         [SuffixLabel("피격자의 처형 조건 생명력 비율*")]
         [Range(0f, 1f)]
-        public float ExecutionConditionalTargetHealthRate;
+        public float ExecutionConditionalTargetLifeRate;
 
         [FoldoutGroup("#피해량")]
         [GUIColor("GetIntColor")]
@@ -130,7 +125,6 @@ namespace TeamSuneat.Data
         [FoldoutGroup("#String")] public string LinkedDamageTypeString;
         [FoldoutGroup("#String")] public string LinkedStateEffectString;
         [FoldoutGroup("#String")] public string NameOnHitString;
-        [FoldoutGroup("#String")] public string BuffOnHitString;
         [FoldoutGroup("#String")] public string UseWeaponDamageString;
 
         #endregion 피해 정보 (Damage Information)
@@ -225,7 +219,6 @@ namespace TeamSuneat.Data
 
         #region 스트링 (String)
 
-        [FoldoutGroup("#String")] public string SkillNameString;
         [FoldoutGroup("#String")] public string AttackTargetTypeString;
         [FoldoutGroup("#String")] public string DiminishingTypeString;
         [FoldoutGroup("#String")] public string ResourceConsumeTypeString;
@@ -241,10 +234,6 @@ namespace TeamSuneat.Data
         {
             if (!IsChangingAsset)
             {
-                if (!EnumEx.ConvertTo(ref SkillName, SkillNameString))
-                {
-                    Log.Error("Hitmark 에셋 데이터의 SkillNameString 변수를 변환할 수 없습니다. {0} ({1}), {2}", Name, Name.ToLogString(), SkillNameString);
-                }
                 if (!EnumEx.ConvertTo(ref AttackTargetType, AttackTargetTypeString))
                 {
                     Log.Error("Hitmark 에셋 데이터의 AttackTargetTypeString 변수를 변환할 수 없습니다. {0} ({1}), {2}", Name, Name.ToLogString(), AttackTargetTypeString);
@@ -267,7 +256,6 @@ namespace TeamSuneat.Data
         {
             base.Refresh();
 
-            SkillNameString = SkillName.ToString();
             AttackTargetTypeString = AttackTargetType.ToString();
             DiminishingTypeString = DiminishingType.ToString();
             ResourceConsumeTypeString = ResourceConsumeType.ToString();
@@ -290,7 +278,6 @@ namespace TeamSuneat.Data
             HitmarkAssetData clone = new()
             {
                 Name = Name,
-                SkillName = SkillName,
                 AttackTargetType = AttackTargetType,
                 EntityType = EntityType,
 
@@ -321,7 +308,7 @@ namespace TeamSuneat.Data
                 ApplyToSelf = ApplyToSelf,
                 ApplyMultiplierToSelf = ApplyMultiplierToSelf,
 
-                ExecutionConditionalTargetHealthRate = ExecutionConditionalTargetHealthRate,
+                ExecutionConditionalTargetLifeRate = ExecutionConditionalTargetLifeRate,
                 MinDamageValue = MinDamageValue,
                 FixedDamage = FixedDamage,
                 FixedDamageByLevel = FixedDamageByLevel,
@@ -418,7 +405,7 @@ namespace TeamSuneat.Data
             if (IgnoreEvasion != another.IgnoreEvasion) { return false; }
             if (ApplyToSelf != another.ApplyToSelf) { return false; }
             if (ApplyMultiplierToSelf != another.ApplyMultiplierToSelf) { return false; }
-            if (ExecutionConditionalTargetHealthRate != another.ExecutionConditionalTargetHealthRate) { return false; }
+            if (ExecutionConditionalTargetLifeRate != another.ExecutionConditionalTargetLifeRate) { return false; }
             if (MinDamageValue != another.MinDamageValue) { return false; }
             if (FixedDamage != another.FixedDamage) { return false; }
             if (FixedDamageByLevel != another.FixedDamageByLevel) { return false; }

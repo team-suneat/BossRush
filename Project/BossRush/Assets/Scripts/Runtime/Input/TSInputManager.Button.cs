@@ -21,11 +21,7 @@ namespace TeamSuneat
                 {
                     case ActionNames.None:
                     case ActionNames.MoveHorizontal:
-                    case ActionNames.UICursorHorizontal:
-                    case ActionNames.UICursorHorizontal2:
                     case ActionNames.MoveVertical:
-                    case ActionNames.UICursorVertical:
-                    case ActionNames.UICursorVertical2:
                         continue;
                 }
 

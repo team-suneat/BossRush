@@ -41,7 +41,6 @@ namespace TeamSuneat
         {
             RegisterSystemStrategies();
             RegisterCombatStrategies();
-            RegisterPassiveStrategies();
             RegisterSpecialStrategies();
 
             // 모든 전략에 System 참조 설정
@@ -120,24 +119,15 @@ namespace TeamSuneat
         /// </summary>
         private void RegisterSystemStrategies()
         {
-            _strategies[StatNames.Health] = new HealthUpdateStrategy();
+            _strategies[StatNames.Life] = new LifeUpdateStrategy();
             _strategies[StatNames.Attack] = new AttackUpdateStrategy();
             _strategies[StatNames.AttackSpeed] = new AttackSpeedUpdateStrategy();
-            _strategies[StatNames.CriticalChance] = new CriticalUpdateStrategy();
-            _strategies[StatNames.CriticalDamage] = new CriticalUpdateStrategy();
         }
 
         /// <summary>
         /// 전투 전략들을 등록합니다.
         /// </summary>
         private void RegisterCombatStrategies()
-        {
-        }
-
-        /// <summary>
-        /// 패시브 전략들을 등록합니다.
-        /// </summary>
-        private void RegisterPassiveStrategies()
         {
         }
 

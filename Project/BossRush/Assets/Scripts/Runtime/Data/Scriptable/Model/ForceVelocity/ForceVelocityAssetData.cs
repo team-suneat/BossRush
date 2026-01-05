@@ -18,7 +18,6 @@ namespace TeamSuneat.Data
         public bool IsPiercing;
         public ApplicationTypes Application;
         public StatNames[] Stats;
-        public BuffNames Buff;
         public int Priority;
         public FVDirections Direction;
         public Vector2 ForceVelocity;
@@ -46,7 +45,6 @@ namespace TeamSuneat.Data
         public string SubjectString;
         public string ApplicationString;
         public string[] StatString;
-        public string BuffString;
         public string DirectionString;
 
         public override int GetKey()
@@ -64,7 +62,6 @@ namespace TeamSuneat.Data
             if (!EnumEx.ConvertTo(ref Subject, SubjectString)) { Log.Error("Asset 내 Subject 변수 변환에 실패했습니다. {0}", Name.ToLogString()); }
             if (!EnumEx.ConvertTo(ref Application, ApplicationString)) { Log.Error("Asset 내 Application 변수 변환에 실패했습니다. {0}", Name.ToLogString()); }
             if (!EnumEx.ConvertTo(ref Stats, StatString)) { Log.Error("Asset 내 Stats 변수 변환에 실패했습니다. {0}", Name.ToLogString()); }
-            if (!EnumEx.ConvertTo(ref Buff, BuffString)) { Log.Error("Asset 내 Buff 변수 변환에 실패했습니다. {0}", Name.ToLogString()); }
             if (!EnumEx.ConvertTo(ref Direction, DirectionString)) { Log.Error("Asset 내 Direction 변수 변환에 실패했습니다. {0}", Name.ToLogString()); }
         }
 
@@ -75,7 +72,6 @@ namespace TeamSuneat.Data
             SubjectString = Subject.ToString();
             ApplicationString = Application.ToString();
             StatString = Stats.ToStringArray();
-            BuffString = Buff.ToString();
             DirectionString = Direction.ToString();
 
             IsChangingAsset = false;
@@ -96,7 +92,6 @@ namespace TeamSuneat.Data
                 IsPiercing = IsPiercing,
                 Application = Application,
                 Stats = Stats,
-                Buff = Buff,
                 Priority = Priority,
                 Direction = Direction,
                 ForceVelocity = ForceVelocity,

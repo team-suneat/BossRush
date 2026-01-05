@@ -50,20 +50,7 @@ namespace TeamSuneat
         //
         public override void AddCharacterStats()
         {
-            MonsterStatConfigAsset monsterStatConfigAsset = ScriptableDataManager.Instance.GetMonsterStatConfigAsset();
-            if (monsterStatConfigAsset.IsValid())
-            {
-                int health = monsterStatConfigAsset.GetHealth(Level, IsBoss);
-                int attack = monsterStatConfigAsset.GetAttack(Level, IsBoss);
-
-                Stat.AddWithSourceInfo(StatNames.Health, health, this, NameString, "CharacterBase");
-                Stat.AddWithSourceInfo(StatNames.Attack, attack, this, NameString, "CharacterBase");
-                Stat.AddWithSourceInfo(StatNames.AttackSpeed, 1f, this, NameString, "CharacterBase");
-            }
-            else
-            {
-                Log.Error("몬스터의 능력치를 불러올 수 없습니다.");
-            }
+            Log.Warning("몬스터의 능력치를 불러올 수 없습니다.");
         }
 
         //
@@ -75,7 +62,6 @@ namespace TeamSuneat
             CharacterManager.Instance.Unregister(this);
             transform.SetParent(null);
             CharacterAnimator?.PlayDeathAnimation();
-            AddDropItems();
 
             if (IsBoss)
             {
@@ -85,26 +71,6 @@ namespace TeamSuneat
             {
                 GlobalEvent<Character>.Send(GlobalEventType.MONSTER_CHARACTER_DEATH, this);
             }
-        }
-
-        private void AddDropItems()
-        {
-            if (ProfileInfo == null) return;
-
-            MonsterDropConfigAsset config = ScriptableDataManager.Instance.GetMonsterDropConfigAsset();
-            if (config == null) return;
-
-            int gold = config.GetGoldDrop(Level, IsBoss);
-            ProfileInfo.Currency.Add(CurrencyNames.Gold, gold);
-
-            if (config.TryDropEnhancementCube())
-            {
-                int cube = config.GetCubeDrop(Level, IsBoss);
-                ProfileInfo.Currency.Add(CurrencyNames.EnhancementCube, cube);
-            }
-
-            int exp = config.GetExpDrop(Level, IsBoss);
-            ProfileInfo.Level.AddExperience(exp);
         }
     }
 }

@@ -36,7 +36,7 @@ namespace TeamSuneat.Data
         public virtual bool RefreshWithoutSave()
         {
 #if UNITY_EDITOR
-            if (_hasChangedWhiteRefreshAll || GameDefine.DEV_SCRIPTABLE_OBJECT_FORCE_REFRESH_ALL)
+            if (_hasChangedWhiteRefreshAll)
             {
                 Debug.LogFormat("에셋의 값을 갱신했습니다. {0}", name.ToSelectString());
                 EditorUtility.SetDirty(this);
@@ -331,21 +331,6 @@ namespace TeamSuneat.Data
             return GetColor(key);
         }
 
-        protected Color GetPassiveNameColor(PassiveNames key)
-        {
-            return GetColor(key);
-        }
-
-        protected Color GetBuffNameColor(BuffNames key)
-        {
-            return GetColor(key);
-        }
-
-        protected Color GetBuffTypeColor(BuffTypes key)
-        {
-            return GetColor(key);
-        }
-
         protected Color GetStatNameColor(StatNames key)
         {
             return GetColor(key);
@@ -361,17 +346,7 @@ namespace TeamSuneat.Data
             return GetColor(key);
         }
 
-        protected Color GetAreaNameColor(AreaNames key)
-        {
-            return GetColor(key);
-        }
-
         protected Color GetStageNameColor(StageNames key)
-        {
-            return GetColor(key);
-        }
-
-        protected Color GetSkillNameColor(SkillNames key)
         {
             return GetColor(key);
         }

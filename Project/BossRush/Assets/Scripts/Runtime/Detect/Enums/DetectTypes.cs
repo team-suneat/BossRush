@@ -6,8 +6,8 @@
 
         Nearest,
         Farthest,
-        LowestHealth,
-        HighestHealth,
+        LowestLife,
+        HighestLife,
 
         Random,
     }

@@ -12,14 +12,14 @@ namespace TeamSuneat
 
             if (MyVital != null)
             {
-                if (MyVital.Health != null)
+                if (MyVital.Life != null)
                 {
-                    LogInfo("캐릭터의 생명(Health)의 피격/부활/죽음/죽임 이벤트를 모두 해제합니다.");
+                    LogInfo("캐릭터의 생명(Life)의 피격/부활/죽음/죽임 이벤트를 모두 해제합니다.");
 
-                    MyVital.Health.UnregisterOnDamageEvent(OnDamage);
-                    MyVital.Health.UnregisterOnReviveEvent(OnRevive);
-                    MyVital.Health.UnregisterOnDeathEvent(OnDeath);
-                    MyVital.Health.UnregisterOnKilledEvent(OnKilled);
+                    MyVital.Life.UnregisterOnDamageEvent(OnDamage);
+                    MyVital.Life.UnregisterOnReviveEvent(OnRevive);
+                    MyVital.Life.UnregisterOnDeathEvent(OnDeath);
+                    MyVital.Life.UnregisterOnKilledEvent(OnKilled);
                 }
             }
         }
@@ -60,14 +60,14 @@ namespace TeamSuneat
         {
             if (MyVital != null)
             {
-                if (MyVital.Health != null)
+                if (MyVital.Life != null)
                 {
-                    LogInfo("캐릭터의 생명(Health)의 데미지/부활/죽음/킬 이벤트를 등록합니다.");
+                    LogInfo("캐릭터의 생명(Life)의 데미지/부활/죽음/킬 이벤트를 등록합니다.");
 
-                    MyVital.Health.RegisterOnDamageEvent(OnDamage);
-                    MyVital.Health.RegisterOnReviveEvent(OnRevive);
-                    MyVital.Health.RegisterOnDeathEvent(OnDeath);
-                    MyVital.Health.RegisterOnKilledEvent(OnKilled);
+                    MyVital.Life.RegisterOnDamageEvent(OnDamage);
+                    MyVital.Life.RegisterOnReviveEvent(OnRevive);
+                    MyVital.Life.RegisterOnDeathEvent(OnDeath);
+                    MyVital.Life.RegisterOnKilledEvent(OnKilled);
                 }
             }
         }
@@ -85,7 +85,6 @@ namespace TeamSuneat
             InitializeStateMachines();
 
             AssignAnimator();
-            InitializeAbilities();
             ChangeConditionState(CharacterConditions.Normal);
 
             UpdateAnimators();
@@ -120,7 +119,6 @@ namespace TeamSuneat
 
             Attack?.OnBattleReady();
             MyVital?.OnBattleReady();
-            MyVital?.SetHUD();
             OnBattleFeedbacks?.PlayFeedbacks();
         }
 
@@ -135,11 +133,8 @@ namespace TeamSuneat
             LogInfo("캐릭터의 현재 생명력이 0이 되었습니다.");
 
             Attack?.OnDeath();
-            Passive?.Clear();
-            Buff?.Clear();
             Stat?.Clear();
 
-            ResetAbilities();
             ChangeConditionState(CharacterConditions.Dead);
         }
 
@@ -155,17 +150,11 @@ namespace TeamSuneat
 
         public virtual void LogicUpdate()
         {
-            EarlyProcessAbilities();
-
             if (!Time.timeScale.IsZero())
             {
-                ProcessAbilities();
-                LateProcessAbilities();
             }
 
             UpdateAnimators();
-
-            Passive?.LogicUpdate();
         }
 
         public virtual void PhysicsUpdate()
@@ -174,8 +163,6 @@ namespace TeamSuneat
             {
                 return;
             }
-
-            PhysicsProcessAbilities();
         }
 
         #endregion Update
@@ -246,10 +233,6 @@ namespace TeamSuneat
         #region 데미지 시 (On Damage)
 
         public virtual void ApplyDamageFV(DamageResult damageResult)
-        {
-        }
-
-        public virtual void ApplyDamageBuff(DamageResult damageResult)
         {
         }
 

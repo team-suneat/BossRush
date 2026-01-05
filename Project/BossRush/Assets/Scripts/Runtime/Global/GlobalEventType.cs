@@ -33,9 +33,6 @@ namespace TeamSuneat
         ///<summary> 플레이어 캐릭터가 적을 공격합니다 </summary>
         PLAYER_CHARACTER_ATTACK_MONSTER,
 
-        ///<summary> 플레이어 캐릭터가 발사체를 공격합니다 </summary>
-        PLAYER_CHARACTER_ATTACK_PROJECTILE,
-
         ///<summary> 플레이어 캐릭터가 생명력이 가득 찬 몬스터를 공격합니다. </summary>
         PLAYER_CHARACTER_ATTACK_MONSTER_FULL_LIFE_TARGET,
 
@@ -73,15 +70,6 @@ namespace TeamSuneat
         ///<summary> 플레이어 캐릭터가 적을 죽입니다 </summary>
         PLAYER_CHARACTER_KILL_MONSTER,
 
-        ///<summary> 플레이어 캐릭터가 기술을 시전합니다 </summary>
-        PLAYER_CHARACTER_CAST_SKILL,
-
-        ///<summary> 플레이어 캐릭터의 기술 재사용 대기가 시작됩니다. </summary>
-        PLAYER_CHARACTER_START_SKILL_COOLDOWN,
-
-        ///<summary> 플레이어 캐릭터의 기술 재사용 대기가 종료됩니다. </summary>
-        PLAYER_CHARACTER_STOP_SKILL_COOLDOWN,
-
         //
 
         ///<summary> 플레이어 캐릭터가 공격에 성공합니다 </summary>
@@ -91,12 +79,6 @@ namespace TeamSuneat
         PLAYER_CHARACTER_EXECUTE_ATTACK_FAILED,
 
         //
-
-        ///<summary> 플레이어 캐릭터에게 버프를 추가합니다 </summary>
-        PLAYER_CHARACTER_ADD_BUFF,
-
-        ///<summary> 플레이어 캐릭터에게 버프를 삭제합니다 </summary>
-        PLAYER_CHARACTER_REMOVE_BUFF,
 
         ///<summary> 플레이어 캐릭터에게 상태이상을 추가합니다 </summary>
         PLAYER_CHARACTER_ADD_STATE_EFFECT,
@@ -110,13 +92,7 @@ namespace TeamSuneat
         ///<summary> 몬스터 캐릭터에게 상태이상을 삭제합니다 </summary>
         MONSTER_CHARACTER_REMOVE_STATE_EFFECT,
 
-        ///<summary> 플레이어 캐릭터에게 버프 스택을 추가합니다 </summary>
-        PLAYER_CHARACTER_ADD_BUFF_STACK,
-
         //
-
-        ///<summary> 플레이어 캐릭터의 패시브를 실행합니다 </summary>
-        PLAYER_CHARACTER_EXECUTE_PASSIVE,
 
         //
 
@@ -154,18 +130,6 @@ namespace TeamSuneat
         ///<summary> 몬스터 캐릭터가 공격을 시전합니다. </summary>
         MONSTER_CHARACTER_ATTACK_CAST,
 
-        ///<summary> 몬스터 캐릭터에게 버프를 추가하거나, 중첩합니다. </summary>
-        MONSTER_CHARACTER_ADD_BUFF,
-
-        ///<summary> 몬스터 캐릭터에게 버프를 삭제합니다 </summary>
-        MONSTER_CHARACTER_REMOVE_BUFF,
-
-        ///<summary> 몬스터 캐릭터에게 버프 스택을 추가합니다 </summary>
-        MONSTER_CHARACTER_ADD_BUFF_STACK,
-
-        ///<summary> 몬스터 캐릭터에게 버프의 공격이 적용됩니다. </summary>
-        MONSTER_CHARACTER_APPLY_ATTACK_BUFF,
-
         ///<summary> 몬스터 캐릭터 피해를 입습니다. </summary>
         MONSTER_CHARACTER_DAMAGED,
 
@@ -189,48 +153,7 @@ namespace TeamSuneat
 
         #endregion 몬스터 캐릭터 MONSTER CHARACTER
 
-        #region 발사체 PROJECTILE
-
-        ///<summary> 발사체가 생성됩니다 </summary>
-        PROJECTILE_SPAWND,
-
-        ///<summary> 발사체가 삭제됩니다 </summary>
-        PROJECTILE_DESPAWND,
-
-        #endregion 발사체 PROJECTILE
-
         #region 게임 데이터 GAME DATA
-
-        ///<summary> 기술을 추가합니다 </summary>
-        GAME_DATA_ADD_CHARACTER_SKILL,
-
-        ///<summary> 기술을 삭제합니다 </summary>
-        GAME_DATA_REMOVE_CHARACTER_SKILL,
-
-        ///<summary> 기술의 레벨이 변경됩니다 </summary>
-        GAME_DATA_CHARACTER_SKILL_LEVEL_REFRESH,
-
-
-        ///<summary> 기술을 전부 초기화합니다. </summary>
-        GAME_DATA_CHARACTER_SKILL_LEVEL_RESET,
-
-        ///<summary> 기술을 할당합니다 </summary>
-        GAME_DATA_ASSIGN_CHARACTER_SKILL,
-
-        ///<summary> 기술을 할당해제합니다 </summary>
-        GAME_DATA_UNASSIGN_CHARACTER_SKILL,
-
-        ///<summary> 기술 허용을 등록합니다 </summary>
-        GAME_DATA_REGISTER_ALLOWED_SKILL,
-
-        ///<summary> 기술 허용을 등록해제합니다 </summary>
-        GAME_DATA_UNREGISTER_ALLOWED_SKILL,
-
-        ///<summary> 캐릭터 레벨을 변경합니다 </summary>
-        GAME_DATA_CHARACTER_LEVEL_CHANGED,
-
-        ///<summary> 캐릭터가 경험치를 획득합니다 </summary>
-        GAME_DATA_CHARACTER_ADD_EXPERIENCE,
 
         ///<summary> 플레이어 캐릭터가 전직합니다 </summary>
         GAME_DATA_PLAYER_CHARACTER_PROMOTION,
@@ -243,12 +166,6 @@ namespace TeamSuneat
 
         ///<summary> 캐릭터가 아이템을 장착해제합니다 </summary>
         GAME_DATA_PLAYER_UNEQUIP_ITEM,
-
-        ///<summary> 기술 포인트를 획득합니다. </summary>
-        GAME_DATA_PLAYER_ADD_SKILL_REMAININGPOINT,
-
-        ///<summary> 기술 포인트를 사용합니다. </summary>
-        GAME_DATA_PLAYER_USE_SKILL_REMAININGPOINT,
 
         ///<summary> 스테이지를 설정합니다. </summary>
         GAME_DATA_STAGE_SET,
@@ -289,13 +206,6 @@ namespace TeamSuneat
 
         #endregion 성장 GROWTH
 
-        #region 레벨 LEVEL
-
-        ///<summary> 경험치가 부족합니다. </summary>
-        EXPERIENCE_SHORTAGE,
-
-        #endregion 레벨 LEVEL
-
         #region 설정 SETTING
 
         ///<summary> 게임 언어가 변경됩니다. </summary>
@@ -318,9 +228,6 @@ namespace TeamSuneat
 
         ///<summary> 게임 플레이에서 게이지 값 텍스트를 표시합니다. </summary>
         GAME_PLAY_SHOW_GAUGE_VALUE_TEXT,
-
-        ///<summary> 모든 버프 아이콘을 표시합니다. </summary>
-        GAME_PLAY_SHOW_ALL_BUFF_ICON,
 
         #endregion 설정 SETTING
 
@@ -415,9 +322,6 @@ namespace TeamSuneat
 
         ///<summary> NPC와의 상호작용으로 판매 유물 후보를 갱신합니다. </summary>
         NPC_INTERACTION_RELIC_REROLL,
-
-        ///<summary> NPC와의 상호작용으로 판매 기술 후보를 갱신합니다. </summary>
-        NPC_INTERACTION_SKILL_REROLL,
 
         ///<summary> NPC와의 상호작용으로 판매 비약 후보를 갱신합니다. </summary>
         NPC_INTERACTION_ELIXIR_REROLL,

@@ -9,7 +9,7 @@ namespace TeamSuneat.Audio
         {
             base.AutoSetting();
 
-            // BGM 이름이 설정되어 있으면 문자열로 변환
+            // MUSIC 이름이 설정되어 있으면 문자열로 변환
             if (BGMName != SoundNames.None)
             {
                 BGMNameString = BGMName.ToString();

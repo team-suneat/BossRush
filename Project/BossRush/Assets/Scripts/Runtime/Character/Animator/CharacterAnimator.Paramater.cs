@@ -52,7 +52,7 @@ namespace TeamSuneat
         private int ANIMATOR_IS_ATTACKING_1_PARAMETER_ID;
         private int ANIMATOR_IS_ATTACKING_2_PARAMETER_ID;
         private int ANIMATOR_IS_ATTACKING_3_PARAMETER_ID;
-        private int ANIMATOR_IS_DASING_PARAMETER_ID;
+        private int ANIMATOR_IS_DASHING_PARAMETER_ID;
         private int ANIMATOR_IS_GRABBING_PARAMETER_ID;
         private int ANIMATOR_IS_DAMAGING_PARAMETER_ID;
         private int ANIMATOR_IS_CONSUMING_POTION_PARAMETER_ID;
@@ -86,7 +86,7 @@ namespace TeamSuneat
             _animator.AddAnimatorParameterIfExists(ANIMATOR_IS_ATTACKING_1_PARAMETER_NAME, out ANIMATOR_IS_ATTACKING_1_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_IS_ATTACKING_2_PARAMETER_NAME, out ANIMATOR_IS_ATTACKING_2_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_IS_ATTACKING_3_PARAMETER_NAME, out ANIMATOR_IS_ATTACKING_3_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);
-            _animator.AddAnimatorParameterIfExists(ANIMATOR_IS_DASING_PARAMETER_NAME, out ANIMATOR_IS_DASING_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);
+            _animator.AddAnimatorParameterIfExists(ANIMATOR_IS_DASING_PARAMETER_NAME, out ANIMATOR_IS_DASHING_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_IS_GRABBING_PARAMETER_NAME, out ANIMATOR_IS_GRABBING_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_IS_DAMAGING_PARAMETER_NAME, out ANIMATOR_IS_DAMAGING_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_IS_CONSUMING_POTION_PARAMETER_NAME, out ANIMATOR_IS_CONSUMING_POTION_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);

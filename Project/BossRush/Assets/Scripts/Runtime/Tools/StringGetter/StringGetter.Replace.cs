@@ -31,16 +31,6 @@ namespace TeamSuneat
             return ReplaceCharacterName(input, GameSetting.Instance.Language.Name);
         }
 
-        private static string ReplaceBuffName(string input)
-        {
-            return ReplaceBuffName(input, GameSetting.Instance.Language.Name);
-        }
-
-        private static string ReplaceStateEffect(string input)
-        {
-            return ReplaceStateEffect(input, GameSetting.Instance.Language.Name);
-        }
-
         private static string ReplaceStatName(string input)
         {
             return ReplaceStatName(input, GameSetting.Instance.Language.Name);
@@ -59,11 +49,6 @@ namespace TeamSuneat
         public static string ReplaceStageName(string input)
         {
             return ReplaceStageName(input, GameSetting.Instance.Language.Name);
-        }
-
-        public static string ReplaceAreaName(string input)
-        {
-            return ReplaceAreaName(input, GameSetting.Instance.Language.Name);
         }
 
         public static string ReplaceCurrencyName(string input)
@@ -96,57 +81,6 @@ namespace TeamSuneat
                 Log.Error("치환되지 않은 캐릭터 이름이 남아있습니다. {0}", input);
             }
 
-            return input;
-        }
-
-        private static string ReplaceBuffName(string input, LanguageNames languageName)
-        {
-            string pattern = @"\[BuffName\.([a-zA-Z0-9_]+)\]";
-            MatchCollection matches = GetMatches(input, pattern);
-            if (matches != null)
-            {
-                foreach (Match match in matches)
-                {
-                    string buffNameString = match.Groups[1].Value;
-                    if (!Enum.TryParse(buffNameString, out BuffNames enumBuffName))
-                    {
-                        Log.Error("버프 이름을 변환할 수 없습니다. {0}", match.Value);
-                        continue;
-                    }
-
-                    input = input.Replace(match.Value, $"<style=BuffName>{enumBuffName.GetLocalizedString(languageName)}</style>");
-                }
-            }
-            if (input.Contains("[BuffName."))
-            {
-                Log.Error("치환되지 않은 버프 이름이 남아있습니다. {0}", input);
-            }
-            return input;
-        }
-
-        private static string ReplaceStateEffect(string input, LanguageNames languageName)
-        {
-            string pattern = @"\[StateEffect\.([a-zA-Z0-9_]+)\]";
-            MatchCollection matches = GetMatches(input, pattern);
-            if (matches != null)
-            {
-                foreach (Match match in matches)
-                {
-                    string stateEffectNameString = match.Groups[1].Value;
-
-                    if (!Enum.TryParse(stateEffectNameString, out StateEffects enumStateEffectName))
-                    {
-                        Log.Error("상태이상 이름을 변환할 수 없습니다. {0}", match.Value);
-                        continue;
-                    }
-
-                    input = input.Replace(match.Value, $"<style=StateEffect>{enumStateEffectName.GetLocalizedString(languageName)}</style>");
-                }
-            }
-            if (input.Contains("[StateEffect."))
-            {
-                Log.Error("치환되지 않은 상태이상 이름이 남아있습니다. {0}", input);
-            }
             return input;
         }
 
@@ -265,33 +199,6 @@ namespace TeamSuneat
             return input;
         }
 
-        public static string ReplaceAreaName(string input, LanguageNames languageName)
-        {
-            string pattern = @"\[Area\.([a-zA-Z0-9_]+)\]";
-            MatchCollection matches = GetMatches(input, pattern);
-            if (matches != null)
-            {
-                foreach (Match match in matches)
-                {
-                    string areaNameString = match.Groups[1].Value;
-
-                    if (Enum.TryParse(areaNameString, out AreaNames enumAreaName))
-                    {
-                        input = input.Replace(match.Value, $"<style=Area>{enumAreaName.GetLocalizedString(languageName)}</style>");
-                        continue;
-                    }
-
-                    Log.Error("지역 이름을 변환할 수 없습니다. {0}", match.Value);
-                }
-            }
-            if (input.Contains("[Area."))
-            {
-                Log.Error("치환되지 않은 지역 이름이 남아있습니다. {0}", input);
-            }
-
-            return input;
-        }
-
         public static string ReplaceCurrencyName(string input, LanguageNames languageName)
         {
             string pattern = @"\[Currency\.([a-zA-Z0-9_]+)\]";
@@ -313,6 +220,7 @@ namespace TeamSuneat
                             case CurrencyNames.Diamond:
                                 input = input.Replace(match.Value, $"<style=Diamond>{enumCurrencyName.GetLocalizedString(languageName)}</style>");
                                 break;
+
                             case CurrencyNames.Emerald:
                                 input = input.Replace(match.Value, $"<style=Emerald>{enumCurrencyName.GetLocalizedString(languageName)}</style>");
                                 break;

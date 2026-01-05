@@ -58,15 +58,10 @@ namespace TeamSuneat
         public void AutoGetOwnerComponents()
         {
             Owner = this.FindFirstParentComponent<Character>();
-            OwnerProjectile = this.FindFirstParentComponent<Projectiles.Projectile>();
 
             if (Owner != null)
             {
                 Vital = Owner.MyVital;
-            }
-            else if (OwnerProjectile != null)
-            {
-                Vital = OwnerProjectile.Vital;
             }
         }
 

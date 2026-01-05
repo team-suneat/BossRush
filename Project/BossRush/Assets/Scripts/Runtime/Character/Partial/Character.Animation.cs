@@ -46,14 +46,6 @@ namespace TeamSuneat
                 UpdateAnimationRandomNumber();
 
                 _ = Animator.UpdateAnimatorFloat(_randomAnimationParameter, _animatorRandomNumber, AnimatorParameters);
-
-                for (int i = 0; i < Abilities.Length; i++)
-                {
-                    if (Abilities[i].enabled && Abilities[i].AbilityInitialized)
-                    {
-                        Abilities[i].UpdateAnimator();
-                    }
-                }
             }
         }
 

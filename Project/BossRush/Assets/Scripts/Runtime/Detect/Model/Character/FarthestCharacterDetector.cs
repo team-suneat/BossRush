@@ -23,7 +23,7 @@ namespace TeamSuneat
                     continue;
                 }
 
-                if (candidate.MyVital.CurrentHealth == 0)
+                if (candidate.MyVital.CurrentLife == 0)
                 {
                     continue;
                 }

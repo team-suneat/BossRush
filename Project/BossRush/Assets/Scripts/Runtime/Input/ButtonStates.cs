@@ -2,9 +2,9 @@ namespace TeamSuneat
 {
     public enum ButtonStates
     {
-        Off,        
+        Off,
         ButtonDown,
-        ButtonPressed,        
+        ButtonPressed,
         ButtonUp,
     }
 }

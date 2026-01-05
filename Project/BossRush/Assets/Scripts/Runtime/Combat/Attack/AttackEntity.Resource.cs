@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using TeamSuneat.Data;
 
 using UnityEngine;
 
@@ -28,10 +27,7 @@ namespace TeamSuneat
 
         protected IEnumerator ProcessRefreshResourceValue()
         {
-            if (AssetData.ConsumeDealyTime > 0)
-            {
-                yield return new WaitForSeconds(AssetData.ConsumeDealyTime);
-            }
+            yield return null;
 
             if (DetermineUseResourceValue())
             {
@@ -41,10 +37,7 @@ namespace TeamSuneat
                 }
                 else if (!TryUseVitalResource())
                 {
-                    if (AssetData.StopAttackAnimationOnResourceLack)
-                    {
-                        Owner.CharacterAnimator.StopSequenceSkill(AssetData.SkillName);
-                    }
+                    // 자원 부족 시 처리
                 }
             }
 
@@ -119,28 +112,6 @@ namespace TeamSuneat
 
         private bool CheckNoCostResource()
         {
-            if (!SkillAssetData.IsValid()) { return false; }
-
-            switch (SkillAssetData.Category)
-            {
-                case SkillCategories.Core:
-                    {
-                        if (Owner.Stat.ContainsKey(StatNames.NoResourceCostForCoreSkill))
-                        {
-                            LogInfo("핵심 기술의 자원이 소모되지 않습니다.");
-                            return true;
-                        }
-
-                        float coreSkillNoCost = Owner.Stat.FindValueOrDefault(StatNames.CoreSkillReturnCost);
-                        if (TSRandomEx.GetFloatValue() < coreSkillNoCost)
-                        {
-                            LogInfo("핵심 기술의 자원이 소모되지 않습니다 확률 : {0}", coreSkillNoCost);
-                            return true;
-                        }
-                    }
-                    break;
-            }
-
             return false;
         }
 
@@ -171,7 +142,6 @@ namespace TeamSuneat
 
             if (value > 0)
             {
-                ApplyRestoreDoubleForBasicSkill(ref value);
                 LogInfo("공격독립체에서 자원을 회복합니다. {0}, {1}", AssetData.ResourceConsumeType, value);
                 Owner.MyVital.AddCurrentValue(AssetData.ResourceConsumeType, value);
 
@@ -179,82 +149,6 @@ namespace TeamSuneat
             }
 
             return false;
-        }
-
-        private void ApplyRestoreDoubleForBasicSkill(ref int restoreValue)
-        {
-            SkillNames skillName;
-            if (AssetData.LinkedSkillNameForLevel != SkillNames.None)
-            {
-                skillName = AssetData.LinkedSkillNameForLevel;
-            }
-            else if (AssetData.SkillName != SkillNames.None)
-            {
-                skillName = AssetData.SkillName;
-            }
-            else
-            {
-                return;
-            }
-
-            SkillAssetData skillData = ScriptableDataManager.Instance.FindSkillClone(skillName);
-            if (skillData.Category == SkillCategories.Basic)
-            {
-                // 적중 시 고정 자원 회복 (정수)
-                if (Owner.Stat.ContainsKey(StatNames.ResourceRecoveryOnHit))
-                {
-                    int statValue = Owner.Stat.FindValueOrDefaultToInt(StatNames.ResourceRecoveryOnHit);
-                    restoreValue += statValue;
-                    LogRestoreAddResourceForBasic(statValue);
-                }
-
-                // 적중 시 자원 회복 배율 (소수, 기본값: 100%)
-                float multiplier = Owner.Stat.FindValueOrDefault(StatNames.ResourceRecoveryOnHitRate);
-                if (multiplier > 1f)
-                {
-                    LogRestoreAddResourceRateForBasic(multiplier);
-                }
-
-                if (Owner.Stat.ContainsKey(StatNames.DoubleResourceRecoveryOnHit))
-                {
-                    float chance = Owner.Stat.FindValueOrDefault(StatNames.DoubleResourceRecoveryOnHit);
-                    if (TSRandomEx.GetFloatValue() < chance)
-                    {
-                        multiplier += 1;
-                        LogRestoreAddResourceRateForBasic(1, chance);
-                    }
-                }
-
-                LogRestoreResourceForBasic(multiplier, restoreValue);
-                restoreValue = Mathf.RoundToInt(restoreValue * multiplier);
-            }
-        }
-
-        private void LogRestoreAddResourceForBasic(int fixedValue)
-        {
-            if (Log.LevelProgress)
-                LogProgress("기본 기술로 얻는 자원을 {0} 더 얻습니다. ", ValueStringEx.GetValueString(fixedValue, true));
-        }
-
-        private void LogRestoreAddResourceRateForBasic(float multiplier)
-        {
-            if (Log.LevelProgress)
-                LogProgress("기본 기술로 얻는 자원을 {0} 더 얻습니다. ", ValueStringEx.GetValueString(multiplier, true));
-        }
-
-        private void LogRestoreAddResourceRateForBasic(float multiplier, float chance)
-        {
-            if (Log.LevelProgress)
-                LogProgress("기본 기술로 얻는 자원을 {0} 더 얻습니다. 확률: {1}", ValueStringEx.GetPercentString(1, true), ValueStringEx.GetPercentString(chance, true));
-        }
-
-        private void LogRestoreResourceForBasic(float multiplier, float restoreValue)
-        {
-            if (Log.LevelProgress)
-                LogProgress("기본 기술로 얻는 자원: {0} * {1} = {2} ",
-                    restoreValue,
-                    ValueStringEx.GetPercentString(1, true),
-                    ValueStringEx.GetValueString(Mathf.RoundToInt(restoreValue * multiplier), true));
         }
     }
 }

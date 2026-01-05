@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using TeamSuneat.Data;
-using TeamSuneat.Stage;
 using UnityEngine;
 
 namespace TeamSuneat
@@ -13,9 +12,6 @@ namespace TeamSuneat
         private Transform _spawnParentPoint;
 
         private StageAsset _currentStageAsset;
-        private AreaAsset _currentAreaAsset;
-        private Transform _scrollContainer;
-        private StageScrollController _scrollController;
 
         #endregion Private Fields
 
@@ -48,54 +44,34 @@ namespace TeamSuneat
 
         #region Public Methods
 
-        public void Initialize(StageAsset stageAsset, AreaAsset areaAsset, Transform scrollContainer = null, StageScrollController scrollController = null)
+        public void Initialize(StageAsset stageAsset)
         {
             _currentStageAsset = stageAsset;
-            _currentAreaAsset = areaAsset;
-            _scrollContainer = scrollContainer;
-            _scrollController = scrollController;
             SpawnedMonsters = new List<MonsterCharacter>();
         }
 
-        public void SpawnWave(int waveIndex)
+        public void SpawnMonsters()
         {
-            if (_currentStageAsset == null || _currentAreaAsset == null)
+            if (_currentStageAsset == null)
             {
-                Log.Error(LogTags.CharacterSpawn, "스테이지 또는 지역 에셋이 설정되지 않았습니다.");
+                Log.Error(LogTags.CharacterSpawn, "스테이지 에셋이 설정되지 않았습니다.");
                 return;
             }
 
-            // 이전 웨이브의 죽은 몬스터들을 리스트에서 제거
+            // 죽은 몬스터들을 리스트에서 제거
             CleanupDeadMonsters();
 
-            List<CharacterNames> monstersToSpawn = DetermineMonstersForWave(waveIndex);
+            CharacterNames monsterToSpawn = DetermineMonsterToSpawn();
 
-            if (monstersToSpawn.Count == 0)
+            if (monsterToSpawn == CharacterNames.None)
             {
-                Log.Warning(LogTags.CharacterSpawn, "웨이브 {0}에 스폰할 몬스터가 없습니다.", waveIndex);
+                Log.Warning(LogTags.CharacterSpawn, "스폰할 몬스터가 없습니다.");
                 return;
             }
 
-            for (int i = 0; i < monstersToSpawn.Count; i++)
-            {
-                Vector3 spawnPos;
-                if (_scrollController != null)
-                {
-                    spawnPos = _scrollController.GetSpawnPosition(i);
-                }
-                else
-                {
-                    Vector3 originPosition = transform.position;
-                    spawnPos = new Vector3(
-                        originPosition.x + (i * GameDefine.MONSTER_SPAWN_POSITION_PADDING),
-                        originPosition.y,
-                        originPosition.z
-                    );
-                }
-                SpawnMonster(monstersToSpawn[i], spawnPos);
-            }
+            SpawnMonster(monsterToSpawn, transform.position);
 
-            Log.Info(LogTags.CharacterSpawn, "웨이브 {0} 몬스터 스폰 완료: {1}마리", waveIndex, monstersToSpawn.Count);
+            Log.Info(LogTags.CharacterSpawn, "몬스터 스폰 완료: {0}", monsterToSpawn);
         }
 
         public MonsterCharacter SpawnMonster(CharacterNames characterName, Vector3 spawnPosition)
@@ -147,57 +123,26 @@ namespace TeamSuneat
 
         #region Private Methods
 
-        private List<CharacterNames> DetermineMonstersForWave(int waveIndex)
+        private CharacterNames DetermineMonsterToSpawn()
         {
-            List<CharacterNames> result = new List<CharacterNames>();
-
-            // 마지막 웨이브인지 확인
-            bool isLastWave = _currentStageAsset != null && waveIndex == _currentStageAsset.WaveCount - 1;
-
-            if (isLastWave)
+            // 설정된 몬스터 이름이 있으면 우선 사용
+            if (_currentStageAsset.MonsterCharacterName != CharacterNames.None)
             {
-                // 마지막 웨이브면 모든 몬스터를 보물 상자로 교체
-                for (int i = 0; i < _currentStageAsset.MonsterCountPerWave; i++)
-                {
-                    result.Add(CharacterNames.TreasureChest);
-                }
-            }
-            else
-            {
-                // 일반 웨이브는 기존 로직 유지
-                for (int i = 0; i < _currentStageAsset.MonsterCountPerWave; i++)
-                {
-                    CharacterNames normalMonster = GetRandomNormalMonster();
-                    if (normalMonster != CharacterNames.None)
-                    {
-                        result.Add(normalMonster);
-                    }
-                }
+                return _currentStageAsset.MonsterCharacterName;
             }
 
-            return result;
-        }
-
-        private CharacterNames GetRandomNormalMonster()
-        {
-            if (_currentStageAsset.MonsterCandidates == null ||
-                _currentStageAsset.MonsterCandidates.Count == 0)
+            // 기존 시스템 사용 (하나만 선택)
+            if (_currentStageAsset.MonsterCandidates != null &&
+                _currentStageAsset.MonsterCandidates.Count > 0)
             {
-                Log.Error(LogTags.CharacterSpawn, "일반 몬스터 후보가 없습니다.");
+                int randomIndex = Random.Range(0, _currentStageAsset.MonsterCandidates.Count);
+                int candidateIndex = _currentStageAsset.MonsterCandidates[randomIndex];
+
+                Log.Warning(LogTags.CharacterSpawn, "MonsterCandidates 인덱스 변환 로직이 구현되지 않았습니다. CharacterNames를 직접 설정해주세요.");
                 return CharacterNames.None;
             }
 
-            int randomIndex = Random.Range(0, _currentStageAsset.MonsterCandidates.Count);
-            int candidateIndex = _currentStageAsset.MonsterCandidates[randomIndex];
-
-            if (_currentAreaAsset.NormalMonsters != null &&
-                candidateIndex >= 0 &&
-                candidateIndex < _currentAreaAsset.NormalMonsters.Length)
-            {
-                return _currentAreaAsset.NormalMonsters[candidateIndex];
-            }
-
-            Log.Error(LogTags.CharacterSpawn, "일반 몬스터 인덱스가 유효하지 않습니다: {0}", candidateIndex);
+            Log.Error(LogTags.CharacterSpawn, "스폰할 몬스터가 설정되지 않았습니다.");
             return CharacterNames.None;
         }
 

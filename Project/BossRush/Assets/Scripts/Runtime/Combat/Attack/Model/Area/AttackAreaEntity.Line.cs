@@ -7,7 +7,7 @@ namespace TeamSuneat
     public partial class AttackAreaEntity : AttackEntity
     {
         [FoldoutGroup("#AttackAreaEntity-Chain")]
-        public ChainLightning ChainLightning;
+        public BaseChainLightning ChainLightning;
 
         private void AddTargetOfChainLightning(Transform targetPoint)
         {

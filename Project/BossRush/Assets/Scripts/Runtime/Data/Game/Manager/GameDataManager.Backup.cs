@@ -32,9 +32,8 @@ namespace TeamSuneat.Data.Game
             {
                 string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
                 string backupFilePath = GetBackupFilePathWithTimestamp(timestamp);
-                string chunkAES = Encrypt(chunk);
 
-                if (Write(backupFilePath, chunkAES))
+                if (Write(backupFilePath, chunk))
                 {
                     Debug.Log($"비상 백업 생성: {backupFilePath} (원본: {Path.GetFileName(originalFilePath)})");
                     CleanupOldBackups();
@@ -57,7 +56,7 @@ namespace TeamSuneat.Data.Game
         /// <returns>백업 파일 경로</returns>
         private string GetBackupFilePathWithTimestamp(string timestamp)
         {
-            return Path.Combine(Application.persistentDataPath, $"{BACKUP_FILE_PREFIX}{timestamp}.dat");
+            return Path.Combine(Application.persistentDataPath, $"{BACKUP_FILE_PREFIX}{timestamp}.json");
         }
 
         #endregion 백업 생성
@@ -71,7 +70,7 @@ namespace TeamSuneat.Data.Game
         /// <returns>타임스탬프 백업 파일 경로 배열</returns>
         private string[] FindTimestampedBackupFiles(string saveDirectory)
         {
-            return Directory.GetFiles(saveDirectory, $"{BACKUP_FILE_PREFIX}*.dat")
+            return Directory.GetFiles(saveDirectory, $"{BACKUP_FILE_PREFIX}*.json")
                 .Where(f => Path.GetFileName(f).Contains("_"))
                 .OrderByDescending(f => f)
                 .ToArray();
@@ -84,7 +83,7 @@ namespace TeamSuneat.Data.Game
         /// <returns>레거시 백업 파일 경로 배열</returns>
         private string[] FindLegacyBackupFiles(string saveDirectory)
         {
-            return Directory.GetFiles(saveDirectory, $"{BACKUP_FILE_PREFIX}{Application.productName}.dat")
+            return Directory.GetFiles(saveDirectory, $"{BACKUP_FILE_PREFIX}{Application.productName}.json")
                 .OrderByDescending(f => f)
                 .ToArray();
         }
@@ -161,21 +160,14 @@ namespace TeamSuneat.Data.Game
                     return null;
                 }
 
-                string encryptedChunk = File.ReadAllText(backupFilePath);
-                if (string.IsNullOrEmpty(encryptedChunk))
+                string chunk = File.ReadAllText(backupFilePath);
+                if (string.IsNullOrEmpty(chunk))
                 {
                     Debug.LogError($"백업 파일이 비어있습니다: {backupFilePath}");
                     return null;
                 }
 
-                string decryptedChunk = Decrypt(encryptedChunk);
-                if (string.IsNullOrEmpty(decryptedChunk))
-                {
-                    Debug.LogError($"백업 파일 복호화 실패: {backupFilePath}");
-                    return null;
-                }
-
-                return MigrateAndLoad(decryptedChunk);
+                return MigrateAndLoad(chunk);
             }
             catch (Exception ex)
             {
@@ -202,14 +194,7 @@ namespace TeamSuneat.Data.Game
                     return false;
                 }
 
-                string encryptedData = TryApplyAES() ? Encrypt(serializedData) : serializedData;
-                if (string.IsNullOrEmpty(encryptedData))
-                {
-                    Debug.LogError("백업 데이터 암호화 실패");
-                    return false;
-                }
-
-                return Write(mainSavePath, encryptedData);
+                return Write(mainSavePath, serializedData);
             }
             catch (Exception ex)
             {

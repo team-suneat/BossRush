@@ -2,11 +2,11 @@
 
 namespace TeamSuneat
 {
-    public class LowestHealthCharacterDetector : ICharacterDetector
+    public class LowestLifeCharacterDetector : ICharacterDetector
     {
         public override Character DoDetectCharacter(Vector3 detectPosition)
         {
-            float minHealth = int.MaxValue;
+            float minLife = int.MaxValue;
             float distanceBetweenTarget;
 
             Character candidate;
@@ -38,9 +38,9 @@ namespace TeamSuneat
                     continue;
                 }
 
-                if (candidate.CurrentHealth < minHealth)
+                if (candidate.CurrentLife < minLife)
                 {
-                    minHealth = candidate.CurrentHealth;
+                    minLife = candidate.CurrentLife;
                     targetCharacter = candidate;
                 }
             }

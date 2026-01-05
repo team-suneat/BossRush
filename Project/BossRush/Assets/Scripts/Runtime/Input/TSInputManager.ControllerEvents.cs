@@ -288,7 +288,6 @@ namespace TeamSuneat
                 _currentControllerType = controllerType;
 
                 RefreshJoystickType();
-                RefreshVisibleMouseCursor();
 
                 if ((CurrentControllerType == ControllerType.Keyboard && controllerType == ControllerType.Mouse)
                     || (CurrentControllerType == ControllerType.Mouse && controllerType == ControllerType.Keyboard))
@@ -341,21 +340,6 @@ namespace TeamSuneat
                 _currentJoystickType = JoystickTypes.None;
             }
 #endif
-        }
-
-        /// <summary>
-        /// 마우스 커서의 가시성을 갱신합니다.
-        /// </summary>
-        private void RefreshVisibleMouseCursor()
-        {
-            if (CurrentControllerType is ControllerType.Joystick)
-            {
-                CursorManager.Instance.SetInvisible();
-            }
-            else
-            {
-                CursorManager.Instance.SetVisible();
-            }
         }
 
         #endregion 컨트롤러 타입 갱신

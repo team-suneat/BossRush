@@ -15,22 +15,15 @@ namespace TeamSuneat.Data.Game
         {
             if (GameDefine.IS_EDITOR_OR_DEVELOPMENT_BUILD)
             {
-                if (GameDefine.USE_AES_EDITOR)
-                {
-                    SaveFilePathFormat = $"{Application.persistentDataPath}/{Application.productName}{"{0}"}_Dev.dat";
-                }
-                else
-                {
-                    SaveFilePathFormat = $"{Application.persistentDataPath}/{Application.productName}{"{0}"}_Dev.json";
-                }
+                SaveFilePathFormat = $"{Application.persistentDataPath}/{Application.productName}{"{0}"}_Dev.json";
             }
             else
             {
-                SaveFilePathFormat = $"{Application.persistentDataPath}/{Application.productName}{"{0}"}.dat";
+                SaveFilePathFormat = $"{Application.persistentDataPath}/{Application.productName}{"{0}"}.json";
             }
 
             // 백업 파일 포맷 설정
-            BackupFilePathFormat = $"{Application.persistentDataPath}/{Application.productName}_Backup.dat";
+            BackupFilePathFormat = $"{Application.persistentDataPath}/{Application.productName}_Backup.json";
         }
 
         /// <summary>
@@ -59,15 +52,7 @@ namespace TeamSuneat.Data.Game
         /// <returns>읽은 데이터</returns>
         private string Read(string saveFilePath)
         {
-            if (!TryApplyAES())
-            {
-                return File.ReadAllText(saveFilePath);
-            }
-            else
-            {
-                string chunkAES = File.ReadAllText(saveFilePath);
-                return Decrypt(chunkAES);
-            }
+            return File.ReadAllText(saveFilePath);
         }
 
         /// <summary>

@@ -19,26 +19,15 @@ namespace TeamSuneat.Data
         {
             if (_logSetting == default) { return false; }
             else if (_gameDefine == default) { return false; }
-            else if (!_buffAssets.IsValid()) { return false; }
-            else if (!_stateEffectAssets.IsValid()) { return false; }
-            else if (!_passiveAssets.IsValid()) { return false; }
-            else if (!_skillAssets.IsValid()) { return false; }
             else if (!_characterAssets.IsValid()) { return false; }
-            else if (!_projectileAssets.IsValid()) { return false; }
             else if (!_hitmarkAssets.IsValid()) { return false; }
             else if (!_fontAssets.IsValid()) { return false; }
             else if (!_floatyAssets.IsValid()) { return false; }
             else if (!_flickerAssets.IsValid()) { return false; }
             else if (!_soundAssets.IsValid()) { return false; }
             else if (!_stageAssets.IsValid()) { return false; }
-            else if (!_areaAssets.IsValid()) { return false; }
             else if (!_forceVelocityAssets.IsValid()) { return false; }
-            else if (_experienceConfigAsset == null) { return false; }
-            else if (_monsterStatConfigAsset == null) { return false; }
-            else if (_monsterDropConfigAsset == null) { return false; }
             else if (_playerCharacterStatAsset == null) { return false; }
-            else if (_skillCardUnlockAsset == null) { return false; }
-            else if (_skillSlotUnlockAsset == null) { return false; }
 
             return true;
         }
@@ -54,55 +43,10 @@ namespace TeamSuneat.Data
                 stageAsset?.OnLoadData();
             }
 
-            // 지역 에셋 OnLoadData() 메서드 호출
-            foreach (var areaAsset in _areaAssets.Values)
-            {
-                areaAsset?.OnLoadData();
-            }
-
-            // 경험치 설정 데이터 OnLoadData() 메서드 호출
-            _experienceConfigAsset?.OnLoadData();
-
-            // 몬스터 능력치 설정 데이터 OnLoadData() 메서드 호출
-            _monsterStatConfigAsset?.OnLoadData();
-
-            // 몬스터 경험치 드랍 설정 데이터 OnLoadData() 메서드 호출
-            _monsterDropConfigAsset?.OnLoadData();
-
-            // 플레이어 캐릭터 능력치 데이터 OnLoadData() 메서드 호출
-            _playerCharacterStatAsset?.OnLoadData();
-
-            // 스킬 카드 해금 데이터 OnLoadData() 메서드 호출
-            _skillCardUnlockAsset?.OnLoadData();
-
-            // 스킬 슬롯 해금 데이터 OnLoadData() 메서드 호출
-            _skillSlotUnlockAsset?.OnLoadData();
-
-            // 스킬 에셋 OnLoadData() 메서드 호출
-            foreach (var skillAsset in _skillAssets.Values)
-            {
-                skillAsset?.OnLoadData();
-            }
-
-            // 스킬 애니메이션 에셋 OnLoadData() 메서드 호출
-            foreach (var skillAnimationList in _skillAnimationAssets.Values)
-            {
-                foreach (var skillAnimationAsset in skillAnimationList)
-                {
-                    skillAnimationAsset?.OnLoadData();
-                }
-            }
-
             // 캐릭터 에셋 OnLoadData() 메서드 호출
             foreach (var characterAsset in _characterAssets.Values)
             {
                 characterAsset?.OnLoadData();
-            }
-
-            // 발사체 에셋 OnLoadData() 메서드 호출
-            foreach (var projectileAsset in _projectileAssets.Values)
-            {
-                projectileAsset?.OnLoadData();
             }
 
             // ForceVelocity 에셋 OnLoadData() 메서드 호출
@@ -132,31 +76,7 @@ namespace TeamSuneat.Data
                 {
                     count += 1;
                 }
-                else if (LoadBuffSync(path))
-                {
-                    count += 1;
-                }
-                else if (LoadBuffStateEffectSync(path))
-                {
-                    count += 1;
-                }
-                else if (LoadPassiveSync(path))
-                {
-                    count += 1;
-                }
-                else if (LoadSkillSync(path))
-                {
-                    count += 1;
-                }
-                else if (LoadSkillAnimationSync(path))
-                {
-                    count += 1;
-                }
                 else if (LoadCharacterSync(path))
-                {
-                    count += 1;
-                }
-                else if (LoadProjectileSync(path))
                 {
                     count += 1;
                 }
@@ -184,23 +104,7 @@ namespace TeamSuneat.Data
                 {
                     count += 1;
                 }
-                else if (LoadAreaSync(path))
-                {
-                    count += 1;
-                }
                 else if (LoadForceVelocitySync(path))
-                {
-                    count += 1;
-                }
-                else if (LoadExperienceConfigSync(path))
-                {
-                    count += 1;
-                }
-                else if (LoadMonsterStatConfigSync(path))
-                {
-                    count += 1;
-                }
-                else if (LoadMonsterExperienceDropConfigSync(path))
                 {
                     count += 1;
                 }
@@ -216,99 +120,6 @@ namespace TeamSuneat.Data
         }
 
         //
-
-        private bool LoadExperienceConfigSync(string filePath)
-        {
-            if (!filePath.Contains("ExperienceConfig"))
-            {
-                return false;
-            }
-
-            ExperienceConfigAsset asset = ResourcesManager.LoadResource<ExperienceConfigAsset>(filePath);
-            if (asset != null)
-            {
-                if (_experienceConfigAsset != null)
-                {
-                    Log.Warning(LogTags.ScriptableData, "경험치 설정 에셋이 중복으로 로드 되고 있습니다. 기존: {0}, 새로운: {1}",
-                        _experienceConfigAsset.name, asset.name);
-                }
-                else
-                {
-                    Log.Progress("스크립터블 데이터를 읽어왔습니다. Path: {0}", filePath);
-                    _experienceConfigAsset = asset;
-                }
-
-                return true;
-            }
-            else
-            {
-                Log.Warning("스크립터블 데이터를 읽을 수 없습니다. Path: {0}", filePath);
-            }
-
-            return false;
-        }
-
-        private bool LoadMonsterStatConfigSync(string filePath)
-        {
-            if (!filePath.Contains("MonsterStatConfig"))
-            {
-                return false;
-            }
-
-            MonsterStatConfigAsset asset = ResourcesManager.LoadResource<MonsterStatConfigAsset>(filePath);
-            if (asset != null)
-            {
-                if (_monsterStatConfigAsset != null)
-                {
-                    Log.Warning(LogTags.ScriptableData, "몬스터 능력치 설정 에셋이 중복으로 로드 되고 있습니다. 기존: {0}, 새로운: {1}",
-                        _monsterStatConfigAsset.name, asset.name);
-                }
-                else
-                {
-                    Log.Progress("스크립터블 데이터를 읽어왔습니다. Path: {0}", filePath);
-                    _monsterStatConfigAsset = asset;
-                }
-
-                return true;
-            }
-            else
-            {
-                Log.Warning("스크립터블 데이터를 읽을 수 없습니다. Path: {0}", filePath);
-            }
-
-            return false;
-        }
-
-        private bool LoadMonsterExperienceDropConfigSync(string filePath)
-        {
-            if (!filePath.Contains("MonsterExperienceDropConfig"))
-            {
-                return false;
-            }
-
-            MonsterDropConfigAsset asset = ResourcesManager.LoadResource<MonsterDropConfigAsset>(filePath);
-            if (asset != null)
-            {
-                if (_monsterDropConfigAsset != null)
-                {
-                    Log.Warning(LogTags.ScriptableData, "몬스터 경험치 드랍 설정 에셋이 중복으로 로드 되고 있습니다. 기존: {0}, 새로운: {1}",
-                        _monsterDropConfigAsset.name, asset.name);
-                }
-                else
-                {
-                    Log.Progress("스크립터블 데이터를 읽어왔습니다. Path: {0}", filePath);
-                    _monsterDropConfigAsset = asset;
-                }
-
-                return true;
-            }
-            else
-            {
-                Log.Warning("스크립터블 데이터를 읽을 수 없습니다. Path: {0}", filePath);
-            }
-
-            return false;
-        }
 
         private bool LoadPlayerCharacterStatSync(string filePath)
         {
@@ -486,63 +297,10 @@ namespace TeamSuneat.Data
                         }
                         break;
 
-                    case BuffAsset buff:
-                        if (!_buffAssets.ContainsKey(buff.TID))
-                        {
-                            _buffAssets[buff.TID] = buff;
-                            count++;
-                        }
-                        break;
-
-                    case BuffStateEffectAsset buffStateEffect:
-                        if (!_stateEffectAssets.ContainsKey(buffStateEffect.TID))
-                        {
-                            _stateEffectAssets[buffStateEffect.TID] = buffStateEffect;
-                            count++;
-                        }
-                        break;
-
-                    case PassiveAsset passive:
-                        if (!_passiveAssets.ContainsKey(passive.TID))
-                        {
-                            _passiveAssets[passive.TID] = passive;
-                            count++;
-                        }
-                        break;
-
-                    case SkillAsset skill:
-                        if (!_skillAssets.ContainsKey(skill.TID))
-                        {
-                            _skillAssets[skill.TID] = skill;
-                            count++;
-                        }
-                        break;
-
-                    case SkillAnimationAsset skillAnimation:
-                        int skillAnimationTid = BitConvert.Enum32ToInt(skillAnimation.SkillName);
-                        if (skillAnimationTid != 0)
-                        {
-                            if (!_skillAnimationAssets.ContainsKey(skillAnimationTid))
-                            {
-                                _skillAnimationAssets[skillAnimationTid] = new List<SkillAnimationAsset>();
-                            }
-                            _skillAnimationAssets[skillAnimationTid].Add(skillAnimation);
-                            count++;
-                        }
-                        break;
-
                     case CharacterAsset character:
                         if (!_characterAssets.ContainsKey(character.TID))
                         {
                             _characterAssets[character.TID] = character;
-                            count++;
-                        }
-                        break;
-
-                    case ProjectileAsset projectile:
-                        if (!_projectileAssets.ContainsKey(projectile.TID))
-                        {
-                            _projectileAssets[projectile.TID] = projectile;
                             count++;
                         }
                         break;
@@ -588,68 +346,11 @@ namespace TeamSuneat.Data
                         }
                         break;
 
-                    case ExperienceConfigAsset experienceConfig:
-                        if (_experienceConfigAsset == null)
-                        {
-                            _experienceConfigAsset = experienceConfig;
-                            count++;
-                        }
-                        break;
-
-                    case MonsterStatConfigAsset monsterStatConfig:
-                        if (_monsterStatConfigAsset == null)
-                        {
-                            _monsterStatConfigAsset = monsterStatConfig;
-                            count++;
-                        }
-                        break;
-
-                    case MonsterDropConfigAsset monsterExperienceDropConfig:
-                        if (_monsterDropConfigAsset == null)
-                        {
-                            _monsterDropConfigAsset = monsterExperienceDropConfig;
-                            count++;
-                        }
-                        break;
-
-                    case PlayerCharacterStatConfigAsset playerCharacterStat:
-                        if (_playerCharacterStatAsset == null)
-                        {
-                            _playerCharacterStatAsset = playerCharacterStat;
-                            count++;
-                        }
-                        break;
-
-                    case SkillCardUnlockAsset skillCardUnlock:
-                        if (_skillCardUnlockAsset == null)
-                        {
-                            _skillCardUnlockAsset = skillCardUnlock;
-                            count++;
-                        }
-                        break;
-
-                    case SkillSlotUnlockAsset skillSlotUnlock:
-                        if (_skillSlotUnlockAsset == null)
-                        {
-                            _skillSlotUnlockAsset = skillSlotUnlock;
-                            count++;
-                        }
-                        break;
-
                     case StageAsset stage:
                         int stageTid = BitConvert.Enum32ToInt(stage.Name);
                         if (!_stageAssets.ContainsKey(stageTid))
                         {
                             _stageAssets[stageTid] = stage;
-                            count++;
-                        }
-                        break;
-
-                    case AreaAsset area:
-                        int areaTid = BitConvert.Enum32ToInt(area.AreaName);
-                        if (!_areaAssets.ContainsKey(areaTid))
-                        {
-                            _areaAssets[areaTid] = area;
                             count++;
                         }
                         break;

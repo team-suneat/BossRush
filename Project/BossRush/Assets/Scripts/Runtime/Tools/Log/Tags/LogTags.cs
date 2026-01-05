@@ -5,6 +5,7 @@
         None,
 
         Analytics,
+        Detect,
 
         /// <summary> 물리 </summary>
         Physics,
@@ -26,9 +27,6 @@
         /// <summary> 보스 캐릭터 </summary>
         Boss,
 
-        /// <summary> 캐릭터 능력 </summary>
-        Ability,
-
         /// <summary> 캐릭터 생성 </summary>
         CharacterSpawn,
 
@@ -42,17 +40,11 @@
         /// <summary> 전투 자원(생명력/자원/보호막) </summary>
         BattleResource,
 
-        /// <summary> 버프 </summary>
-        Buff,
-
         /// <summary> 피해량 계산 </summary>
         Damage,
 
         /// <summary> 이펙트 </summary>
         Effect,
-
-        /// <summary> 패시브 </summary>
-        Passive,
 
         /// <summary> 능력치 </summary>
         Stat,
@@ -64,9 +56,6 @@
 
         /// <summary> 강제 이동</summary>
         ForceVelocity,
-
-        /// <summary> 발사체 </summary>
-        Projectile,
 
         #region Character-Data
 
@@ -138,9 +127,6 @@
 
         /// <summary> 무기 </summary>
         Weapon,
-
-        /// <summary> 드랍 오브젝트 </summary>
-        DropObject,
 
         #endregion Item
 
@@ -259,6 +245,7 @@
 
         /// <summary> UI 유물 </summary>
         UI_Relic,
+        Video,
 
         #endregion UI (특수)
     }
