@@ -4,11 +4,15 @@
     {
         None,
 
-        Analytics,
+        #region Core
+
+        /// <summary> 탐지 </summary>
         Detect,
 
         /// <summary> 물리 </summary>
         Physics,
+
+        #endregion Core
 
         #region Character
 
@@ -21,16 +25,17 @@
         /// <summary> 몬스터 캐릭터 </summary>
         Monster,
 
-        /// <summary> 엘리트 캐릭터 </summary>
-        Elite,
-
-        /// <summary> 보스 캐릭터 </summary>
-        Boss,
-
         /// <summary> 캐릭터 생성 </summary>
         CharacterSpawn,
 
         #endregion Character
+
+        #region Character-Renderer
+
+        /// <summary> 애니메이션 </summary>
+        Animation,
+
+        #endregion Character-Renderer
 
         #region Character-Battle
 
@@ -54,13 +59,37 @@
 
         #endregion Character-Battle
 
-        /// <summary> 강제 이동</summary>
-        ForceVelocity,
+        #region Skill
 
-        #region Character-Data
+        /// <summary> 기술 </summary>
+        Skill,
 
-        /// <summary> 데이터 </summary>
-        Data,
+        #endregion Skill
+
+        #region Item
+
+        /// <summary> 재화 </summary>
+        Currency,
+
+        #endregion Item
+
+        #region Game-Data
+
+        /// <summary> 게임 데이터 </summary>
+        GameData,
+
+        /// <summary> 게임 데이터 : 스테이지 </summary>
+        GameData_Stage,
+
+        /// <summary> 게임 데이터 : 무기 </summary>
+        GameData_Weapon,
+
+        /// <summary> 게임 데이터 : 악세사리 </summary>
+        GameData_Accessory,
+
+        #endregion Game-Data
+
+        #region Data
 
         /// <summary> 임시 데이터 </summary>
         GamePref,
@@ -77,78 +106,7 @@
         /// <summary> 경로 </summary>
         Path,
 
-        #endregion Character-Data
-
-        #region Game-Data
-
-        /// <summary> 게임 데이터 </summary>
-        GameData,
-
-        /// <summary> 게임 데이터 : 캐릭터 </summary>
-        GameData_Character,
-
-        /// <summary> 게임 데이터 : 기술 </summary>
-        GameData_Skill,
-
-        /// <summary> 게임 데이터 : 스테이지 </summary>
-        GameData_Stage,
-
-        /// <summary> 게임 데이터 : 통계 </summary>
-        GameData_Statistics,
-
-        /// <summary> 게임 데이터 : 무기 </summary>
-        GameData_Weapon,
-
-        /// <summary> 게임 데이터 : 악세사리 </summary>
-        GameData_Accessory,
-
-        /// <summary> 퀘스트 </summary>
-        Quest,
-
-        /// <summary> 튜토리얼 </summary>
-        Tutorial,
-
-        #endregion Game-Data
-
-        #region Develop
-
-        /// <summary> 개발용 </summary>
-        Develop,
-
-        #endregion Develop
-
-        #region Item
-
-        /// <summary> 재화 </summary>
-        Currency,
-
-        /// <summary> 아이템 </summary>
-        Item,
-
-        /// <summary> 무기 </summary>
-        Weapon,
-
-        #endregion Item
-
-        #region MapObject
-
-        /// <summary> 포지션 그룹 </summary>
-        PositionGroup,
-
-        #endregion MapObject
-
-        #region Renderer
-
-        /// <summary> 애니메이션 </summary>
-        Animation,
-
-        /// <summary> 랜더러 </summary>
-        Renderer,
-
-        #endregion Renderer
-
-        /// <summary> 기술 </summary>
-        Skill,
+        #endregion Data
 
         #region Setting
 
@@ -166,15 +124,35 @@
 
         /// <summary> 입력 </summary>
         Input,
+
+        /// <summary> 입력 버튼 상태 </summary>
         Input_ButtonState,
 
         #endregion Setting
 
         #region Stage
 
+        /// <summary> 스테이지 </summary>
         Stage,
 
+        /// <summary> 씬 </summary>
+        Scene,
+
         #endregion Stage
+
+        #region Time
+
+        /// <summary> 시간 관리 </summary>
+        Time,
+
+        #endregion Time
+
+        #region MapObject
+
+        /// <summary> 포지션 그룹 </summary>
+        PositionGroup,
+
+        #endregion MapObject
 
         #region String
 
@@ -186,28 +164,7 @@
 
         #endregion String
 
-        #region Timeline
-
-        /// <summary> 타임라인 </summary>
-        Timeline,
-
-        #endregion Timeline
-
-        #region Time
-
-        /// <summary> 시간 관리 </summary>
-        Time,
-
-        #endregion Time
-
-        #region Scene
-
-        /// <summary> 씬 </summary>
-        Scene,
-
-        #endregion Scene
-
-        #region UI (일반)
+        #region UI
 
         /// <summary> UI </summary>
         UI,
@@ -227,13 +184,6 @@
         /// <summary> UI 알림 </summary>
         UI_Notice,
 
-        #endregion UI (일반)
-
-        #region UI (특수)
-
-        /// <summary> UI 인벤토리 </summary>
-        UI_Inventory,
-
         /// <summary> UI 팝업 </summary>
         UI_Popup,
 
@@ -243,10 +193,13 @@
         /// <summary> UI 스킬 </summary>
         UI_Skill,
 
-        /// <summary> UI 유물 </summary>
-        UI_Relic,
+        #endregion UI
+
+        #region Media
+
+        /// <summary> 비디오 </summary>
         Video,
 
-        #endregion UI (특수)
+        #endregion Media
     }
 }

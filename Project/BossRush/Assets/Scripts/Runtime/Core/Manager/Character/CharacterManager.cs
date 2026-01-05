@@ -13,6 +13,8 @@ namespace TeamSuneat
 
         public List<MonsterCharacter> Monsters { get; private set; }
 
+        public PlayerController PlayerController;
+
         public bool IsPause { get; set; }
 
         /// <summary> 소환된 스켈레톤의 최대 수 (엘리트 기술 : 해골 소환) </summary>
@@ -42,6 +44,11 @@ namespace TeamSuneat
             if (Player != null)
             {
                 Player.LogicUpdate();
+            }
+
+            if (PlayerController !=null)
+            {
+                PlayerController.LogicUpdate();
             }
 
             if (Monsters.IsValid())

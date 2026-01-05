@@ -1,4 +1,5 @@
 using System.Collections;
+using TeamSuneat.Setting;
 using TeamSuneat.Stage;
 using TeamSuneat.UserInterface;
 using UnityEngine;
@@ -7,40 +8,43 @@ namespace TeamSuneat
 {
     public class GameManager : MonoBehaviour
     {
-        public bool IsBattleActive { get; internal set; }
-        public StageSystem CurrentStageSystem { get; set; }
-
         private void Awake()
         {
             CharacterManager.Instance.Reset();
-        }
-
-        private IEnumerator Start()
-        {
-            yield return new WaitUntil(() => { return GameApp.Instance != null; });
+            TSInputManager.Instance.Initialize();
         }
 
         private void OnEnable()
         {
+            if (TSInputManager.Instance.IsInitialized)
+            {
+                TSInputManager.Instance.SubscribeEvents();
+            }
         }
 
         private void OnDisable()
         {
+            TSInputManager.Instance.UnsubscribeEvents();
         }
 
         private void OnDestroy()
         {
+            // 안전장치
+            TSInputManager.Instance.UnsubscribeEvents();
+            TSInputManager.Instance.IsInitialized = false;
         }
 
         private void Update()
         {
+            TSInputManager.Instance.GetInputState();
             CharacterManager.Instance.LogicUpdate();
             UIManager.Instance?.LogicUpdate();
         }
 
         private void LateUpdate()
         {
-            // PassiveManager.Instance.LateLogicUpdate();
+            TSInputManager.Instance.ProcessButtonStates();
+            GameSetting.Instance.Video.RefreshResolutionRate();
         }
 
         private void FixedUpdate()
@@ -52,13 +56,12 @@ namespace TeamSuneat
         {
             if (!focus)
             {
+                TSInputManager.Instance.ResetButtonStates();
             }
         }
 
         private void OnApplicationPause(bool pause)
         {
-            // 방치형 게임에서는 앱이 백그라운드로 가도 게임이 계속 진행되어야 함
-            // 오프라인 시간은 OfflineTimeManager에서 처리
         }
 
         internal void ResetStage()

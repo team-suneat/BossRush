@@ -48,44 +48,20 @@ namespace RewiredConsts
         [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "Attack")]
         public const int Attack = 3;
 
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "SubAttack")]
-        public const int SubAttack = 4;
+        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "Cast")]
+        public const int Cast = 4;
 
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "Cast1")]
-        public const int Cast1 = 5;
-
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "Cast2")]
-        public const int Cast2 = 6;
-
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "Cast3")]
-        public const int Cast3 = 7;
-
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "Cast4")]
-        public const int Cast4 = 8;
-
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "Portal")]
-        public const int Portal = 9;
-
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "Potion1")]
-        public const int Potion1 = 10;
-
+        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "Parry")]
+        public const int Parry = 79;
+        
         [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "Interact")]
         public const int Interact = 12;
 
         [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "Dash")]
         public const int Dash = 11;
 
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "OrderInteract")]
-        public const int OrderInteract = 65;
-
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "PopupSkill")]
-        public const int PopupSkill = 13;
-
         [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "PopupInventory")]
         public const int PopupInventory = 17;
-
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "PopupItem")]
-        public const int PopupItem = 27;
 
         [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "PopupPause")]
         public const int PopupPause = 39;
@@ -99,18 +75,6 @@ namespace RewiredConsts
         [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "UICancel")]
         public const int UICancel = 19;
 
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "UICursorHorizontal")]
-        public const int UICursorHorizontal = 32;
-
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "UICursorHorizontal2")]
-        public const int UICursorHorizontal2 = 36;
-
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "UICursorVertical")]
-        public const int UICursorVertical = 33;
-
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "UICursorVertical2")]
-        public const int UICursorVertical2 = 37;
-
         [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "UIHighPrevious")]
         public const int UIHighPrevious = 49;
 
@@ -123,33 +87,6 @@ namespace RewiredConsts
         [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "UILowNext")]
         public const int UILowNext = 35;
 
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "Equip")]
-        public const int Equip = 46;
-
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "Use")]
-        public const int Use = 47;
-
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "Discard")]
-        public const int Discard = 48;
-
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "Range")]
-        public const int Range = 51;
-
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "Comparison")]
-        public const int Comparison = 52;
-
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "Sorting")]
-        public const int Sorting = 53;
-
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "OpenBook")]
-        public const int OpenBook = 63;
-
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "Synergy")]
-        public const int Synergy = 75;
-
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "KeyBinding")]
-        public const int KeyBinding = 56;
-
         [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "Skip")]
         public const int Skip = 78;
 
@@ -158,9 +95,6 @@ namespace RewiredConsts
 
         [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "UIDepthDown")]
         public const int UIDepthDown = 62;
-
-        [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "WorldDifficulty")]
-        public const int WorldDifficulty = 74;
 
         [Rewired.Dev.ActionIdFieldInfo(categoryName = "Default", friendlyName = "CameraUp")]
         public const int CameraUp = 76;

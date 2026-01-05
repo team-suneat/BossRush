@@ -81,7 +81,7 @@ namespace TeamSuneat.Stage
                 return;
             }
 
-            GameApp.Instance.gameManager.CurrentStageSystem = this;
+            // GameApp.Instance.gameManager.CurrentStageSystem = this;
         }
 
         private IEnumerator StartStageFlow()

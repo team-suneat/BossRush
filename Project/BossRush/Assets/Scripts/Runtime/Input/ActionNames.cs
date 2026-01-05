@@ -13,6 +13,7 @@ namespace TeamSuneat
         Attack,
         Cast,
         Dash,
+        Parry,
         Interact,
 
         // UI-Popup

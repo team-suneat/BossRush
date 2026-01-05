@@ -38,6 +38,8 @@ namespace TeamSuneat
             }
 
             SetupModel();
+
+            CharacterManager.Instance.PlayerController = this;
         }
 
         private void SetupModel()
@@ -55,7 +57,7 @@ namespace TeamSuneat
             }
         }
 
-        private void Update()
+        public void LogicUpdate()
         {
             // 1. 입력 업데이트 (가장 먼저)
             if (_input != null)
