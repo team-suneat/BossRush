@@ -5,10 +5,10 @@ namespace TeamSuneat
     public class FallingState : ICharacterState
     {
         private CharacterStateMachine _stateMachine;
-        private PlayerPhysics _physics;
+        private CharacterPhysics _physics;
         private PlayerInput _input;
 
-        public FallingState(CharacterStateMachine stateMachine, PlayerPhysics physics, PlayerInput input)
+        public FallingState(CharacterStateMachine stateMachine, CharacterPhysics physics, PlayerInput input)
         {
             _stateMachine = stateMachine;
             _physics = physics;
@@ -22,13 +22,19 @@ namespace TeamSuneat
 
         public void OnUpdate()
         {
+            // 입력 기반 전환은 Update에서 처리
+            // 물리 변수 기반 전환은 OnFixedUpdate로 이동
+        }
+
+        public void OnFixedUpdate()
+        {
             // 입력이나 물리가 없으면 업데이트 스킵
             if (_input == null || _physics == null)
             {
                 return;
             }
 
-            // 바닥에 닿았고, 아래로 내려가는 중이 아니면 Idle 또는 Walk로 전환
+            // 바닥에 닿았고, 아래로 내려가는 중이 아니면 Idle 또는 Walk로 전환 (물리 변수 기반)
             if (_physics.IsGrounded && _physics.RigidbodyVelocity.y >= 0f)
             {
                 // 실제 착지 시 점프 카운터 리셋
@@ -36,19 +42,14 @@ namespace TeamSuneat
 
                 if (Mathf.Abs(_input.HorizontalInput) > 0.01f)
                 {
-                    _stateMachine.ChangeState(CharacterState.Walk);
+                    _stateMachine.TransitionToState(CharacterState.Walk);
                 }
                 else
                 {
-                    _stateMachine.ChangeState(CharacterState.Idle);
+                    _stateMachine.TransitionToState(CharacterState.Idle);
                 }
                 return;
             }
-        }
-
-        public void OnFixedUpdate()
-        {
-            // Falling 상태 FixedUpdate
         }
 
         public void OnExit()

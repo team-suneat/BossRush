@@ -16,9 +16,9 @@ namespace TeamSuneat
             return monster;
         }
 
-        internal static PlayerCharacter SpawnPlayerCharacter(Vector3 spawnPosition, Transform parent)
+        internal static PlayerCharacter SpawnPlayerCharacter(GameObject prefab, Vector3 spawnPosition, Transform parent)
         {
-            PlayerCharacter player = SpawnPrefab<PlayerCharacter>("PlayerCharacter", parent);
+            PlayerCharacter player = Instantiate<PlayerCharacter>(prefab, parent);
             if (player != null)
             {
                 player.transform.localPosition = Vector3.zero;

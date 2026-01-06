@@ -22,14 +22,9 @@ namespace TeamSuneat
 
         private void UnlockMovement()
         {
-            AnimatorLog.LogInfo("입력에 따른 캐릭터의 캐릭터 이동을 잠금해제합니다.");
+            AnimatorLog.LogInfo("입력에 따른 캐릭터의 이동을 잠금해제합니다.");
 
             StopXCoroutine(ref _movementLockCoroutine);
-        }
-
-        private void StartMovementLock(float animationLength)
-        {
-            LockMovement();
         }
 
         private IEnumerator ProcessMovementLock(float delayTime)

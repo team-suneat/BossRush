@@ -1,6 +1,5 @@
 using Lean.Pool;
 using TeamSuneat.Data;
-using TeamSuneat.Feedbacks;
 using UnityEngine;
 
 namespace TeamSuneat
@@ -9,20 +8,22 @@ namespace TeamSuneat
     {
         protected virtual void Awake()
         {
-            CharacterModel ??= this.FindGameObject("Model");
-            Animator ??= this.FindComponent<Animator>("Model");
-            CharacterAnimator ??= GetComponentInChildren<CharacterAnimator>();
-            CharacterRenderer ??= GetComponentInChildren<CharacterRenderer>();
+            CharacterModel = this.FindGameObject("Model");
+            Animator = this.FindComponent<Animator>("Model");
+            CharacterAnimator = GetComponentInChildren<CharacterAnimator>();
+            CharacterRenderer = GetComponentInChildren<CharacterRenderer>();
 
-            PhysicsController ??= GetComponent<PlayerPhysics>();
+            Physics = GetComponent<CharacterPhysics>();
 
-            Attack ??= GetComponentInChildren<AttackSystem>();
-            Stat ??= GetComponentInChildren<StatSystem>();
-            MyVital ??= GetComponentInChildren<Vital>();
+            Attack = GetComponentInChildren<AttackSystem>();
+            Stat = GetComponentInChildren<StatSystem>();
+            MyVital = GetComponentInChildren<Vital>();
 
-            BarrierPoint ??= this.FindTransform("Point-Barrier");
-            WarningTextPoint ??= this.FindTransform("Point-WarningText");
-            MinimapPoint ??= this.FindTransform("Point-Minimap");
+            StateMachine = GetComponent<CharacterStateMachine>();
+
+            BarrierPoint = this.FindTransform("Point-Barrier");
+            WarningTextPoint = this.FindTransform("Point-WarningText");
+            MinimapPoint = this.FindTransform("Point-Minimap");
         }
 
         protected override void OnRelease()
@@ -104,8 +105,8 @@ namespace TeamSuneat
             InitializeStateMachines();
 
             AssignAnimator();
-
             UpdateAnimators();
+            PlaySpawnAnimation();
 
             Attack?.Initialize();
             CharacterRenderer?.ResetRenderer();
@@ -182,6 +183,8 @@ namespace TeamSuneat
             {
                 return;
             }
+
+            Physics?.PhysicsTick();
         }
 
         #endregion Update
@@ -191,11 +194,6 @@ namespace TeamSuneat
             tag = GameTags.Character.ToString();
 
             LogInfo("캐릭터의 게임레이어 태그 레이어 마스크를 설정합니다.");
-        }
-
-        public virtual void SetupLevel()
-        {
-            // 아무것도 구현되지 않았습니다.
         }
 
         public virtual void AddCharacterStats()

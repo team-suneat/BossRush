@@ -5,14 +5,15 @@ namespace TeamSuneat
 {
     public class PlayerCharacterSpawner : XBehaviour
     {
-
         [SerializeField]
         private Transform _spawnPoint;
+
+        [SerializeField]
+        private GameObject _playerPrefab;
 
         private XScene _parentScene;
 
         public PlayerCharacter SpawnedPlayer { get; private set; }
-
 
         public void Initialize(XScene parentScene)
         {
@@ -30,7 +31,7 @@ namespace TeamSuneat
             }
 
             Vector3 spawnPosition = GetSpawnPosition();
-            PlayerCharacter player = ResourcesManager.SpawnPlayerCharacter(spawnPosition, transform);
+            PlayerCharacter player = ResourcesManager.SpawnPlayerCharacter(_playerPrefab, spawnPosition, transform);
             if (player == null)
             {
                 Log.Error(LogTags.CharacterSpawn, "플레이어 캐릭터 프리팹 스폰에 실패했습니다.");
@@ -55,7 +56,6 @@ namespace TeamSuneat
             }
         }
 
-
         private Vector3 GetSpawnPosition()
         {
             if (_spawnPoint != null)
@@ -65,6 +65,5 @@ namespace TeamSuneat
 
             return transform.position;
         }
-
     }
 }

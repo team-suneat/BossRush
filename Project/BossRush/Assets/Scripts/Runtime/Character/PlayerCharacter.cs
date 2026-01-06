@@ -15,18 +15,14 @@ namespace TeamSuneat
         public override void OnDespawn()
         {
             base.OnDespawn();
-            GlobalEvent.Send(GlobalEventType.PLAYER_CHARACTER_DESPAWNED);
-        }
 
-        public override void Initialize()
-        {
-            base.Initialize();
-            SetupLevel();
+            GlobalEvent.Send(GlobalEventType.PLAYER_CHARACTER_DESPAWNED);
         }
 
         protected override void OnStart()
         {
             base.OnStart();
+
             InitializePlayerController();
         }
 
@@ -113,19 +109,13 @@ namespace TeamSuneat
             if (_input != null && _input.IsJumpPressed && _input.IsDownInputPressed)
             {
                 // 아래 점프는 상태 머신을 거치지 않고 직접 처리
-                if (PhysicsController != null)
-                {
-                    PhysicsController.RequestDownJump();
-                }
+                Physics?.RequestDownJump();
             }
 
             // 4. 점프 키를 떼면 가변 점프 처리 (아래 점프가 아닐 때만)
             if (_input != null && _input.IsJumpReleased && !_input.IsDownInputPressed)
             {
-                if (PhysicsController != null)
-                {
-                    PhysicsController.ReleaseJump();
-                }
+                Physics?.ReleaseJump();
             }
 
             // 5. Model 스프라이트 방향 반전
@@ -141,28 +131,22 @@ namespace TeamSuneat
 
             base.PhysicsUpdate();
 
-            // 1. 물리 시스템 업데이트 (바닥 감지, 대시 처리 등)
-            if (PhysicsController != null)
-            {
-                PhysicsController.PhysisUpdate();
-            }
-
-            // 2. 상태 머신 FixedUpdate
+            // 1. 상태 머신 FixedUpdate
             if (StateMachine != null)
             {
                 StateMachine.PhysisUpdate();
             }
 
-            // 3. 이동 속도 적용 (대시 중일 때는 일반 이동 입력 무시)
-            if (PhysicsController != null && _input != null)
+            // 2. 이동 속도 적용 (대시 중일 때는 일반 이동 입력 무시)
+            if (Physics != null && _input != null)
             {
-                if (!PhysicsController.IsDashing)
+                if (!Physics.IsDashing)
                 {
                     // 즉각적인 반응: 입력에 바로 속도 적용 (가속/감속 없음)
                     float targetVelocityX = _input.HorizontalInput * _moveSpeed;
 
-                    // PlayerPhysics를 통해 수평 속도 적용 (Y축 속도는 자동으로 유지됨)
-                    PhysicsController.ApplyHorizontalVelocity(targetVelocityX);
+                    // CharacterPhysics를 통해 수평 속도 적용 (Y축 속도는 자동으로 유지됨)
+                    Physics.ApplyHorizontalInput(targetVelocityX);
                 }
             }
         }

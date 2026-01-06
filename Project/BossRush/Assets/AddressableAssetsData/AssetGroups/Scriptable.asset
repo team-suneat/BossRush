@@ -21,6 +21,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 19b3808665fba644ab7daa451bf02afa
+    m_Address: Assets/Addressables/Scriptable/Character/Character_PlayerCharacter.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2cc909dbd55810749b2736dff821e0ca
     m_Address: Assets/Addressables/Scriptable/Floaty/Floaty_PlayerDamaged.asset
     m_ReadOnly: 0
@@ -35,12 +41,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 33da283afde72b148a0eddacaa59b029
     m_Address: Assets/Addressables/Scriptable/Floaty/Floaty_RestoreMana.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Scriptable
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 492fdb9a0918e794b9894bc008e355bd
-    m_Address: Assets/Addressables/Scriptable/Character/MonsterStatConfig.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -87,18 +87,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 90bef338bc87e494bb498a45ccab18ac
-    m_Address: Assets/Addressables/Scriptable/Character/ExperienceConfig.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Scriptable
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ad054745a1ae1624aa24a4931ec339e6
-    m_Address: Assets/Addressables/Scriptable/Character/GrowthConfig.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Scriptable
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b0fb6b5c659ddd049a3184c5cebd5133
     m_Address: Assets/Addressables/Scriptable/Floaty/Floaty_ChargeShield.asset
     m_ReadOnly: 0
@@ -123,20 +111,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ea96c92820bd27a4a9144454a9875c61
-    m_Address: Assets/Addressables/Scriptable/Character/MonsterExperienceDropConfig.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Scriptable
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ef05a843586c67049a01f2555910cd1b
     m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_Area01_Boss_GoblinChief.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Scriptable
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f2af02920d7351a418b549673dc864c5
-    m_Address: Assets/Addressables/Scriptable/Character/EnhancementConfig.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable

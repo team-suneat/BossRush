@@ -14,17 +14,17 @@ namespace TeamSuneat
         [SerializeField] private Color _airborneColor = Color.red;
         [SerializeField] private string _modelChildName = "GroundDebug";
 
-        private PlayerPhysics _physics;
+        private CharacterPhysics _physics;
         private SpriteRenderer _spriteRenderer;
         private bool _lastGroundedState;
 
         private void Awake()
         {
-            _physics = GetComponent<PlayerPhysics>();
+            _physics = GetComponent<CharacterPhysics>();
 
             if (_physics == null)
             {
-                Debug.LogWarning("PlayerGroundedDebugger: PlayerPhysics를 찾을 수 없습니다.");
+                Debug.LogWarning("PlayerGroundedDebugger: CharacterPhysics를 찾을 수 없습니다.");
                 enabled = false;
                 return;
             }

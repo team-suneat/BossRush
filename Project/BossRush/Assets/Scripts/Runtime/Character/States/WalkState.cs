@@ -5,10 +5,10 @@ namespace TeamSuneat
     public class WalkState : ICharacterState
     {
         private CharacterStateMachine _stateMachine;
-        private PlayerPhysics _physics;
+        private CharacterPhysics _physics;
         private PlayerInput _input;
 
-        public WalkState(CharacterStateMachine stateMachine, PlayerPhysics physics, PlayerInput input)
+        public WalkState(CharacterStateMachine stateMachine, CharacterPhysics physics, PlayerInput input)
         {
             _stateMachine = stateMachine;
             _physics = physics;
@@ -28,24 +28,28 @@ namespace TeamSuneat
                 return;
             }
 
-            // 수평 입력이 없으면 Idle로 전환
+            // 수평 입력이 없으면 Idle로 전환 (입력 기반 - Update에서 처리)
             if (Mathf.Abs(_input.HorizontalInput) < 0.01f)
             {
-                _stateMachine.ChangeState(CharacterState.Idle);
-                return;
-            }
-
-            // 공중에 떠있으면 Falling로 전환
-            if (!_physics.IsGrounded)
-            {
-                _stateMachine.ChangeState(CharacterState.Falling);
+                _stateMachine.TransitionToState(CharacterState.Idle);
                 return;
             }
         }
 
         public void OnFixedUpdate()
         {
-            // Walk 상태 FixedUpdate
+            // 입력이나 물리가 없으면 업데이트 스킵
+            if (_input == null || _physics == null)
+            {
+                return;
+            }
+
+            // 공중에 떠있으면 Falling로 전환 (물리 변수 기반 - FixedUpdate에서 처리)
+            if (!_physics.IsGrounded)
+            {
+                _stateMachine.TransitionToState(CharacterState.Falling);
+                return;
+            }
         }
 
         public void OnExit()

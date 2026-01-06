@@ -1,38 +1,23 @@
-﻿using Sirenix.OdinInspector;
-using System.Collections;
+﻿using System.Collections;
 using TeamSuneat.Data;
 using UnityEngine;
 
 namespace TeamSuneat
 {
-    /// <summary>
-    /// 캐릭터의 시각적 렌더링 효과를 관리하는 컴포넌트
-    /// 피격 효과, 아웃라인, 깜빡임 등의 시각적 피드백을 제공합니다.
-    /// </summary>
     public class CharacterRenderer : MonoBehaviour
     {
-        #region Fields
-
-        [Title("#Renderer")]
-        [SerializeField] private SpriteRenderer _renderer;
-
+        private SpriteRenderer _renderer;
         private Coroutine _flickerCoroutine;
-
-        #endregion Fields
-
-        #region Properties
 
         public SortingLayerNames SortingLayerName { get; internal set; }
 
         public int SortingLayerMaxOrder { get; internal set; }
 
-        #endregion Properties
+        private void Awake()
+        {
+            _renderer = GetComponent<SpriteRenderer>();
+        }
 
-        #region Public Methods
-
-        /// <summary>
-        /// 렌더러를 초기 상태로 리셋합니다.
-        /// </summary>
         internal void ResetRenderer()
         {
             StopFlickerCoroutine();
@@ -54,9 +39,6 @@ namespace TeamSuneat
             _flickerCoroutine = StartCoroutine(FlickerHitEffect(_renderer, flickerAsset.FlickerSpeed, flickerAsset.FlickerDuration));
         }
 
-        /// <summary>
-        /// 모든 피격 효과를 비활성화합니다.
-        /// </summary>
         internal void DeactiveHitEffectAll()
         {
             if (IsRendererValid())
@@ -72,8 +54,6 @@ namespace TeamSuneat
                 renderer.SetHitEffectColor(hitEffectColor, hitEffectBlend);
             }
         }
-
-        #endregion Public Methods
 
         #region Outline Methods
 

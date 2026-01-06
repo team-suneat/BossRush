@@ -5,10 +5,10 @@ namespace TeamSuneat
     public class DashState : ICharacterState
     {
         private CharacterStateMachine _stateMachine;
-        private PlayerPhysics _physics;
+        private CharacterPhysics _physics;
         private PlayerInput _input;
 
-        public DashState(CharacterStateMachine stateMachine, PlayerPhysics physics, PlayerInput input)
+        public DashState(CharacterStateMachine stateMachine, CharacterPhysics physics, PlayerInput input)
         {
             _stateMachine = stateMachine;
             _physics = physics;
@@ -23,37 +23,38 @@ namespace TeamSuneat
 
         public void OnUpdate()
         {
+            // 입력 기반 전환은 Update에서 처리
+            // 물리 변수 기반 전환은 OnFixedUpdate로 이동
+        }
+
+        public void OnFixedUpdate()
+        {
             // 입력이나 물리가 없으면 업데이트 스킵
             if (_input == null || _physics == null)
             {
                 return;
             }
 
-            // 대시가 끝나면 Idle/Walk/Falling로 전환
+            // 대시가 끝나면 Idle/Walk/Falling로 전환 (물리 변수 기반)
             if (!_physics.IsDashing)
             {
                 if (_physics.IsGrounded)
                 {
                     if (Mathf.Abs(_input.HorizontalInput) > 0.01f)
                     {
-                        _stateMachine.ChangeState(CharacterState.Walk);
+                        _stateMachine.TransitionToState(CharacterState.Walk);
                     }
                     else
                     {
-                        _stateMachine.ChangeState(CharacterState.Idle);
+                        _stateMachine.TransitionToState(CharacterState.Idle);
                     }
                 }
                 else
                 {
-                    _stateMachine.ChangeState(CharacterState.Falling);
+                    _stateMachine.TransitionToState(CharacterState.Falling);
                 }
                 return;
             }
-        }
-
-        public void OnFixedUpdate()
-        {
-            // Dash 상태 FixedUpdate
         }
 
         public void OnExit()

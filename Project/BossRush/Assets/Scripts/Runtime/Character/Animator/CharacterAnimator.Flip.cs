@@ -21,11 +21,6 @@ namespace TeamSuneat
             StopXCoroutine(ref _flipLockCoroutine);
         }
 
-        private void StartFlipLock(float animationLength)
-        {
-            LockFlip();
-        }
-
         private IEnumerator ProcessFlipLock(float delayTime)
         {
             AnimatorLog.LogInfo("캐릭터 반전의 자동 잠금해제를 시작합니다. {0}초 뒤 자동 잠금해제됩니다.", delayTime);

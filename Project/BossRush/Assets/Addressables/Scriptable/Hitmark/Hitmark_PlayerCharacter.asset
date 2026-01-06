@@ -12,18 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44a1fdb7a9d3e48429d7d49c64140db0, type: 3}
   m_Name: Hitmark_PlayerCharacter
   m_EditorClassIdentifier: 
-  NameString: PlayerCharacter
+  NameString: PlayerAttack
   Data:
-    IsChangingAsset: 1
+    IsChangingAsset: 0
     Name: 1
     AttackTargetType: 2
+    EntityType: 0
     IsCrowdControl: 0
     DamageType: 1
     IgnoreEvasion: 0
     NotPlayDamageAnimation: 0
     ApplyToSelf: 0
     ApplyMultiplierToSelf: 0
-    ExecutionConditionalTargetHealthRate: 0
+    ExecutionConditionalTargetLifeRate: 0
     MinDamageValue: 1
     FixedDamage: 0
     FixedDamageByLevel: 0
@@ -37,7 +38,6 @@ MonoBehaviour:
     LinkedDamageTypeString: None
     LinkedStateEffectString: None
     NameOnHitString: 
-    BuffOnHitString: 
     UseWeaponDamageString: False
     DiminishingType: 0
     DiminishingRate: 0

@@ -5,13 +5,13 @@ namespace TeamSuneat
 {
     public class PlayerMovementStateMachine : CharacterStateMachine
     {
-        private PlayerPhysics _physics;
+        private CharacterPhysics _physics;
         private PlayerInput _input;
 
         protected override void Awake()
         {
             base.Awake();
-            _physics = GetComponent<PlayerPhysics>();
+            _physics = GetComponent<CharacterPhysics>();
             _input = GetComponent<PlayerInput>();
         }
 
@@ -82,10 +82,7 @@ namespace TeamSuneat
         protected override void ExecuteDash(Vector2 direction)
         {
             // 실제 물리 시스템에 대시 요청
-            if (_physics != null)
-            {
-                _physics.RequestDash(direction);
-            }
+            _physics?.RequestDash(direction);
         }
     }
 }

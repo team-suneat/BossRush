@@ -32,6 +32,10 @@ namespace TeamSuneat
         protected virtual void Awake()
         {
             _character = GetComponent<Character>();
+        }
+
+        private void Start()
+        {
             InitializeStates();
         }
 
@@ -93,6 +97,35 @@ namespace TeamSuneat
             {
                 previousState.OnExit();
             }
+
+            // 새 상태 Enter
+            CurrentState = newState;
+            if (_states.TryGetValue(CurrentState, out ICharacterState nextState))
+            {
+                nextState.OnEnter();
+            }
+        }
+
+        // 상태가 자발적으로 전환을 요청할 때 사용 (OnUpdate/OnFixedUpdate 내부에서 호출)
+        public virtual void TransitionToState(CharacterState newState)
+        {
+            if (CurrentState == newState) return;
+
+            // 자발적 전환 요청 시 CanTransitionTo 확인
+            if (!_states.TryGetValue(CurrentState, out ICharacterState currentState))
+            {
+                return;
+            }
+
+            // 현재 상태가 전환을 허용하는지 확인
+            if (!currentState.CanTransitionTo(newState))
+            {
+                return;
+            }
+
+            // 자발적 전환은 우선순위 체크 건너뛰기
+            // 이전 상태 Exit
+            currentState.OnExit();
 
             // 새 상태 Enter
             CurrentState = newState;

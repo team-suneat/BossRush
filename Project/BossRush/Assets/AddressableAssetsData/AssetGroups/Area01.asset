@@ -27,20 +27,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - Area01
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0e3d7f50d63521741b87e390e6ab6c31
-    m_Address: Assets/Addressables/Prefab/Monster/Area01_StrongGoblin.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Area01
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0f61a44ce70b34943ab6735edad9ae82
     m_Address: Assets/Addressables/Scriptable/World/Area01/Stage_Area01_Crossroads3.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Area01
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 14f43b0aef23b8b44a18ffb79dd0f75e
-    m_Address: Assets/Addressables/Prefab/Monster/Area01_Mushroom.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Area01
@@ -75,12 +63,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Area01
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 49f8a3fbed42fd547b066f3e6907ea64
-    m_Address: Assets/Addressables/Prefab/Monster/Area01_Boss_SlimeKing.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Area01
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 51031e949a7544d47adf210fe2ae884f
     m_Address: Assets/Addressables/Scriptable/World/Area01/Stage_Area01_BeastZone4.asset
     m_ReadOnly: 0
@@ -111,32 +93,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - Area01
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6da3b37b99370df40b11a950cf771882
-    m_Address: Assets/Addressables/Prefab/Monster/Area01_KingMushroom.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Area01
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 84128db25addc3842b408c3bc3fb382a
-    m_Address: Assets/Addressables/Prefab/Monster/Area01_Slime.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Area01
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 86d4ae63520bf204a88226b2aebf7000
-    m_Address: Assets/Addressables/Prefab/Monster/Area01_Boss_WolfKing.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Area01
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 89869d84d0481534caf579eb118b2263
     m_Address: Assets/Addressables/Scriptable/World/Area01/Stage_Area01_BeginnerHuntingGround2.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Area01
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9d7826711259f5d4e98691e02c91e8bb
-    m_Address: Assets/Addressables/Prefab/Monster/Area01_Goblin.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Area01
@@ -149,18 +107,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a185dd626a4d6b64ab4e47225e9a92ac
     m_Address: Assets/Addressables/Scriptable/World/Area01/Stage_Area01_BeginnerHuntingGround3.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Area01
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a68a848799a9ea14abdc039295509d2c
-    m_Address: Assets/Addressables/Prefab/Monster/Area01_Boss_MushroomKing.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Area01
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a9302237e7229364ea069c13b4374022
-    m_Address: Assets/Addressables/Prefab/Monster/Area01_Boar.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Area01
@@ -195,12 +141,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Area01
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: dfb5732cbdb41b246be1fbd0a2c6b1de
-    m_Address: Assets/Addressables/Prefab/Monster/Area01_Wolf.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Area01
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e34a65b642a1b5f4db10b9424fa84cb9
     m_Address: Assets/Addressables/Scriptable/World/Area01/Stage_Area01_StartForestNorth1.asset
     m_ReadOnly: 0
@@ -209,18 +149,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f4fe664ae76564c4f8c0c8ec96023e0f
     m_Address: Assets/Addressables/Scriptable/World/Area01/Stage_Area01_Crossroads2.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Area01
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f54fda2ec0dd50143b79fa70f33573de
-    m_Address: Assets/Addressables/Prefab/Monster/Area01_Boss_BoarLord.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Area01
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fbe4b962d1c4841449ae93510947c511
-    m_Address: Assets/Addressables/Prefab/Monster/Area01_Boss_GoblinChief.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Area01

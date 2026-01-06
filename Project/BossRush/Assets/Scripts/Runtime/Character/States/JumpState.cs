@@ -5,10 +5,10 @@ namespace TeamSuneat
     public class JumpState : ICharacterState
     {
         private CharacterStateMachine _stateMachine;
-        private PlayerPhysics _physics;
+        private CharacterPhysics _physics;
         private PlayerInput _input;
 
-        public JumpState(CharacterStateMachine stateMachine, PlayerPhysics physics, PlayerInput input)
+        public JumpState(CharacterStateMachine stateMachine, CharacterPhysics physics, PlayerInput input)
         {
             _stateMachine = stateMachine;
             _physics = physics;
@@ -27,24 +27,25 @@ namespace TeamSuneat
 
         public void OnUpdate()
         {
+            // 입력 기반 전환은 Update에서 처리
+            // 물리 변수 기반 전환은 OnFixedUpdate로 이동
+        }
+
+        public void OnFixedUpdate()
+        {
             // 물리가 없으면 업데이트 스킵
             if (_physics == null)
             {
                 return;
             }
 
-            // 상승 속도가 0 이하이면 Falling로 전환
+            // 상승 속도가 0 이하이면 Falling로 전환 (물리 변수 기반 - FixedUpdate에서 처리)
             // 바닥 착지는 FallingState에서 처리 (단방향 플랫폼 통과 시 문제 방지)
             if (_physics.RigidbodyVelocity.y <= 0f)
             {
-                _stateMachine.ChangeState(CharacterState.Falling);
+                _stateMachine.TransitionToState(CharacterState.Falling);
                 return;
             }
-        }
-
-        public void OnFixedUpdate()
-        {
-            // Jumping 상태 FixedUpdate
         }
 
         public void OnExit()

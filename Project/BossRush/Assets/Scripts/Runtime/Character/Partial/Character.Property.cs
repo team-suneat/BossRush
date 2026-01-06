@@ -12,7 +12,7 @@ namespace TeamSuneat
         public Animator Animator { get; set; }
         public CharacterAnimator CharacterAnimator { get; set; }
         public CharacterRenderer CharacterRenderer { get; set; }
-        public PlayerPhysics PhysicsController { get; set; }
+        public CharacterPhysics Physics { get; set; }
         public AttackSystem Attack { get; set; }
         public StatSystem Stat { get; set; }
         public Vital MyVital { get; set; }

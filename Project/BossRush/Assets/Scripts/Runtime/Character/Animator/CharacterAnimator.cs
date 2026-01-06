@@ -1,5 +1,4 @@
 ﻿using Sirenix.OdinInspector;
-using System.Collections.Generic;
 using System.Linq;
 using TeamSuneat.Data;
 using UnityEngine;
@@ -13,19 +12,14 @@ namespace TeamSuneat
         [Title("#Character Animator")]
         public bool IgnoreFlipOnAttacking;
 
-        /// <summary> 공격 중 피격 애니메이션을 재생할 수 없도록 금지합니다. </summary>
+        // 공격 중 피격 애니메이션을 재생할 수 없도록 금지합니다.
         protected bool IsBlockingDamageAnimationWhileAttack;
-
-        /// <summary> 잡기 중 피격 애니메이션을 재생할 수 없도록 금지합니다. </summary>
-        protected bool IsBlockingDamageAnimationWhileGrab;
 
         protected CharacterAnimatorLog AnimatorLog;
 
         public bool IsAttacking { get; set; }
 
         public bool IsDashing { get; set; }
-
-        public bool IsGrabbing { get; set; }
 
         public bool IsDamaging { get; set; }
 
@@ -39,8 +33,8 @@ namespace TeamSuneat
 
         // Component
 
-        [SerializeField] protected Character _owner;
-        [SerializeField] protected Animator _animator;
+        protected Character _owner;
+        protected Animator _animator;
 
         public delegate void OnStateEnterDelegate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex);
         public delegate void OnStateExitDelegate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex);
@@ -48,19 +42,10 @@ namespace TeamSuneat
         private OnStateEnterDelegate OnStateEnter;
         private OnStateExitDelegate OnStateExit;
 
-        public override void AutoGetComponents()
-        {
-            base.AutoGetComponents();
-
-            _animator = GetComponent<Animator>();
-            _owner = this.FindFirstParentComponent<Character>();
-        }
-
         private void Awake()
         {
             _animator ??= GetComponent<Animator>();
             _owner ??= this.FindFirstParentComponent<Character>();
-
             AnimatorLog = new CharacterAnimatorLog(_owner);
         }
 
@@ -68,7 +53,6 @@ namespace TeamSuneat
         {
             IsAttacking = false;
             IsDashing = false;
-            IsGrabbing = false;
             IsDamaging = false;
             IsConsumingPotion = false;
             IsBlinking = false;
@@ -83,7 +67,6 @@ namespace TeamSuneat
             _animator.UpdateAnimatorBool(ANIMATOR_IS_ATTACKING_PARAMETER_ID, false, AnimatorParameters);
             _animator.UpdateAnimatorBool(ANIMATOR_IS_CASTING_PARAMETER_ID, false, AnimatorParameters);
             _animator.UpdateAnimatorBool(ANIMATOR_IS_DASHING_PARAMETER_ID, false, AnimatorParameters);
-            _animator.UpdateAnimatorBool(ANIMATOR_IS_GRABBING_PARAMETER_ID, false, AnimatorParameters);
             _animator.UpdateAnimatorBool(ANIMATOR_IS_DAMAGING_PARAMETER_ID, false, AnimatorParameters);
             _animator.UpdateAnimatorBool(ANIMATOR_IS_CONSUMING_POTION_PARAMETER_ID, false, AnimatorParameters);
             _animator.UpdateAnimatorBool(ANIMATOR_BLINK_PARAMETER_ID, false, AnimatorParameters);
@@ -127,7 +110,7 @@ namespace TeamSuneat
                 _animator.UpdateAnimatorFloat(ANIMATOR_DAMAGE_TYPE_PARAMETER_ID, 1, AnimatorParameters);
                 _damageTypeIndex = 1;
             }
-            else if (!_owner.PhysicsController.IsGrounded)
+            else if (!(_owner.Physics?.IsGrounded ?? false))
             {
                 _animator.UpdateAnimatorFloat(ANIMATOR_DAMAGE_TYPE_PARAMETER_ID, 1, AnimatorParameters);
                 _damageTypeIndex = 1;
@@ -155,7 +138,7 @@ namespace TeamSuneat
 
         public virtual void PlaySpecialIdleAnimation()
         {
-            AnimatorLog.LogInfo("{0} 애니메이션 파마메터를 설정합니다. {1}", ANIMATOR_SPECIAL_IDLE_PARAMETER_NAME, true.ToBoolString());
+            AnimatorLog.LogInfo("{0} 애니메이션 파라미터를 설정합니다. {1}", ANIMATOR_SPECIAL_IDLE_PARAMETER_NAME, true.ToBoolString());
 
             _animator.UpdateAnimatorBool(ANIMATOR_SPECIAL_IDLE_PARAMETER_ID, true, AnimatorParameters);
         }
@@ -175,7 +158,7 @@ namespace TeamSuneat
 
         public void PlayInteractAnimation()
         {
-            AnimatorLog.LogInfo("{0} 애니메이션 파마메터를 설정합니다. {1}", ANIMATOR_INTERACT_PARAMETER_NAME, true.ToBoolString());
+            AnimatorLog.LogInfo("{0} 애니메이션 파라미터를 설정합니다. {1}", ANIMATOR_INTERACT_PARAMETER_NAME, true.ToBoolString());
 
             _animator.UpdateAnimatorBool(ANIMATOR_INTERACT_PARAMETER_ID, true, AnimatorParameters);
         }
@@ -204,9 +187,9 @@ namespace TeamSuneat
                 return;
             }
 
-            if (IsDashing || IsGrabbing || IsDamaging || IsConsumingPotion || IsBlinking)
+            if (IsDashing || IsDamaging || IsConsumingPotion || IsBlinking)
             {
-                AnimatorLog.LogInfo($"특정 애니메이션 중에는 돌아설 수 없습니다. 돌진 중:{IsDashing}, 잡힘 중:{IsGrabbing}, 피격 중:{IsDamaging}, 물약 사용 중:{IsConsumingPotion}, 순간이동 중:{IsBlinking}");
+                AnimatorLog.LogInfo($"특정 애니메이션 중에는 돌아설 수 없습니다. 돌진 중:{IsDashing}, 피격 중:{IsDamaging}, 물약 사용 중:{IsConsumingPotion}, 순간이동 중:{IsBlinking}");
                 return;
             }
 
@@ -219,7 +202,7 @@ namespace TeamSuneat
 
         public void StopInteractAnimation()
         {
-            AnimatorLog.LogInfo("{0} 애니메이션 파마메터를 초기화합니다. {1}", ANIMATOR_INTERACT_PARAMETER_ID, false.ToBoolString());
+            AnimatorLog.LogInfo("{0} 애니메이션 파라미터를 초기화합니다. {1}", ANIMATOR_INTERACT_PARAMETER_ID, false.ToBoolString());
 
             _animator.UpdateAnimatorBool(ANIMATOR_INTERACT_PARAMETER_ID, false, AnimatorParameters);
         }
@@ -248,14 +231,6 @@ namespace TeamSuneat
             else if (CheckStateName(stateInfo, "Freeze"))
             {
                 AnimatorLog.LogInfo("빙결 상태의 애니메이션에 진입했습니다.");
-            }
-            else if (CheckStateName(stateInfo, "Grabbed"))
-            {
-                AnimatorLog.LogInfo("잡아당겨짐 상태의 애니메이션에 진입했습니다.");
-            }
-            else if (CheckStateNames(stateInfo, "Grab", "GrabProgress", "GrabCompelete"))
-            {
-                OnAnimatorGrabStateEnter();
             }
             else if (CheckStateName(stateInfo, "Potion"))
             {
@@ -303,10 +278,6 @@ namespace TeamSuneat
             {
                 OnAnimatorDamageStateExit();
             }
-            else if (CheckStateNames(stateInfo, "Grab", "GrabProgress", "GrabCompelete"))
-            {
-                OnAnimatorGrabStateExit();
-            }
             else if (CheckStateName(stateInfo, "Potion"))
             {
                 OnAnimatorConsumePotionStateExit();
@@ -341,12 +312,7 @@ namespace TeamSuneat
 
         protected bool CheckStateName(AnimatorStateInfo stateInfo, string animationName)
         {
-            if (stateInfo.IsName(animationName))
-            {
-                return true;
-            }
-
-            return false;
+            return stateInfo.IsName(animationName);
         }
 
         protected bool CheckStateNames(AnimatorStateInfo stateInfo, params string[] animationNames)
@@ -457,20 +423,6 @@ namespace TeamSuneat
             }
         }
 
-        private void OnAnimatorGrabStateEnter()
-        {
-            AnimatorLog.LogInfo("잡기 상태의 애니메이션에 진입했습니다.");
-
-            StartGrabbing();
-        }
-
-        private void OnAnimatorGrabStateExit()
-        {
-            StopGrabbing();
-
-            ResetBlockDamageAnimationWhileGrab();
-        }
-
         private void OnAnimatorConsumePotionStateEnter()
         {
             AnimatorLog.LogInfo("물약 사용 상태의 애니메이션에 진입했습니다.");
@@ -565,20 +517,6 @@ namespace TeamSuneat
         {
             _animator.UpdateAnimatorBool(ANIMATOR_IS_DASHING_PARAMETER_ID, false, AnimatorParameters);
             IsDashing = false;
-        }
-
-        private void StartGrabbing()
-        {
-            _animator.UpdateAnimatorBool(ANIMATOR_IS_GRABBING_PARAMETER_ID, true, AnimatorParameters);
-
-            IsGrabbing = true;
-        }
-
-        private void StopGrabbing()
-        {
-            _animator.UpdateAnimatorBool(ANIMATOR_IS_GRABBING_PARAMETER_ID, false, AnimatorParameters);
-
-            IsGrabbing = false;
         }
 
         private void StartConsumingPotion()

@@ -374,9 +374,6 @@ namespace TeamSuneat
         {
             _primaryMovement.x = InputPlayer.GetAxisRaw("MoveHorizontal");
             _primaryMovement.y = InputPlayer.GetAxisRaw("MoveVertical");
-
-            _rightPadMovement.x = InputPlayer.GetAxisRaw("UICursorHorizontal2");
-            _rightPadMovement.y = InputPlayer.GetAxisRaw("UICursorVertical2");
         }
 
         private void ProcessButtonInput(TSInputButton button)

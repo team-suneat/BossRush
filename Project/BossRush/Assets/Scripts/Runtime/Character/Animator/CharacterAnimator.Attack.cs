@@ -7,20 +7,14 @@ namespace TeamSuneat
     {
         // CharacterAnimator에서 사용하는 Attack은 몬스터의 공격으로 제한합니다.
 
-        /// <summary>
-        /// 공격 애니메이션 이름
-        /// </summary>
+        // 공격 애니메이션 이름
         protected string _attackAnimationName;
 
-        /// <summary>
-        /// 순서대로 재생되는 공격 애니메이션 여부
-        /// : 돌진과 같이 시작-반복-완료 애니메이션이 각각 설정된 공격 애니메이션을 뜻합니다.
-        /// </summary>
+        // 순서대로 재생되는 공격 애니메이션 여부
+        // 돌진과 같이 시작-반복-완료 애니메이션이 각각 설정된 공격 애니메이션을 뜻합니다.
         private bool _isSequenceAttackAnimation;
 
-        /// <summary>
-        /// 재생되고 있는 공격 애니메이션 이름
-        /// </summary>
+        // 재생되고 있는 공격 애니메이션 이름
         protected string AttackingAnimationName
         {
             get
@@ -29,10 +23,8 @@ namespace TeamSuneat
                 {
                     return _attackAnimationName + "Complete";
                 }
-                else
-                {
-                    return _attackAnimationName;
-                }
+
+                return _attackAnimationName;
             }
         }
 
@@ -42,17 +34,10 @@ namespace TeamSuneat
         {
             if (!isEnter && _isSequenceAttackAnimation)
             {
-                if (stateInfo.IsName(_attackAnimationName + "Complete"))
-                {
-                    return true;
-                }
-            }
-            else if (stateInfo.IsName(_attackAnimationName))
-            {
-                return true;
+                return stateInfo.IsName(_attackAnimationName + "Complete");
             }
 
-            return false;
+            return stateInfo.IsName(_attackAnimationName);
         }
 
         public bool PlayAttackAnimation(string animationName)
@@ -163,24 +148,12 @@ namespace TeamSuneat
             AnimatorLog.LogInfo($"공격 중 피격 애니메이션 재생 차단: {false.ToBoolString()}");
         }
 
-        public void SetBlockDamageAnimationWhileGrab()
-        {
-            IsBlockingDamageAnimationWhileGrab = true;
-            AnimatorLog.LogInfo($"잡기 중 피격 애니메이션 재생 차단: {true.ToBoolString()}");
-        }
-
-        public void ResetBlockDamageAnimationWhileGrab()
-        {
-            IsBlockingDamageAnimationWhileGrab = true;
-            AnimatorLog.LogInfo($"잡기 중 피격 애니메이션 재생 차단: {false.ToBoolString()}");
-        }
-
-        public void CallRefreshCooldwonEvent()
+        public void CallRefreshCooldownEvent()
         {
             RefreshAttackCooldown?.Invoke(_attackAnimationName);
         }
 
-        public void RegisterRefreshCooldwonEvent(UnityAction<string> action)
+        public void RegisterRefreshCooldownEvent(UnityAction<string> action)
         {
             if (RefreshAttackCooldown == null)
             {
@@ -190,7 +163,7 @@ namespace TeamSuneat
             RefreshAttackCooldown.AddListener(action);
         }
 
-        public void UnregisterRefreshCooldwonEvent(UnityAction<string> action)
+        public void UnregisterRefreshCooldownEvent(UnityAction<string> action)
         {
             if (RefreshAttackCooldown != null)
             {
