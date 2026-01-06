@@ -408,7 +408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_AnchorMin.x
@@ -416,7 +416,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_SizeDelta.x
@@ -456,11 +456,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -452
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -477,6 +477,10 @@ PrefabInstance:
     - target: {fileID: 3547357239837772904, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_Name
       value: UIButton (Exit)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547357239837772904, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8378141350773643411, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_text
@@ -651,7 +655,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_AnchorMin.x
@@ -659,7 +663,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_SizeDelta.x
@@ -699,11 +703,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -324
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -720,6 +724,10 @@ PrefabInstance:
     - target: {fileID: 3547357239837772904, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_Name
       value: UIButton (Option)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547357239837772904, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8378141350773643411, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_text
@@ -1034,7 +1042,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1042,7 +1050,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1082,11 +1090,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -388
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1103,6 +1111,10 @@ PrefabInstance:
     - target: {fileID: 3547357239837772904, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_Name
       value: UIButton (Credit)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547357239837772904, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8378141350773643411, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_text
@@ -1422,7 +1434,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1430,7 +1442,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1470,11 +1482,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -196
       objectReference: {fileID: 0}
     - target: {fileID: 1193599522960920784, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1491,6 +1503,10 @@ PrefabInstance:
     - target: {fileID: 3547357239837772904, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
       propertyPath: m_Name
       value: UIButton (Continue)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547357239837772904, guid: 11a459eee7cabda46a696529c9745eb7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

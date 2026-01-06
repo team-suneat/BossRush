@@ -129,9 +129,6 @@ namespace TeamSuneat
 
         private void CancelAttackParameter()
         {
-            _animator.UpdateAnimatorBool(ANIMATOR_IS_ATTACKING_1_PARAMETER_ID, false, AnimatorParameters);
-            _animator.UpdateAnimatorBool(ANIMATOR_IS_ATTACKING_2_PARAMETER_ID, false, AnimatorParameters);
-            _animator.UpdateAnimatorBool(ANIMATOR_IS_ATTACKING_3_PARAMETER_ID, false, AnimatorParameters);
         }
 
         //

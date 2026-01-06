@@ -58,6 +58,7 @@ namespace TeamSuneat
             IsBlinking = false;
             IsTurning = false;
             IsBlockDeathAnimation = false;
+
             _animator.UpdateAnimatorBoolIfExists("IsSuicide", false);
 
             InitializeAnimatorParameters();
@@ -65,21 +66,19 @@ namespace TeamSuneat
             _animator.UpdateAnimatorBool(ANIMATOR_IS_SPAWNING_PARAMETER_ID, false, AnimatorParameters);
             _animator.UpdateAnimatorBool(ANIMATOR_IS_SPAWNED_PARAMETER_ID, false, AnimatorParameters);
             _animator.UpdateAnimatorBool(ANIMATOR_IS_ATTACKING_PARAMETER_ID, false, AnimatorParameters);
-            _animator.UpdateAnimatorBool(ANIMATOR_IS_CASTING_PARAMETER_ID, false, AnimatorParameters);
-            _animator.UpdateAnimatorBool(ANIMATOR_IS_DASHING_PARAMETER_ID, false, AnimatorParameters);
             _animator.UpdateAnimatorBool(ANIMATOR_IS_DAMAGING_PARAMETER_ID, false, AnimatorParameters);
-            _animator.UpdateAnimatorBool(ANIMATOR_IS_CONSUMING_POTION_PARAMETER_ID, false, AnimatorParameters);
-            _animator.UpdateAnimatorBool(ANIMATOR_BLINK_PARAMETER_ID, false, AnimatorParameters);
+            _animator.UpdateAnimatorBool(ANIMATOR_IS_GROUNDED_PARAMETER_ID, false, AnimatorParameters);
+            _animator.UpdateAnimatorBool(ANIMATOR_IS_LEFT_COLLISION_PARAMETER_ID, false, AnimatorParameters);
+            _animator.UpdateAnimatorBool(ANIMATOR_IS_RIGHT_COLLISION_PARAMETER_ID, false, AnimatorParameters);
+            _animator.UpdateAnimatorBool(ANIMATOR_IS_SLIPPERY_PARAMETER_ID, false, AnimatorParameters);
+            _animator.UpdateAnimatorBool(ANIMATOR_IS_PARRYING_PARAMETER_ID, false, AnimatorParameters);
+
+            Log.Info(LogTags.Animation, "등록된 애니메이터 파라메터: {0}, {1}", _animator.parameters.JoinToString(), this.GetHierarchyPath());
         }
 
         public void SetAttackSpeed(float attackSpeed)
         {
             _animator.UpdateAnimatorFloat(ANIMATOR_ATTACK_SPEED_PARAMETER_ID, attackSpeed, AnimatorParameters);
-        }
-
-        public void SetMoveSpeed(float moveSpeed)
-        {
-            _animator.UpdateAnimatorFloat(ANIMATOR_MOVE_SPEED_PARAMETER_ID, moveSpeed, AnimatorParameters);
         }
 
         public virtual void SetDamageTriggerIndex(int index)
@@ -122,6 +121,41 @@ namespace TeamSuneat
             }
         }
 
+        public void SetIsGrounded(bool isGrounded)
+        {
+            _animator.UpdateAnimatorBool(ANIMATOR_IS_GROUNDED_PARAMETER_ID, isGrounded, AnimatorParameters);
+        }
+
+        public void SetIsLeftCollision(bool isLeftCollision)
+        {
+            _animator.UpdateAnimatorBool(ANIMATOR_IS_LEFT_COLLISION_PARAMETER_ID, isLeftCollision, AnimatorParameters);
+        }
+
+        public void SetIsRightCollision(bool isRightCollision)
+        {
+            _animator.UpdateAnimatorBool(ANIMATOR_IS_RIGHT_COLLISION_PARAMETER_ID, isRightCollision, AnimatorParameters);
+        }
+
+        public void SetDirectionalX(float directionalX)
+        {
+            _animator.UpdateAnimatorFloat(ANIMATOR_DIRECTIONAL_X_PARAMETER_ID, directionalX, AnimatorParameters);
+        }
+
+        public void SetDirectionalY(float directionalY)
+        {
+            _animator.UpdateAnimatorFloat(ANIMATOR_DIRECTIONAL_Y_PARAMETER_ID, directionalY, AnimatorParameters);
+        }
+
+        public void SetSpeedX(float speedX)
+        {
+            _animator.UpdateAnimatorFloat(ANIMATOR_SPEED_X_PARAMETER_ID, speedX, AnimatorParameters);
+        }
+
+        public void SetSpeedY(float speedY)
+        {
+            _animator.UpdateAnimatorFloat(ANIMATOR_SPEED_Y_PARAMETER_ID, speedY, AnimatorParameters);
+        }
+
         #endregion Parameter
 
         #region Play
@@ -131,16 +165,9 @@ namespace TeamSuneat
             _animator.UpdateAnimatorTrigger(ANIMATOR_SPAWN_PARAMETER_ID, AnimatorParameters);
         }
 
-        public void PlaySpecialSpawnAnimation(string parameterName)
+        public void PlayDashAnimation()
         {
-            _animator.UpdateAnimatorTriggerIfExists(parameterName);
-        }
-
-        public virtual void PlaySpecialIdleAnimation()
-        {
-            AnimatorLog.LogInfo("{0} 애니메이션 파라미터를 설정합니다. {1}", ANIMATOR_SPECIAL_IDLE_PARAMETER_NAME, true.ToBoolString());
-
-            _animator.UpdateAnimatorBool(ANIMATOR_SPECIAL_IDLE_PARAMETER_ID, true, AnimatorParameters);
+            _animator.UpdateAnimatorTrigger(ANIMATOR_DASH_PARAMETER_ID, AnimatorParameters);
         }
 
         public virtual bool PlayDamageAnimation(HitmarkAssetData damageAssetData)
@@ -163,39 +190,6 @@ namespace TeamSuneat
             _animator.UpdateAnimatorBool(ANIMATOR_INTERACT_PARAMETER_ID, true, AnimatorParameters);
         }
 
-        public void PlayBlinkAnimation()
-        {
-            _animator.UpdateAnimatorBool(ANIMATOR_BLINK_PARAMETER_ID, true, AnimatorParameters);
-        }
-
-        public void PlayTeleportAnimation()
-        {
-            _animator.UpdateAnimatorTrigger(ANIMATOR_TELEPORT_PARAMETER_ID, AnimatorParameters);
-        }
-
-        public void PlayTurnAnimation()
-        {
-            if (IsTurning)
-            {
-                AnimatorLog.LogInfo("이미 돌아서고 있는 중에는 돌아설 수 없습니다.");
-                return;
-            }
-
-            if (IsAttacking)
-            {
-                AnimatorLog.LogInfo($"공격 중에는 돌아설 수 없습니다.");
-                return;
-            }
-
-            if (IsDashing || IsDamaging || IsConsumingPotion || IsBlinking)
-            {
-                AnimatorLog.LogInfo($"특정 애니메이션 중에는 돌아설 수 없습니다. 돌진 중:{IsDashing}, 피격 중:{IsDamaging}, 물약 사용 중:{IsConsumingPotion}, 순간이동 중:{IsBlinking}");
-                return;
-            }
-
-            _animator.UpdateAnimatorTrigger(ANIMATOR_TURN_PARAMETER_ID, AnimatorParameters);
-        }
-
         #endregion Play
 
         #region Stop
@@ -205,11 +199,6 @@ namespace TeamSuneat
             AnimatorLog.LogInfo("{0} 애니메이션 파라미터를 초기화합니다. {1}", ANIMATOR_INTERACT_PARAMETER_ID, false.ToBoolString());
 
             _animator.UpdateAnimatorBool(ANIMATOR_INTERACT_PARAMETER_ID, false, AnimatorParameters);
-        }
-
-        public void StopBlinkAnimation()
-        {
-            _animator.UpdateAnimatorBool(ANIMATOR_BLINK_PARAMETER_ID, false, AnimatorParameters);
         }
 
         #endregion Stop
@@ -227,30 +216,6 @@ namespace TeamSuneat
             else if (CheckStateName(stateInfo, "Stun"))
             {
                 AnimatorLog.LogInfo("기절 상태의 애니메이션에 진입했습니다.");
-            }
-            else if (CheckStateName(stateInfo, "Freeze"))
-            {
-                AnimatorLog.LogInfo("빙결 상태의 애니메이션에 진입했습니다.");
-            }
-            else if (CheckStateName(stateInfo, "Potion"))
-            {
-                OnAnimatorConsumePotionStateEnter();
-            }
-            else if (CheckStateName(stateInfo, "DashStart"))
-            {
-                OnAnimatorDashStateEnter();
-            }
-            else if (CheckStateName(stateInfo, "Blink"))
-            {
-                OnAnimatorBlinkStateEnter();
-            }
-            else if (CheckStateName(stateInfo, "Turn"))
-            {
-                OnAnimatorTurnStateEnter();
-            }
-            else if (CheckStateName(stateInfo, "Teleport"))
-            {
-                OnAnimatorTeleportStateEnter();
             }
             else if (CheckStateNames(stateInfo, "Phase2", "Phase3", "Phase4"))
             {
@@ -270,33 +235,13 @@ namespace TeamSuneat
             {
                 OnAnimatorSpawnStateExit();
             }
-            else if (CheckStateName(stateInfo, "SpecialIdle"))
-            {
-                OnAnimatorSpecialIdleStateExit();
-            }
             else if (CheckStateNames(stateInfo, "Damage", "DamageGround"))
             {
                 OnAnimatorDamageStateExit();
             }
-            else if (CheckStateName(stateInfo, "Potion"))
-            {
-                OnAnimatorConsumePotionStateExit();
-            }
             else if (CheckStateName(stateInfo, "DashEnd"))
             {
                 OnAnimatorDashStateExit();
-            }
-            else if (CheckStateName(stateInfo, "Blink"))
-            {
-                OnAnimatorBlinkStateExit();
-            }
-            else if (CheckStateName(stateInfo, "Turn"))
-            {
-                OnAnimatorTurnStateExit();
-            }
-            else if (CheckStateName(stateInfo, "Teleport"))
-            {
-                OnAnimatorTeleportStateExit();
             }
             else if (CheckStateNames(stateInfo, "Phase2", "Phase3", "Phase4"))
             {
@@ -415,26 +360,6 @@ namespace TeamSuneat
             }
         }
 
-        private void OnAnimatorSpecialIdleStateExit()
-        {
-            if (_animator != null)
-            {
-                _animator.UpdateAnimatorBool(ANIMATOR_SPECIAL_IDLE_PARAMETER_ID, false, AnimatorParameters);
-            }
-        }
-
-        private void OnAnimatorConsumePotionStateEnter()
-        {
-            AnimatorLog.LogInfo("물약 사용 상태의 애니메이션에 진입했습니다.");
-
-            StartConsumingPotion();
-        }
-
-        private void OnAnimatorConsumePotionStateExit()
-        {
-            StopConsumingPotion();
-        }
-
         protected virtual void OnAnimatorDamageStateEnter()
         {
             AnimatorLog.LogInfo("피격 상태의 애니메이션에 진입했습니다.");
@@ -457,105 +382,14 @@ namespace TeamSuneat
             AnimatorLog.LogInfo("대시 상태의 애니메이션에 진입했습니다.");
 
             LockMovement();
-            StartDashing();
         }
 
         protected void OnAnimatorDashStateExit()
         {
             UnlockMovement();
-            StopDashing();
-        }
-
-        protected void OnAnimatorBlinkStateEnter()
-        {
-            AnimatorLog.LogInfo("순간이동 상태의 애니메이션에 진입했습니다.");
-            LockMovement();
-            StartBlink();
-        }
-
-        protected void OnAnimatorBlinkStateExit()
-        {
-            UnlockMovement();
-            StopBlink();
-        }
-
-        protected void OnAnimatorTurnStateEnter()
-        {
-            AnimatorLog.LogInfo("뒤돌기 상태의 애니메이션에 진입했습니다.");
-            LockMovement();
-            StartTurn();
-        }
-
-        protected void OnAnimatorTurnStateExit()
-        {
-            UnlockMovement();
-            StopTurn();
-
-            _owner.TryFlip();
-        }
-
-        protected virtual void OnAnimatorTeleportStateEnter()
-        {
-            AnimatorLog.LogInfo("순간이동 상태의 애니메이션에 진입했습니다.");
-        }
-
-        protected virtual void OnAnimatorTeleportStateExit()
-        {
         }
 
         #endregion On Animator State Changed
-
-        #region Start & Stop
-
-        private void StartDashing()
-        {
-            _animator.UpdateAnimatorBool(ANIMATOR_IS_DASHING_PARAMETER_ID, true, AnimatorParameters);
-            IsDashing = true;
-        }
-
-        public void StopDashing()
-        {
-            _animator.UpdateAnimatorBool(ANIMATOR_IS_DASHING_PARAMETER_ID, false, AnimatorParameters);
-            IsDashing = false;
-        }
-
-        private void StartConsumingPotion()
-        {
-            _animator.UpdateAnimatorBool(ANIMATOR_IS_CONSUMING_POTION_PARAMETER_ID, true, AnimatorParameters);
-            IsConsumingPotion = true;
-        }
-
-        private void StopConsumingPotion()
-        {
-            _animator.UpdateAnimatorBool(ANIMATOR_IS_CONSUMING_POTION_PARAMETER_ID, false, AnimatorParameters);
-            IsConsumingPotion = false;
-        }
-
-        private void StartBlink()
-        {
-            _animator.UpdateAnimatorBool(ANIMATOR_BLINK_PARAMETER_ID, true, AnimatorParameters);
-            IsBlinking = true;
-        }
-
-        private void StopBlink()
-        {
-            _animator.UpdateAnimatorBool(ANIMATOR_BLINK_PARAMETER_ID, false, AnimatorParameters);
-            IsBlinking = false;
-        }
-
-        private void StartTurn()
-        {
-            _animator.UpdateAnimatorBool(ANIMATOR_IS_TURNING_PARAMETER_ID, true, AnimatorParameters);
-            IsTurning = true;
-        }
-
-        private void StopTurn()
-        {
-            _animator.UpdateAnimatorBool(ANIMATOR_IS_TURNING_PARAMETER_ID, false, AnimatorParameters);
-            IsTurning = false;
-        }
-
-        #endregion Start & Stop
 
         private void OnDrawGizmos()
         {

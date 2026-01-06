@@ -7,11 +7,13 @@ namespace TeamSuneat
         private CharacterStateMachine _stateMachine;
         private CharacterPhysics _physics;
         private PlayerInput _input;
+        private CharacterAnimator _animator;
 
-        public DashState(CharacterStateMachine stateMachine, CharacterPhysics physics, PlayerInput input)
+        public DashState(CharacterStateMachine stateMachine, CharacterPhysics physics, CharacterAnimator animator, PlayerInput input)
         {
             _stateMachine = stateMachine;
             _physics = physics;
+            _animator = animator;
             _input = input;
         }
 
@@ -19,6 +21,7 @@ namespace TeamSuneat
         {
             // Dash 상태 진입 시 대시 방향은 CharacterStateMachine에서 계산되어 전달됨
             // 여기서는 RequestDash만 호출하지 않음 (CharacterStateMachine에서 이미 호출됨)
+            _animator.PlayDashAnimation();
         }
 
         public void OnUpdate()

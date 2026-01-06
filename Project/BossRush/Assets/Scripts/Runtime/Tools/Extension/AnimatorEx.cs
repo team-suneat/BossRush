@@ -31,7 +31,7 @@ namespace TeamSuneat
 
             if (string.IsNullOrEmpty(name)) { return false; }
 
-            AnimatorControllerParameter[] parameters = self.parameters;
+            AnimatorControllerParameter[] parameters = self.parameters;            
 
             foreach (AnimatorControllerParameter currParam in parameters)
             {
@@ -58,7 +58,11 @@ namespace TeamSuneat
 
             if (animator.HasParameterOfType(parameterName, type))
             {
-                parameterList.Add(parameter);
+                parameterList.Add(parameter);                
+            }
+            else
+            {
+                Log.Warning(LogTags.Animation, "애니메이터에 파라메터를 추가할 수 없습니다: {0}, {1}", parameterName, animator.GetHierarchyPath());
             }
         }
 

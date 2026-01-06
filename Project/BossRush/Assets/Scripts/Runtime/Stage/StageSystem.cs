@@ -71,7 +71,7 @@ namespace TeamSuneat.Stage
                 return;
             }
 
-            _monsterSpawner.Initialize(_currentStageAsset);
+            _monsterSpawner.Initialize();
         }
 
         private void RegisterCurrentStage()
@@ -107,7 +107,7 @@ namespace TeamSuneat.Stage
 
             if (_monsterSpawner != null)
             {
-                _monsterSpawner.SpawnMonsters();
+                _monsterSpawner.SpawnMonster();
                 SetPlayerTargetToFirstMonster();
             }
         }

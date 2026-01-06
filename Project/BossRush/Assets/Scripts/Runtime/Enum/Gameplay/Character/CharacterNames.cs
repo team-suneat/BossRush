@@ -5,6 +5,7 @@
         None,
 
         PlayerCharacter,
+        Scarecrow,
 
         Boss1 = 1001,
         Boss2,

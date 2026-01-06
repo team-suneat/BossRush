@@ -7,12 +7,15 @@ namespace TeamSuneat
     {
         private CharacterPhysics _physics;
         private PlayerInput _input;
+        private CharacterAnimator _animator;
 
         protected override void Awake()
         {
             base.Awake();
+
             _physics = GetComponent<CharacterPhysics>();
             _input = GetComponent<PlayerInput>();
+            _animator = GetComponentInChildren<CharacterAnimator>();
         }
 
         protected override void InitializeStates()
@@ -24,7 +27,7 @@ namespace TeamSuneat
                 { CharacterState.Walk, new WalkState(this, _physics, _input) },
                 { CharacterState.Jumping, new JumpState(this, _physics, _input) },
                 { CharacterState.Falling, new FallingState(this, _physics, _input) },
-                { CharacterState.Dash, new DashState(this, _physics, _input) },
+                { CharacterState.Dash, new DashState(this, _physics,_animator, _input) },
 
                 // 조건 상태
                 { CharacterState.Dead, new DeadState(this, _character) },
