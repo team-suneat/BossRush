@@ -1,9 +1,8 @@
-﻿using Lean.Pool;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace TeamSuneat
 {
-    public partial class Character : XBehaviour, IPoolable
+    public partial class Character
     {
         public void Face(Vector3 targetPosition)
         {

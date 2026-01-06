@@ -10,7 +10,7 @@ namespace TeamSuneat
         [SerializeField] private float _dashDistance = 2f;
         [SerializeField] private float _dashDuration = 0.2f;
         [SerializeField] private float _dashCooldown = 0.5f;
-        [SerializeField] private bool _airDashEnabled = false;
+        [SerializeField] private bool _airDashEnabled = true;
 
         private float _dashDurationCounter;
         private Vector2 _dashDirection;

@@ -2,13 +2,13 @@ using UnityEngine;
 
 namespace TeamSuneat
 {
-    public class IdleState : IPlayerState
+    public class IdleState : ICharacterState
     {
-        private PlayerStateMachine _stateMachine;
+        private CharacterStateMachine _stateMachine;
         private PlayerPhysics _physics;
         private PlayerInput _input;
 
-        public IdleState(PlayerStateMachine stateMachine, PlayerPhysics physics, PlayerInput input)
+        public IdleState(CharacterStateMachine stateMachine, PlayerPhysics physics, PlayerInput input)
         {
             _stateMachine = stateMachine;
             _physics = physics;
@@ -22,17 +22,23 @@ namespace TeamSuneat
 
         public void OnUpdate()
         {
+            // 입력이나 물리가 없으면 업데이트 스킵
+            if (_input == null || _physics == null)
+            {
+                return;
+            }
+
             // 수평 입력이 있으면 Walk로 전환
             if (Mathf.Abs(_input.HorizontalInput) > 0.01f)
             {
-                _stateMachine.ChangeState(PlayerState.Walk);
+                _stateMachine.ChangeState(CharacterState.Walk);
                 return;
             }
 
             // 공중에 떠있으면 Falling로 전환
             if (!_physics.IsGrounded)
             {
-                _stateMachine.ChangeState(PlayerState.Falling);
+                _stateMachine.ChangeState(CharacterState.Falling);
                 return;
             }
         }
@@ -50,28 +56,28 @@ namespace TeamSuneat
         public void OnJumpRequested()
         {
             // 점프 요청 시 Jumping 상태로 전환
-            if (_physics.IsGrounded)
+            if (_physics != null && _physics.IsGrounded)
             {
-                _stateMachine.ChangeState(PlayerState.Jumping);
+                _stateMachine.ChangeState(CharacterState.Jumping);
             }
         }
 
         public void OnDashRequested(Vector2 direction)
         {
             // 대시 요청 시 Dash 상태로 전환
-            if (_physics.CanDash)
+            if (_physics != null && _physics.CanDash)
             {
-                _stateMachine.ChangeState(PlayerState.Dash);
+                _stateMachine.ChangeState(CharacterState.Dash);
             }
         }
 
-        public bool CanTransitionTo(PlayerState targetState)
+        public bool CanTransitionTo(CharacterState targetState)
         {
             // Idle에서 전환 가능한 상태
-            return targetState == PlayerState.Walk ||
-                   targetState == PlayerState.Jumping ||
-                   targetState == PlayerState.Dash ||
-                   targetState == PlayerState.Falling;
+            return targetState == CharacterState.Walk ||
+                   targetState == CharacterState.Jumping ||
+                   targetState == CharacterState.Dash ||
+                   targetState == CharacterState.Falling;
         }
     }
 }

@@ -793,8 +793,9 @@ GameObject:
   - component: {fileID: 768114355}
   - component: {fileID: 768114352}
   - component: {fileID: 768114353}
+  - component: {fileID: 768114356}
   m_Layer: 14
-  m_Name: Player
+  m_Name: PlayerCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -809,9 +810,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 768114346}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88042775eed491f4a89a0979b4de78b0, type: 3}
+  m_Script: {fileID: 11500000, guid: b8a2ff1b9c2c7ea4ca1980732467180e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: 1
+  NameString: PlayerCharacter
+  FixedTargetCharacterCamp: 0
+  OnBattleFeedbacks: {fileID: 0}
+  OnLevelUpFeedbacks: {fileID: 0}
+  CameraTarget: {fileID: 0}
+  CameraTargetSpeed: 5
+  DirectionOnStart: 1
+  DirectionOnSpawn: 1
+  SendStateChangeEvents: 1
+  SendStateUpdateEvents: 1
+  TargetMask:
+    serializedVersion: 2
+    m_Bits: 8192
   _moveSpeed: 5
 --- !u!50 &768114349
 Rigidbody2D:
@@ -961,6 +976,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 632805ca1a58a4344af8d9a9647543ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &768114356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768114346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3b361e77f0c2d04683d45a9f64db987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &846191484

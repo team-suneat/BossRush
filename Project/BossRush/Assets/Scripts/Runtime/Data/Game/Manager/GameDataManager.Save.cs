@@ -15,8 +15,16 @@ namespace TeamSuneat.Data.Game
                 return;
             }
 
-            if (USE_ASYNC_SAVE) { SaveAsync(); }    // 비동기 저장 모드
-            else { SaveSync(); }// 동기 저장 모드
+            if (USE_ASYNC_SAVE)
+            {
+                // 비동기 저장 모드
+                SaveAsync();
+            }
+            else
+            {
+                // 동기 저장 모드
+                SaveSync();
+            }
 
             GlobalEvent.Send(GlobalEventType.SAVE_GAME_DATA);
         }

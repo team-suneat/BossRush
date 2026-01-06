@@ -1,13 +1,28 @@
 ﻿using System.Collections.Generic;
 using TeamSuneat.Data;
-using TeamSuneat.Data.Game;
 using UnityEngine;
 
 namespace TeamSuneat
 {
     public partial class Character
     {
-        public int Level { get; protected set; } = 1;
+        // Component
+
+        public GameObject CharacterModel { get; set; }
+        public Animator Animator { get; set; }
+        public CharacterAnimator CharacterAnimator { get; set; }
+        public CharacterRenderer CharacterRenderer { get; set; }
+        public PlayerPhysics PhysicsController { get; set; }
+        public AttackSystem Attack { get; set; }
+        public StatSystem Stat { get; set; }
+        public Vital MyVital { get; set; }
+        public CharacterStateMachine StateMachine { get; set; }
+
+        public Transform BarrierPoint { get; set; }
+        public Transform WarningTextPoint { get; set; }
+        public Transform MinimapPoint { get; set; }
+
+        //
 
         public SID SID => MyVital.SID;
 
@@ -64,15 +79,7 @@ namespace TeamSuneat
             }
         }
 
-        public bool IgnoreCrowdControl { get; set; }
-
-        public bool BlockDropSpawn { get; set; }
-
-        public bool BlockDropEXP { get; set; }
-
         public HashSet<int> AnimatorParameters { get; set; } = new HashSet<int>();
-
-        public Vector3 DamageDirection { get; protected set; }
 
         public bool IsFacingRight
         {
@@ -111,21 +118,6 @@ namespace TeamSuneat
 
         //
         public bool IsBlockInput { get; set; }
-
-        public bool IsCrowdControl
-        {
-            get
-            {
-                if (ConditionState.CurrentState is CharacterConditions.Stunned)
-                {
-                    return true;
-                }
-
-                return false;
-            }
-        }
-
-        public VProfile ProfileInfo => GameApp.GetSelectedProfile();
 
         public CharacterAssetData AssetData { get; protected set; }
 

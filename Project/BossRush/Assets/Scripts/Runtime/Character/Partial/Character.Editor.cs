@@ -4,25 +4,18 @@ namespace TeamSuneat
 {
     public partial class Character
     {
-        public override void AutoGetComponents()
-        {
-            base.AutoGetComponents();
-
-            CharacterAnimator = GetComponentInChildren<CharacterAnimator>();
-            CharacterRenderer = GetComponentInChildren<CharacterRenderer>();
-            Animator = this.FindComponent<Animator>("Model");
-
-            Attack = GetComponentInChildren<AttackSystem>();
-            Stat = GetComponentInChildren<StatSystem>();
-            MyVital = GetComponentInChildren<Vital>();
-
-            CharacterModel = this.FindGameObject("Model");
-        }
-
         public override void AutoSetting()
         {
             base.AutoSetting();
-            RefreshNameString();
+            if (Name != 0)
+            {
+                NameString = Name.ToString();
+            }
+        }
+
+        private void OnValidate()
+        {
+            EnumEx.ConvertTo(ref Name, NameString);
         }
 
         public override void AutoNaming()
@@ -34,19 +27,6 @@ namespace TeamSuneat
             else
             {
                 SetGameObjectName(NameString);
-            }
-        }
-
-        private void OnValidate()
-        {
-            EnumEx.ConvertTo(ref Name, NameString);
-        }
-
-        private void RefreshNameString()
-        {
-            if (Name != 0)
-            {
-                NameString = Name.ToString();
             }
         }
     }

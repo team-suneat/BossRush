@@ -2,13 +2,13 @@ using UnityEngine;
 
 namespace TeamSuneat
 {
-    public class FallingState : IPlayerState
+    public class FallingState : ICharacterState
     {
-        private PlayerStateMachine _stateMachine;
+        private CharacterStateMachine _stateMachine;
         private PlayerPhysics _physics;
         private PlayerInput _input;
 
-        public FallingState(PlayerStateMachine stateMachine, PlayerPhysics physics, PlayerInput input)
+        public FallingState(CharacterStateMachine stateMachine, PlayerPhysics physics, PlayerInput input)
         {
             _stateMachine = stateMachine;
             _physics = physics;
@@ -22,6 +22,12 @@ namespace TeamSuneat
 
         public void OnUpdate()
         {
+            // 입력이나 물리가 없으면 업데이트 스킵
+            if (_input == null || _physics == null)
+            {
+                return;
+            }
+
             // 바닥에 닿았고, 아래로 내려가는 중이 아니면 Idle 또는 Walk로 전환
             if (_physics.IsGrounded && _physics.RigidbodyVelocity.y >= 0f)
             {
@@ -30,11 +36,11 @@ namespace TeamSuneat
 
                 if (Mathf.Abs(_input.HorizontalInput) > 0.01f)
                 {
-                    _stateMachine.ChangeState(PlayerState.Walk);
+                    _stateMachine.ChangeState(CharacterState.Walk);
                 }
                 else
                 {
-                    _stateMachine.ChangeState(PlayerState.Idle);
+                    _stateMachine.ChangeState(CharacterState.Idle);
                 }
                 return;
             }
@@ -53,28 +59,28 @@ namespace TeamSuneat
         public void OnJumpRequested()
         {
             // 공중 점프 처리
-            if (_physics.RemainingJumps > 0)
+            if (_physics != null && _physics.RemainingJumps > 0)
             {
-                _stateMachine.ChangeState(PlayerState.Jumping);
+                _stateMachine.ChangeState(CharacterState.Jumping);
             }
         }
 
         public void OnDashRequested(Vector2 direction)
         {
             // 공중 대시 처리
-            if (_physics.CanDash && _physics.IsAirDashEnabled)
+            if (_physics != null && _physics.CanDash && _physics.IsAirDashEnabled)
             {
-                _stateMachine.ChangeState(PlayerState.Dash);
+                _stateMachine.ChangeState(CharacterState.Dash);
             }
         }
 
-        public bool CanTransitionTo(PlayerState targetState)
+        public bool CanTransitionTo(CharacterState targetState)
         {
             // Falling에서 전환 가능한 상태
-            return targetState == PlayerState.Idle ||
-                   targetState == PlayerState.Walk ||
-                   targetState == PlayerState.Jumping ||
-                   targetState == PlayerState.Dash;
+            return targetState == CharacterState.Idle ||
+                   targetState == CharacterState.Walk ||
+                   targetState == CharacterState.Jumping ||
+                   targetState == CharacterState.Dash;
         }
     }
 }

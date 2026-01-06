@@ -2,13 +2,13 @@ using UnityEngine;
 
 namespace TeamSuneat
 {
-    public class DashState : IPlayerState
+    public class DashState : ICharacterState
     {
-        private PlayerStateMachine _stateMachine;
+        private CharacterStateMachine _stateMachine;
         private PlayerPhysics _physics;
         private PlayerInput _input;
 
-        public DashState(PlayerStateMachine stateMachine, PlayerPhysics physics, PlayerInput input)
+        public DashState(CharacterStateMachine stateMachine, PlayerPhysics physics, PlayerInput input)
         {
             _stateMachine = stateMachine;
             _physics = physics;
@@ -17,12 +17,18 @@ namespace TeamSuneat
 
         public void OnEnter()
         {
-            // Dash 상태 진입 시 대시 방향은 PlayerController에서 계산되어 전달됨
-            // 여기서는 RequestDash만 호출하지 않음 (PlayerStateMachine에서 이미 호출됨)
+            // Dash 상태 진입 시 대시 방향은 CharacterStateMachine에서 계산되어 전달됨
+            // 여기서는 RequestDash만 호출하지 않음 (CharacterStateMachine에서 이미 호출됨)
         }
 
         public void OnUpdate()
         {
+            // 입력이나 물리가 없으면 업데이트 스킵
+            if (_input == null || _physics == null)
+            {
+                return;
+            }
+
             // 대시가 끝나면 Idle/Walk/Falling로 전환
             if (!_physics.IsDashing)
             {
@@ -30,16 +36,16 @@ namespace TeamSuneat
                 {
                     if (Mathf.Abs(_input.HorizontalInput) > 0.01f)
                     {
-                        _stateMachine.ChangeState(PlayerState.Walk);
+                        _stateMachine.ChangeState(CharacterState.Walk);
                     }
                     else
                     {
-                        _stateMachine.ChangeState(PlayerState.Idle);
+                        _stateMachine.ChangeState(CharacterState.Idle);
                     }
                 }
                 else
                 {
-                    _stateMachine.ChangeState(PlayerState.Falling);
+                    _stateMachine.ChangeState(CharacterState.Falling);
                 }
                 return;
             }
@@ -65,12 +71,12 @@ namespace TeamSuneat
             // 대시 요청 처리 (이미 Dash 상태이므로 무시)
         }
 
-        public bool CanTransitionTo(PlayerState targetState)
+        public bool CanTransitionTo(CharacterState targetState)
         {
             // Dash에서 전환 가능한 상태
-            return targetState == PlayerState.Idle ||
-                   targetState == PlayerState.Walk ||
-                   targetState == PlayerState.Falling;
+            return targetState == CharacterState.Idle ||
+                   targetState == CharacterState.Walk ||
+                   targetState == CharacterState.Falling;
         }
     }
 }

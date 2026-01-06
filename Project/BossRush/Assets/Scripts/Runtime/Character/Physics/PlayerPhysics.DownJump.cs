@@ -5,7 +5,7 @@ namespace TeamSuneat
     public partial class PlayerPhysics
     {
         [Header("Down Jump")]
-        [SerializeField] private float _downJumpForce = -20f;
+        [SerializeField] private float _downJumpForce = 0f;
         [SerializeField] private float _downJumpPlatformIgnoreTime = 0.3f;
 
         private float _platformIgnoreTimer;

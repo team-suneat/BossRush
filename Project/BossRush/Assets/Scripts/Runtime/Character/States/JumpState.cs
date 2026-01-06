@@ -1,14 +1,14 @@
 using UnityEngine;
+
 namespace TeamSuneat
 {
-
-    public class JumpState : IPlayerState
+    public class JumpState : ICharacterState
     {
-        private PlayerStateMachine _stateMachine;
+        private CharacterStateMachine _stateMachine;
         private PlayerPhysics _physics;
         private PlayerInput _input;
 
-        public JumpState(PlayerStateMachine stateMachine, PlayerPhysics physics, PlayerInput input)
+        public JumpState(CharacterStateMachine stateMachine, PlayerPhysics physics, PlayerInput input)
         {
             _stateMachine = stateMachine;
             _physics = physics;
@@ -19,7 +19,7 @@ namespace TeamSuneat
         {
             // Jumping 상태 진입 시 점프 실행
             // 점프 가능 여부 확인 후 실행
-            if (_physics.RemainingJumps > 0)
+            if (_physics != null && _physics.RemainingJumps > 0)
             {
                 _physics.ExecuteJump();
             }
@@ -27,11 +27,17 @@ namespace TeamSuneat
 
         public void OnUpdate()
         {
+            // 물리가 없으면 업데이트 스킵
+            if (_physics == null)
+            {
+                return;
+            }
+
             // 상승 속도가 0 이하이면 Falling로 전환
             // 바닥 착지는 FallingState에서 처리 (단방향 플랫폼 통과 시 문제 방지)
             if (_physics.RigidbodyVelocity.y <= 0f)
             {
-                _stateMachine.ChangeState(PlayerState.Falling);
+                _stateMachine.ChangeState(CharacterState.Falling);
                 return;
             }
         }
@@ -49,7 +55,7 @@ namespace TeamSuneat
         public void OnJumpRequested()
         {
             // 공중 점프 처리 (더블 점프 등)
-            if (_physics.RemainingJumps > 0)
+            if (_physics != null && _physics.RemainingJumps > 0)
             {
                 _physics.ExecuteJump();
             }
@@ -58,19 +64,19 @@ namespace TeamSuneat
         public void OnDashRequested(Vector2 direction)
         {
             // 공중 대시 처리
-            if (_physics.CanDash && _physics.IsAirDashEnabled)
+            if (_physics != null && _physics.CanDash && _physics.IsAirDashEnabled)
             {
-                _stateMachine.ChangeState(PlayerState.Dash);
+                _stateMachine.ChangeState(CharacterState.Dash);
             }
         }
 
-        public bool CanTransitionTo(PlayerState targetState)
+        public bool CanTransitionTo(CharacterState targetState)
         {
             // Jumping에서 전환 가능한 상태
-            return targetState == PlayerState.Falling ||
-                   targetState == PlayerState.Idle ||
-                   targetState == PlayerState.Walk ||
-                   targetState == PlayerState.Dash;
+            return targetState == CharacterState.Falling ||
+                   targetState == CharacterState.Idle ||
+                   targetState == CharacterState.Walk ||
+                   targetState == CharacterState.Dash;
         }
     }
 }

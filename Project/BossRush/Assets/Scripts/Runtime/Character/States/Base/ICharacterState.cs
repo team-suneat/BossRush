@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TeamSuneat
 {
-    public interface IPlayerState
+    public interface ICharacterState
     {
         void OnEnter();
 
@@ -16,6 +16,6 @@ namespace TeamSuneat
 
         void OnDashRequested(Vector2 direction);
 
-        bool CanTransitionTo(PlayerState targetState);
+        bool CanTransitionTo(CharacterState targetState);
     }
 }

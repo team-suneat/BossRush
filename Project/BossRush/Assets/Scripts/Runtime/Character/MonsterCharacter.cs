@@ -9,6 +9,22 @@ namespace TeamSuneat
 
         public override LogTags LogTag => LogTags.Monster;
 
+        protected override void OnStart()
+        {
+            base.OnStart();
+            InitializeMovementStateMachine();
+        }
+
+        private void InitializeMovementStateMachine()
+        {
+            // CharacterStateMachine 초기화
+            StateMachine = GetComponent<CharacterStateMachine>();
+            if (StateMachine == null)
+            {
+                StateMachine = gameObject.AddComponent<MonsterMovementStateMachine>();
+            }
+        }
+
         public override void Initialize()
         {
             SetupLevel();

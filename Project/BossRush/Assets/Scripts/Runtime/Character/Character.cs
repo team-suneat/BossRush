@@ -1,11 +1,30 @@
 using Lean.Pool;
 using TeamSuneat.Data;
+using TeamSuneat.Feedbacks;
 using UnityEngine;
 
 namespace TeamSuneat
 {
     public partial class Character : XBehaviour, IPoolable
     {
+        protected virtual void Awake()
+        {
+            CharacterModel ??= this.FindGameObject("Model");
+            Animator ??= this.FindComponent<Animator>("Model");
+            CharacterAnimator ??= GetComponentInChildren<CharacterAnimator>();
+            CharacterRenderer ??= GetComponentInChildren<CharacterRenderer>();
+
+            PhysicsController ??= GetComponent<PlayerPhysics>();
+
+            Attack ??= GetComponentInChildren<AttackSystem>();
+            Stat ??= GetComponentInChildren<StatSystem>();
+            MyVital ??= GetComponentInChildren<Vital>();
+
+            BarrierPoint ??= this.FindTransform("Point-Barrier");
+            WarningTextPoint ??= this.FindTransform("Point-WarningText");
+            MinimapPoint ??= this.FindTransform("Point-Minimap");
+        }
+
         protected override void OnRelease()
         {
             base.OnRelease();
@@ -85,7 +104,6 @@ namespace TeamSuneat
             InitializeStateMachines();
 
             AssignAnimator();
-            ChangeConditionState(CharacterConditions.Normal);
 
             UpdateAnimators();
 
@@ -94,7 +112,6 @@ namespace TeamSuneat
 
             _ = CoroutineNextFrame(BattleReady);
         }
-
 
         private void LoadCharacterData()
         {
@@ -108,9 +125,8 @@ namespace TeamSuneat
 
         private void InitializeStateMachines()
         {
-            ConditionState = new StateMachine<CharacterConditions>(SendStateChangeEvents);
-
-            LogInfo("캐릭터의 상태를 초기화합니다. (Condition)");
+            // CharacterStateMachine은 하위 클래스에서 초기화
+            LogInfo("캐릭터의 상태머신을 초기화합니다.");
         }
 
         public virtual void BattleReady()
@@ -135,7 +151,10 @@ namespace TeamSuneat
             Attack?.OnDeath();
             Stat?.Clear();
 
-            ChangeConditionState(CharacterConditions.Dead);
+            if (StateMachine != null)
+            {
+                StateMachine.ChangeState(CharacterState.Dead);
+            }
         }
 
         protected virtual void OnKilled(Character attacker)
@@ -167,8 +186,6 @@ namespace TeamSuneat
 
         #endregion Update
 
-
-
         protected virtual void RefreshGameLayer()
         {
             tag = GameTags.Character.ToString();
@@ -197,28 +214,31 @@ namespace TeamSuneat
             }
         }
 
-        #region 상태 (State) : 조건
+        #region 상태 (State)
 
-        public void ChangeConditionState(CharacterConditions conditionState)
+        public void ChangeState(CharacterState newState)
         {
-            if (ConditionState.CurrentState != conditionState)
+            if (StateMachine != null)
             {
-                LogInfo("캐릭터의 조건 상태를 변경합니다. {0} 에서 {1}", ConditionState.CurrentState.ToString(), conditionState.ToString());
-
-                ConditionState.ChangeState(conditionState);
+                StateMachine.ChangeState(newState);
             }
         }
 
-        public bool CompareConditionState(CharacterConditions conditionState)
+        public bool CompareState(CharacterState state)
         {
-            return ConditionState.CurrentState == conditionState;
+            return StateMachine != null && StateMachine.CurrentState == state;
         }
 
-        public bool CompareConditionState(CharacterConditions[] conditionStates)
+        public bool CompareState(CharacterState[] states)
         {
-            foreach (CharacterConditions conditionState in conditionStates)
+            if (StateMachine == null) return false;
+
+            foreach (CharacterState state in states)
             {
-                return ConditionState.CurrentState == conditionState;
+                if (StateMachine.CurrentState == state)
+                {
+                    return true;
+                }
             }
 
             return false;
@@ -226,9 +246,13 @@ namespace TeamSuneat
 
         public virtual void ExitCrwodControlToState()
         {
+            if (StateMachine != null && StateMachine.CurrentState == CharacterState.Stunned)
+            {
+                StateMachine.ChangeState(CharacterState.Idle);
+            }
         }
 
-        #endregion 상태 (State) : 조건
+        #endregion 상태 (State)
 
         #region 데미지 시 (On Damage)
 
