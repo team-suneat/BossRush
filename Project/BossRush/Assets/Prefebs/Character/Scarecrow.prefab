@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5752919124375933058}
   - component: {fileID: 1322368230098504372}
   m_Layer: 0
-  m_Name: Stat(PlayerCharacter)
+  m_Name: Stat(Scarecrow)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22507350ff038554f8fe042b8a409e43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Owner: {fileID: 0}
+  Owner: {fileID: 1372147516505837066}
 --- !u!1 &2547355166613048083
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 1368404571406023396}
   - component: {fileID: 7360293031695360724}
   - component: {fileID: 8258088628487119223}
-  m_Layer: 13
+  m_Layer: 11
   m_Name: Scarecrow
   m_TagString: Character
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &1372147516505837066
 MonoBehaviour:
@@ -183,7 +183,7 @@ MonoBehaviour:
   SendStateUpdateEvents: 1
   TargetMask:
     serializedVersion: 2
-    m_Bits: 16384
+    m_Bits: 0
 --- !u!114 &1368404571406023396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,7 +225,7 @@ MonoBehaviour:
   _groundCheckDistance: 0.1
   _groundLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 256
   _coyoteTime: 0.2
   _skinWidth: 0.03
   _horizontalRayCount: 4
@@ -273,10 +273,8 @@ GameObject:
   - component: {fileID: 3707251357929549467}
   - component: {fileID: 8492246583962239467}
   - component: {fileID: 1379345214086189731}
-  - component: {fileID: 2733500083307683288}
-  - component: {fileID: 7152632823392566377}
-  m_Layer: 13
-  m_Name: Vital(PlayerCharacter)
+  m_Layer: 11
+  m_Name: Vital(Scarecrow)
   m_TagString: Vital
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -305,7 +303,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6172564968502640533}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -342,7 +340,7 @@ BoxCollider2D:
     drawMode: 1
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.4, y: 1.1}
+  m_Size: {x: 0.4, y: 0.9}
   m_EdgeRadius: 0
 --- !u!114 &8492246583962239467
 MonoBehaviour:
@@ -359,18 +357,12 @@ MonoBehaviour:
   SID:
     _value: 0
   BasedOnOwnerCollider: 1
-  UseIndividualCollider: 0
   VitalColliderHandler:
-    VitalColliderDatas: []
-  Owner: {fileID: 0}
-  Collider: {fileID: 0}
-  Colliders: []
-  ResourceType: 3
-  Life: {fileID: 0}
+    DataList: []
+  ResourceType: 0
+  Life: {fileID: 1379345214086189731}
   Barrier: {fileID: 0}
-  Mana: {fileID: 2733500083307683288}
-  GuardColliderIndexes: 
-  OnlyUseBarrierColliderIndexes: 
+  Mana: {fileID: 0}
   DieEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -388,8 +380,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Vital: {fileID: 8492246583962239467}
-  Current: 0
-  Max: 0
+  Current: 99999999
+  Max: 99999999
   DamageTextPoint: {fileID: 0}
   InvincibilityDurationOnDamage: 0
   Invulnerable: 0
@@ -412,41 +404,6 @@ MonoBehaviour:
   DeathFeedbacks: {fileID: 0}
   KilledFeedbacks: {fileID: 0}
   SuicideFeedbacks: {fileID: 0}
---- !u!114 &2733500083307683288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6172564968502640533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a223e361e5accb949b13db208e2f3453, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Vital: {fileID: 8492246583962239467}
-  Current: 0
-  Max: 0
-  DamageTextPoint: {fileID: 0}
---- !u!114 &7152632823392566377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6172564968502640533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cfe42683c478214ab47613b9b209d9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Vital: {fileID: 8492246583962239467}
-  Current: 0
-  Max: 0
-  DamageTextPoint: {fileID: 0}
-  ActivateFeedbacks: {fileID: 0}
-  DamageFeedbacks: {fileID: 0}
-  DestroyFeedbacks: {fileID: 0}
 --- !u!1 &8558059558481749908
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,7 +431,7 @@ Transform:
   m_GameObject: {fileID: 8558059558481749908}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -503,7 +460,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: fab45e408703fd94f9fada8e66e6c9bc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -574,7 +531,7 @@ Transform:
   m_GameObject: {fileID: 8565262397648575048}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.088, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

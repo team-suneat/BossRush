@@ -331,18 +331,6 @@ namespace TeamSuneat
                 }
 
                 EnablePostDamageInvulnerability(InvincibilityDurationOnDamage);
-
-                if (_tweener != null)
-                {
-                    _tweener.Kill();
-                    _tweener = null;
-                }
-                _tweener = CameraManager.Instance.MainCamera.transform.DOShakePosition(ShakeDuration, ShakeStrength)
-                    .OnComplete(() =>
-                    {
-                        CameraManager.Instance.MainCamera.transform.localPosition = Vector3.zero;
-                        _tweener = null;
-                    });
             }
 
             if (damageResult.DamageType.IsInstantDamage())

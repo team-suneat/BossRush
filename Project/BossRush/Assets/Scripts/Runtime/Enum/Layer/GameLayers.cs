@@ -7,20 +7,20 @@ namespace TeamSuneat
         public const int Ignore_Raycast = 2;
         public const int Water = 4;
         public const int UI = 5;
-
+        
         public const int Background = 6;
         public const int Foreground = 7;
         public const int Collision = 8;
-
+        
         public const int Player = 10;
         public const int Enemies = 11;
         public const int Friendlies = 12;
         public const int InteractionObject = 13;
-
-        public const int Detectable = 20;
-        public const int Breakable = 21;
-
-        public const int Minimap = 30;
+        
+        public const int Attackable = 20;
+        public const int Detectable = 21;
+        public const int Breakable = 22;
+        
 
         public static class Mask
         {

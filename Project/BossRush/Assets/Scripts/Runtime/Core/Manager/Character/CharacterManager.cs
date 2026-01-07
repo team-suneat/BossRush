@@ -311,11 +311,6 @@ namespace TeamSuneat
             return null;
         }
 
-        public Character FindBossMonster()
-        {
-            return Monsters.FirstOrDefault(x => x.IsBoss);
-        }
-
         #endregion 검색 (Find)
 
         #region 강제 피해 (Force Damage)

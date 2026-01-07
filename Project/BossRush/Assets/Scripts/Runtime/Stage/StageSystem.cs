@@ -114,52 +114,12 @@ namespace TeamSuneat.Stage
 
         private void RegisterGlobalEvents()
         {
-            GlobalEvent<Character>.Register(GlobalEventType.BOSS_CHARACTER_DEATH, OnBossDeath);
             GlobalEvent.Register(GlobalEventType.PLAYER_CHARACTER_DESPAWNED, OnPlayerDespawn);
         }
 
         private void UnregisterGlobalEvents()
         {
-            GlobalEvent<Character>.Unregister(GlobalEventType.BOSS_CHARACTER_DEATH, OnBossDeath);
             GlobalEvent.Unregister(GlobalEventType.PLAYER_CHARACTER_DESPAWNED, OnPlayerDespawn);
-        }
-
-        // OnBossDeath() 수정 - 보스만 확인하도록
-        private void OnBossDeath(Character character)
-        {
-            // 보스만 확인 (일반 몬스터는 무시)
-            if (character == null || !character.IsBoss)
-            {
-                return;
-            }
-
-            // 보스가 죽었는지 확인
-            if (_monsterSpawner?.SpawnedMonsters == null)
-            {
-                return;
-            }
-
-            // 스폰된 몬스터 중 보스만 확인
-            bool isBossDefeated = true;
-            for (int i = 0; i < _monsterSpawner.SpawnedMonsters.Count; i++)
-            {
-                MonsterCharacter monster = _monsterSpawner.SpawnedMonsters[i];
-                if (monster != null && monster.IsAlive && monster.IsBoss)
-                {
-                    isBossDefeated = false;
-                    break;
-                }
-            }
-
-            if (!isBossDefeated)
-            {
-                return;
-            }
-
-            // 보스 체력 게이지 정리
-            UIManager.Instance?.HUDManager?.OnBossDied();
-
-            Log.Info(LogTags.Stage, "보스 처치 완료. 다음 스테이지로 진행합니다.");
         }
 
         private void OnPlayerDespawn()

@@ -105,12 +105,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e76dee3bfc696ab49b5e3e4d77eb3dda
-    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_PlayerCharacter.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Scriptable
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ef05a843586c67049a01f2555910cd1b
     m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_Area01_Boss_GoblinChief.asset
     m_ReadOnly: 0

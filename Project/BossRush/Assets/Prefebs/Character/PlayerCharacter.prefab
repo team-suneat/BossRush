@@ -324,7 +324,7 @@ GameObject:
   - component: {fileID: 2586605270078167587}
   - component: {fileID: 5163438123017842322}
   - component: {fileID: 3342619398505378255}
-  m_Layer: 14
+  m_Layer: 10
   m_Name: PlayerCharacter
   m_TagString: Character
   m_Icon: {fileID: 0}
@@ -518,7 +518,7 @@ MonoBehaviour:
   _groundCheckDistance: 0.1
   _groundLayerMask:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 256
   _coyoteTime: 0.2
   _skinWidth: 0.03
   _horizontalRayCount: 4
@@ -580,7 +580,7 @@ GameObject:
   - component: {fileID: 7882877085649273794}
   - component: {fileID: 8245824363649007915}
   - component: {fileID: 6548818640818538619}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: PlayerAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -632,7 +632,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -681,7 +681,7 @@ MonoBehaviour:
   UseActiveColliderOnInit: 0
   TargetLayerMask:
     serializedVersion: 2
-    m_Bits: 8192
+    m_Bits: 2048
   UseIgnoreHitTarget: 1
   AreaTime: 0
   InitialApplyDelay: 0
@@ -797,7 +797,7 @@ GameObject:
   - component: {fileID: 1576148571879029232}
   - component: {fileID: 3595627110665504173}
   - component: {fileID: 7645976091031182132}
-  m_Layer: 14
+  m_Layer: 10
   m_Name: Vital(PlayerCharacter)
   m_TagString: Vital
   m_Icon: {fileID: 0}

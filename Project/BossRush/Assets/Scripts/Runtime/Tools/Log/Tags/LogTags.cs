@@ -28,6 +28,9 @@
         /// <summary> 캐릭터 생성 </summary>
         CharacterSpawn,
 
+        /// <summary> 캐릭터 상태 </summary>
+        CharacterState,
+
         #endregion Character
 
         #region Character-Renderer

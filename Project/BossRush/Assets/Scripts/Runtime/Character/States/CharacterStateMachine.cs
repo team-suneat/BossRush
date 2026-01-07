@@ -102,10 +102,17 @@ namespace TeamSuneat
             }
 
             // 새 상태 Enter
+            CharacterState previousStateValue = CurrentState;
             CurrentState = newState;
             if (_states.TryGetValue(CurrentState, out ICharacterState nextState))
             {
                 nextState.OnEnter();
+            }
+
+            // 상태 전환 로그
+            if (_character != null)
+            {
+                Log.Info(LogTags.CharacterState, "{0}, 상태 전환: {1} -> {2}", _character.Name.ToLogString(), previousStateValue, newState);
             }
         }
 
@@ -131,10 +138,17 @@ namespace TeamSuneat
             currentState.OnExit();
 
             // 새 상태 Enter
+            CharacterState previousStateValue = CurrentState;
             CurrentState = newState;
             if (_states.TryGetValue(CurrentState, out ICharacterState nextState))
             {
                 nextState.OnEnter();
+            }
+
+            // 상태 전환 로그
+            if (_character != null)
+            {
+                Log.Info(LogTags.CharacterState, "{0}, 상태 전환: {1} -> {2}", _character.Name.ToLogString(), previousStateValue, newState);
             }
         }
 

@@ -28,8 +28,6 @@ namespace TeamSuneat
 
         public bool IsPlayer => this is PlayerCharacter;
 
-        public bool IsBoss => this is MonsterCharacter monsterCharacter && monsterCharacter.IsBoss;
-
         // Target
 
         public virtual Transform Target => null;

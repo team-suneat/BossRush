@@ -383,7 +383,7 @@ namespace TeamSuneat
 
         protected void OnCollideWithNonDamageable()
         {
-            LogInfo("부딪힌 적에게 피해를 입히지 못합니다.");
+            LogWarning("부딪힌 적에게 피해를 입히지 못합니다.");
 
             TriggerAttackOnHitNonDamageableFeedback(_collidingCollider.transform.position);
 

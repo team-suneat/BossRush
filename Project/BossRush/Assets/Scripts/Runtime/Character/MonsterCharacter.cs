@@ -1,5 +1,4 @@
-﻿using TeamSuneat.Data;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace TeamSuneat
 {
@@ -61,14 +60,7 @@ namespace TeamSuneat
             transform.SetParent(null);
             CharacterAnimator?.PlayDeathAnimation();
 
-            if (IsBoss)
-            {
-                GlobalEvent<Character>.Send(GlobalEventType.BOSS_CHARACTER_DEATH, this);
-            }
-            else
-            {
-                GlobalEvent<Character>.Send(GlobalEventType.MONSTER_CHARACTER_DEATH, this);
-            }
+            GlobalEvent<Character>.Send(GlobalEventType.MONSTER_CHARACTER_DEATH, this);
         }
     }
 }

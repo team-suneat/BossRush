@@ -108,6 +108,7 @@ namespace TeamSuneat
             UpdateAnimators();
             PlaySpawnAnimation();
 
+            UnlockFlip();
             Attack?.Initialize();
             CharacterRenderer?.ResetRenderer();
 

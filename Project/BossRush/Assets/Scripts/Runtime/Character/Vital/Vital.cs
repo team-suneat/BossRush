@@ -129,10 +129,6 @@ namespace TeamSuneat
             {
                 _ = GlobalEvent<DamageResult>.Send(GlobalEventType.PLAYER_CHARACTER_DAMAGED, damageResult);
             }
-            else if (Owner.IsBoss)
-            {
-                _ = GlobalEvent<DamageResult>.Send(GlobalEventType.BOSS_CHARACTER_DAMAGED, damageResult);
-            }
             else
             {
                 _ = GlobalEvent<DamageResult>.Send(GlobalEventType.MONSTER_CHARACTER_DAMAGED, damageResult);

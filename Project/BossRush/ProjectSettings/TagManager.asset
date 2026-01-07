@@ -13,23 +13,23 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
   - Background
+  - Foreground
   - Collision
-  - Enemy
+  - 
   - Player
+  - Enemies
+  - Friendlies
+  - InteractionObject
   - 
   - 
   - 
   - 
   - 
   - 
-  - 
-  - 
+  - Attackable
+  - Detectable
+  - Breakable
   - 
   - 
   - 
