@@ -1,6 +1,4 @@
 ﻿using System.Collections;
-using TeamSuneat.Data;
-
 using UnityEngine;
 
 namespace TeamSuneat
@@ -8,6 +6,9 @@ namespace TeamSuneat
     public partial class CharacterAnimator
     {
         private Coroutine _movementLockCoroutine;
+        private bool _isMovementLocked = false;
+
+        public bool IsMovementLocked => _isMovementLocked;
 
         protected virtual bool DetermineMovementLockWhileAttack(string animationName)
         {
@@ -15,13 +16,15 @@ namespace TeamSuneat
             return true;
         }
 
-        private void LockMovement()
+        public void LockMovement()
         {
+            _isMovementLocked = true;
             AnimatorLog.LogInfo("입력에 따른 캐릭터의 이동을 잠금합니다.");
         }
 
-        private void UnlockMovement()
+        public void UnlockMovement()
         {
+            _isMovementLocked = false;
             AnimatorLog.LogInfo("입력에 따른 캐릭터의 이동을 잠금해제합니다.");
 
             StopXCoroutine(ref _movementLockCoroutine);

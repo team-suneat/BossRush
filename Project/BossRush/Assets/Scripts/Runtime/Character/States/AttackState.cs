@@ -9,6 +9,12 @@ namespace TeamSuneat
         private PlayerInput _input;
         private CharacterAnimator _animator;
 
+        // 콤보 관련 필드
+        private int _currentComboIndex = 0;
+        private int _maxComboCount = 3;
+        private bool _canQueueCombo = false;
+        private bool _hasQueuedCombo = false;
+
         public AttackState(CharacterStateMachine stateMachine, CharacterPhysics physics, CharacterAnimator animator, PlayerInput input)
         {
             _stateMachine = stateMachine;
@@ -17,27 +23,68 @@ namespace TeamSuneat
             _input = input;
         }
 
+        public void SetMaxComboCount(int maxComboCount)
+        {
+            _maxComboCount = Mathf.Max(1, maxComboCount);
+        }
+
+        public void EnableComboQueue()
+        {
+            _canQueueCombo = true;
+        }
+
+        public void DisableComboQueue()
+        {
+            _canQueueCombo = false;
+
+            if (_hasQueuedCombo)
+            {
+                _hasQueuedCombo = false;
+            }
+        }
+
         public void OnEnter()
         {
-            // 공격 애니메이션 트리거 활성화
-            _animator?.PlayAttackAnimation("Attack");
+            _currentComboIndex = 0;
+            _canQueueCombo = false;
+            _hasQueuedCombo = false;
+
+            // 이동 잠금
+            _animator?.LockMovement();
+
+            PlayComboAnimation(_currentComboIndex);
         }
 
         public void OnUpdate()
         {
-            // 입력 기반 전환은 Update에서 처리
+            if (_input != null && _input.IsAttackPressed)
+            {
+                if (_canQueueCombo)
+                {
+                    if (_currentComboIndex < _maxComboCount - 1)
+                    {
+                        _hasQueuedCombo = true;
+                    }
+                }
+            }
         }
 
         public void OnFixedUpdate()
         {
-            // 입력이나 물리가 없으면 업데이트 스킵
-            if (_input == null || _physics == null)
+            if (_input == null || _physics == null || _animator == null)
             {
                 return;
             }
 
-            // 공격이 끝나면 (애니메이션이 끝나면) Idle/Walk/Falling로 전환
-            if (_animator != null && !_animator.IsAttacking)
+            if (_hasQueuedCombo && _canQueueCombo)
+            {
+                _currentComboIndex++;
+                _hasQueuedCombo = false;
+                _canQueueCombo = false;
+                PlayComboAnimation(_currentComboIndex);
+            }
+
+            if (!_animator.IsAttacking)
             {
                 if (_physics.IsGrounded)
                 {
@@ -60,7 +107,18 @@ namespace TeamSuneat
 
         public void OnExit()
         {
-            // 공격 상태 종료 시 처리
+            _currentComboIndex = 0;
+            _canQueueCombo = false;
+            _hasQueuedCombo = false;
+
+            // 이동 해제
+            _animator?.UnlockMovement();
+        }
+
+        private void PlayComboAnimation(int comboIndex)
+        {
+            string animationName = $"Attack{comboIndex + 1}";
+            _animator?.PlayAttackAnimation(animationName);
         }
 
         public void OnJumpRequested()

@@ -130,11 +130,21 @@ namespace TeamSuneat
             {
                 if (!Physics.IsDashing)
                 {
-                    // 즉각적인 반응: 입력에 바로 속도 적용 (가속/감속 없음)
-                    float targetVelocityX = _input.HorizontalInput * _moveSpeed;
+                    // 공격 중 이동 잠금 확인
+                    bool isMovementLocked = CharacterAnimator != null && CharacterAnimator.IsMovementLocked;
+                    if (!isMovementLocked)
+                    {
+                        // 즉각적인 반응: 입력에 바로 속도 적용 (가속/감속 없음)
+                        float targetVelocityX = _input.HorizontalInput * _moveSpeed;
 
-                    // CharacterPhysics를 통해 수평 속도 적용 (Y축 속도는 자동으로 유지됨)
-                    Physics.ApplyHorizontalInput(targetVelocityX);
+                        // CharacterPhysics를 통해 수평 속도 적용 (Y축 속도는 자동으로 유지됨)
+                        Physics.ApplyHorizontalInput(targetVelocityX);
+                    }
+                    else
+                    {
+                        // 이동 잠금 중에는 수평 속도를 0으로 설정
+                        Physics.ApplyHorizontalInput(0f);
+                    }
                 }
             }
         }

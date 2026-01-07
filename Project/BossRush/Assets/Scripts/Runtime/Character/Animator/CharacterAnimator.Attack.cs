@@ -95,19 +95,10 @@ namespace TeamSuneat
             }
 
             IsAttacking = true;
-
-            //
-
-            if (DetermineMovementLockWhileAttack(AttackingAnimationName))
-            {
-                LockMovement();
-            }
         }
 
         protected virtual void OnAnimatorAttackStateExit()
         {
-            UnlockMovement();
-
             StopAttacking();
 
             IsAttacking = false;

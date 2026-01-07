@@ -70,13 +70,33 @@ namespace TeamSuneat
 
         public virtual void RequestAttack()
         {
-            // 공격 요청 처리
             if (_states.TryGetValue(CurrentState, out ICharacterState currentState))
             {
-                // 현재 상태가 Attack이 아니면 Attack 상태로 전환
                 if (CurrentState != CharacterState.Attack)
                 {
                     ChangeState(CharacterState.Attack);
+                }
+            }
+        }
+
+        public void EnableComboInput()
+        {
+            if (_states.TryGetValue(CharacterState.Attack, out ICharacterState attackState))
+            {
+                if (attackState is AttackState attack)
+                {
+                    attack.EnableComboQueue();
+                }
+            }
+        }
+
+        public void DisableComboInput()
+        {
+            if (_states.TryGetValue(CharacterState.Attack, out ICharacterState attackState))
+            {
+                if (attackState is AttackState attack)
+                {
+                    attack.DisableComboQueue();
                 }
             }
         }
