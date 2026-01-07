@@ -38,6 +38,7 @@ namespace TeamSuneat
         public void ExecuteJump()
         {
             if (_physics == null) return;
+            if (_physics.IsKnockback) return;
 
             _physics.ApplyVerticalVelocity(_jumpForce);
             _physics.ResetCoyoteTime();

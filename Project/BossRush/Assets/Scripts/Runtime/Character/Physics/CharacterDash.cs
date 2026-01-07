@@ -31,6 +31,7 @@ namespace TeamSuneat
         public void RequestDash(Vector2 direction)
         {
             if (!CanDash) return;
+            if (_physics.IsKnockback) return;
             if (!_airDashEnabled && !_physics.IsGrounded) return;
             ExecuteDash(direction);
         }

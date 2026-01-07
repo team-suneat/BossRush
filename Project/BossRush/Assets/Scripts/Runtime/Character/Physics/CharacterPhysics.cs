@@ -9,6 +9,7 @@ namespace TeamSuneat
         private CharacterJump _jump;
         private CharacterDash _dash;
         private CharacterDownJump _downJump;
+        private CharacterKnockback _knockback;
 
         private void Awake()
         {
@@ -16,6 +17,7 @@ namespace TeamSuneat
             _jump = GetComponent<CharacterJump>();
             _dash = GetComponent<CharacterDash>();
             _downJump = GetComponent<CharacterDownJump>();
+            _knockback = GetComponent<CharacterKnockback>();
         }
 
         #region Core 프로퍼티 위임
@@ -40,6 +42,7 @@ namespace TeamSuneat
         public float DashCooldownRemaining => _dash != null ? _dash.DashCooldownRemaining : 0f;
         public int RemainingJumps => _jump != null ? _jump.RemainingJumps : 0;
         public int ExtraJumps => _jump != null ? _jump.ExtraJumps : 0;
+        public bool IsKnockback => _knockback != null && _knockback.IsKnockback;
 
         #endregion Ability 프로퍼티 위임
 
@@ -121,6 +124,11 @@ namespace TeamSuneat
             _jump?.ResetJumpCounterOnLanding();
         }
 
+        public void ApplyKnockback(Vector2 direction)
+        {
+            _knockback?.ApplyKnockback(direction);
+        }
+
         #endregion Ability 메서드 위임
 
         #region 통합 업데이트
@@ -131,6 +139,7 @@ namespace TeamSuneat
             _jump?.AbilityTick();
             _dash?.AbilityTick();
             _downJump?.AbilityTick();
+            _knockback?.AbilityTick();
         }
 
         #endregion 통합 업데이트

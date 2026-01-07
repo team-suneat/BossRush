@@ -49,6 +49,11 @@ namespace TeamSuneat.Data
 
         [FoldoutGroup("#피해 정보 - 토글")]
         [GUIColor("GetBoolColor")]
+        [SuffixLabel("넉백 적용")]
+        public bool ApplyKnockback;
+
+        [FoldoutGroup("#피해 정보 - 토글")]
+        [GUIColor("GetBoolColor")]
         [SuffixLabel("자기 자신에게 적용")]
         public bool ApplyToSelf;
 
@@ -305,6 +310,7 @@ namespace TeamSuneat.Data
                 DamageType = DamageType,
                 IgnoreEvasion = IgnoreEvasion,
                 NotPlayDamageAnimation = NotPlayDamageAnimation,
+                ApplyKnockback = ApplyKnockback,
                 ApplyToSelf = ApplyToSelf,
                 ApplyMultiplierToSelf = ApplyMultiplierToSelf,
 
@@ -403,6 +409,8 @@ namespace TeamSuneat.Data
             if (Name != another.Name) { return false; }
             if (DamageType != another.DamageType) { return false; }
             if (IgnoreEvasion != another.IgnoreEvasion) { return false; }
+            if (NotPlayDamageAnimation != another.NotPlayDamageAnimation) { return false; }
+            if (ApplyKnockback != another.ApplyKnockback) { return false; }
             if (ApplyToSelf != another.ApplyToSelf) { return false; }
             if (ApplyMultiplierToSelf != another.ApplyMultiplierToSelf) { return false; }
             if (ExecutionConditionalTargetLifeRate != another.ExecutionConditionalTargetLifeRate) { return false; }
@@ -415,7 +423,6 @@ namespace TeamSuneat.Data
             if (LinkedHitmarkMagnification != another.LinkedHitmarkMagnification) { return false; }
             if (LinkedValueMagnificationByLevel != another.LinkedValueMagnificationByLevel) { return false; }
             if (LinkedValueMagnificationByStack != another.LinkedValueMagnificationByStack) { return false; }
-            if (NotPlayDamageAnimation != another.NotPlayDamageAnimation) { return false; }
 
             return true;
         }

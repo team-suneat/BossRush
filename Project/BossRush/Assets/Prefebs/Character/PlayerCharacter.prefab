@@ -324,6 +324,7 @@ GameObject:
   - component: {fileID: 2586605270078167587}
   - component: {fileID: 5163438123017842322}
   - component: {fileID: 3342619398505378255}
+  - component: {fileID: 1255221723583392627}
   m_Layer: 10
   m_Name: PlayerCharacter
   m_TagString: Character
@@ -569,6 +570,22 @@ MonoBehaviour:
   _dashDuration: 0.2
   _dashCooldown: 0.5
   _airDashEnabled: 1
+--- !u!114 &1255221723583392627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2798198713300856252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2e090a6e375c0d44b8bf674fa5057ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _knockbackForce: 5
+  _knockbackDuration: 0.3
+  _bounceMultiplier: 0.5
+  _verticalRatio: 0.3
 --- !u!1 &5608298625970809574
 GameObject:
   m_ObjectHideFlags: 0

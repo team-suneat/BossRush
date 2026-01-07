@@ -19,11 +19,13 @@ namespace TeamSuneat
 
         protected Rigidbody2D _rb;
         protected BoxCollider2D _boxCollider;
+        private CharacterKnockback _knockback;
 
         public bool IsGrounded { get; private set; }
         public bool IsOnOneWayPlatform { get; private set; }
         public bool IsJumping { get; internal set; }
         public bool IsDashing { get; internal set; }
+        public bool IsKnockback { get; internal set; }
         public bool IsLeftCollision { get; private set; }
         public bool IsRightCollision { get; private set; }
         public bool IsCeiling { get; private set; }
@@ -55,6 +57,7 @@ namespace TeamSuneat
             }
 
             InitializeCollisionSystem();
+            _knockback = GetComponent<CharacterKnockback>();
         }
 
         private void SetupRigidbody2D()
@@ -93,6 +96,7 @@ namespace TeamSuneat
         public void ApplyHorizontalInput(float axis)
         {
             if (_rb == null) return;
+            if (IsKnockback) return;
 
             if (Mathf.Abs(axis) > 0.01f)
             {
@@ -133,6 +137,11 @@ namespace TeamSuneat
         public void SetDashing(bool value)
         {
             IsDashing = value;
+        }
+
+        public void SetKnockback(bool value)
+        {
+            IsKnockback = value;
         }
 
         public void SetIgnoringPlatforms(bool value)
@@ -487,6 +496,11 @@ namespace TeamSuneat
                     else
                     {
                         _collisionInfo.right = true;
+                    }
+
+                    if (IsKnockback && _knockback != null)
+                    {
+                        _knockback.OnWallCollision();
                     }
 
                     break;

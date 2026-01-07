@@ -144,6 +144,19 @@ namespace TeamSuneat
 
         protected virtual void OnDamage(DamageResult damageResult)
         {
+            if (damageResult == null) return;
+            if (Physics == null) return;
+
+            if (damageResult.Asset == null || !damageResult.Asset.ApplyKnockback)
+            {
+                return;
+            }
+
+            if (damageResult.Attacker != null)
+            {
+                Vector2 direction = damageResult.Attacker.IsFacingRight ? Vector2.right : Vector2.left;
+                Physics.ApplyKnockback(direction);
+            }
         }
 
         protected virtual void OnDeath(DamageResult damageResult)
