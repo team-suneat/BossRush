@@ -1,4 +1,4 @@
-﻿namespace JF_SpriteTrail {
+﻿namespace SpriteTrail {
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;

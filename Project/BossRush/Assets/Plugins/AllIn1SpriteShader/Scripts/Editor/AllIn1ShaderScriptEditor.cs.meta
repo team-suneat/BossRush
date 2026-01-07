@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: faf06ebfe4bb45e47a8c49f07ff07d0c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 156513
+  packageName: All In 1 Sprite Shader
+  packageVersion: 4.64
+  assetPath: Assets/Plugins/AllIn1SpriteShader/Scripts/Editor/AllIn1ShaderScriptEditor.cs
+  uploadId: 841366

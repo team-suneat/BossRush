@@ -703,7 +703,7 @@
         </member>
         <member name="F:Sirenix.OdinInspector.CustomContextMenuAttribute.MenuItem">
             <summary>
-            The name of the menu item.
+            A resolved string defining the name of the menu item.
             </summary>
         </member>
         <member name="P:Sirenix.OdinInspector.CustomContextMenuAttribute.MethodName">
@@ -720,7 +720,7 @@
             <summary>
             Adds a custom option to the context menu of the property.
             </summary>
-            <param name="menuItem">The name of the menu item.</param>
+            <param name="menuItem">A resolved string defining the name of the menu item.</param>
             <param name="action">A resolved string defining the action to take when the context menu is clicked.</param>
         </member>
         <member name="T:Sirenix.OdinInspector.CustomValueDrawerAttribute">
@@ -2811,7 +2811,7 @@
             <example>
             <para>The following example shows how MaxValue can be combined with <see cref="T:Sirenix.OdinInspector.MinValueAttribute"/>.</para>
             <code>
-            public class Life : MonoBehaviour
+            public class Health : MonoBehaviour
             {
             	// The speed value must be between 0 and 200.
             	[MinValue(0), MaxValue(200)]
@@ -2965,11 +2965,11 @@
             <example>
             <para>The following example shows how MinValue can be combined with <see cref="T:Sirenix.OdinInspector.MaxValueAttribute"/></para>
             <code>
-            public class Life : MonoBehaviour
+            public class Health : MonoBehaviour
             {
             	// The health value must be between 0 and 100.
             	[MinValue(0), MaxValue(100)]
-            	public float Life;
+            	public float Health;
             }
             </code>
             </example>
@@ -3552,7 +3552,7 @@
             		[ProgressBar(0, 100)]
             		public int ProgressBar;
             
-            		// Life bar.
+            		// Health bar.
             		[ProgressBar(0, 100, ColorMember = "GetHealthBarColor")]
             		public float HealthBar = 50;
             
@@ -4123,7 +4123,7 @@
              <example>
              <para>The following example shows how a field can be displayed in the editor, but not be editable.</para>
              <code>
-             public class Life : MonoBehaviour
+             public class Health : MonoBehaviour
              {
             		public int MaxHealth;
             
@@ -4135,7 +4135,7 @@
              <example>
              <para>ReadOnly can also be combined with <see cref="T:Sirenix.OdinInspector.ShowInInspectorAttribute"/>.</para>
              <code>
-             public class Life : MonoBehaviour
+             public class Health : MonoBehaviour
              {
             		public int MaxHealth;
             
@@ -5638,8 +5638,8 @@
             		public float Speed;
             
             		// Specify custom output message and message type.
-            		[ValidateInput("ValidateInput", "Life must be more than 0!", InfoMessageType.Warning)]
-            		public float Life;
+            		[ValidateInput("ValidateInput", "Health must be more than 0!", InfoMessageType.Warning)]
+            		public float Health;
             
             		private bool ValidateInput(float property)
             		{

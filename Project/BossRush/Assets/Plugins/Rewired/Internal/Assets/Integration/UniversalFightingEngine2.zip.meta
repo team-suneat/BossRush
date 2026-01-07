@@ -9,6 +9,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 21676
   packageName: Rewired
-  packageVersion: 1.1.59.0
-  assetPath: Assets/Plugins/Rewired/Internal/Assets/Integration/UniversalFightingEngine2.zip
-  uploadId: 763092
+  packageVersion: 1.1.62.2
+  assetPath: Assets/Rewired/Internal/Assets/Integration/UniversalFightingEngine2.zip
+  uploadId: 841876

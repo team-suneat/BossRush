@@ -14,52 +14,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ValidateScenesOnSceneLoad:
     serializedValue: 0
-    changedFromDefault: 1
+    changedFromDefault: 0
   ValidateMainProfileOnLoad:
     serializedValue: 0
     changedFromDefault: 0
   QueueAssetsOnLoad:
     serializedValue: 0
-    changedFromDefault: 1
+    changedFromDefault: 0
   QueueScenesOnLoad:
     serializedValue: 0
     changedFromDefault: 0
   PopulateQueueOnAssetDeleted:
     serializedValue: 0
-    changedFromDefault: 1
+    changedFromDefault: 0
   PopulateQueueOnGameObjectDeleted:
     serializedValue: 0
-    changedFromDefault: 1
+    changedFromDefault: 0
   RunMainValidationSessionOnLoad:
     serializedValue: 0
     changedFromDefault: 0
   DeepValidation:
     serializedValue: 0
-    changedFromDefault: 1
+    changedFromDefault: 0
   ContinuouslyValidateVisibleIssues:
     serializedValue: 0
-    changedFromDefault: 1
+    changedFromDefault: 0
   PauseValidationWhileWorkingInSceneView:
     serializedValue: 0
-    changedFromDefault: 1
+    changedFromDefault: 0
   PingOnDoubleClick:
     serializedValue: 0
-    changedFromDefault: 1
+    changedFromDefault: 0
   FocusObjectOnDoubleClick:
     serializedValue: 0
-    changedFromDefault: 1
+    changedFromDefault: 0
   FrameSelection:
     serializedValue: 0
-    changedFromDefault: 1
+    changedFromDefault: 0
   SelectNextIssueOnFix:
     serializedValue: 0
-    changedFromDefault: 1
+    changedFromDefault: 0
   SkipFirstSample:
     serializedValue: 0
     changedFromDefault: 0
   ShowWidget:
     serializedValue: 0
-    changedFromDefault: 1
+    changedFromDefault: 0
   DebugMode:
     serializedValue: 0
     changedFromDefault: 0
@@ -77,11 +77,11 @@ MonoBehaviour:
     changedFromDefault: 0
   WatchForChanges:
     serializedValue: 0
-    changedFromDefault: 1
+    changedFromDefault: 0
   ValidateInBackground:
     serializedValue: 0
-    changedFromDefault: 1
+    changedFromDefault: 0
   KeepMainValidationSessionAliveInBackground:
     serializedValue: 0
-    changedFromDefault: 1
+    changedFromDefault: 0
   HasShownValidationConfig: 1

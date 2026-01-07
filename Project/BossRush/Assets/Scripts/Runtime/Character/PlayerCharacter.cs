@@ -190,6 +190,7 @@ namespace TeamSuneat
             Stat.AddWithSourceInfo(StatNames.Attack, asset.BaseAttack, this, NameString, "CharacterBase");
             Stat.AddWithSourceInfo(StatNames.AttackSpeed, asset.BaseAttackSpeed, this, NameString, "CharacterBase");
             Stat.AddWithSourceInfo(StatNames.Mana, asset.BaseMana, this, NameString, "CharacterBase");
+            Stat.AddWithSourceInfo(StatNames.Pulse, asset.BasePulse, this, NameString, "CharacterBase");
         }
 
         //

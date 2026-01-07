@@ -9,14 +9,13 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: MagicRing
   m_Shader: {fileID: 4800000, guid: a36b7719ff0465b42ab1407d67672c5f, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - BLUR_ON
   - DISTORT_ON
   - GLOW_ON
   - OUTBASE8DIR_ON
   - OUTBASEPIXELPERF_ON
+  - OUTBASE_ON
   - PINCH_ON
   - RADIALGRADIENT_ON
   - ROTATEUV_ON
@@ -24,6 +23,7 @@ Material:
   - WAVEUV_ON
   m_InvalidKeywords:
   - ETC1_EXTERNAL_ALPHA
+  - _GLOWAFFECTLIGHT_ON
   - _GRADISRADIAL_ON
   - _OUTLINE8DIRECTIONS_ON
   - _OUTLINEISPIXEL_ON
@@ -33,7 +33,6 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -69,6 +68,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OutlineDistortTex:
         m_Texture: {fileID: 2800000, guid: 7aad8c583ef292e48b06af0d1f2fab97, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -78,7 +85,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OverlayTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 677cca399782dea41aedc1d292ecb67d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShineMask:
@@ -134,7 +141,9 @@ Material:
     - _GhostTransparency: 0.017
     - _GlitchAmount: 20
     - _GlitchSize: 4.51
+    - _GlitchSpeed: 20
     - _Glow: 33.6
+    - _GlowAffectLight: 1
     - _GlowGlobal: 1
     - _GlowTexUsed: 0
     - _GradBlend: 1
@@ -165,6 +174,7 @@ Material:
     - _InnerOutlineAlpha: 1
     - _InnerOutlineGlow: 250
     - _InnerOutlineThickness: 3
+    - _LitAmount: 1
     - _MaxXUV: 1
     - _MaxYUV: 1
     - _MinXUV: 0
@@ -174,6 +184,7 @@ Material:
     - _MyDstMode: 10
     - _MySrcMode: 5
     - _NegativeAmount: 1
+    - _NormalStrength: 1
     - _OffsetUvX: 0
     - _OffsetUvY: 0
     - _OnlyInnerOutline: 0
@@ -263,4 +274,3 @@ Material:
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShineColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
-  m_AllowLocking: 1

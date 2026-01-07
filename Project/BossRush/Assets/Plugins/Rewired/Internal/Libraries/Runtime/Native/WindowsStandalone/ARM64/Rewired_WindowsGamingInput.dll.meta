@@ -114,6 +114,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 21676
   packageName: Rewired
-  packageVersion: 1.1.59.0
-  assetPath: Assets/Plugins/Rewired/Internal/Libraries/Runtime/Native/WindowsStandalone/ARM64/Rewired_WindowsGamingInput.dll
-  uploadId: 763092
+  packageVersion: 1.1.62.2
+  assetPath: Assets/Rewired/Internal/Libraries/Runtime/Native/WindowsStandalone/ARM64/Rewired_WindowsGamingInput.dll
+  uploadId: 841876

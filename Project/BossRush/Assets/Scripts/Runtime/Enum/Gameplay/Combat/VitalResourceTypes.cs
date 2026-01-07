@@ -6,5 +6,6 @@ namespace TeamSuneat
         Life,
         Barrier,
         Mana,
+        Pulse, // 펄스 : 패링 게이지
     }
 }

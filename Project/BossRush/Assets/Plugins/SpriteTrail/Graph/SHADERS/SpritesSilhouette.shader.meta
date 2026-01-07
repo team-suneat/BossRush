@@ -7,3 +7,10 @@ ShaderImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 80203
+  packageName: Sprite Trail
+  packageVersion: 1.4.1
+  assetPath: Assets/SpriteTrail/GRAPH/SHADERS/SpritesSilhouette.shader
+  uploadId: 626753

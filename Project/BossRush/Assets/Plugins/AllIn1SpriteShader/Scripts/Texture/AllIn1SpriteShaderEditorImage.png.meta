@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 224ffbb866f527b48bcb3e1bec613537
+guid: 0bcc448dcb24a35439341474ec08f88a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -90,3 +90,10 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 156513
+  packageName: All In 1 Sprite Shader
+  packageVersion: 4.64
+  assetPath: Assets/Plugins/AllIn1SpriteShader/Scripts/Texture/AllIn1SpriteShaderEditorImage.png
+  uploadId: 841366

@@ -78,5 +78,15 @@
                 return false;
             }
         }
+
+        public int CurrentPulse => Pulse != null ? Pulse.Current : 0;
+
+        public int MaxPulse => Pulse != null ? Pulse.Max : 0;
+
+        public float PulseRate => Pulse != null ? Pulse.Rate : 0f;
+
+        public float PulseInSlots => Pulse != null ? Pulse.GaugeInSlots : 0f;
+
+        public bool CanParry => Pulse != null && Pulse.CanParry;
     }
 }

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace TeamSuneat.UserInterface
 {
-    public class UIButton : UIInteractiveElement, IPointerDownHandler, IPointerUpHandler
+    public class UIButton : UIInteractiveElement, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
     {
         private const float ALPHA_TRANSPARENT = 0f;
         private const float ALPHA_SEMI_TRANSPARENT = 0.5f;
@@ -213,6 +213,12 @@ namespace TeamSuneat.UserInterface
             StopHoldCoroutine();
             _isHolding = false;
         }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        { }
+
+        public void OnPointerExit(PointerEventData eventData)
+        { }
 
         #endregion Pointer Event
 

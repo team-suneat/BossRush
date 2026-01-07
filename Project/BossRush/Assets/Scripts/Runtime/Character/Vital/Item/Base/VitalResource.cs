@@ -143,7 +143,7 @@ namespace TeamSuneat
             return false;
         }
 
-        protected void OnUseCurrencyValue(int value)
+        protected virtual void OnUseCurrencyValue(int value)
         {
             LogResourceUsage(Type, value, Current, Max);
             NotifyValueChanged();

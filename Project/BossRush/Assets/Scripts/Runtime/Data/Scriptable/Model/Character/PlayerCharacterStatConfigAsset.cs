@@ -9,6 +9,7 @@ namespace TeamSuneat.Data
         public int BaseLife = 10; // 기본 체력 (10)
         public float BaseAttackSpeed = 1.0f; // 기본 공격 속도 (100%)
         public int BaseMana = 100; // 기본 마나 (100)
+        public int BasePulse = 6; // 기본 펄스 (6 단위 = 3칸)
 
         public override void Rename()
         {
@@ -40,6 +41,11 @@ namespace TeamSuneat.Data
             if (BaseMana <= 0)
             {
                 Log.Warning(LogTags.ScriptableData, "플레이어 캐릭터 스탯의 기본 마나가 0 이하입니다.");
+            }
+
+            if (BasePulse <= 0)
+            {
+                Log.Warning(LogTags.ScriptableData, "플레이어 캐릭터 스탯의 기본 펄스가 0 이하입니다.");
             }
 
 #endif

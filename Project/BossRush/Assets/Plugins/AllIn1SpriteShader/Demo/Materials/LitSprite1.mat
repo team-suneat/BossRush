@@ -9,13 +9,13 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: LitSprite1
   m_Shader: {fileID: 4800000, guid: 86ce7e600deb17e429b8be445bb652f7, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - COLORRAMP_ON
   - HSV_ON
+  - INNEROUTLINE_ON
   - NORMALMAP_ON
   - OUTBASE8DIR_ON
+  - OUTBASE_ON
   - TWISTUV_ON
   m_InvalidKeywords:
   - ETC1_EXTERNAL_ALPHA
@@ -25,7 +25,6 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -130,6 +129,7 @@ Material:
     - _GhostTransparency: 0
     - _GlitchAmount: 3
     - _GlitchSize: 1
+    - _GlitchSpeed: 20
     - _Glow: 10
     - _GlowGlobal: 1
     - _GradBlend: 1
@@ -254,4 +254,3 @@ Material:
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShineColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
-  m_AllowLocking: 1

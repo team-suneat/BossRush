@@ -8,7 +8,7 @@ _(__  )__  /_/ /  /   _  / / /_ /  __/     / /_ _  /   / /_/ /_  / _  /
 Greetings and thanks for using Sprite trail.
 contact : me@julien-foucher.com
 twitter : @Sephius_Mojo
-online doc + webgl demo : http://memory-leaks.org/spritetrail/
+online doc + webgl demo : http://julien-foucher.com/
 
 
 Special thanks to Fausto Cheder for helping improving this asset! ( twitter.com/SugoiDev )

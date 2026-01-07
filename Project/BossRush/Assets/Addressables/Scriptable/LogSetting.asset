@@ -18,7 +18,7 @@ MonoBehaviour:
   Player: 0
   Monster: 0
   CharacterSpawn: 0
-  CharacterState: 0
+  CharacterState: 1
   Animation: 0
   Attack: 0
   BattleResource: 0

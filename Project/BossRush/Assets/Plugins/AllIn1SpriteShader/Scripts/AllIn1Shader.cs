@@ -22,12 +22,16 @@ namespace AllIn1SpriteShader
             MaskedUI = 2,
             Urp2dRenderer = 3,
 			Lit = 5,
+			SRPBatcher = 6,
             Invalid = 4,
         }
         public ShaderTypes currentShaderType = ShaderTypes.Invalid;
 
         private Material currMaterial, prevMaterial;
-        private bool matAssigned = false, destroyed = false;
+        private bool destroyed = false;
+#if UNITY_EDITOR
+        private bool matAssigned = false;
+#endif
         private enum AfterSetAction { Clear, CopyMaterial, Reset};
 
         [Range(1f, 20f)] public float normalStrength = 5f;
@@ -88,12 +92,14 @@ namespace AllIn1SpriteShader
         private string GetStringFromShaderType()
         {
             currentShaderType = ShaderTypes.Default;
-            if(currentShaderType == ShaderTypes.Default) return"AllIn1SpriteShader";
-            else if(currentShaderType == ShaderTypes.ScaledTime) return"AllIn1SpriteShaderScaledTime";
-            else if(currentShaderType == ShaderTypes.MaskedUI) return"AllIn1SpriteShaderUiMask";
-            else if(currentShaderType == ShaderTypes.Urp2dRenderer) return"AllIn1Urp2dRenderer";
-            else if(currentShaderType == ShaderTypes.Lit) return"AllIn1SpriteShaderLit";
-            else return "AllIn1SpriteShader";
+			if (currentShaderType == ShaderTypes.Default) return "AllIn1SpriteShader";
+			else if (currentShaderType == ShaderTypes.ScaledTime) return "AllIn1SpriteShaderScaledTime";
+			else if (currentShaderType == ShaderTypes.MaskedUI) return "AllIn1SpriteShaderUiMask";
+			else if (currentShaderType == ShaderTypes.Urp2dRenderer) return "AllIn1Urp2dRenderer";
+			else if (currentShaderType == ShaderTypes.Lit) return "AllIn1SpriteShaderLit";
+			else if (currentShaderType == ShaderTypes.SRPBatcher) return "AllIn1SpriteShaderSRPBatch";
+
+			else return "AllIn1SpriteShader";
         }
 
         private bool SetMaterial(AfterSetAction action, bool getShaderTypeFromPrefs, string shaderName)
@@ -104,10 +110,11 @@ namespace AllIn1SpriteShader
             {
                 int shaderVariant = PlayerPrefs.GetInt("allIn1DefaultShader");
                 currentShaderType = (ShaderTypes)shaderVariant;
-                if (shaderVariant == 1) allIn1Shader = AllIn1ShaderWindow.FindShader("AllIn1SpriteShaderScaledTime");
-                else if (shaderVariant == 2) allIn1Shader = AllIn1ShaderWindow.FindShader("AllIn1SpriteShaderUiMask");
-                else if (shaderVariant == 3) allIn1Shader = AllIn1ShaderWindow.FindShader("AllIn1Urp2dRenderer");
-                else if (shaderVariant == 5) allIn1Shader = AllIn1ShaderWindow.FindShader("AllIn1SpriteShaderLit");
+				if (shaderVariant == 1) allIn1Shader = AllIn1ShaderWindow.FindShader("AllIn1SpriteShaderScaledTime");
+				else if (shaderVariant == 2) allIn1Shader = AllIn1ShaderWindow.FindShader("AllIn1SpriteShaderUiMask");
+				else if (shaderVariant == 3) allIn1Shader = AllIn1ShaderWindow.FindShader("AllIn1Urp2dRenderer");
+				else if (shaderVariant == 5) allIn1Shader = AllIn1ShaderWindow.FindShader("AllIn1SpriteShaderLit");
+				else if (shaderVariant == 6) allIn1Shader = AllIn1ShaderWindow.FindShader("AllIn1SpriteShaderSRPBatch");
 			}
 
             if (!Application.isPlaying && Application.isEditor && allIn1Shader != null)
@@ -304,7 +311,9 @@ namespace AllIn1SpriteShader
             if (sr != null)
             {
                 currMaterial = GetComponent<Renderer>().sharedMaterial;
+#if UNITY_EDITOR
                 matAssigned = true;
+#endif
             }
             else
             {
@@ -312,7 +321,9 @@ namespace AllIn1SpriteShader
                 if (img != null)
                 {
                     currMaterial = img.material;
+#if UNITY_EDITOR
                     matAssigned = true;
+#endif
                 }
             }
         }
@@ -323,7 +334,9 @@ namespace AllIn1SpriteShader
             if (sr != null)
             {
                 sr.sharedMaterial = new Material(Shader.Find("Sprites/Default"));
+#if UNITY_EDITOR
                 matAssigned = false;
+#endif
             }
             else
             {
@@ -331,7 +344,9 @@ namespace AllIn1SpriteShader
                 if (img != null)
                 {
                     img.material = new Material(Shader.Find("Sprites/Default"));
+#if UNITY_EDITOR
                     matAssigned = false;
+#endif
                 }
             }
             SetSceneDirty();
@@ -580,9 +595,9 @@ namespace AllIn1SpriteShader
             if (PlayerPrefs.HasKey("All1ShaderRenderImagesScale")) scaleSlider = PlayerPrefs.GetFloat("All1ShaderRenderImagesScale");
             RenderTexture renderTarget = new RenderTexture((int)(targetTexture.width * scaleSlider), (int)(targetTexture.height * scaleSlider), 0, RenderTextureFormat.ARGB32);
             Graphics.Blit(targetTexture, renderTarget, targetMaterial);
-            Texture2D resultTex = new Texture2D(renderTarget.width, renderTarget.height, TextureFormat.ARGB32, false);
-            resultTex.ReadPixels(new Rect(0, 0, renderTarget.width, renderTarget.height), 0, 0);
-            resultTex.Apply();
+            Texture2D reaultTex = new Texture2D(renderTarget.width, renderTarget.height, TextureFormat.ARGB32, false);
+            reaultTex.ReadPixels(new Rect(0, 0, renderTarget.width, renderTarget.height), 0, 0);
+            reaultTex.Apply();
 
             string path = AllIn1ShaderWindow.GetRenderImageSavePath();
             path += "/";
@@ -605,11 +620,11 @@ namespace AllIn1SpriteShader
                 return false;
             }
 
-            byte[] bytes = resultTex.EncodeToPNG();
+            byte[] bytes = reaultTex.EncodeToPNG();
             File.WriteAllBytes(fullPath, bytes);
             AssetDatabase.ImportAsset(subPath);
             AssetDatabase.Refresh();
-            DestroyImmediate(resultTex);
+            DestroyImmediate(reaultTex);
             EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath(pingPath, typeof(Texture)));
             Debug.Log("Render Image saved to: " + fullPath + " with scale: " + scaleSlider + " (it can be changed in Window -> AllIn1ShaderWindow)");
             return true;
@@ -688,7 +703,7 @@ namespace AllIn1SpriteShader
 
             normalMapSr = GetComponent<SpriteRenderer>();
             normalMapRenderer = GetComponent<Renderer>();
-            Debug.LogError($"NORMALMAP_ON: {normalMapRenderer.sharedMaterial.IsKeywordEnabled("NORMALMAP_ON")}  -t:{Time.time}");
+            //Debug.LogError($"NORMALMAP_ON: {normalMapRenderer.sharedMaterial.IsKeywordEnabled("NORMALMAP_ON")}  -t:{Time.time}");
             if (normalMapSr != null)
             {
                 isSpriteRenderer = true;
@@ -729,15 +744,15 @@ namespace AllIn1SpriteShader
                     "Go to Window -> AllIn1ShaderWindow and set a valid folder", "Ok");
                 return;
             }
-#else
-        computingNormal = false;
-        return;
-#endif
-
+            
             computingNormal = true;
             needToWait = true;
             waitingCycles = 0;
             timesWeWaited = 0;
+#else
+            computingNormal = false;
+            return;
+#endif
         }
 
 #if UNITY_EDITOR

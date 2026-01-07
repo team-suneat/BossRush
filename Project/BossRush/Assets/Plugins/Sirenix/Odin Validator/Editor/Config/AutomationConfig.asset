@@ -13,26 +13,26 @@ MonoBehaviour:
   m_Name: AutomationConfig
   m_EditorClassIdentifier: 
   OnPlayMode: 0
-  OnPlayModeIfWarnings: 4
-  OnPlayModeIfErrors: 7
+  OnPlayModeIfWarnings: 0
+  OnPlayModeIfErrors: 3
   OnPlayModeAlwaysCompleteValidationFully: 0
   OnPlayModeFlashScreen: 0
   OnPlayModeSetup:
     Profile: 0
     ProfileAsset: {fileID: 0}
   OnBuild: 0
-  OnBuildIfWarnings: 4
-  OnBuildIfErrors: 7
+  OnBuildIfWarnings: 0
+  OnBuildIfErrors: 3
   OnBuildAlwaysCompleteValidationFully: 0
   OnBuildFlashScreen: 0
   OnBuildSetup:
     Profile: 0
     ProfileAsset: {fileID: 0}
   OnProjectStartup: 0
-  OnProjectStartupIfWarnings: 2
-  OnProjectStartupIfErrors: 3
+  OnProjectStartupIfWarnings: 0
+  OnProjectStartupIfErrors: 1
   OnProjectStartupAlwaysCompleteValidationFully: 0
   OnProjectStartupFlashScreen: 0
   OnProjectStartupSetup:
     Profile: 0
-    ProfileAsset: {fileID: 11400000, guid: aab6bd6c1118070488148a257725adf5, type: 2}
+    ProfileAsset: {fileID: 0}

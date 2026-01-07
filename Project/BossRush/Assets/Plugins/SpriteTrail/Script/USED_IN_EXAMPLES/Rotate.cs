@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Rotate : MonoBehaviour 
+namespace SpriteTrail
 {
-    public Vector3 m_RotationSpeed;
+	public class Rotate : MonoBehaviour
+	{
+		public Vector3 m_RotationSpeed;
 
-    private void Update()
-    {
-        transform.Rotate(m_RotationSpeed * Time.deltaTime);
-    }
+		private void Update()
+		{
+			transform.Rotate(m_RotationSpeed * Time.deltaTime);
+		}
+	}
 }

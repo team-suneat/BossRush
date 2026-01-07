@@ -815,6 +815,7 @@ GameObject:
   - component: {fileID: 1576148571879029232}
   - component: {fileID: 3595627110665504173}
   - component: {fileID: 7645976091031182132}
+  - component: {fileID: 2450337937460541873}
   m_Layer: 10
   m_Name: Vital(PlayerCharacter)
   m_TagString: Vital
@@ -905,6 +906,7 @@ MonoBehaviour:
   Life: {fileID: 1576148571879029232}
   Barrier: {fileID: 7645976091031182132}
   Mana: {fileID: 3595627110665504173}
+  Pulse: {fileID: 2450337937460541873}
   DieEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -981,3 +983,28 @@ MonoBehaviour:
   ActivateFeedbacks: {fileID: 0}
   DamageFeedbacks: {fileID: 0}
   DestroyFeedbacks: {fileID: 0}
+--- !u!114 &2450337937460541873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6565761008217287863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c05effebfa5e1564daff461dd3cbdb7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Vital: {fileID: 520535794936682376}
+  Current: 0
+  Max: 0
+  DamageTextPoint: {fileID: 0}
+  ParryCostOnUse: 1
+  ParryRewardOnSuccess: 2
+  AttackHitGaugeGainPercent: 10
+  ParryWindowDuration: 0.2
+  EmptyLockDuration: 1
+  EmptyRegenDuration: 5
+  IsEmpty: 0
+  IsEmptyLocked: 0
+  IsRegenerating: 0

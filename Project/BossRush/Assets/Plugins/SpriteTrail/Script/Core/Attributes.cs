@@ -1,4 +1,4 @@
-﻿namespace JF_SpriteTrail {
+﻿namespace SpriteTrail {
     using UnityEngine;
 
     public sealed class SortingLayerAttribute: PropertyAttribute {}

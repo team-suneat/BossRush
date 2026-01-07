@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class ChangeScene : MonoBehaviour 
+namespace SpriteTrail
 {
-	public void GoToScene(string name)
+	public class ChangeScene : MonoBehaviour
 	{
-		SceneManager.LoadScene(name);
+		public void GoToScene(string name)
+		{
+			SceneManager.LoadScene(name);
+		}
 	}
 }
