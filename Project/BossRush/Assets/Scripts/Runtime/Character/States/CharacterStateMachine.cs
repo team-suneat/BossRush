@@ -16,6 +16,8 @@ namespace TeamSuneat
         protected Dictionary<CharacterState, ICharacterState> _states;
         protected Character _character;
 
+        public Character Character => _character;
+
         // 상태 우선순위 (높을수록 우선)
         private static readonly Dictionary<CharacterState, int> StatePriority = new()
         {

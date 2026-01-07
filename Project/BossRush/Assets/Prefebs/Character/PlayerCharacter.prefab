@@ -28,10 +28,11 @@ Transform:
   m_GameObject: {fileID: 985439403793911923}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.088, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2986008856204382615}
   - {fileID: 3230158228492227075}
   m_Father: {fileID: 6560969250962793009}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -109,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 1026507667165685364}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.088, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -159,7 +160,7 @@ SpriteRenderer:
   m_SortingLayerID: 1036289741
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3194464116713477104, guid: 596dcacc73859404ead62b8b2f6c19ce, type: 3}
+  m_Sprite: {fileID: -4680443483626792033, guid: 8949fe37d1edda843a3cb09db6d074bc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -213,7 +214,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7882877085649273794}
-  m_Father: {fileID: 6560969250962793009}
+  m_Father: {fileID: 2228681236927686557}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2591164577550376832
 MonoBehaviour:
@@ -343,7 +344,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2986008856204382615}
   - {fileID: 448149415573082663}
   - {fileID: 2228681236927686557}
   - {fileID: 8401021252420568723}
@@ -881,18 +881,12 @@ MonoBehaviour:
   SID:
     _value: 0
   BasedOnOwnerCollider: 1
-  UseIndividualCollider: 0
   VitalColliderHandler:
-    VitalColliderDatas: []
-  Owner: {fileID: 0}
-  Collider: {fileID: 0}
-  Colliders: []
+    DataList: []
   ResourceType: 3
   Life: {fileID: 0}
   Barrier: {fileID: 0}
   Mana: {fileID: 3595627110665504173}
-  GuardColliderIndexes: 
-  OnlyUseBarrierColliderIndexes: 
   DieEvent:
     m_PersistentCalls:
       m_Calls: []

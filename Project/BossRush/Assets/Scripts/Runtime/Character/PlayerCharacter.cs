@@ -151,7 +151,7 @@ namespace TeamSuneat
 
         private void UpdateModelDirection()
         {
-            if (_modelTransform == null || _input == null)
+            if (_input == null)
             {
                 return;
             }
@@ -159,9 +159,11 @@ namespace TeamSuneat
             // 입력값이 0이 아니면 방향 변경, 0이면 이전 방향 유지
             if (Mathf.Abs(_input.HorizontalInput) > 0.01f)
             {
-                Vector3 scale = _modelTransform.localScale;
-                scale.x = _input.HorizontalInput > 0 ? 1f : -1f;
-                _modelTransform.localScale = scale;
+                FacingDirections targetDirection = _input.HorizontalInput > 0
+                    ? FacingDirections.Right
+                    : FacingDirections.Left;
+
+                Face(targetDirection);
             }
         }
 

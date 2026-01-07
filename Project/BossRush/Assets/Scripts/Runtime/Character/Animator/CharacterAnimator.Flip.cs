@@ -9,12 +9,12 @@ namespace TeamSuneat
     {
         private Coroutine _flipLockCoroutine;
 
-        private void LockFlip()
+        public void LockFlip()
         {
             _owner.LockFlip();
         }
 
-        private void UnlockFlip()
+        public void UnlockFlip()
         {
             _owner.UnlockFlip();
 

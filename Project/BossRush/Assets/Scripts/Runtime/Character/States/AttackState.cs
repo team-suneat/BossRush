@@ -43,6 +43,16 @@ namespace TeamSuneat
             }
         }
 
+        public void EnableFlip()
+        {
+            _animator?.UnlockFlip();
+        }
+
+        public void DisableFlip()
+        {
+            _animator?.LockFlip();
+        }
+
         public void OnEnter()
         {
             _currentComboIndex = 0;
@@ -51,6 +61,9 @@ namespace TeamSuneat
 
             // 이동 잠금
             _animator?.LockMovement();
+
+            // flip 잠금 (애니메이션 이벤트로 해제)
+            _animator?.LockFlip();
 
             PlayComboAnimation(_currentComboIndex);
         }
@@ -113,10 +126,26 @@ namespace TeamSuneat
 
             // 이동 해제
             _animator?.UnlockMovement();
+
+            // flip 해제
+            _animator?.UnlockFlip();
         }
 
         private void PlayComboAnimation(int comboIndex)
         {
+            // 콤보 전환 시 입력 방향에 맞게 캐릭터 반전 (flip 잠금 상태에서도 작동하도록 ForceFace 사용)
+            if (_input != null && _stateMachine != null && _stateMachine.Character != null)
+            {
+                if (Mathf.Abs(_input.HorizontalInput) > 0.01f)
+                {
+                    Character.FacingDirections targetDirection = _input.HorizontalInput > 0
+                        ? Character.FacingDirections.Right
+                        : Character.FacingDirections.Left;
+
+                    _stateMachine.Character.ForceFace(targetDirection);
+                }
+            }
+
             string animationName = $"Attack{comboIndex + 1}";
             _animator?.PlayAttackAnimation(animationName);
         }

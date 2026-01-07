@@ -101,6 +101,28 @@ namespace TeamSuneat
             }
         }
 
+        public void EnableFlipInput()
+        {
+            if (_states.TryGetValue(CharacterState.Attack, out ICharacterState attackState))
+            {
+                if (attackState is AttackState attack)
+                {
+                    attack.EnableFlip();
+                }
+            }
+        }
+
+        public void DisableFlipInput()
+        {
+            if (_states.TryGetValue(CharacterState.Attack, out ICharacterState attackState))
+            {
+                if (attackState is AttackState attack)
+                {
+                    attack.DisableFlip();
+                }
+            }
+        }
+
         private Vector2 CalculateDashDirection()
         {
             if (_input == null) return Vector2.right;
