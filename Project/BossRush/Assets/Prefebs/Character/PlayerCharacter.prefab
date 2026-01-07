@@ -160,7 +160,7 @@ SpriteRenderer:
   m_SortingLayerID: 1036289741
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -4680443483626792033, guid: 8949fe37d1edda843a3cb09db6d074bc, type: 3}
+  m_Sprite: {fileID: -5115618752126089108, guid: 1ac240577733fca41aa521aceab95cc0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -676,6 +676,7 @@ MonoBehaviour:
   AttackOnHitDamageableFeedback: {fileID: 0}
   AttackOnHitNonDamageableFeedback: {fileID: 0}
   AttackOnKillFeedback: {fileID: 0}
+  AttackOnParryFeedback: {fileID: 0}
   LateDamageHit: 0
   DisableColliderOnHit: 0
   UseActiveColliderOnInit: 0

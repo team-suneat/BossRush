@@ -201,7 +201,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.5, y: 1}
+  m_Size: {x: 0.7, y: 1.2}
   m_EdgeRadius: 0
 --- !u!114 &1372147516505837066
 MonoBehaviour:
@@ -302,7 +302,7 @@ Transform:
   m_GameObject: {fileID: 5173444209251453515}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.525, y: 0.555, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -382,6 +382,7 @@ MonoBehaviour:
   AttackOnHitDamageableFeedback: {fileID: 0}
   AttackOnHitNonDamageableFeedback: {fileID: 0}
   AttackOnKillFeedback: {fileID: 0}
+  AttackOnParryFeedback: {fileID: 0}
   LateDamageHit: 0
   DisableColliderOnHit: 0
   UseActiveColliderOnInit: 0
@@ -603,7 +604,7 @@ Transform:
   m_GameObject: {fileID: 8558059558481749908}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.03, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -653,7 +654,7 @@ SpriteRenderer:
   m_SortingLayerID: 1036289741
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300024, guid: bd44a2f193c813a4dab84fff506336d3, type: 3}
+  m_Sprite: {fileID: -7763542611198418880, guid: 1d9133178f9638a4f8e8d41fba662f7f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -704,7 +705,7 @@ Transform:
   m_GameObject: {fileID: 8565262397648575048}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

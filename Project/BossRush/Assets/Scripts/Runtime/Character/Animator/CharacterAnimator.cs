@@ -173,9 +173,9 @@ namespace TeamSuneat
             _animator.UpdateAnimatorTrigger(ANIMATOR_DASH_PARAMETER_ID, AnimatorParameters);
         }
 
-        public virtual bool PlayDamageAnimation(HitmarkAssetData damageAssetData)
+        public virtual bool PlayDamageAnimation()
         {
-            return false;
+            return _animator.UpdateAnimatorTrigger(ANIMATOR_DAMAGE_PARAMETER_ID, AnimatorParameters);
         }
 
         public virtual void PlayDeathAnimation()

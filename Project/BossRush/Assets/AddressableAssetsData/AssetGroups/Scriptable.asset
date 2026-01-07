@@ -75,6 +75,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 99f24bf92908a09478db4a276566d20e
+    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_PlayerAttack.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b0fb6b5c659ddd049a3184c5cebd5133
     m_Address: Assets/Addressables/Scriptable/Floaty/Floaty_ChargeShield.asset
     m_ReadOnly: 0
@@ -83,12 +89,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c1fa8cce5a610cb46a1289d35432806a
     m_Address: Assets/Addressables/Scriptable/Flicker/Flicker_Damage.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Scriptable
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e76dee3bfc696ab49b5e3e4d77eb3dda
-    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_PlayerAttack.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable

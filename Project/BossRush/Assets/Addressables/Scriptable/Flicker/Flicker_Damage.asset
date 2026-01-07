@@ -15,7 +15,7 @@ MonoBehaviour:
   NameString: Damage
   IsChangingAsset: 0
   Name: 1
-  FlickerColor: {r: 1, g: 1, b: 1, a: 1}
+  FlickerColor: {r: 1, g: 0, b: 0, a: 1}
   FlickerBlend: 0.5
   FlickerSpeed: 0.1
   FlickerDuration: 0.2

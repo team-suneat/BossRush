@@ -379,7 +379,7 @@ namespace TeamSuneat
                 return false;
             }
 
-            return Vital.Owner.CharacterAnimator.PlayDamageAnimation(damageResult.Asset);
+            return Vital.Owner.CharacterAnimator.PlayDamageAnimation();
         }
 
         private void OnDamageFlicker(DamageResult damageResult)
