@@ -29,6 +29,7 @@ namespace TeamSuneat
                 { CharacterState.Falling, new FallingState(this, _physics, _input) },
                 { CharacterState.Dash, new DashState(this, _physics,_animator, _input) },
                 { CharacterState.Attack, new AttackState(this, _physics, _animator, _input) },
+                { CharacterState.Parry, new ParryState(this, _physics, _animator, _input) },
 
                 // 조건 상태
                 { CharacterState.Dead, new DeadState(this, _character) },
@@ -66,6 +67,12 @@ namespace TeamSuneat
             {
                 RequestAttack();
             }
+
+            // 패리 입력 감지
+            if (_input.IsParryPressed)
+            {
+                RequestParry();
+            }
         }
 
         public virtual void RequestAttack()
@@ -75,6 +82,17 @@ namespace TeamSuneat
                 if (CurrentState != CharacterState.Attack)
                 {
                     ChangeState(CharacterState.Attack);
+                }
+            }
+        }
+
+        public virtual void RequestParry()
+        {
+            if (_states.TryGetValue(CurrentState, out ICharacterState currentState))
+            {
+                if (CurrentState != CharacterState.Parry)
+                {
+                    ChangeState(CharacterState.Parry);
                 }
             }
         }

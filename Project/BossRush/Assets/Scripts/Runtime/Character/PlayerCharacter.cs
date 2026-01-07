@@ -156,6 +156,12 @@ namespace TeamSuneat
                 return;
             }
 
+            // 패리 상태일 때는 방향 전환 차단
+            if (StateMachine != null && StateMachine.CurrentState == CharacterState.Parry)
+            {
+                return;
+            }
+
             // 입력값이 0이 아니면 방향 변경, 0이면 이전 방향 유지
             if (Mathf.Abs(_input.HorizontalInput) > 0.01f)
             {

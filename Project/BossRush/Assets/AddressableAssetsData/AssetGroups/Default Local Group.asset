@@ -39,12 +39,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Ingame
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e76dee3bfc696ab49b5e3e4d77eb3dda
-    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_PlayerAttack.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Scriptable
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: eb8d74baaf4a0ab47a9bfda9ef9fdeb0
     m_Address: Assets/Addressables/Prefab/UI/Gauge/UIEnemyGauge.prefab
     m_ReadOnly: 0

@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44a1fdb7a9d3e48429d7d49c64140db0, type: 3}
   m_Name: Hitmark_PlayerAttack
   m_EditorClassIdentifier: 
-  NameString: PlayerAttack
+  NameString: 
   Data:
     IsChangingAsset: 0
-    Name: 1
-    AttackTargetType: 2
+    Name: 0
+    AttackTargetType: 0
     EntityType: 0
     IsCrowdControl: 0
-    DamageType: 1
+    DamageType: 0
     IgnoreEvasion: 0
     NotPlayDamageAnimation: 0
     ApplyToSelf: 0
@@ -34,11 +34,11 @@ MonoBehaviour:
     LinkedHitmarkMagnification: 0
     LinkedValueMagnificationByLevel: 0
     LinkedValueMagnificationByStack: 0
-    DamageTypeString: Normal
-    LinkedDamageTypeString: None
-    LinkedStateEffectString: None
+    DamageTypeString: 
+    LinkedDamageTypeString: 
+    LinkedStateEffectString: 
     NameOnHitString: 
-    UseWeaponDamageString: False
+    UseWeaponDamageString: 
     DiminishingType: 0
     DiminishingRate: 0
     ApplyDiminishingFromFirst: 0
@@ -55,6 +55,6 @@ MonoBehaviour:
     ForceResourceConsume: 0
     IgnoreDeathByConsume: 0
     ConsumeDelayTime: 0
-    AttackTargetTypeString: TargetOfOwner
-    DiminishingTypeString: None
-    ResourceConsumeTypeString: None
+    AttackTargetTypeString: 
+    DiminishingTypeString: 
+    ResourceConsumeTypeString: 

@@ -15,8 +15,8 @@ MonoBehaviour:
   m_GroupName: Scriptable
   m_GUID: 9c8a3fb1d489a2043a3b1d63467b7d70
   m_SerializeEntries:
-  - m_GUID: 12e15795c7014914e9e9282095d015df
-    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_Area01_Boss_BoarLord.asset
+  - m_GUID: 0390f628340b6c4489e2a969682e0417
+    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_ScarecrowAttack.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -29,12 +29,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2cc909dbd55810749b2736dff821e0ca
     m_Address: Assets/Addressables/Scriptable/Floaty/Floaty_PlayerDamaged.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Scriptable
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2f550f54a9b9be94288c9413c5a7cb36
-    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_Area01_Boss_SlimeKing.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -53,12 +47,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 69dcdc3aa0006eb45a2600a6674f03f0
     m_Address: Assets/Addressables/Scriptable/Floaty/Floaty_Content.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Scriptable
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6bf528203aec78a4a9dfaa9d52113f8b
-    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_Area01_Boss_WolfKing.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -93,20 +81,14 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c0fb7ad719c70da43b0ec0f28df82f4b
-    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_Area01_Boss_MushroomKing.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Scriptable
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c1fa8cce5a610cb46a1289d35432806a
     m_Address: Assets/Addressables/Scriptable/Flicker/Flicker_Damage.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ef05a843586c67049a01f2555910cd1b
-    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_Area01_Boss_GoblinChief.asset
+  - m_GUID: e76dee3bfc696ab49b5e3e4d77eb3dda
+    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_PlayerAttack.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable

@@ -139,7 +139,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 4b5b0298622c0074391cddeebd41b567, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -827,7 +827,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6565761008217287863}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -884,8 +884,8 @@ MonoBehaviour:
   VitalColliderHandler:
     DataList: []
   ResourceType: 3
-  Life: {fileID: 0}
-  Barrier: {fileID: 0}
+  Life: {fileID: 1576148571879029232}
+  Barrier: {fileID: 7645976091031182132}
   Mana: {fileID: 3595627110665504173}
   DieEvent:
     m_PersistentCalls:
@@ -904,8 +904,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Vital: {fileID: 520535794936682376}
-  Current: 0
-  Max: 0
+  Current: 3
+  Max: 3
   DamageTextPoint: {fileID: 0}
   InvincibilityDurationOnDamage: 0
   Invulnerable: 0

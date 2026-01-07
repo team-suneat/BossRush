@@ -21,6 +21,7 @@ namespace TeamSuneat
         // 상태 우선순위 (높을수록 우선)
         private static readonly Dictionary<CharacterState, int> StatePriority = new()
         {
+            { CharacterState.Parry, 110 },
             { CharacterState.Dead, 100 },
             { CharacterState.Stunned, 80 },
             { CharacterState.ControlledMovement, 40 },

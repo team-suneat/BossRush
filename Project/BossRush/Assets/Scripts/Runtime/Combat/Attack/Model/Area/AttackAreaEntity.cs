@@ -392,6 +392,22 @@ namespace TeamSuneat
 
         private bool ApplyToTargetVital(Vital targetVital)
         {
+            // 패리 상태 체크
+            if (targetVital != null && targetVital.Owner != null && targetVital.Owner.CharacterAnimator != null)
+            {
+                if (targetVital.Owner.CharacterAnimator.IsParrying)
+                {
+                    LogInfo("타겟이 패리 상태이므로 공격을 막습니다: {0}", targetVital.GetHierarchyPath());
+
+                    if (_collidingCollider != null)
+                    {
+                        TriggerAttackOnParryFeedback(_collidingCollider.transform.position);
+                    }
+
+                    return false;
+                }
+            }
+
             _damageCaculator.SetTargetVital(targetVital);
             _damageCaculator.Execute();
 

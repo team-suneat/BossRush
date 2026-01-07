@@ -23,6 +23,8 @@ namespace TeamSuneat
 
         public bool IsDamaging { get; set; }
 
+        public bool IsParrying { get; set; }
+
         public bool IsConsumingPotion { get; set; }
 
         public bool IsBlinking { get; set; }
@@ -54,6 +56,7 @@ namespace TeamSuneat
             IsAttacking = false;
             IsDashing = false;
             IsDamaging = false;
+            IsParrying = false;
             IsConsumingPotion = false;
             IsBlinking = false;
             IsTurning = false;
@@ -225,6 +228,10 @@ namespace TeamSuneat
             {
                 OnAnimatorAttackStateEnter();
             }
+            else if (CheckStateName(stateInfo, "Parry"))
+            {
+                OnAnimatorParryStateEnter();
+            }
 
             OnStateEnter?.Invoke(animator, stateInfo, layerIndex);
         }
@@ -250,6 +257,10 @@ namespace TeamSuneat
             else if (IsAttackState(stateInfo, false))
             {
                 OnAnimatorAttackStateExit();
+            }
+            else if (CheckStateName(stateInfo, "Parry"))
+            {
+                OnAnimatorParryStateExit();
             }
 
             OnStateExit?.Invoke(animator, stateInfo, layerIndex);

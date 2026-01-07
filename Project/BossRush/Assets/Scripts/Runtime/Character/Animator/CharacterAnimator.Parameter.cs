@@ -28,6 +28,7 @@ namespace TeamSuneat
         private const string ANIMATOR_SPAWN_PARAMETER_NAME = "Spawn";
         private const string ANIMATOR_DASH_PARAMETER_NAME = "Dash";
         private const string ANIMATOR_INTERACT_PARAMETER_NAME = "Interact";
+        private const string ANIMATOR_PARRY_PARAMETER_NAME = "Parry";
         protected const string ANIMATOR_DAMAGE_PARAMETER_NAME = "Damage";
         protected const string ANIMATOR_DEATH_PARAMETER_NAME = "Death";
         private const string ANIMATOR_DISABLE_PARAMETER_NAME = "Disable";
@@ -60,6 +61,7 @@ namespace TeamSuneat
         private int ANIMATOR_SPAWN_PARAMETER_ID;
         private int ANIMATOR_DASH_PARAMETER_ID;
         private int ANIMATOR_INTERACT_PARAMETER_ID;
+        protected int ANIMATOR_PARRY_PARAMETER_ID;
         protected int ANIMATOR_DAMAGE_PARAMETER_ID;
         protected int ANIMATOR_DEATH_PARAMETER_ID;
         private int ANIMATOR_DISABLE_PARAMETER_ID;
@@ -96,6 +98,7 @@ namespace TeamSuneat
             _animator.AddAnimatorParameterIfExists(ANIMATOR_SPAWN_PARAMETER_NAME, out ANIMATOR_SPAWN_PARAMETER_ID, AnimatorControllerParameterType.Trigger, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_DASH_PARAMETER_NAME, out ANIMATOR_DASH_PARAMETER_ID, AnimatorControllerParameterType.Trigger, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_INTERACT_PARAMETER_NAME, out ANIMATOR_INTERACT_PARAMETER_ID, AnimatorControllerParameterType.Trigger, AnimatorParameters);
+            _animator.AddAnimatorParameterIfExists(ANIMATOR_PARRY_PARAMETER_NAME, out ANIMATOR_PARRY_PARAMETER_ID, AnimatorControllerParameterType.Trigger, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_DAMAGE_PARAMETER_NAME, out ANIMATOR_DAMAGE_PARAMETER_ID, AnimatorControllerParameterType.Trigger, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_DEATH_PARAMETER_NAME, out ANIMATOR_DEATH_PARAMETER_ID, AnimatorControllerParameterType.Trigger, AnimatorParameters);
 

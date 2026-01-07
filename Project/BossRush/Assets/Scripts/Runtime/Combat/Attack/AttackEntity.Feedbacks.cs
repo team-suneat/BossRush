@@ -43,6 +43,10 @@ namespace TeamSuneat
         [SuffixLabel("공격 성공(상대를 죽임)")]
         public GameFeedbacks AttackOnKillFeedback;
 
+        [FoldoutGroup("#AttackEntity-Feedbacks")]
+        [SuffixLabel("패리 성공")]
+        public GameFeedbacks AttackOnParryFeedback;
+
         //
 
         protected void AutoGetFeedbackComponents()
@@ -67,6 +71,7 @@ namespace TeamSuneat
             AttackOnHitDamageableFeedback?.Initialization(Owner);
             AttackOnHitNonDamageableFeedback?.Initialization(Owner);
             AttackOnKillFeedback?.Initialization(Owner);
+            AttackOnParryFeedback?.Initialization(Owner);
         }
 
         //
@@ -140,6 +145,14 @@ namespace TeamSuneat
             if (AttackOnKillFeedback != null)
             {
                 AttackOnKillFeedback.PlayFeedbacks(feedbackPosition, 0);
+            }
+        }
+
+        protected void TriggerAttackOnParryFeedback(Vector3 feedbackPosition)
+        {
+            if (AttackOnParryFeedback != null)
+            {
+                AttackOnParryFeedback.PlayFeedbacks(feedbackPosition, 0);
             }
         }
 

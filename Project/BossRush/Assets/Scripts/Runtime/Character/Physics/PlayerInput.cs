@@ -25,6 +25,9 @@ namespace TeamSuneat
         // 공격 입력 (한 프레임만 true)
         public bool IsAttackPressed { get; private set; }
 
+        // 패리 입력 (한 프레임만 true)
+        public bool IsParryPressed { get; private set; }
+
         public void LogicUpdate()
         {
             if (TSInputManager.Instance == null || !TSInputManager.Instance.IsInitialized)
@@ -42,6 +45,7 @@ namespace TeamSuneat
             IsDownInputPressed = TSInputManager.Instance.CheckButtonState(ActionNames.MoveDown, ButtonStates.ButtonPressed);
             IsDashPressed = TSInputManager.Instance.CheckButtonState(ActionNames.Dash, ButtonStates.ButtonDown);
             IsAttackPressed = TSInputManager.Instance.CheckButtonState(ActionNames.Attack, ButtonStates.ButtonDown);
+            IsParryPressed = TSInputManager.Instance.CheckButtonState(ActionNames.Parry, ButtonStates.ButtonDown);
         }
     }
 }
