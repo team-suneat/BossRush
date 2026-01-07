@@ -72,18 +72,6 @@ namespace TeamSuneat
 
         //
 
-        protected override void RegisterGlobalEvent()
-        {
-            base.RegisterGlobalEvent();
-        }
-
-        protected override void UnregisterGlobalEvent()
-        {
-            base.UnregisterGlobalEvent();
-        }
-
-        //
-
         public override void LogicUpdate()
         {
             base.LogicUpdate();

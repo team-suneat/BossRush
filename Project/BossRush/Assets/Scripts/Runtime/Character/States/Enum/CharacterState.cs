@@ -10,6 +10,7 @@ namespace TeamSuneat
         Jumping,
         Falling,
         Dash,
+        Attack,
 
         // 조건 상태 (우선순위 높음)
         Dead,

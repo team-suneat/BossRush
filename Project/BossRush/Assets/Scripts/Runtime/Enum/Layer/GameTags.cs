@@ -5,16 +5,8 @@ namespace TeamSuneat
     public enum GameTags
     {
         Untagged = 0,
-        LevelBounds,
-        Music,
-        Background,
-        NoMask,
-        Ground,
-        Through,
-        Ladder,
-        Interaction,
-        Character,
         Vital,
+        Character,
     }
 
     public static class GameTagComparer

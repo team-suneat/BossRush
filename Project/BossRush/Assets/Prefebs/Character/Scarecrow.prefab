@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5752919124375933058}
   - component: {fileID: 1322368230098504372}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Stat(PlayerCharacter)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 8258088628487119223}
   m_Layer: 13
   m_Name: Scarecrow
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -239,7 +239,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1361818229381099511}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Point-Gauge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +277,7 @@ GameObject:
   - component: {fileID: 7152632823392566377}
   m_Layer: 13
   m_Name: Vital(PlayerCharacter)
-  m_TagString: Untagged
+  m_TagString: Vital
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -458,7 +458,7 @@ GameObject:
   - component: {fileID: 2456943501835734346}
   - component: {fileID: 2351218581884615440}
   - component: {fileID: 3347057747291971088}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -558,7 +558,7 @@ GameObject:
   - component: {fileID: 4438493862345198907}
   - component: {fileID: 5437015043003900828}
   - component: {fileID: 8954963856524400904}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

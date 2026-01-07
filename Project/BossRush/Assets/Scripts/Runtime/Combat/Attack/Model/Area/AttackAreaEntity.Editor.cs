@@ -13,7 +13,7 @@ namespace TeamSuneat
         {
             base.AutoGetComponents();
 
-            DamageCollider = GetComponent<Collider2D>();
+            _attackCollider = GetComponent<Collider2D>();
             ChainLightning = GetComponentInChildren<BaseChainLightning>();
         }
 
@@ -21,9 +21,9 @@ namespace TeamSuneat
         {
             base.AutoSetting();
 
-            if (DamageCollider != null)
+            if (_attackCollider != null)
             {
-                DamageCollider.isTrigger = true;
+                _attackCollider.isTrigger = true;
             }
 
             if (StatNameOfSize != StatNames.None)
@@ -46,25 +46,12 @@ namespace TeamSuneat
             EnumEx.ConvertTo(ref StatNameOfActiveDuration, StatNameOfActiveDurationString);
         }
 
-        private void Awake()
-        {
-            if (DamageCollider != null)
-            {
-                if (!DamageCollider.isTrigger)
-                {
-                    DamageCollider.isTrigger = true;
-#if UNITY_EDITOR
-                    Debug.LogError($"AttackAreaEntity Damage Collider isTrigger: {false.ToBoolString()}, {this.GetHierarchyPath()}");
-#endif
-                }
-            }
-        }
 
         private void OnDrawGizmos()
         {
-            if (DamageCollider != null && DamageCollider.enabled)
+            if (_attackCollider != null && _attackCollider.enabled)
             {
-                GizmoEx.DrawGizmoCube(position + (Vector3)DamageCollider.offset, DamageCollider.bounds.size, GameColors.Dev);
+                GizmoEx.DrawGizmoCube(position + (Vector3)_attackCollider.offset, _attackCollider.bounds.size, GameColors.Dev);
             }
         }
 

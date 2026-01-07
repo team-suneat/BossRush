@@ -23,6 +23,7 @@ namespace TeamSuneat
             { CharacterState.Stunned, 80 },
             { CharacterState.ControlledMovement, 40 },
             { CharacterState.Dash, 30 },
+            { CharacterState.Attack, 30 },
             { CharacterState.Jumping, 20 },
             { CharacterState.Falling, 20 },
             { CharacterState.Walk, 10 },

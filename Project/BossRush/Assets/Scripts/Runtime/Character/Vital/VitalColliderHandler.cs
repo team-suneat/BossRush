@@ -16,19 +16,19 @@ namespace TeamSuneat
     [Serializable]
     public class VitalColliderHandler
     {
-        public List<VitalColliderData> VitalColliderDatas;
+        public List<VitalColliderData> DataList;
 
         public VitalColliderData Find(string typeString)
         {
-            if (VitalColliderDatas != null)
+            if (DataList != null)
             {
-                if (VitalColliderDatas.Count > 0)
+                if (DataList.Count > 0)
                 {
-                    for (int i = 0; i < VitalColliderDatas.Count; i++)
+                    for (int i = 0; i < DataList.Count; i++)
                     {
-                        if (VitalColliderDatas[i].TypeString == typeString)
+                        if (DataList[i].TypeString == typeString)
                         {
-                            return VitalColliderDatas[i];
+                            return DataList[i];
                         }
                     }
                 }

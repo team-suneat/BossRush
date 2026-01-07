@@ -1,11 +1,16 @@
 using TeamSuneat.Data;
-using TeamSuneat.UserInterface;
 using UnityEngine;
 
 namespace TeamSuneat
 {
     public partial class Vital : Entity
     {
+        void Awake()
+        {
+            Owner = this.FindFirstParentComponent<Character>();
+            Collider = GetComponent<BoxCollider2D>();
+        }
+
         protected override void OnStart()
         {
             base.OnStart();

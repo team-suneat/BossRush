@@ -28,6 +28,7 @@ namespace TeamSuneat
                 { CharacterState.Jumping, new JumpState(this, _physics, _input) },
                 { CharacterState.Falling, new FallingState(this, _physics, _input) },
                 { CharacterState.Dash, new DashState(this, _physics,_animator, _input) },
+                { CharacterState.Attack, new AttackState(this, _physics, _animator, _input) },
 
                 // 조건 상태
                 { CharacterState.Dead, new DeadState(this, _character) },
@@ -58,6 +59,25 @@ namespace TeamSuneat
             {
                 Vector2 dashDirection = CalculateDashDirection();
                 RequestDash(dashDirection);
+            }
+
+            // 공격 입력 감지
+            if (_input.IsAttackPressed)
+            {
+                RequestAttack();
+            }
+        }
+
+        public virtual void RequestAttack()
+        {
+            // 공격 요청 처리
+            if (_states.TryGetValue(CurrentState, out ICharacterState currentState))
+            {
+                // 현재 상태가 Attack이 아니면 Attack 상태로 전환
+                if (CurrentState != CharacterState.Attack)
+                {
+                    ChangeState(CharacterState.Attack);
+                }
             }
         }
 

@@ -7,9 +7,6 @@ namespace TeamSuneat
 {
     public partial class AttackAreaEntity : AttackEntity
     {
-        [FoldoutGroup("#AttackAreaEntity-Component")]
-        public Collider2D DamageCollider;
-
         #region 토글 (Toggle)
 
         [FoldoutGroup("#AttackAreaEntity-Toggle")]
@@ -117,25 +114,24 @@ namespace TeamSuneat
 
         #endregion 피해 점감(Decrescence Damage)
 
-        // 충돌한 충돌체
-        private Collider2D _collidingCollider;
-
-        // 충돌한 충돌체의 바이탈
-        private Vital _colliderVital;
-
-        // 충돌을 무시하는 게임 오브젝트
-        private List<GameObject> _ignoredGameObjects;
-
-        // 충돌체 활성화 지속 시간
-        private float _activeDuration;
-
-        // 지속 타이머
-        private Coroutine _timerCoroutine;
-
-        // 활성화시 1회에 공격한 횟수
-        private int _hitCountAtTime;
+        private Collider2D _attackCollider; // 공격 충돌체
+        private Collider2D _collidingCollider; // 충돌한 충돌체
+        private Vital _colliderVital; // 충돌한 충돌체의 바이탈
+        private List<GameObject> _ignoredGameObjects; // 충돌을 무시하는 게임 오브젝트
+        private float _activeDuration; // 충돌체 활성화 지속 시간
+        private Coroutine _timerCoroutine; // 지속 타이머
+        private int _hitCountAtTime; // 활성화시 1회에 공격한 횟수
 
         //
+
+        private void Awake()
+        {
+            _attackCollider = GetComponent<Collider2D>();
+            if (_attackCollider != null)
+            {
+                if (!_attackCollider.isTrigger) { _attackCollider.isTrigger = true; }
+            }
+        }
 
         protected override void OnEnabled()
         {
@@ -194,7 +190,7 @@ namespace TeamSuneat
         {
             base.Deactivate();
 
-            if (_timerCoroutine == null && DamageCollider != null && !DamageCollider.enabled)
+            if (_timerCoroutine == null && _attackCollider != null && !_attackCollider.enabled)
             {
                 LogProgress("공격 지속 타이머가 없고, 피해를 주는 충돌체가 활성화가 아닐 때는 이 독립체가 비활성화 상태라 판단합니다. 영역 공격 독립체를 비활성화할 수 없습니다.");
                 return;
@@ -252,9 +248,9 @@ namespace TeamSuneat
         {
             LogInfo("영역 공격의 충돌체를 활성화합니다.");
 
-            if (DamageCollider != null)
+            if (_attackCollider != null)
             {
-                DamageCollider.enabled = true;
+                _attackCollider.enabled = true;
             }
         }
 
@@ -262,9 +258,9 @@ namespace TeamSuneat
         {
             LogInfo("영역 공격의 충돌체를 비활성화합니다.");
 
-            if (DamageCollider != null)
+            if (_attackCollider != null)
             {
-                DamageCollider.enabled = false;
+                _attackCollider.enabled = false;
             }
         }
 
@@ -571,14 +567,14 @@ namespace TeamSuneat
             {
                 float areaMultiplier = 1 + Owner.Stat.FindValueOrDefault(StatNameOfSize);
 
-                if (DamageCollider is BoxCollider2D)
+                if (_attackCollider is BoxCollider2D)
                 {
-                    BoxCollider2D boxCollider = DamageCollider as BoxCollider2D;
+                    BoxCollider2D boxCollider = _attackCollider as BoxCollider2D;
                     boxCollider.size *= areaMultiplier;
                 }
-                else if (DamageCollider is CircleCollider2D)
+                else if (_attackCollider is CircleCollider2D)
                 {
-                    CircleCollider2D circleCollider = DamageCollider as CircleCollider2D;
+                    CircleCollider2D circleCollider = _attackCollider as CircleCollider2D;
                     circleCollider.radius *= areaMultiplier;
                 }
             }

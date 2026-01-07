@@ -13,21 +13,12 @@ namespace TeamSuneat
         public bool BasedOnOwnerCollider = true;
 
         [FoldoutGroup("#Vital")]
-        public bool UseIndividualCollider;
-
-        [FoldoutGroup("#Vital")]
         public VitalColliderHandler VitalColliderHandler = new();
 
         //--------------------------------------------------------------------------------------------------------=
 
-        [FoldoutGroup("#Vital-Components")]
-        public Character Owner;
-
-        [FoldoutGroup("#Vital-Components")]
-        public BoxCollider2D Collider;
-
-        [FoldoutGroup("#Vital-Components")]
-        public BoxCollider2D[] Colliders;
+        public Character Owner { get; set; }
+        public BoxCollider2D Collider { get; set; }
 
         //--------------------------------------------------------------------------------------------------------=
 
@@ -42,15 +33,6 @@ namespace TeamSuneat
 
         [FoldoutGroup("#Vital-Battle Resource")]
         public Mana Mana;
-
-        //--------------------------------------------------------------------------------------------------------=
-
-        [FoldoutGroup("#Vital-Guard")]
-        public List<int> GuardColliderIndexes = new();
-
-        [FoldoutGroup("#Vital-Guard")]
-        [SuffixLabel("설정된 인덱스의 충돌체는 보호막만 피해입음")]
-        public List<int> OnlyUseBarrierColliderIndexes = new();
 
         //--------------------------------------------------------------------------------------------------------=
 
