@@ -32,7 +32,7 @@ namespace TeamSuneat
 
         //----------------------------------------------------------------------------------------
 
-        protected DamageCalculator _damageCaculator = new();
+        protected DamageCalculator _damageCalculator = new();
 
         public HitmarkAssetData AssetData { get; private set; }
 
@@ -40,7 +40,7 @@ namespace TeamSuneat
 
         public bool IsActive { get; private set; }
 
-        public int Level => _damageCaculator.Level;
+        public int Level => _damageCalculator.Level;
 
         public AttackEntityTypes EntityType
         {
@@ -71,14 +71,14 @@ namespace TeamSuneat
             InitializeFeedbacks();
             LoadAssetData();
 
-            _damageCaculator.HitmarkAssetData = AssetData;
-            if (!_damageCaculator.HitmarkAssetData.IsValid())
+            _damageCalculator.HitmarkAssetData = AssetData;
+            if (!_damageCalculator.HitmarkAssetData.IsValid())
             {
                 LogError("피해 정보에서 히트마크 정보를 읽어올 수 없습니다:{0}", Name.ToLogString());
             }
 
-            _damageCaculator.SetAttacker(Owner);
-            _damageCaculator.AttackEntity = this;
+            _damageCalculator.SetAttacker(Owner);
+            _damageCalculator.AttackEntity = this;
 
             ApplyCount = 0;
         }
@@ -133,14 +133,14 @@ namespace TeamSuneat
 
         public virtual void SetLevel(int level)
         {
-            _damageCaculator?.SetLevel(level);
+            _damageCalculator?.SetLevel(level);
 
             LogInfo("공격 독립체의 레벨을 설정합니다. 레벨:{0} ", level);
         }
 
         public virtual void SetStack(int stack)
         {
-            _damageCaculator?.SetStack(stack);
+            _damageCalculator?.SetStack(stack);
 
             LogInfo("공격 독립체의 스택을 설정합니다. 스택:{0} ", stack);
         }

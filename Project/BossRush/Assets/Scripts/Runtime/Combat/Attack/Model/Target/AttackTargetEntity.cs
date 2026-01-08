@@ -69,15 +69,15 @@ namespace TeamSuneat
 
         private void ApplyAttack()
         {
-            bool isAttackSuccessed = AttackToTarget();
-            OnAttack(isAttackSuccessed);
+            bool isAttackSucceeded = AttackToTarget();
+            OnAttack(isAttackSucceeded );
         }
 
         public override void SetTarget(Vital targetVital)
         {
             base.SetTarget(targetVital);
 
-            _damageCaculator.SetTargetVital(targetVital);
+            _damageCalculator.SetTargetVital(targetVital);
         }
 
         private void RefreshTarget()
@@ -87,7 +87,7 @@ namespace TeamSuneat
                 return;
             }
 
-            if (_damageCaculator.TargetVital != null)
+            if (_damageCalculator.TargetVital != null)
             {
                 return;
             }
@@ -117,7 +117,7 @@ namespace TeamSuneat
 
             if (CheckDamageableVital(targetVital))
             {
-                _damageCaculator.SetTargetVital(targetVital);
+                _damageCalculator.SetTargetVital(targetVital);
             }
         }
 
@@ -160,67 +160,87 @@ namespace TeamSuneat
 
         private bool AttackToTarget()
         {
-            if (_damageCaculator.TargetVital == null)
+            if (_damageCalculator.TargetVital == null)
             {
-                LogWarning("공격 독립체의 목표 바이탈이 설정되지 않았습니다. Hitmark: {0}, Entity: {1}", _damageCaculator.HitmarkAssetData.Name.ToLogString(), this.GetHierarchyPath());
+                LogWarning("공격 독립체의 목표 바이탈이 설정되지 않았습니다. Hitmark: {0}, Entity: {1}", _damageCalculator.HitmarkAssetData.Name.ToLogString(), this.GetHierarchyPath());
 
                 return false;
             }
 
-            if (!_damageCaculator.HitmarkAssetData.IsValid())
+            if (!_damageCalculator.HitmarkAssetData.IsValid())
             {
                 LogError("피해량 정보의 히트마크 에셋이 올바르지 않습니다. Hitmark:{0}, Entity: {1}", Name.ToLogString(), this.GetHierarchyPath());
                 return false;
             }
 
-            _damageCaculator.Execute();
-            if (!_damageCaculator.DamageResults.IsValid())
+            _damageCalculator.Execute();
+            if (!_damageCalculator.DamageResults.IsValid())
             {
-                LogWarning("공격 독립체의 피해 결과가 설정되지 않았습니다. Hitmark: {0}, Entity: {1}", _damageCaculator.HitmarkAssetData.Name.ToLogString(), this.GetHierarchyPath());
+                LogWarning("공격 독립체의 피해 결과가 설정되지 않았습니다. Hitmark: {0}, Entity: {1}", _damageCalculator.HitmarkAssetData.Name.ToLogString(), this.GetHierarchyPath());
 
                 return false;
             }
 
-            bool isAttackSuccessed = false;
+            bool isAttackSucceeded = false;
             DamageResult damageResult;
-            for (int i = 0; i < _damageCaculator.DamageResults.Count; i++)
+            for (int i = 0; i < _damageCalculator.DamageResults.Count; i++)
             {
-                damageResult = _damageCaculator.DamageResults[i];
+                damageResult = _damageCalculator.DamageResults[i];
 
                 switch (damageResult.DamageType)
                 {
                     case DamageTypes.Heal:
                     case DamageTypes.HealOverTime:
                         {
-                            _damageCaculator.TargetVital.Heal(damageResult.DamageValueToInt);
-                            isAttackSuccessed = true;
+                            _damageCalculator.TargetVital.Heal(damageResult.DamageValueToInt);
+                            isAttackSucceeded = true;
                         }
                         break;
 
                     default:
                         {
-                            if (!_damageCaculator.TargetVital.CheckDamageImmunity(damageResult))
+                            if (!_damageCalculator.TargetVital.CheckDamageImmunity(damageResult))
                             {
-                                if (_damageCaculator.TargetVital.TakeDamage(damageResult))
+                                if (_damageCalculator.TargetVital.TakeDamage(damageResult))
                                 {
-                                    if (_damageCaculator.TargetVital.IsAlive)
+                                    if (_damageCalculator.TargetVital.IsAlive)
                                     {
-                                        TriggerAttackOnHitDamageableFeedback(_damageCaculator.TargetVital.position);
+                                        TriggerAttackOnHitDamageableFeedback(_damageCalculator.TargetVital.position);
                                     }
                                     else
                                     {
-                                        TriggerAttackOnKillFeedback(_damageCaculator.TargetVital.position);
+                                        TriggerAttackOnKillFeedback(_damageCalculator.TargetVital.position);
                                     }
                                 }
 
-                                isAttackSuccessed = true;
+                                isAttackSucceeded = true;
                             }
                         }
                         break;
                 }
             }
 
-            return isAttackSuccessed;
+            if (isAttackSucceeded && Owner != null && Owner.IsPlayer)
+            {
+                OnPlayerAttackSuccess();
+            }
+
+            return isAttackSucceeded;
+        }
+
+        /// <summary> 플레이어 공격 성공 시 마나 게이지 증가. </summary>
+        private void OnPlayerAttackSuccess()
+        {
+            if (Owner == null || Owner.MyVital == null)
+            {
+                return;
+            }
+
+            Mana mana = Owner.MyVital.Mana;
+            if (mana != null)
+            {
+                mana.OnAttackSuccess();
+            }
         }
 
         #region Log

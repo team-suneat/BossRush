@@ -10,7 +10,6 @@
         AttackSpeed,             // 공격 속도(%)
         Mana,                    // 마나        
         Pulse,                   // 펄스 (패링 게이지, 0.5칸 = 1 단위)
-        DamageReduction,         // 피해 감소(%)        
         Barrier,                  // 보호막
         BarrierMulti,             // 보호막 배율
     }

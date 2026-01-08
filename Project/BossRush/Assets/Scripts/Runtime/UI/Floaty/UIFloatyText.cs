@@ -72,11 +72,6 @@ namespace TeamSuneat.UserInterface
                         return UIFloatyMoveNames.Execution;
                     }
 
-                    if (damageResult.IsCritical)
-                    {
-                        return UIFloatyMoveNames.CriticalDamage;
-                    }
-
                     return UIFloatyMoveNames.Damage;
 
                 case DamageTypes.Execution:

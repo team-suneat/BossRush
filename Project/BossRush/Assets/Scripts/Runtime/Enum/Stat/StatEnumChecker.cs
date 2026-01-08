@@ -6,12 +6,6 @@ namespace TeamSuneat
     {
         public static bool IsReduceStat(this StatNames key)
         {
-            switch (key)
-            {
-                case StatNames.DamageReduction:
-                    return true;
-            }
-
             return false;
         }
 

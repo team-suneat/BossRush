@@ -73,11 +73,6 @@ namespace TeamSuneat.Data
         public float ExecutionConditionalTargetLifeRate;
 
         [FoldoutGroup("#피해량")]
-        [GUIColor("GetIntColor")]
-        [SuffixLabel("최소 피해량")]
-        public int MinDamageValue = 1;
-
-        [FoldoutGroup("#피해량")]
         [GUIColor("GetFloatColor")]
         [SuffixLabel("고정 피해")]
         public float FixedDamage;
@@ -86,11 +81,6 @@ namespace TeamSuneat.Data
         [GUIColor("GetFloatColor")]
         [SuffixLabel("고정 성장 피해")]
         public float FixedDamageByLevel;
-
-        [FoldoutGroup("#피해량")]
-        [GUIColor("GetBoolColor")]
-        [SuffixLabel("무기 피해 사용")]
-        public bool UseWeaponDamage;
 
         // 연결된 값
 
@@ -130,36 +120,9 @@ namespace TeamSuneat.Data
         [FoldoutGroup("#String")] public string LinkedDamageTypeString;
         [FoldoutGroup("#String")] public string LinkedStateEffectString;
         [FoldoutGroup("#String")] public string NameOnHitString;
-        [FoldoutGroup("#String")] public string UseWeaponDamageString;
+        [FoldoutGroup("#String")] public string DiminishingTypeString;
 
         #endregion 피해 정보 (Damage Information)
-
-        #region 피해 점감 (Damage Diminishing Returns)
-
-        public enum DiminishingTypes
-        { None, HitCount, ApplyCount }
-
-        [FoldoutGroup("#피해 점감 (Damage Diminishing Returns)")]
-        [SuffixLabel("피해량 점감 종류")]
-        [InfoBox("$DiminishingTypeMassage")]
-        public DiminishingTypes DiminishingType;
-
-        [NonSerialized]
-        public string DiminishingTypeMassage;
-
-        [FoldoutGroup("#피해 점감 (Damage Diminishing Returns)")]
-        [DisableIf("DiminishingType", DiminishingTypes.None)]
-        [SuffixLabel("피해량 점감 배율")]
-        [Range(0, 1)]
-        [GUIColor("GetFloatColor")]
-        public float DiminishingRate;
-
-        [FoldoutGroup("#피해 점감 (Damage Diminishing Returns)")]
-        [DisableIf("DiminishingType", DiminishingTypes.None)]
-        [SuffixLabel("최초 피해부터 피해량 점감")]
-        public bool ApplyDiminishingFromFirst;
-
-        #endregion 피해 점감 (Damage Diminishing Returns)
 
         #region 자원 (Resource)
 
@@ -225,7 +188,6 @@ namespace TeamSuneat.Data
         #region 스트링 (String)
 
         [FoldoutGroup("#String")] public string AttackTargetTypeString;
-        [FoldoutGroup("#String")] public string DiminishingTypeString;
         [FoldoutGroup("#String")] public string ResourceConsumeTypeString;
 
         #endregion 스트링 (String)
@@ -243,17 +205,12 @@ namespace TeamSuneat.Data
                 {
                     Log.Error("Hitmark 에셋 데이터의 AttackTargetTypeString 변수를 변환할 수 없습니다. {0} ({1}), {2}", Name, Name.ToLogString(), AttackTargetTypeString);
                 }
-                if (!EnumEx.ConvertTo(ref DiminishingType, DiminishingTypeString))
-                {
-                    Log.Error("Hitmark 에셋 데이터의 DiminishingTypeString 변수를 변환할 수 없습니다. {0} ({1}), {2}", Name, Name.ToLogString(), DiminishingTypeString);
-                }
                 if (!EnumEx.ConvertTo(ref ResourceConsumeType, ResourceConsumeTypeString))
                 {
                     Log.Error("Hitmark 에셋 데이터의 ResourceConsumeTypeString 변수를 변환할 수 없습니다. {0} ({1}), {2}", Name, Name.ToLogString(), ResourceConsumeTypeString);
                 }
 
                 ValidateDamageData();
-                RefreshDiminishingTypeMassage();
             }
         }
 
@@ -262,7 +219,6 @@ namespace TeamSuneat.Data
             base.Refresh();
 
             AttackTargetTypeString = AttackTargetType.ToString();
-            DiminishingTypeString = DiminishingType.ToString();
             ResourceConsumeTypeString = ResourceConsumeType.ToString();
 
             RefreshDamageString();
@@ -288,10 +244,6 @@ namespace TeamSuneat.Data
 
                 IsCrowdControl = IsCrowdControl,
 
-                DiminishingType = DiminishingType,
-                DiminishingRate = DiminishingRate,
-                ApplyDiminishingFromFirst = ApplyDiminishingFromFirst,
-
                 StopAttackAnimationOnResourceLack = StopAttackAnimationOnResourceLack,
                 UseResourceOnActivate = UseResourceOnActivate,
                 UseResourceOnInactive = UseResourceOnInactive,
@@ -315,10 +267,8 @@ namespace TeamSuneat.Data
                 ApplyMultiplierToSelf = ApplyMultiplierToSelf,
 
                 ExecutionConditionalTargetLifeRate = ExecutionConditionalTargetLifeRate,
-                MinDamageValue = MinDamageValue,
                 FixedDamage = FixedDamage,
                 FixedDamageByLevel = FixedDamageByLevel,
-                UseWeaponDamage = UseWeaponDamage,
 
                 LinkedDamageType = LinkedDamageType,
                 LinkedStateEffect = LinkedStateEffect,
@@ -331,22 +281,6 @@ namespace TeamSuneat.Data
         }
 
         //
-
-        private void RefreshDiminishingTypeMassage()
-        {
-            if (DiminishingType == DiminishingTypes.HitCount)
-            {
-                DiminishingTypeMassage = "목표 또는 영역 공격 충돌 횟수에 따라 점감이 적용됩니다.\n독립체의 적용 함수에서 충돌 횟수가 초기화됩니다.";
-            }
-            else if (DiminishingType == DiminishingTypes.ApplyCount)
-            {
-                DiminishingTypeMassage = "목표 또는 영역 공격 적용 횟수에 따라 점감이 적용됩니다.\n독립체의 초기화 함수에서 적용 횟수가 초기화됩니다.";
-            }
-            else
-            {
-                DiminishingTypeMassage = "피해 점감 기능을 사용하지 않습니다.";
-            }
-        }
 
         private void ValidateDamageData()
         {
@@ -363,18 +297,6 @@ namespace TeamSuneat.Data
                 Log.Error("HitmarkAssetData의 LinkedStateEffect을 변환하지 못합니다. Name:{0}, {1}", Name, LinkedStateEffectString);
             }
 
-            if (!string.IsNullOrWhiteSpace(UseWeaponDamageString))
-            {
-                if (!bool.TryParse(UseWeaponDamageString, out bool parsedUseWeaponDamage))
-                {
-                    Log.Error("HitmarkAssetData의 UseWeaponDamage를 변환하지 못합니다. Name:{0}, {1}", Name, UseWeaponDamageString);
-                }
-                else
-                {
-                    UseWeaponDamage = parsedUseWeaponDamage;
-                }
-            }
-
             DamageTypeLog();
             EnumLog();
         }
@@ -384,7 +306,6 @@ namespace TeamSuneat.Data
             DamageTypeString = DamageType.ToString();
             LinkedDamageTypeString = LinkedDamageType.ToString();
             LinkedStateEffectString = LinkedStateEffect.ToString();
-            UseWeaponDamageString = UseWeaponDamage.ToString();
         }
 
         private void DamageTypeLog()
@@ -414,10 +335,8 @@ namespace TeamSuneat.Data
             if (ApplyToSelf != another.ApplyToSelf) { return false; }
             if (ApplyMultiplierToSelf != another.ApplyMultiplierToSelf) { return false; }
             if (ExecutionConditionalTargetLifeRate != another.ExecutionConditionalTargetLifeRate) { return false; }
-            if (MinDamageValue != another.MinDamageValue) { return false; }
             if (FixedDamage != another.FixedDamage) { return false; }
             if (FixedDamageByLevel != another.FixedDamageByLevel) { return false; }
-            if (UseWeaponDamage != another.UseWeaponDamage) { return false; }
             if (LinkedDamageType != another.LinkedDamageType) { return false; }
             if (LinkedStateEffect != another.LinkedStateEffect) { return false; }
             if (LinkedHitmarkMagnification != another.LinkedHitmarkMagnification) { return false; }
@@ -434,13 +353,11 @@ namespace TeamSuneat.Data
             _hasChangedWhiteRefreshAll = false;
 
             UpdateIfChanged(ref AttackTargetTypeString, AttackTargetType);
-            UpdateIfChanged(ref DiminishingTypeString, DiminishingType);
             UpdateIfChanged(ref ResourceConsumeTypeString, ResourceConsumeType);
 
             UpdateIfChanged(ref DamageTypeString, DamageType);
             UpdateIfChanged(ref LinkedDamageTypeString, LinkedDamageType);
             UpdateIfChanged(ref LinkedStateEffectString, LinkedStateEffect);
-            UpdateIfChangedBool(ref UseWeaponDamageString, UseWeaponDamage);
 
             return _hasChangedWhiteRefreshAll;
         }

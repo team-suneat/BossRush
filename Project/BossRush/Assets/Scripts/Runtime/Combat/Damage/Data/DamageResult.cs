@@ -5,25 +5,13 @@ namespace TeamSuneat
 {
     public class DamageResult
     {
-        /// <summary> 치명타 여부 </summary>
-        public bool IsCritical;
-
         /// <summary> 회심의 일격 여부 </summary>
         public bool IsDevastatingStrike;
-
-        /// <summary> 회피 여부 </summary>
-        public bool IsEvasion;
-
-        /// <summary> 명중 실패 여부 </summary>
-        public bool IsMiss;
 
         //───────────────────────────────────────────────────────────────────────────────────────────────────=
 
         /// <summary> 피해량 </summary>
         public float DamageValue;
-
-        /// <summary> 줄어든 피해량 </summary>
-        public float ReducedDamageValue;
 
         public int DamageValueToInt
         {
@@ -41,8 +29,6 @@ namespace TeamSuneat
                 return Mathf.RoundToInt(DamageValue);
             }
         }
-
-        public int ReducedDamageValueToInt => Mathf.RoundToInt(ReducedDamageValue);
 
         //───────────────────────────────────────────────────────────────────────────────────────────────────=
 

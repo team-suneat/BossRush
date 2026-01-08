@@ -201,7 +201,7 @@ namespace TeamSuneat
             {
                 if (Current <= damageValue)
                 {
-                    if (GameSetting.Instance.Cheat.NotDead)
+                    if (GameSetting.Instance.Cheat.IsNotDead)
                     {
                         LogInfo("죽지 않는 치트를 사용한다면 생명력을 1 남깁니다.");
                         int value = Current - 1;

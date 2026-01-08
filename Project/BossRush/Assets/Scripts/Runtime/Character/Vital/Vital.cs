@@ -82,11 +82,6 @@ namespace TeamSuneat
                 Life.UseZero();
                 return true;
             }
-            else if (damageResult.IsEvasion)
-            {
-                Life.UseZero();
-                return true;
-            }
 
             return false;
         }

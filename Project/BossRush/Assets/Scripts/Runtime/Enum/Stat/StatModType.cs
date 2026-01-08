@@ -18,7 +18,5 @@ namespace TeamSuneat
 
         /// <summary> 추가되지 않고 적용합니다. </summary>
         Once,
-
-        DiminishingReturns, // 점감
     }
 }

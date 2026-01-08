@@ -5,32 +5,23 @@ namespace TeamSuneat.Setting
 {
     public class GameCheat
     {
-        public enum CriticalTypes
-        {
-            None,
-            Critical,
-            NoCritical,
-        }
-
         private bool _isInitialized;
-        private bool _infinityDamage;
-        private bool _percentDamage;
-        private bool _oneDamageAttack;
+        private bool _isInfinityDamage;
+        private bool _isPercentDamage;
+        private bool _isOneDamageAttack;
 
-        private CriticalTypes _criticalType;
+        private bool _isNotCostResource;
+        private bool _isNoCooldownTime;
+        private bool _isReceiveDamageOnlyOne;
+        private bool _isNotDead;
+        private bool _isNotCrowdControl;
 
-        private bool _notCostResoures;
-        private bool _noCooldownTime;
-        private bool _receiveDamageOnlyOne;
-        private bool _notDead;
-        private bool _notCrowdControl;
-
-        private bool _useItemOptionMaxStat;
+        private bool _isUseItemOptionMaxStat;
         private GradeNames _customRelicGrade;
 
         //
 
-        public bool InfinityDamage
+        public bool IsInfinityDamage
         {
             get
             {
@@ -44,16 +35,16 @@ namespace TeamSuneat.Setting
                     Initialize();
                 }
 
-                return _infinityDamage;
+                return _isInfinityDamage;
             }
             set
             {
-                _infinityDamage = value;
+                _isInfinityDamage = value;
                 GamePrefs.SetBool(GamePrefTypes.GAME_CHEAT_INFINITY_DAMAGE, value);
             }
         }
 
-        public bool PercentDamage
+        public bool IsPercentDamage
         {
             get
             {
@@ -67,16 +58,16 @@ namespace TeamSuneat.Setting
                     Initialize();
                 }
 
-                return _percentDamage;
+                return _isPercentDamage;
             }
             set
             {
-                _percentDamage = value;
+                _isPercentDamage = value;
                 GamePrefs.SetBool(GamePrefTypes.GAME_CHEAT_PERCENT_DAMAGE, value);
             }
         }
 
-        public bool OneDamageAttack
+        public bool IsOneDamageAttack
         {
             get
             {
@@ -86,39 +77,18 @@ namespace TeamSuneat.Setting
                     Initialize();
                 }
 
-                return _oneDamageAttack;
+                return _isOneDamageAttack;
             }
             set
             {
-                _oneDamageAttack = value;
+                _isOneDamageAttack = value;
                 GamePrefs.SetBool(GamePrefTypes.GAME_CHEAT_ONE_DAMAGE_ATTACK, value);
             }
         }
 
         //
 
-        public CriticalTypes CriticalType
-        {
-            get
-            {
-                if (!GameDefine.IS_EDITOR_OR_DEVELOPMENT_BUILD) { return CriticalTypes.None; }
-                if (!_isInitialized)
-                {
-                    Initialize();
-                }
-
-                return _criticalType;
-            }
-            set
-            {
-                _criticalType = value;
-                GamePrefs.SetInt(GamePrefTypes.GAME_CHEAT_CRITICAL_TYPE, _criticalType.ToInt());
-            }
-        }
-
-        //
-
-        public bool NoCooldownTime
+        public bool IsNoCooldownTime
         {
             get
             {
@@ -128,16 +98,16 @@ namespace TeamSuneat.Setting
                     Initialize();
                 }
 
-                return _noCooldownTime;
+                return _isNoCooldownTime;
             }
             set
             {
-                _noCooldownTime = value;
+                _isNoCooldownTime = value;
                 GamePrefs.SetBool(GamePrefTypes.GAME_CHEAT_NO_COOLDOWN_TIME, value);
             }
         }
 
-        public bool NotCostResoure
+        public bool IsNotCostResource
         {
             get
             {
@@ -147,16 +117,16 @@ namespace TeamSuneat.Setting
                     Initialize();
                 }
 
-                return _notCostResoures;
+                return _isNotCostResource;
             }
             set
             {
-                _notCostResoures = value;
+                _isNotCostResource = value;
                 GamePrefs.SetBool(GamePrefTypes.GAME_CHEAT_NOT_COST_RESOURCE, value);
             }
         }
 
-        public bool ReceiveDamageOnlyOne
+        public bool IsReceiveDamageOnlyOne
         {
             get
             {
@@ -166,16 +136,16 @@ namespace TeamSuneat.Setting
                     Initialize();
                 }
 
-                return _receiveDamageOnlyOne;
+                return _isReceiveDamageOnlyOne;
             }
             set
             {
-                _receiveDamageOnlyOne = value;
+                _isReceiveDamageOnlyOne = value;
                 GamePrefs.SetBool(GamePrefTypes.GAME_CHEAT_RECEIVE_DAMAGE_ONLY_ONE, value);
             }
         }
 
-        public bool NotDead
+        public bool IsNotDead
         {
             get
             {
@@ -185,16 +155,16 @@ namespace TeamSuneat.Setting
                     Initialize();
                 }
 
-                return _notDead;
+                return _isNotDead;
             }
             set
             {
-                _notDead = value;
+                _isNotDead = value;
                 GamePrefs.SetBool(GamePrefTypes.GAME_CHEAT_NOT_DEAD, value);
             }
         }
 
-        public bool NotCrowdControl
+        public bool IsNotCrowdControl
         {
             get
             {
@@ -204,16 +174,16 @@ namespace TeamSuneat.Setting
                     Initialize();
                 }
 
-                return _notCrowdControl;
+                return _isNotCrowdControl;
             }
             set
             {
-                _notCrowdControl = value;
+                _isNotCrowdControl = value;
                 GamePrefs.SetBool(GamePrefTypes.GAME_CHEAT_NOT_CROWD_CONTROL, value);
             }
         }
 
-        public bool UseItemOptionMaxStat
+        public bool IsUseItemOptionMaxStat
         {
             get
             {
@@ -222,11 +192,11 @@ namespace TeamSuneat.Setting
                 {
                     Initialize();
                 }
-                return _useItemOptionMaxStat;
+                return _isUseItemOptionMaxStat;
             }
             set
             {
-                _useItemOptionMaxStat = value;
+                _isUseItemOptionMaxStat = value;
                 GamePrefs.SetBool(GamePrefTypes.GAME_CHEAT_ITEM_OPTION_MAX_STAT, value);
             }
         }
@@ -252,20 +222,18 @@ namespace TeamSuneat.Setting
 
         private void Initialize()
         {
-            _infinityDamage = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_INFINITY_DAMAGE);
-            _percentDamage = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_PERCENT_DAMAGE);
-            _oneDamageAttack = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_ONE_DAMAGE_ATTACK);
+            _isInfinityDamage = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_INFINITY_DAMAGE);
+            _isPercentDamage = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_PERCENT_DAMAGE);
+            _isOneDamageAttack = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_ONE_DAMAGE_ATTACK);
 
-            _criticalType = GamePrefs.GetInt(GamePrefTypes.GAME_CHEAT_CRITICAL_TYPE).ToEnum<CriticalTypes>();
+            _isNotCostResource = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_NOT_COST_RESOURCE);
+            _isNoCooldownTime = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_NO_COOLDOWN_TIME);
 
-            _notCostResoures = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_NOT_COST_RESOURCE);
-            _noCooldownTime = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_NO_COOLDOWN_TIME);
+            _isReceiveDamageOnlyOne = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_RECEIVE_DAMAGE_ONLY_ONE);
+            _isNotDead = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_NOT_DEAD);
+            _isNotCrowdControl = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_NOT_CROWD_CONTROL);
 
-            _receiveDamageOnlyOne = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_RECEIVE_DAMAGE_ONLY_ONE);
-            _notDead = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_NOT_DEAD);
-            _notCrowdControl = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_NOT_CROWD_CONTROL);
-
-            _useItemOptionMaxStat = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_ITEM_OPTION_MAX_STAT);
+            _isUseItemOptionMaxStat = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_ITEM_OPTION_MAX_STAT);
             _customRelicGrade = GamePrefs.GetInt(GamePrefTypes.GAME_CHEAT_CUSTOM_RELIC_GRADE).ToEnum<GradeNames>();
 
             _isInitialized = true;

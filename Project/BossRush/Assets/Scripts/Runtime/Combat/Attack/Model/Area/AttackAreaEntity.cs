@@ -107,13 +107,6 @@ namespace TeamSuneat
 
         #endregion 이벤트 (Event)
 
-        #region 피해 점감(Decrescence Damage)
-
-        [FoldoutGroup("#AttackTargetEntity-Decrescence Damage")]
-        public int AdditionalApplyCount;
-
-        #endregion 피해 점감(Decrescence Damage)
-
         private Collider2D _attackCollider; // 공격 충돌체
         private Collider2D _collidingCollider; // 충돌한 충돌체
         private Vital _colliderVital; // 충돌한 충돌체의 바이탈
@@ -229,7 +222,7 @@ namespace TeamSuneat
         {
             base.SetOwner(ownerCharacter);
 
-            _damageCaculator?.SetAttacker(ownerCharacter);
+            _damageCalculator?.SetAttacker(ownerCharacter);
         }
 
         public override void SetTarget(Vital targetVital)
@@ -238,7 +231,7 @@ namespace TeamSuneat
             {
                 base.SetTarget(targetVital);
 
-                _damageCaculator?.SetTargetVital(targetVital);
+                _damageCalculator?.SetTargetVital(targetVital);
             }
         }
 
@@ -408,17 +401,17 @@ namespace TeamSuneat
                 }
             }
 
-            _damageCaculator.SetTargetVital(targetVital);
-            _damageCaculator.Execute();
+            _damageCalculator.SetTargetVital(targetVital);
+            _damageCalculator.Execute();
 
             DamageResult damageResult;
             bool _isApplyAnyDamage = false;
 
-            if (_damageCaculator.DamageResults.IsValid())
+            if (_damageCalculator.DamageResults.IsValid())
             {
-                for (int i = 0; i < _damageCaculator.DamageResults.Count; i++)
+                for (int i = 0; i < _damageCalculator.DamageResults.Count; i++)
                 {
-                    damageResult = _damageCaculator.DamageResults[i];
+                    damageResult = _damageCalculator.DamageResults[i];
                     if (damageResult.DamageType.IsHeal())
                     {
                         _colliderVital.Heal(damageResult.DamageValueToInt);
