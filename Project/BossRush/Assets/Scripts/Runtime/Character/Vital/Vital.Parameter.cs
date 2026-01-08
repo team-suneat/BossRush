@@ -2,70 +2,7 @@
 {
     public partial class Vital : Entity
     {
-        public int CurrentLife
-        {
-            get => Life != null ? Life.Current : 0;
-            set
-            {
-                if (Life != null)
-                {
-                    Life.Current = value;
-                }
-            }
-        }
-
-        public float LifeRate => Life != null ? Life.Rate : 0f;
-
-        public int MaxLife
-        {
-            get => Life != null ? Life.Max : 0;
-            set
-            {
-                if (Life != null)
-                {
-                    Life.Max = value;
-                }
-            }
-        }
-
-        public int CurrentShield
-        {
-            get => Barrier != null ? Barrier.Current : 0;
-            set
-            {
-                if (Barrier != null)
-                {
-                    Barrier.Current = value;
-                }
-            }
-        }
-
-        public float ShieldRate
-        {
-            get
-            {
-                if (Barrier != null)
-                {
-                    return CurrentShield.SafeDivide(MaxShield);
-                }
-
-                return 0f;
-            }
-        }
-
-        public int MaxShield
-        {
-            get => Barrier != null ? Barrier.Max : 0;
-            set
-            {
-                if (Barrier != null)
-                {
-                    Barrier.Max = value;
-                }
-            }
-        }
-
-        public bool IsAlive => CurrentLife > 0;
+        public bool IsAlive => GetCurrent(VitalResourceTypes.Life) > 0;
 
         public bool IsInvulnerable
         {
@@ -79,13 +16,7 @@
             }
         }
 
-        public int CurrentPulse => Pulse != null ? Pulse.Current : 0;
-
-        public int MaxPulse => Pulse != null ? Pulse.Max : 0;
-
-        public float PulseRate => Pulse != null ? Pulse.Rate : 0f;
-
-        public float PulseInSlots => Pulse != null ? Pulse.GaugeInSlots : 0f;
+        //
 
         public bool CanParry => Pulse != null && Pulse.CanParry;
     }

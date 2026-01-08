@@ -8,8 +8,11 @@ namespace TeamSuneat.Data
         public int BaseAttack = 1; // 기본 공격력 (1)
         public int BaseLife = 10; // 기본 체력 (10)
         public float BaseAttackSpeed = 1.0f; // 기본 공격 속도 (100%)
-        public int BaseMana = 100; // 기본 마나 (100)
-        public int BasePulse = 6; // 기본 펄스 (6 단위 = 3칸)
+        public int BaseMana = 3; // 기본 마나 (3)
+        public int BasePulse = 3; // 기본 펄스 (3)
+
+        [Range(0, 1)]
+        public float BasePulseRegen = 0f; // 기본 펄스 재생 비율 (0~1)
 
         public override void Rename()
         {

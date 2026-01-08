@@ -48,9 +48,6 @@ namespace TeamSuneat
 
                 _ = Animator.UpdateAnimatorFloat(_randomAnimationParameter, _animatorRandomNumber, AnimatorParameters);
             }
-
-            // 물리 값 기반 애니메이터 파라미터 업데이트
-            UpdatePhysicsAnimatorParameters();
         }
 
         protected virtual void UpdatePhysicsAnimatorParameters()

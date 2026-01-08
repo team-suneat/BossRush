@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 2228681236927686557}
   - component: {fileID: 1261468136500403319}
   - component: {fileID: 6999207439183893402}
+  - component: {fileID: 5604107217715071914}
   - component: {fileID: 4420934102763570396}
+  - component: {fileID: 3768585195882074426}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -71,6 +73,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IgnoreFlipOnAttacking: 0
+--- !u!114 &5604107217715071914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985439403793911923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76a38e06fc8505d4685466d6ec9dd2b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4420934102763570396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,6 +95,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c961e0c1e8032e4b93795c10990a165, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3768585195882074426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985439403793911923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe019a2884aba1d4e8af3bdc6801db19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1026507667165685364
@@ -94,6 +120,7 @@ GameObject:
   - component: {fileID: 3230158228492227075}
   - component: {fileID: 596757575169875745}
   - component: {fileID: 4756019030030058178}
+  - component: {fileID: 364696377857693668}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -183,6 +210,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1366419bb7e9ba4b9a62bf730363162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &364696377857693668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026507667165685364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8edf2d55ca588547881b7472e926510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrailName: 
+  m_CurrentTrailPreset: {fileID: 11400000, guid: 71fabda3750f93c429a4f09a2fe1c9dc, type: 2}
+  m_TrailParent: {fileID: 0}
+  m_SpriteToDuplicate: {fileID: 596757575169875745}
+  m_Layer: 0
+  m_ZMoveStep: 0.0001
+  m_ZMoveMax: 0.9999
+  m_HideTrailOnDisabled: 1
+  m_TrailActivationCondition: 0
+  m_TrailDeactivationCondition: 0
+  m_StartIfUnderVelocity: 0
+  m_VelocityStartIsLocalSpace: 0
+  m_VelocityNeededToStart: 0
+  m_StopIfOverVelocity: 0
+  m_VelocityStopIsLocalSpace: 0
+  m_VelocityNeededToStop: 0
+  m_TrailActivationDuration: 0
+  m_SortingLayerID: 1036289741
+  m_OrderInSortingLayer: -1
+  m_DisabledElementsInTrail: []
 --- !u!1 &1102197316061339645
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,7 +331,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22507350ff038554f8fe042b8a409e43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Owner: {fileID: 0}
 --- !u!1 &2536508252141425462
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,7 +545,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2798198713300856252}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08a2837008b67fd4c97b91b6840b5a32, type: 3}
+  m_Script: {fileID: 11500000, guid: a2900370b34b0864dad49d992cd1dcae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &6254201664719103865
@@ -712,7 +770,6 @@ MonoBehaviour:
   StatNameOfSizeString: 
   StatNameOfActiveDuration: 0
   StatNameOfActiveDurationString: 
-  AdditionalApplyCount: 0
   ChainLightning: {fileID: 0}
 --- !u!1 &5715563824093532856
 GameObject:
@@ -964,6 +1021,7 @@ MonoBehaviour:
   Current: 0
   Max: 0
   DamageTextPoint: {fileID: 0}
+  GaugeProgress: 0
 --- !u!114 &7645976091031182132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -999,12 +1057,4 @@ MonoBehaviour:
   Current: 0
   Max: 0
   DamageTextPoint: {fileID: 0}
-  ParryCostOnUse: 1
-  ParryRewardOnSuccess: 2
-  AttackHitGaugeGainPercent: 10
-  ParryWindowDuration: 0.2
-  EmptyLockDuration: 1
-  EmptyRegenDuration: 5
-  IsEmpty: 0
-  IsEmptyLocked: 0
-  IsRegenerating: 0
+  GaugeProgress: 0

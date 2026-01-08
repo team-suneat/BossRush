@@ -142,53 +142,6 @@ namespace TeamSuneat
 
         //────────────────────────────────────────────────────────────────────────────────────────────────
 
-        private void LogCostCalculation(int baseCost, int fixedCostAdjustment, float multiplier, int finalCost)
-        {
-            if (Log.LevelProgress)
-            {
-                LogProgress("자원 소모량을 계산합니다. {0}, 계산식: [{1}(자원 소모량) + {2}(고정 자원 소모량)] * {3}(자원 소모 배율) ",
-                    ValueStringEx.GetValueString(finalCost, baseCost),
-                    baseCost,
-                    ValueStringEx.GetValueString(fixedCostAdjustment, 0),
-                    ValueStringEx.GetPercentString(multiplier, 1));
-            }
-        }
-
-        private void LogEvasionAttack(HitmarkNames hitmarkName, HitmarkNames hitmarkNameOnHit)
-        {
-            if (Log.LevelProgress)
-            {
-                LogProgress("캐릭터({0})가 공격({1})을 회피하면 적중시 히트마크({2})도 함께 회피합니다.",
-                            Owner.Name.ToLogString(),
-                            hitmarkName.ToLogString(),
-                            hitmarkNameOnHit.ToLogString());
-            }
-        }
-
-        private void LogErrorVitalLayer()
-        {
-            if (Log.LevelError)
-            {
-                LogError("바이탈 레이어가 설정되지 않았습니다. {0}", this.GetHierarchyPath());
-            }
-        }
-
-        private void LogErrorUseShield()
-        {
-            if (Log.LevelError)
-            {
-                LogError("보호막을 소모하지 못합니다. 피해를 받지 못합니다.");
-            }
-        }
-
-        private void LogErrorUseShield(VitalConsumeTypes vitalConsumeType, int value)
-        {
-            if (Log.LevelError)
-            {
-                LogError("전투 자원({0})을 소모할 수 없습니다. Value:{1}", vitalConsumeType, value);
-            }
-        }
-
         private void LogErrorUseBattleResource(HitmarkAssetData hitmarkAssetData, int value)
         {
             if (Log.LevelError)
@@ -291,16 +244,6 @@ namespace TeamSuneat
             if (Log.LevelInfo)
             {
                 LogInfo("{0}, 생명력/마나 재생을 시작합니다.", Owner.Name.ToLogString());
-            }
-        }
-
-        private void LogInfoLifeRegeneration()
-        {
-            if (Log.LevelInfo)
-            {
-                LogInfo("{0}, 생명력 재생력을 설정합니다. 재생량: {1}",
-                    Owner.Name.ToLogString(),
-                    ValueStringEx.GetValueString(LifeRegeneratePoint, true));
             }
         }
     }

@@ -68,6 +68,8 @@ namespace TeamSuneat
             SetupAnimatorLayerWeight();
 
             IsBattleReady = true;
+
+            GlobalEvent.Send(GlobalEventType.PLAYER_CHARACTER_BATTLE_READY);
         }
 
         //
@@ -179,7 +181,11 @@ namespace TeamSuneat
             if (asset != null)
             {
                 ApplyBaseStats(asset);
-                LogInfo("캐릭터 스탯이 스크립터블 데이터에서 적용되었습니다. 캐릭터: {0}", Name);
+                LogInfo("플레이어 캐릭터 스탯이 스크립터블 데이터에서 적용되었습니다. 캐릭터: {0}", Name);
+            }
+            else
+            {
+                Log.Error("플레이어 캐릭터 스탯이 스크립터블 데이터에서 찾을 수 없습니다.");
             }
         }
 
@@ -191,6 +197,7 @@ namespace TeamSuneat
             Stat.AddWithSourceInfo(StatNames.AttackSpeed, asset.BaseAttackSpeed, this, NameString, "CharacterBase");
             Stat.AddWithSourceInfo(StatNames.Mana, asset.BaseMana, this, NameString, "CharacterBase");
             Stat.AddWithSourceInfo(StatNames.Pulse, asset.BasePulse, this, NameString, "CharacterBase");
+            Stat.AddWithSourceInfo(StatNames.PulseRegen, asset.BasePulseRegen, this, NameString, "CharacterBase");
         }
 
         //

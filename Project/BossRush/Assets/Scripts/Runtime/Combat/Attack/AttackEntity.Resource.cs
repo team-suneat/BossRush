@@ -77,19 +77,7 @@ namespace TeamSuneat
                 return false;
             }
 
-            int useResourceValue = 0;
-            if (AssetData.ResourceConsumeType.IsPercentMax())
-            {
-                float maxValue = Owner.MyVital.GetMax(AssetData.ResourceConsumeType);
-                if (maxValue > 0)
-                {
-                    useResourceValue = Mathf.RoundToInt(AssetData.UseResourceValue * maxValue);
-                }
-            }
-            else
-            {
-                useResourceValue = Mathf.RoundToInt(AssetData.UseResourceValue);
-            }
+            int useResourceValue = Mathf.RoundToInt(AssetData.UseResourceValue);
 
             if (useResourceValue > 0)
             {
@@ -117,28 +105,67 @@ namespace TeamSuneat
 
         protected bool TryRestoreVitalResource()
         {
-            int value = 0;
-            if (AssetData.ResourceConsumeType.IsPercentMax())
+            // Resource 타입일 때는 게이지 증가량(0~1)으로 처리
+            if (AssetData.ResourceConsumeType == VitalConsumeTypes.FixedResource)
             {
-                int maxValue = Owner.MyVital.GetMax(AssetData.ResourceConsumeType);
+                if (Owner.MyVital.Mana != null)
+                {
+                    float gainAmount = Mathf.Clamp01(AssetData.RestoreResourceValue);
+                    if (gainAmount > 0f)
+                    {
+                        LogInfo("공격독립체에서 마나 게이지를 증가시킵니다. {0}, {1:F2}", AssetData.ResourceConsumeType, gainAmount);
+                        Owner.MyVital.Mana.OnAttackSuccess(gainAmount);
+                        return true;
+                    }
+                }
+                return false;
+            }
 
-                if (maxValue > 0)
-                {
-                    value = Mathf.RoundToInt(AssetData.RestoreResourceValue * maxValue);
-                }
-            }
-            else if (AssetData.ResourceConsumeType.IsPercentCurrent())
+            // Pulse 타입일 때는 게이지 증가량(0~1)으로 처리
+            if (AssetData.ResourceConsumeType == VitalConsumeTypes.FixedPulse)
             {
-                int currentValue = Owner.MyVital.GetCurrent(AssetData.ResourceConsumeType);
-                if (currentValue > 0)
+                if (Owner.MyVital.Pulse != null)
                 {
-                    value = Mathf.RoundToInt(AssetData.RestoreResourceValue * currentValue);
+                    float gainAmount = Mathf.Clamp01(AssetData.RestoreResourceValue);
+                    if (gainAmount > 0f)
+                    {
+                        LogInfo("공격독립체에서 펄스 게이지를 증가시킵니다. {0}, {1:F2}", AssetData.ResourceConsumeType, gainAmount);
+                        Owner.MyVital.Pulse.OnAttackSuccess(gainAmount);
+                        return true;
+                    }
                 }
+                return false;
             }
-            else
+
+            // FixedResourceAndPulse 타입일 때는 마나와 펄스를 동시에 회복
+            if (AssetData.ResourceConsumeType == VitalConsumeTypes.FixedResourceAndPulse)
             {
-                value = (int)AssetData.RestoreResourceValue;
+                float gainAmount = Mathf.Clamp01(AssetData.RestoreResourceValue);
+                if (gainAmount > 0f)
+                {
+                    bool restored = false;
+                    
+                    if (Owner.MyVital.Mana != null)
+                    {
+                        LogInfo("공격독립체에서 마나 게이지를 증가시킵니다. {0}, {1:F2}", AssetData.ResourceConsumeType, gainAmount);
+                        Owner.MyVital.Mana.OnAttackSuccess(gainAmount);
+                        restored = true;
+                    }
+                    
+                    if (Owner.MyVital.Pulse != null)
+                    {
+                        LogInfo("공격독립체에서 펄스 게이지를 증가시킵니다. {0}, {1:F2}", AssetData.ResourceConsumeType, gainAmount);
+                        Owner.MyVital.Pulse.OnAttackSuccess(gainAmount);
+                        restored = true;
+                    }
+                    
+                    return restored;
+                }
+                return false;
             }
+
+            // Life나 Barrier는 기존 방식 유지
+            int value = (int)AssetData.RestoreResourceValue;
 
             if (value > 0)
             {

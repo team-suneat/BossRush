@@ -40,22 +40,12 @@ namespace TeamSuneat
             return stateInfo.IsName(_attackAnimationName);
         }
 
-        public bool PlayAttackAnimation(string animationName)
+        public void PlayAttackAnimation(string animationName)
         {
-            if (_animator.UpdateAnimatorTriggerIfExists(animationName))
-            {
-                AnimatorLog.LogInfo("공격 애니메이션을 재생합니다. {0}", animationName);
-
-                _attackAnimationName = animationName;
-
-                _isSequenceAttackAnimation = false;
-
-                return true;
-            }
-
-            AnimatorLog.LogWarning("공격 애니메이션 재생에 실패했습니다. {0}", animationName);
-
-            return false;
+            _animator.Play(animationName, 0);
+            AnimatorLog.LogInfo("공격 애니메이션을 재생합니다. {0}", animationName);
+            _attackAnimationName = animationName;
+            _isSequenceAttackAnimation = false;
         }
 
         public bool PlaySequenceAttackAnimation(string animationName)

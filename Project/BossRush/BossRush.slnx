@@ -3,8 +3,8 @@
   <Project Path="NodeCanvas.csproj" />
   <Project Path="Assembly-CSharp-firstpass.csproj" />
   <Project Path="SpriteTrail.csproj" />
-  <Project Path="LeanCommon.csproj" />
   <Project Path="ParadoxNotion.csproj" />
+  <Project Path="LeanCommon.csproj" />
   <Project Path="AllIn1SpriteShaderAssembly.csproj" />
   <Project Path="BossRush.Editor.csproj" />
   <Project Path="Assembly-CSharp-Editor-firstpass.csproj" />

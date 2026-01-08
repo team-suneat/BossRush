@@ -5,7 +5,7 @@ namespace TeamSuneat
 {
     public partial class Vital : Entity
     {
-        void Awake()
+        private void Awake()
         {
             Owner = this.FindFirstParentComponent<Character>();
             Collider = GetComponent<BoxCollider2D>();
@@ -53,28 +53,6 @@ namespace TeamSuneat
             }
         }
 
-        public void OnLevelUp(StatSystem statSystem, int previousLife)
-        {
-            if (Life != null)
-            {
-                Life.RefreshMaxValue();
-
-                if (previousLife > CurrentLife)
-                {
-                    // 레벨 업을 통해 능력치가 재조정됨에 따라 현재 생명력이 더 낮아졌다면, 되돌립니다.
-                    CurrentLife = previousLife;
-                }
-            }
-        }
-
-        public void OnLevelDown()
-        {
-            if (Life != null)
-            {
-                Life.RefreshMaxValue();
-            }
-        }
-
         public bool CheckDamageImmunity(DamageResult damageResult)
         {
             if (Life.CheckInvulnerable())
@@ -88,7 +66,7 @@ namespace TeamSuneat
 
         public bool TakeDamage(DamageResult damageResult)
         {
-            if (CurrentLife <= 0)
+            if (GetCurrent(VitalResourceTypes.Life) <= 0)
             {
                 LogWarning("캐릭터의 현재 체력이 0입니다. 피해를 받지 않습니다.");
                 return false;
@@ -200,15 +178,46 @@ namespace TeamSuneat
                     }
                     break;
 
-                case VitalConsumeTypes.MaxLifePercent:
+                case VitalConsumeTypes.FixedBarrier:
                     {
-                        Heal(Mathf.RoundToInt(MaxLife * value));
+                        Charge((int)value);
                     }
                     break;
 
-                case VitalConsumeTypes.CurrentLifePercent:
+                case VitalConsumeTypes.FixedResource:
                     {
-                        Heal(Mathf.RoundToInt(CurrentLife * value));
+                        // 게이지 증가량(0~1)으로 사용
+                        if (Mana != null)
+                        {
+                            float gainAmount = Mathf.Clamp01(value);
+                            Mana.OnAttackSuccess(gainAmount);
+                        }
+                    }
+                    break;
+
+                case VitalConsumeTypes.FixedPulse:
+                    {
+                        // 게이지 증가량(0~1)으로 사용
+                        if (Pulse != null)
+                        {
+                            float gainAmount = Mathf.Clamp01(value);
+                            Pulse.OnAttackSuccess(gainAmount);
+                        }
+                    }
+                    break;
+
+                case VitalConsumeTypes.FixedResourceAndPulse:
+                    {
+                        // 게이지 증가량(0~1)으로 사용
+                        float gainAmount = Mathf.Clamp01(value);
+                        if (Mana != null)
+                        {
+                            Mana.OnAttackSuccess(gainAmount);
+                        }
+                        if (Pulse != null)
+                        {
+                            Pulse.OnAttackSuccess(gainAmount);
+                        }
                     }
                     break;
 
@@ -225,10 +234,51 @@ namespace TeamSuneat
             switch (consumeType)
             {
                 case VitalConsumeTypes.FixedLife:
-                case VitalConsumeTypes.MaxLifePercent:
-                case VitalConsumeTypes.CurrentLifePercent:
                     {
                         Heal(value);
+                    }
+                    break;
+
+                case VitalConsumeTypes.FixedBarrier:
+                    {
+                        Charge(value);
+                    }
+                    break;
+
+                case VitalConsumeTypes.FixedResource:
+                    {
+                        // 게이지 증가량(0~1)으로 사용
+                        if (Mana != null)
+                        {
+                            float gainAmount = Mathf.Clamp01(value);
+                            Mana.OnAttackSuccess(gainAmount);
+                        }
+                    }
+                    break;
+
+                case VitalConsumeTypes.FixedPulse:
+                    {
+                        // 게이지 증가량(0~1)으로 사용
+                        if (Pulse != null)
+                        {
+                            float gainAmount = Mathf.Clamp01(value);
+                            Pulse.OnAttackSuccess(gainAmount);
+                        }
+                    }
+                    break;
+
+                case VitalConsumeTypes.FixedResourceAndPulse:
+                    {
+                        // 게이지 증가량(0~1)으로 사용
+                        float gainAmount = Mathf.Clamp01(value);
+                        if (Mana != null)
+                        {
+                            Mana.OnAttackSuccess(gainAmount);
+                        }
+                        if (Pulse != null)
+                        {
+                            Pulse.OnAttackSuccess(gainAmount);
+                        }
                     }
                     break;
 
@@ -245,8 +295,6 @@ namespace TeamSuneat
             switch (hitmarkAssetData.ResourceConsumeType)
             {
                 case VitalConsumeTypes.FixedLife:
-                case VitalConsumeTypes.MaxLifePercent:
-                case VitalConsumeTypes.CurrentLifePercent:
                     {
                         if (Life != null)
                         {
@@ -258,6 +306,95 @@ namespace TeamSuneat
                         }
                     }
                     break;
+
+                case VitalConsumeTypes.FixedBarrier:
+                    {
+                        if (Barrier != null)
+                        {
+                            if (value > 0)
+                            {
+                                Barrier.UseCurrentValue(value);
+                                return;
+                            }
+                        }
+                    }
+                    break;
+
+                case VitalConsumeTypes.FixedResource:
+                    {
+                        if (Mana != null)
+                        {
+                            if (value > 0)
+                            {
+                                // 온전한 마나를 value 개수만큼 사용
+                                for (int i = 0; i < value; i++)
+                                {
+                                    if (!Mana.TryUseFullMana())
+                                    {
+                                        LogErrorUseBattleResource(hitmarkAssetData, value);
+                                        return;
+                                    }
+                                }
+                                return;
+                            }
+                        }
+                    }
+                    break;
+
+                case VitalConsumeTypes.FixedPulse:
+                    {
+                        if (Pulse != null)
+                        {
+                            if (value > 0)
+                            {
+                                // 온전한 펄스를 value 개수만큼 사용
+                                for (int i = 0; i < value; i++)
+                                {
+                                    if (!Pulse.TryUseFullPulse())
+                                    {
+                                        LogErrorUseBattleResource(hitmarkAssetData, value);
+                                        return;
+                                    }
+                                }
+                                return;
+                            }
+                        }
+                    }
+                    break;
+
+                case VitalConsumeTypes.FixedResourceAndPulse:
+                    {
+                        // 마나와 펄스를 각각 value 개수만큼 사용
+                        if (Mana != null)
+                        {
+                            if (value > 0)
+                            {
+                                for (int i = 0; i < value; i++)
+                                {
+                                    if (!Mana.TryUseFullMana())
+                                    {
+                                        LogErrorUseBattleResource(hitmarkAssetData, value);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                        if (Pulse != null)
+                        {
+                            if (value > 0)
+                            {
+                                for (int i = 0; i < value; i++)
+                                {
+                                    if (!Pulse.TryUseFullPulse())
+                                    {
+                                        LogErrorUseBattleResource(hitmarkAssetData, value);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                        return;
+                    }
             }
 
             LogErrorUseBattleResource(hitmarkAssetData, value);
@@ -283,6 +420,27 @@ namespace TeamSuneat
                         return Life.Current;
                     }
                     break;
+
+                case VitalResourceTypes.Barrier:
+                    if (Barrier != null)
+                    {
+                        return Barrier.Current;
+                    }
+                    break;
+
+                case VitalResourceTypes.Mana:
+                    if (Mana != null)
+                    {
+                        return Mana.Current;
+                    }
+                    break;
+
+                case VitalResourceTypes.Pulse:
+                    if (Pulse != null)
+                    {
+                        return Pulse.Current;
+                    }
+                    break;
             }
 
             LogErrorFindCurrentResource(resourceType);
@@ -296,15 +454,67 @@ namespace TeamSuneat
                 case VitalConsumeTypes.None:
                     return 0;
 
-                case VitalConsumeTypes.CurrentLifePercent:
-                case VitalConsumeTypes.MaxLifePercent:
                 case VitalConsumeTypes.FixedLife:
-                    return CurrentLife;
+                    return Life != null ? Life.Current : 0;
+
+                case VitalConsumeTypes.FixedBarrier:
+                    return Barrier != null ? Barrier.Current : 0;
+
+                case VitalConsumeTypes.FixedResource:
+                    return Mana != null ? Mana.Current : 0;
+
+                case VitalConsumeTypes.FixedPulse:
+                    return Pulse != null ? Pulse.Current : 0;
+
+                case VitalConsumeTypes.FixedResourceAndPulse:
+                    // 마나와 펄스 중 작은 값을 반환 (둘 다 사용해야 하므로)
+                    int manaCurrent = Mana != null ? Mana.Current : int.MaxValue;
+                    int pulseCurrent = Pulse != null ? Pulse.Current : int.MaxValue;
+                    return Mathf.Min(manaCurrent, pulseCurrent);
             }
 
             LogErrorFindCurrentResource(consumeType);
 
             return 0;
+        }
+
+        public float GetMax(VitalResourceTypes resourceType)
+        {
+            switch (resourceType)
+            {
+                case VitalResourceTypes.None:
+                    return 0;
+
+                case VitalResourceTypes.Life:
+                    if (Life != null)
+                    {
+                        return Life.Max;
+                    }
+                    break;
+
+                case VitalResourceTypes.Barrier:
+                    if (Barrier != null)
+                    {
+                        return Barrier.Max;
+                    }
+                    break;
+
+                case VitalResourceTypes.Mana:
+                    if (Mana != null)
+                    {
+                        return Mana.Max;
+                    }
+                    break;
+
+                case VitalResourceTypes.Pulse:
+                    if (Pulse != null)
+                    {
+                        return Pulse.Max;
+                    }
+                    break;
+            }
+
+            return 0f;
         }
 
         public int GetMax(VitalConsumeTypes consumeType)
@@ -314,10 +524,23 @@ namespace TeamSuneat
                 case VitalConsumeTypes.None:
                     return 0;
 
-                case VitalConsumeTypes.CurrentLifePercent:
-                case VitalConsumeTypes.MaxLifePercent:
                 case VitalConsumeTypes.FixedLife:
-                    return MaxLife;
+                    return Life != null ? Life.Max : 0;
+
+                case VitalConsumeTypes.FixedBarrier:
+                    return Barrier != null ? Barrier.Max : 0;
+
+                case VitalConsumeTypes.FixedResource:
+                    return Mana != null ? Mana.Max : 0;
+
+                case VitalConsumeTypes.FixedPulse:
+                    return Pulse != null ? Pulse.Max : 0;
+
+                case VitalConsumeTypes.FixedResourceAndPulse:
+                    // 마나와 펄스 중 작은 값을 반환
+                    int manaMax = Mana != null ? Mana.Max : int.MaxValue;
+                    int pulseMax = Pulse != null ? Pulse.Max : int.MaxValue;
+                    return Mathf.Min(manaMax, pulseMax);
             }
 
             LogErrorFindMaxResource(consumeType);
@@ -336,6 +559,27 @@ namespace TeamSuneat
                     if (Life != null)
                     {
                         return Life.Rate;
+                    }
+                    break;
+
+                case VitalResourceTypes.Barrier:
+                    if (Barrier != null)
+                    {
+                        return Barrier.Rate;
+                    }
+                    break;
+
+                case VitalResourceTypes.Mana:
+                    if (Mana != null)
+                    {
+                        return Mana.Rate;
+                    }
+                    break;
+
+                case VitalResourceTypes.Pulse:
+                    if (Pulse != null)
+                    {
+                        return Pulse.Rate;
                     }
                     break;
             }

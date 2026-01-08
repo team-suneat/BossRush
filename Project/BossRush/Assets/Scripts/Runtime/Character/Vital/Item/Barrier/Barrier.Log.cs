@@ -6,7 +6,7 @@ namespace TeamSuneat
         /// <summary> 보호막 계산 데이터를 로깅합니다. </summary>
         private void LogShieldMaxValueRefreshed(BarrierCalculationData data)
         {
-            LogShieldMaxValueRefreshed(Current, Max, data.FixedValue, Vital.MaxLife, data.Multiplier);
+            LogShieldMaxValueRefreshed(Current, Max, data.FixedValue, Vital.GetMax(VitalResourceTypes.Life), data.Multiplier);
         }
 
         #region Log
@@ -27,7 +27,7 @@ namespace TeamSuneat
             }
         }
 
-        protected void LogShieldMaxValueRefreshed(int current, int max, float fixedValue, int maxLife, float valueRate)
+        protected void LogShieldMaxValueRefreshed(int current, int max, float fixedValue, float maxLife, float valueRate)
         {
             if (Log.LevelInfo)
             {

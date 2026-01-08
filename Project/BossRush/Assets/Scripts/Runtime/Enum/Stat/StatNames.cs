@@ -1,4 +1,4 @@
- namespace TeamSuneat
+namespace TeamSuneat
 {
     public enum StatNames
     {
@@ -8,9 +8,10 @@
         Attack,                  // 공격력
         Life,                    // 최대 체력
         AttackSpeed,             // 공격 속도(%)
-        Mana,                    // 마나        
-        Pulse,                   // 펄스 (패링 게이지, 0.5칸 = 1 단위)
-        Barrier,                  // 보호막
-        BarrierMulti,             // 보호막 배율
+        Mana,                    // 마나
+        Pulse,                   // 펄스
+        PulseRegen,              // 펄스 재생량
+        Barrier,                 // 보호막
+        BarrierMulti,            // 보호막 배율
     }
 }

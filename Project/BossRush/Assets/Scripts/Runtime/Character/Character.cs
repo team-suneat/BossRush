@@ -106,6 +106,7 @@ namespace TeamSuneat
 
             AssignAnimator();
             UpdateAnimators();
+            UpdatePhysicsAnimatorParameters();
             PlaySpawnAnimation();
 
             UnlockFlip();
@@ -184,10 +185,6 @@ namespace TeamSuneat
 
         public virtual void LogicUpdate()
         {
-            if (!Time.timeScale.IsZero())
-            {
-            }
-
             UpdateAnimators();
         }
 
@@ -199,6 +196,7 @@ namespace TeamSuneat
             }
 
             Physics?.PhysicsTick();
+            UpdatePhysicsAnimatorParameters();
         }
 
         #endregion Update
@@ -256,7 +254,7 @@ namespace TeamSuneat
             return false;
         }
 
-        public virtual void ExitCrwodControlToState()
+        public virtual void ExitCrowdControlToState()
         {
             if (StateMachine != null && StateMachine.CurrentState == CharacterState.Stunned)
             {

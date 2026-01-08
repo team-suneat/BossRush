@@ -11,7 +11,7 @@ namespace TeamSuneat
 
         // 콤보 관련 필드
         private int _currentComboIndex = 0;
-        private int _maxComboCount = 3;
+        private int _maxComboCount = 2;
         private bool _canQueueCombo = false;
         private bool _hasQueuedCombo = false;
         private bool _isAirAttack = false;

@@ -36,13 +36,7 @@ namespace TeamSuneat
 
         // Vital
 
-        public int CurrentLife => MyVital.CurrentLife;
-
-        public int MaxLife => MyVital.MaxLife;
-
-        public int CurrentShield => MyVital.CurrentShield;
-
-        public int MaxShield => MyVital.MaxShield;
+        public int CurrentLife => (int)MyVital.GetCurrent(VitalResourceTypes.Life);
 
         public bool IsAlive => MyVital != null && MyVital.IsAlive;
 

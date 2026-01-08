@@ -22,7 +22,7 @@ namespace TeamSuneat
                     continue;
                 }
 
-                if (candidate.CurrentLife == 0)
+                if (!candidate.IsAlive)
                 {
                     continue;
                 }

@@ -26,10 +26,8 @@ MonoBehaviour:
     ApplyToSelf: 0
     ApplyMultiplierToSelf: 0
     ExecutionConditionalTargetLifeRate: 0
-    MinDamageValue: 1
-    FixedDamage: 0
+    FixedDamage: 1
     FixedDamageByLevel: 0
-    UseWeaponDamage: 0
     LinkedDamageType: 0
     LinkedStateEffect: 0
     LinkedHitmarkMagnification: 0
@@ -39,23 +37,19 @@ MonoBehaviour:
     LinkedDamageTypeString: None
     LinkedStateEffectString: None
     NameOnHitString: 
-    UseWeaponDamageString: False
-    DiminishingType: 0
-    DiminishingRate: 0
-    ApplyDiminishingFromFirst: 0
+    DiminishingTypeString: None
     StopAttackAnimationOnResourceLack: 0
     UseResourceOnActivate: 0
     UseResourceOnApply: 0
-    UseResourceOnAttack: 0
-    UseResourceOnAttackSucceeded: 0
+    UseResourceOnAttack: 1
+    UseResourceOnAttackSucceeded: 1
     UseResourceOnAttackFailed: 0
     UseResourceOnInactive: 0
     UseResourceValue: 0
-    RestoreResourceValue: 0
-    ResourceConsumeType: 0
+    RestoreResourceValue: 0.1
+    ResourceConsumeType: 5
     ForceResourceConsume: 0
     IgnoreDeathByConsume: 0
     ConsumeDelayTime: 0
     AttackTargetTypeString: TargetOfOwner
-    DiminishingTypeString: None
-    ResourceConsumeTypeString: None
+    ResourceConsumeTypeString: FixedResourceAndPulse

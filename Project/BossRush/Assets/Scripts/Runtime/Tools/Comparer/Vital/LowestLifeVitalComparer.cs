@@ -6,11 +6,14 @@
         {
             if (a != null && b != null)
             {
-                if (a.CurrentLife < b.CurrentLife)
+                float lifeA = a.GetCurrent(VitalResourceTypes.Life);
+                float lifeB = b.GetCurrent(VitalResourceTypes.Life);
+
+                if (lifeA < lifeB)
                 {
                     return -1;
                 }
-                else if (a.CurrentLife > b.CurrentLife)
+                else if (lifeA > lifeB)
                 {
                     return 1;
                 }

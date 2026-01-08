@@ -8,7 +8,7 @@ namespace TeamSuneat
 {
     public partial class StatSystem : XBehaviour
     {
-        public Character Owner;
+        public Character Owner { get; set; }
 
         private readonly Dictionary<StatNames, CharacterStat> _stats = new();
 
@@ -20,21 +20,18 @@ namespace TeamSuneat
 
         //──────────────────────────────────────────────────────────────────────────────────────────────────────
 
-        /// <summary>
-        /// StatSystem 생성자
-        /// </summary>
         public StatSystem()
         {
             _eventHandler = new StatEventHandler();
             _logHandler = new StatLogHandler();
             _strategyHandler = new StatStrategyHandler(_eventHandler, _logHandler);
-
             _strategyHandler.InitializeStrategies(this);
         }
 
-        protected VProfile ProfileInfo => GameApp.GetSelectedProfile();
-
-        public CharacterStat[] AllStats => _stats.Values.ToArray();
+        private void Awake()
+        {
+            Owner = this.FindFirstParentComponent<Character>();
+        }
 
         //──────────────────────────────────────────────────────────────────────────────────────────────────────
 

@@ -16,4 +16,6 @@ MonoBehaviour:
   BaseAttack: 1
   BaseLife: 3
   BaseAttackSpeed: 1
-  BaseMana: 100
+  BaseMana: 3
+  BasePulse: 3
+  BasePulseRegen: 0.1

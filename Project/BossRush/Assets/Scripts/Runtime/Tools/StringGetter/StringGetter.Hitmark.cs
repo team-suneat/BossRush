@@ -221,26 +221,8 @@ namespace TeamSuneat
                         }
                         else if (fieldName.Contains("UseResourceValue") || fieldName.Contains("RestoreResourceValue"))
                         {
-                            switch (assetData.ResourceConsumeType)
-                            {
-                                case VitalConsumeTypes.MaxLifePercent:
-                                case VitalConsumeTypes.MaxBarrierPercent:
-
-                                case VitalConsumeTypes.CurrentLifePercent:
-                                case VitalConsumeTypes.CurrentBarrierPercent:
-                                    {
-                                        replacement = ValueStringEx.GetPercentString(fieldValue * multiplier);
-                                    }
-                                    break;
-
-                                case VitalConsumeTypes.FixedLife:
-                                case VitalConsumeTypes.FixedBarrier:
-                                default:
-                                    {
-                                        replacement = ValueStringEx.GetValueString(fieldValue * multiplier);
-                                    }
-                                    break;
-                            }
+                            // 퍼센트 타입이 삭제되어 더 이상 퍼센트 문자열 변환이 필요 없음
+                            replacement = ValueStringEx.GetValueString(fieldValue * multiplier);
 
                             if (useColor)
                             {

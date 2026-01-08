@@ -7,16 +7,12 @@ namespace TeamSuneat
     {
         private Coroutine _regenerateCoroutine;
 
-        protected int LifeRegeneratePoint { get; set; }
-
-        private const float DEFAULT_REGENERATE_INTERVAL_TIME = 60f;
+        public float PulseRegenerateRate { get; set; }
 
         public void StartRegenerate()
         {
             if (Owner != null)
             {
-                Clear();
-
                 StartRegenerateCoroutine();
             }
         }
@@ -49,33 +45,45 @@ namespace TeamSuneat
                     LogProgressFailedToRegenerateByNotAlive();
                     break;
                 }
-                if (LifeRegeneratePoint == 0)
+                if (PulseRegenerateRate <= 0f)
                 {
                     LogProgressFailedToRegenerateByZeroPoint();
                     break;
                 }
 
-                yield return new WaitForSeconds(DEFAULT_REGENERATE_INTERVAL_TIME);
+                yield return null;
 
-                Regenerate();
+                RegeneratePulse();
             }
 
             _regenerateCoroutine = null;
         }
 
-        private void Regenerate()
+        void RegeneratePulse()
         {
-            if (Life != null)
+            if (Pulse != null)
             {
-                if (LifeRegeneratePoint > 0)
+                if (PulseRegenerateRate > 0f)
                 {
-                    Life.Regenerate(LifeRegeneratePoint);
-                    Life.SpawnHealFloatyText(LifeRegeneratePoint);
+                    // 1초당 값에 Time.deltaTime을 곱하여 프레임당 값으로 변환
+                    // 펄스 재생: 게이지 진행도 증가 (0~1 범위)
+                    float frameGainAmount = PulseRegenerateRate * Time.deltaTime;
+                    float gainAmount = Mathf.Clamp01(frameGainAmount);
+                    if (gainAmount > 0f)
+                    {
+                        Pulse.OnAttackSuccess(gainAmount);
+                    }
                 }
-                else if (LifeRegeneratePoint < 0)
+                else if (PulseRegenerateRate < 0f)
                 {
-                    // 소모량을 양수로 넘깁니다.
-                    Life.Use(LifeRegeneratePoint * -1, Owner, true);
+                    // 1초당 값에 Time.deltaTime을 곱하여 프레임당 값으로 변환
+                    // 펄스 소모: 온전한 펄스 사용
+                    float frameConsumeRate = Mathf.Abs(PulseRegenerateRate * Time.deltaTime);
+                    int consumeCount = Mathf.CeilToInt(frameConsumeRate);
+                    for (int i = 0; i < consumeCount; i++)
+                    {
+                        Pulse.TryUseFullPulse();
+                    }
                 }
             }
         }
@@ -84,7 +92,7 @@ namespace TeamSuneat
         {
             Log.Info(LogTags.Vital, "{0}, 생명력/마나 재생력을 비활성화합니다.", Owner.Name.ToLogString());
 
-            LifeRegeneratePoint = 0;
+            PulseRegenerateRate = 0f;
         }
     }
 }

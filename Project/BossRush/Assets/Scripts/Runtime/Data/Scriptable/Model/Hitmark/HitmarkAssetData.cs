@@ -209,8 +209,18 @@ namespace TeamSuneat.Data
                 {
                     Log.Error("Hitmark 에셋 데이터의 ResourceConsumeTypeString 변수를 변환할 수 없습니다. {0} ({1}), {2}", Name, Name.ToLogString(), ResourceConsumeTypeString);
                 }
-
-                ValidateDamageData();
+                if (!EnumEx.ConvertTo(ref DamageType, DamageTypeString))
+                {
+                    Log.Error("HitmarkAssetData의 DamageType을 변환하지 못합니다. Name:{0}, {1}", Name, DamageTypeString);
+                }
+                if (!EnumEx.ConvertTo(ref LinkedDamageType, LinkedDamageTypeString))
+                {
+                    Log.Error("HitmarkAssetData의 LinkedDamageType을 변환하지 못합니다. Name:{0}, {1}", Name, LinkedDamageTypeString);
+                }
+                if (!EnumEx.ConvertTo(ref LinkedStateEffect, LinkedStateEffectString))
+                {
+                    Log.Error("HitmarkAssetData의 LinkedStateEffect을 변환하지 못합니다. Name:{0}, {1}", Name, LinkedStateEffectString);
+                }
             }
         }
 
@@ -231,6 +241,7 @@ namespace TeamSuneat.Data
             base.OnLoadData();
 
             DamageTypeLog();
+            ResourceConsumeTypeLog();
             EnumLog();
         }
 
@@ -282,25 +293,6 @@ namespace TeamSuneat.Data
 
         //
 
-        private void ValidateDamageData()
-        {
-            if (!EnumEx.ConvertTo(ref DamageType, DamageTypeString))
-            {
-                Log.Error("HitmarkAssetData의 DamageType을 변환하지 못합니다. Name:{0}, {1}", Name, DamageTypeString);
-            }
-            if (!EnumEx.ConvertTo(ref LinkedDamageType, LinkedDamageTypeString))
-            {
-                Log.Error("HitmarkAssetData의 LinkedDamageType을 변환하지 못합니다. Name:{0}, {1}", Name, LinkedDamageTypeString);
-            }
-            if (!EnumEx.ConvertTo(ref LinkedStateEffect, LinkedStateEffectString))
-            {
-                Log.Error("HitmarkAssetData의 LinkedStateEffect을 변환하지 못합니다. Name:{0}, {1}", Name, LinkedStateEffectString);
-            }
-
-            DamageTypeLog();
-            EnumLog();
-        }
-
         private void RefreshDamageString()
         {
             DamageTypeString = DamageType.ToString();
@@ -315,6 +307,28 @@ namespace TeamSuneat.Data
             {
                 Log.Warning("HitmarkAssetData의 DamageType이 올바르지 않을 수 있습니다. Name:{0}, {1}", Name.ToLogString(), DamageType);
             }
+#endif
+        }
+
+        private void ResourceConsumeTypeLog()
+        {
+#if UNITY_EDITOR
+            // 게이지 기반 자원 타입일 때 UseResourceValue와 RestoreResourceValue가 0~1 범위인지 검증
+            if (ResourceConsumeType == VitalConsumeTypes.FixedResource ||
+                ResourceConsumeType == VitalConsumeTypes.FixedPulse ||
+                ResourceConsumeType == VitalConsumeTypes.FixedResourceAndPulse)
+            {
+                if (UseResourceValue < 0f || UseResourceValue > 1f)
+                {
+                    Log.Error("HitmarkAssetData의 UseResourceValue가 0~1 범위를 벗어났습니다. Name:{0} ({1}), ResourceConsumeType:{2}, UseResourceValue:{3}", Name, Name.ToLogString(), ResourceConsumeType, UseResourceValue);
+                }
+
+                if (RestoreResourceValue < 0f || RestoreResourceValue > 1f)
+                {
+                    Log.Error("HitmarkAssetData의 RestoreResourceValue가 0~1 범위를 벗어났습니다. Name:{0} ({1}), ResourceConsumeType:{2}, RestoreResourceValue:{3}", Name, Name.ToLogString(), ResourceConsumeType, RestoreResourceValue);
+                }
+            }
+
 #endif
         }
 

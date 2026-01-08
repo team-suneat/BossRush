@@ -228,7 +228,7 @@ namespace TeamSuneat
             ApplyCount += 1;
         }
 
-        protected void OnAttack(bool isAttackSuccessed)
+        protected void OnAttack(bool isAttackSucceeded)
         {
             if (AssetData.IsValid())
             {
@@ -236,7 +236,7 @@ namespace TeamSuneat
                 {
                     StartUseAndRestoreResource();
                 }
-                else if (AssetData.UseResourceOnAttackFailed && !isAttackSuccessed)
+                else if (AssetData.UseResourceOnAttackFailed && !isAttackSucceeded)
                 {
                     StartUseAndRestoreResource();
                 }

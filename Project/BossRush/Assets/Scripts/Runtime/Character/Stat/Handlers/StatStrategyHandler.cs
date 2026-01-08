@@ -119,9 +119,12 @@ namespace TeamSuneat
         /// </summary>
         private void RegisterSystemStrategies()
         {
-            _strategies[StatNames.Life] = new LifeUpdateStrategy();
             _strategies[StatNames.Attack] = new AttackUpdateStrategy();
             _strategies[StatNames.AttackSpeed] = new AttackSpeedUpdateStrategy();
+            _strategies[StatNames.Life] = new LifeUpdateStrategy();
+            _strategies[StatNames.Mana] = new ManaUpdateStrategy();
+            _strategies[StatNames.Pulse] = new PulseUpdateStrategy();
+            _strategies[StatNames.PulseRegen] = new PulseRegenUpdateStrategy();
         }
 
         /// <summary>

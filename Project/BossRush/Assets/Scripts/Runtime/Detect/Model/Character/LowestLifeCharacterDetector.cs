@@ -21,7 +21,7 @@ namespace TeamSuneat
                     continue;
                 }
 
-                if (!candidate.MyVital.IsAlive)
+                if (!candidate.IsAlive)
                 {
                     continue;
                 }

@@ -362,6 +362,19 @@ namespace TeamSuneat.Data
                             count++;
                         }
                         break;
+
+                    case PlayerCharacterStatConfigAsset playerCharacterStat:
+                        if (_playerCharacterStatAsset == null)
+                        {
+                            _playerCharacterStatAsset = playerCharacterStat;
+                            count++;
+                        }
+                        else
+                        {
+                            Log.Warning(LogTags.ScriptableData, "플레이어 캐릭터 능력치 에셋이 중복으로 로드 되고 있습니다. 기존: {0}, 새로운: {1}",
+                                _playerCharacterStatAsset.name, playerCharacterStat.name);
+                        }
+                        break;
                 }
             }
 

@@ -170,10 +170,11 @@ namespace TeamSuneat
             {
                 if (damageAsset.DamageType == DamageTypes.Normal)
                 {
-                    if (TargetVital != null && TargetVital.MaxLife > 0f)
+                    float maxLife = TargetVital.GetMax(VitalResourceTypes.Life);
+                    if (TargetVital != null && maxLife > 0)
                     {
                         // 최대 체력의 1% 피해
-                        damageResult.DamageValue = TargetVital.MaxLife * 0.01f;
+                        damageResult.DamageValue = maxLife * 0.01f;
                         LogInfo("치트: 퍼센트 피해를 적용합니다. (최대 체력의 1%)");
                         return true;
                     }
@@ -218,7 +219,7 @@ namespace TeamSuneat
                 case LinkedDamageTypes.CurrentLifeOfAttacker:
                     if (Attacker?.MyVital != null)
                     {
-                        ReferenceValue = Attacker.MyVital.CurrentLife;
+                        ReferenceValue = Attacker.MyVital.GetCurrent(VitalResourceTypes.Life);
                         LogProgressReferenceValue("공격자의 현재 생명력", ReferenceValue);
                     }
                     break;
@@ -226,7 +227,7 @@ namespace TeamSuneat
                 case LinkedDamageTypes.MaxLifeOfAttacker:
                     if (Attacker?.MyVital != null)
                     {
-                        ReferenceValue = Attacker.MyVital.MaxLife;
+                        ReferenceValue = Attacker.MyVital.GetMax(VitalResourceTypes.Life);
                         LogProgressReferenceValue("공격자의 최대 생명력", ReferenceValue);
                     }
                     break;
@@ -234,7 +235,7 @@ namespace TeamSuneat
                 case LinkedDamageTypes.CurrentShieldOfAttacker:
                     if (Attacker?.MyVital != null)
                     {
-                        ReferenceValue = Attacker.MyVital.CurrentShield;
+                        ReferenceValue = Attacker.MyVital.GetCurrent(VitalResourceTypes.Barrier);
                         LogProgressReferenceValue("공격자의 현재 보호막", ReferenceValue);
                     }
                     break;
@@ -242,7 +243,7 @@ namespace TeamSuneat
                 case LinkedDamageTypes.MaxShieldOfAttacker:
                     if (Attacker?.MyVital != null)
                     {
-                        ReferenceValue = Attacker.MyVital.MaxShield;
+                        ReferenceValue = Attacker.MyVital.GetMax(VitalResourceTypes.Barrier);
                         LogProgressReferenceValue("공격자의 최대 보호막", ReferenceValue);
                     }
                     break;
@@ -250,7 +251,7 @@ namespace TeamSuneat
                 case LinkedDamageTypes.CurrentLifeOfTarget:
                     if (TargetVital != null)
                     {
-                        ReferenceValue = TargetVital.CurrentLife;
+                        ReferenceValue = TargetVital.GetCurrent(VitalResourceTypes.Life);
                         LogProgressReferenceValue("피격자의 현재 생명력", ReferenceValue);
                     }
                     break;
@@ -258,7 +259,7 @@ namespace TeamSuneat
                 case LinkedDamageTypes.MaxLifeOfTarget:
                     if (TargetVital != null)
                     {
-                        ReferenceValue = TargetVital.MaxLife;
+                        ReferenceValue = TargetVital.GetMax(VitalResourceTypes.Life);
                         LogProgressReferenceValue("피격자의 최대 생명력", ReferenceValue);
                     }
                     break;

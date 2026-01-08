@@ -36,8 +36,8 @@ namespace TeamSuneat
                 try
                 {
                     _fileIndex = 0;
-                    _logPathBase = string.Format("{0}/{1}_{2}", Application.persistentDataPath, category, System.Diagnostics.Process.GetCurrentProcess().Id); 
-                    
+                    _logPathBase = string.Format("{0}/{1}_{2}", Application.persistentDataPath, category, System.Diagnostics.Process.GetCurrentProcess().Id);
+
                     string logPath = GetIndexedLogPath();
                     Log("FileLog", "File Path:" + logPath, color: Color.green);
                     file = new StreamWriter(logPath, append: false, encoding: new UTF8Encoding(false))

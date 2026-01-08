@@ -105,7 +105,6 @@ GameObject:
   - component: {fileID: 1368404571406023396}
   - component: {fileID: 7360293031695360724}
   - component: {fileID: 8258088628487119223}
-  - component: {fileID: 778684329090051602}
   m_Layer: 11
   m_Name: Scarecrow
   m_TagString: Character
@@ -276,22 +275,6 @@ MonoBehaviour:
   _skinWidth: 0.03
   _horizontalRayCount: 4
   _verticalRayCount: 4
---- !u!114 &778684329090051602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2547355166613048083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2e090a6e375c0d44b8bf674fa5057ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _knockbackForce: 5
-  _knockbackDuration: 0.3
-  _bounceMultiplier: 0.5
-  _verticalRatio: 0.3
 --- !u!1 &5173444209251453515
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,7 +401,6 @@ MonoBehaviour:
   StatNameOfSizeString: 
   StatNameOfActiveDuration: 0
   StatNameOfActiveDurationString: 
-  AdditionalApplyCount: 0
   ChainLightning: {fileID: 0}
 --- !u!1 &5193284457507943605
 GameObject:
@@ -553,6 +535,7 @@ MonoBehaviour:
   Life: {fileID: 1379345214086189731}
   Barrier: {fileID: 0}
   Mana: {fileID: 0}
+  Pulse: {fileID: 0}
   DieEvent:
     m_PersistentCalls:
       m_Calls: []
