@@ -345,7 +345,7 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 0.9997305
+    width: 0.99989414
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -852,7 +852,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &1594637165
 ParticleSystemRenderer:
   serializedVersion: 6

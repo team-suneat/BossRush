@@ -58,6 +58,7 @@ namespace TeamSuneat
             AttackOnHitDamageableFeedback = this.FindComponent<GameFeedbacks>("#Feedbacks/OnHitDamageable");
             AttackOnHitNonDamageableFeedback = this.FindComponent<GameFeedbacks>("#Feedbacks/OnHitNonDamageable");
             AttackOnKillFeedback = this.FindComponent<GameFeedbacks>("#Feedbacks/OnKill");
+            AttackOnParryFeedback = this.FindComponent<GameFeedbacks>("#Feedbacks/OnParry");
         }
 
         protected void InitializeFeedbacks()
