@@ -1,6 +1,5 @@
 ﻿using Sirenix.OdinInspector;
 using System.Linq;
-using TeamSuneat.Data;
 using UnityEngine;
 
 namespace TeamSuneat
@@ -212,6 +211,10 @@ namespace TeamSuneat
             {
                 OnAnimatorSpawnStateEnter();
             }
+            else if (CheckStateNames(stateInfo, "Dash"))
+            {
+                OnAnimatorDashStateEnter();
+            }
             else if (CheckStateNames(stateInfo, "Damage", "DamageGround"))
             {
                 OnAnimatorDamageStateEnter();
@@ -241,6 +244,10 @@ namespace TeamSuneat
             if (CheckStateName(stateInfo, "Spawn"))
             {
                 OnAnimatorSpawnStateExit();
+            }
+            else if (CheckStateNames(stateInfo, "Dash"))
+            {
+                OnAnimatorDashStateExit();
             }
             else if (CheckStateNames(stateInfo, "Damage", "DamageGround"))
             {
@@ -392,11 +399,15 @@ namespace TeamSuneat
         {
             AnimatorLog.LogInfo("대시 상태의 애니메이션에 진입했습니다.");
 
+            IsDashing = true;
+
             LockMovement();
         }
 
         protected void OnAnimatorDashStateExit()
         {
+            IsDashing = false;
+
             UnlockMovement();
         }
 

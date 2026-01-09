@@ -28,9 +28,17 @@ namespace TeamSuneat
             _physics = GetComponent<CharacterPhysicsCore>();
         }
 
-        public void RequestDash(Vector2 direction)
+        // 방향 없이 대시 요청 (캐릭터가 바라보는 방향으로 대시)
+        public void RequestDash()
+        {
+            Vector2 direction = new Vector2(_physics != null ? _physics.FacingDirection : 1f, 0f);
+            RequestDash(direction);
+        }
+
+        private void RequestDash(Vector2 direction)
         {
             if (!CanDash) return;
+            if (_physics == null) return;
             if (_physics.IsKnockback) return;
             if (!_airDashEnabled && !_physics.IsGrounded) return;
             ExecuteDash(direction);
@@ -38,8 +46,6 @@ namespace TeamSuneat
 
         private void ExecuteDash(Vector2 direction)
         {
-            if (_physics == null) return;
-
             if (direction.magnitude < 0.01f)
             {
                 direction = new Vector2(_physics.FacingDirection, 0f);
@@ -49,7 +55,7 @@ namespace TeamSuneat
                 direction.Normalize();
             }
 
-            float dashSpeed = _dashDistance / _dashDuration;
+            float dashSpeed = _dashDistance.SafeDivide(_dashDuration);
             _dashDirection = direction;
 
             Vector2 dashVelocity = new Vector2(_dashDirection.x * dashSpeed, DASH_VELOCITY_Y);
@@ -90,4 +96,3 @@ namespace TeamSuneat
         }
     }
 }
-

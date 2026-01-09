@@ -58,8 +58,7 @@ namespace TeamSuneat
             // 대시 입력 감지
             if (_input.IsDashPressed)
             {
-                Vector2 dashDirection = CalculateDashDirection();
-                RequestDash(dashDirection);
+                RequestDash();
             }
 
             // 공격 입력 감지
@@ -149,33 +148,6 @@ namespace TeamSuneat
                     attack.DisableFlip();
                 }
             }
-        }
-
-        private Vector2 CalculateDashDirection()
-        {
-            if (_input == null) return Vector2.right;
-
-            // 대시 방향 계산
-            if (Mathf.Abs(_input.HorizontalInput) > 0.01f)
-            {
-                return _input.HorizontalInput > 0 ? Vector2.right : Vector2.left;
-            }
-
-            // 입력이 없는 경우: CharacterModel의 스케일 x 값 기준
-            if (_character != null && _character.CharacterModel != null)
-            {
-                Transform modelTransform = _character.CharacterModel.transform;
-                return modelTransform.localScale.x > 0 ? Vector2.right : Vector2.left;
-            }
-
-            // 기본값: 오른쪽
-            return Vector2.right;
-        }
-
-        protected override void ExecuteDash(Vector2 direction)
-        {
-            // 실제 물리 시스템에 대시 요청
-            _physics?.RequestDash(direction);
         }
     }
 }

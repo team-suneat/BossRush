@@ -39,24 +39,25 @@ namespace TeamSuneat
             }
 
             // 대시가 끝나면 Idle/Walk/Falling로 전환 (물리 변수 기반)
-            if (!_physics.IsDashing)
+            if (_animator.IsDashing || _physics.IsDashing)
             {
-                if (_physics.IsGrounded)
+                return;
+            }
+
+            if (_physics.IsGrounded)
+            {
+                if (Mathf.Abs(_input.HorizontalInput) > 0.01f)
                 {
-                    if (Mathf.Abs(_input.HorizontalInput) > 0.01f)
-                    {
-                        _stateMachine.TransitionToState(CharacterState.Walk);
-                    }
-                    else
-                    {
-                        _stateMachine.TransitionToState(CharacterState.Idle);
-                    }
+                    _stateMachine.TransitionToState(CharacterState.Walk);
                 }
                 else
                 {
-                    _stateMachine.TransitionToState(CharacterState.Falling);
+                    _stateMachine.TransitionToState(CharacterState.Idle);
                 }
-                return;
+            }
+            else
+            {
+                _stateMachine.TransitionToState(CharacterState.Falling);
             }
         }
 

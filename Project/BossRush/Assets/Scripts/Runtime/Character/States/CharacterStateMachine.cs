@@ -187,8 +187,7 @@ namespace TeamSuneat
                 if (CurrentState != CharacterState.Dash)
                 {
                     ChangeState(CharacterState.Dash);
-                    // Dash 상태로 전환 후 실제 대시 실행은 하위 클래스에서 처리
-                    ExecuteDash(direction);
+                    // 실제 대시 실행은 애니메이션 이벤트에서 처리
                 }
                 else
                 {
@@ -198,10 +197,11 @@ namespace TeamSuneat
             }
         }
 
-        protected virtual void ExecuteDash(Vector2 direction)
+        // 방향 없이 대시 요청 (캐릭터가 바라보는 방향으로 대시)
+        public virtual void RequestDash()
         {
-            // 기본 구현은 비어있음
-            // 하위 클래스에서 오버라이드하여 실제 물리 시스템에 대시 요청
+            Vector2 direction = new Vector2(_character != null && _character.Physics != null ? _character.Physics.FacingDirection : 1f, 0f);
+            RequestDash(direction);
         }
 
         private void OnDrawGizmos()

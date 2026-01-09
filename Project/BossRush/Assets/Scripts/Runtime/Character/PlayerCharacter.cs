@@ -1,4 +1,5 @@
-﻿using TeamSuneat.Data;
+﻿using TeamSuneat.CameraSystem.Core;
+using TeamSuneat.Data;
 using UnityEngine;
 
 namespace TeamSuneat
@@ -66,10 +67,11 @@ namespace TeamSuneat
 
             CharacterManager.Instance.RegisterPlayer(this);
             SetupAnimatorLayerWeight();
-
             IsBattleReady = true;
 
             GlobalEvent.Send(GlobalEventType.PLAYER_CHARACTER_BATTLE_READY);
+
+            CameraManager.Instance.SetFollowTarget(transform);
         }
 
         //

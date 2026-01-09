@@ -99,11 +99,6 @@ namespace TeamSuneat
             _jump?.ReleaseJump();
         }
 
-        public void RequestDash(Vector2 direction)
-        {
-            _dash?.RequestDash(direction);
-        }
-
         public void RequestDownJump()
         {
             _downJump?.RequestDownJump();
@@ -122,6 +117,11 @@ namespace TeamSuneat
         public void ResetJumpCounterOnLanding()
         {
             _jump?.ResetJumpCounterOnLanding();
+        }
+
+        public void RequestDash()
+        {
+            _dash?.RequestDash();
         }
 
         public void ApplyKnockback(Vector2 direction)
@@ -145,4 +145,3 @@ namespace TeamSuneat
         #endregion 통합 업데이트
     }
 }
-
