@@ -21,7 +21,7 @@ namespace TeamSuneat.CameraSystem.Implementations
         [SuffixLabel("자동 설정 무시")]
         public bool IgnoreSetting;
 
-        private Coroutine _checkOusideEnemiesCoroutine;
+        private Coroutine _checkOutsideEnemiesCoroutine;
 
        
         private void Awake()
@@ -67,9 +67,9 @@ namespace TeamSuneat.CameraSystem.Implementations
             base.OnDisabled();
 
             // 스테이지가 비활성화될 때 자동으로 중단
-            if (_checkOusideEnemiesCoroutine != null)
+            if (_checkOutsideEnemiesCoroutine != null)
             {
-                StopXCoroutine(ref _checkOusideEnemiesCoroutine);
+                StopXCoroutine(ref _checkOutsideEnemiesCoroutine);
                 Log.Info(LogTags.Camera, "스테이지 비활성화: 영역 밖 적 제거 기능 중단");
             }
         }

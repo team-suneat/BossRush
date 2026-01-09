@@ -3,10 +3,6 @@ using UnityEngine;
 
 namespace TeamSuneat.CameraSystem.Controllers
 {
-    /// <summary>
-    /// 카메라 렌더링을 제어하는 컨트롤러
-    /// Culling Mask, 렌더링 설정 등을 관리합니다.
-    /// </summary>
     public class CameraRenderController : XBehaviour
     {
         [Title("렌더링 설정")]
@@ -33,9 +29,6 @@ namespace TeamSuneat.CameraSystem.Controllers
             }
         }
 
-        /// <summary>
-        /// Culling Mask를 기본값으로 설정합니다.
-        /// </summary>
         public void SetCullingMaskToDefault()
         {
             if (_mainCamera == null)
@@ -47,9 +40,6 @@ namespace TeamSuneat.CameraSystem.Controllers
             _mainCamera.cullingMask = _defaultCullingMask;
         }
 
-        /// <summary>
-        /// Culling Mask를 모든 레이어로 설정합니다.
-        /// </summary>
         public void SetCullingMaskToEverything()
         {
             if (_mainCamera == null)
@@ -61,9 +51,6 @@ namespace TeamSuneat.CameraSystem.Controllers
             _mainCamera.cullingMask = int.MaxValue;
         }
 
-        /// <summary>
-        /// Culling Mask를 원래 값으로 복원합니다.
-        /// </summary>
         public void ResetCullingMask()
         {
             if (_mainCamera == null)

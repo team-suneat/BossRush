@@ -1,3 +1,4 @@
+using TeamSuneat.CameraSystem.VirtualCameras;
 using TeamSuneat.Data;
 using Sirenix.OdinInspector;
 using Unity.Cinemachine;
@@ -5,10 +6,6 @@ using UnityEngine;
 
 namespace TeamSuneat.CameraSystem.Controllers
 {
-    /// <summary>
-    /// 카메라 설정을 관리하는 컨트롤러
-    /// 카메라 에셋, 블렌드 시간 등의 설정을 관리합니다.
-    /// </summary>
     public class CameraSettingsController : XBehaviour
     {
         [Title("카메라 설정")]
@@ -19,7 +16,6 @@ namespace TeamSuneat.CameraSystem.Controllers
         [SerializeField] private CinemachineBrain _brainCamera;
 
         [SerializeField] private VirtualCamera _virtualPlayerCamera;
-        [SerializeField] private VirtualCamera _virtualEventCamera;
 
         public override void AutoGetComponents()
         {
@@ -28,12 +24,8 @@ namespace TeamSuneat.CameraSystem.Controllers
             // 직접 컴포넌트 참조
             _brainCamera = GetComponentInChildren<CinemachineBrain>();
             _virtualPlayerCamera = this.FindComponent<VirtualCamera>("#Cinemachine/Cinemachine Virtual PlayerCharacter Camera");
-            _virtualEventCamera = this.FindComponent<VirtualCamera>("#Cinemachine/Cinemachine Virtual Event Camera");
         }
 
-        /// <summary>
-        /// 카메라 에셋을 설정합니다.
-        /// </summary>
         public void Setup(CameraAsset cameraAsset)
         {
             if (cameraAsset == null)
@@ -59,9 +51,6 @@ namespace TeamSuneat.CameraSystem.Controllers
             Log.Info(LogTags.Camera, "(Setting) 카메라 에셋이 설정되었습니다: {0}", cameraAsset.name);
         }
 
-        /// <summary>
-        /// 기본 블렌드 시간을 반환합니다.
-        /// </summary>
         public float GetDefaultBlendTime()
         {
             if (_brainCamera != null)
@@ -72,9 +61,6 @@ namespace TeamSuneat.CameraSystem.Controllers
             return 0f;
         }
 
-        /// <summary>
-        /// 카메라 설정을 기본값으로 복원합니다.
-        /// </summary>
         public void ResetToDefaultSettings()
         {
             if (_currentAsset != null)
@@ -89,9 +75,6 @@ namespace TeamSuneat.CameraSystem.Controllers
             }
         }
 
-        /// <summary>
-        /// 카메라 설정을 검증합니다.
-        /// </summary>
         public bool ValidateSettings()
         {
             bool isValid = true;
@@ -105,12 +88,6 @@ namespace TeamSuneat.CameraSystem.Controllers
             if (_virtualPlayerCamera == null)
             {
                 Log.Warning(LogTags.Camera, "(Setting) VirtualPlayerCamera가 null입니다.");
-                isValid = false;
-            }
-
-            if (_virtualEventCamera == null)
-            {
-                Log.Warning(LogTags.Camera, "(Setting) VirtualEventCamera가 null입니다.");
                 isValid = false;
             }
 

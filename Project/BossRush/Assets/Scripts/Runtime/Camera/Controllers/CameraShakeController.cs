@@ -7,10 +7,6 @@ using UnityEngine;
 
 namespace TeamSuneat.CameraSystem.Controllers
 {
-    /// <summary>
-    /// 카메라 쉐이크를 조율하는 컨트롤러
-    /// 쉐이크 실행, 설정 조정, 상태 관리를 담당합니다.
-    /// </summary>
     public class CameraShakeController : XBehaviour
     {
         [Title("쉐이크 설정")]
@@ -35,9 +31,6 @@ namespace TeamSuneat.CameraSystem.Controllers
             _impulseListener = GetComponentInChildren<CinemachineImpulseListener>();
         }
 
-        /// <summary>
-        /// 쉐이크를 실행합니다.
-        /// </summary>
         public void Shake(CinemachineImpulseSource impulseSource)
         {
             if (!CanShake())
@@ -58,9 +51,6 @@ namespace TeamSuneat.CameraSystem.Controllers
             Log.Info(LogTags.Camera, "(Shake) 쉐이크가 실행되었습니다. 강도: {0}", _globalShakeForce);
         }
 
-        /// <summary>
-        /// 프리셋을 사용하여 쉐이크를 실행합니다.
-        /// </summary>
         public void Shake(CinemachineImpulseSource impulseSource, ImpulsePreset preset)
         {
             if (impulseSource == null || preset == null)
@@ -87,9 +77,6 @@ namespace TeamSuneat.CameraSystem.Controllers
             Log.Info(LogTags.Camera, "(Shake) 프리셋 쉐이크가 실행되었습니다. 강도: {0}", preset.ImpactForce);
         }
 
-        /// <summary>
-        /// 쉐이크를 중지합니다.
-        /// </summary>
         public void StopShake()
         {
             if (_impulseListener != null)
@@ -103,17 +90,11 @@ namespace TeamSuneat.CameraSystem.Controllers
             Log.Info(LogTags.Camera, "(Shake) 쉐이크가 중지되었습니다.");
         }
 
-        /// <summary>
-        /// 쉐이크를 실행할 수 있는지 확인합니다.
-        /// </summary>
         private bool CanShake()
         {
             return GameSetting.Instance.Play.CameraShake && !_isShaking;
         }
 
-        /// <summary>
-        /// 프리셋 설정을 적용합니다.
-        /// </summary>
         private void ApplyPresetSettings(CinemachineImpulseSource impulseSource, ImpulsePreset preset)
         {
             if (impulseSource.ImpulseDefinition != null)
@@ -136,9 +117,6 @@ namespace TeamSuneat.CameraSystem.Controllers
             }
         }
 
-        /// <summary>
-        /// 쉐이크 설정을 초기화합니다.
-        /// </summary>
         public void ResetShakeSettings()
         {
             _globalShakeForce = 1f;
@@ -147,9 +125,6 @@ namespace TeamSuneat.CameraSystem.Controllers
             Log.Info(LogTags.Camera, "(Shake) 쉐이크 설정이 초기화되었습니다.");
         }
 
-        /// <summary>
-        /// 실제 쉐이크를 실행합니다. (구현 클래스에 위임)
-        /// </summary>
         private void ExecuteShake(CinemachineImpulseSource impulseSource)
         {
             if (_cameraShake != null) // CameraShakeNames.Normal을 기본값으로 사용

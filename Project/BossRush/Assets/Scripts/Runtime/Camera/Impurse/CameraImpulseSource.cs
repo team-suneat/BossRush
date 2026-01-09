@@ -1,3 +1,4 @@
+using TeamSuneat.CameraSystem.Core;
 using TeamSuneat.Data;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -41,7 +42,7 @@ namespace TeamSuneat.CameraSystem.Impulse
 
         public void Shake()
         {
-            CameraManager.Instance.Shake(Source, Preset, ForceDuration);
+            CameraManager.Instance.Shake(Source, Preset);
         }
     }
 }
