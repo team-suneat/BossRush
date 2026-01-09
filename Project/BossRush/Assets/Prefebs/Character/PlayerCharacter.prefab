@@ -509,7 +509,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 1
   NameString: PlayerCharacter
-  FixedTargetCharacterCamp: 0
   OnBattleFeedbacks: {fileID: 0}
   OnLevelUpFeedbacks: {fileID: 0}
   CameraTarget: {fileID: 0}
@@ -521,7 +520,6 @@ MonoBehaviour:
   TargetMask:
     serializedVersion: 2
     m_Bits: 8192
-  _moveSpeed: 5
 --- !u!114 &7815488676213228679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,6 +571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2024cd26a44d1674b886c9bc444ed496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveSpeed: 7
 --- !u!114 &3986599934252673026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,8 +652,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2e090a6e375c0d44b8bf674fa5057ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _knockbackForce: 5
-  _knockbackDuration: 0.3
+  _knockbackForce: 10
+  _knockbackDuration: 0.1
   _bounceMultiplier: 0.5
   _verticalRatio: 0.3
 --- !u!1 &5608298625970809574

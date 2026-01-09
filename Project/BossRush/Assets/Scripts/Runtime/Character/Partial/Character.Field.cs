@@ -16,8 +16,7 @@ namespace TeamSuneat
         { Left, Right }
 
         [FoldoutGroup("#Character")] public CharacterNames Name;
-        [FoldoutGroup("#Character")] public string NameString;
-        [FoldoutGroup("#Character")] public bool FixedTargetCharacterCamp;
+        [FoldoutGroup("#Character")] public string NameString;        
 
         // ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
 

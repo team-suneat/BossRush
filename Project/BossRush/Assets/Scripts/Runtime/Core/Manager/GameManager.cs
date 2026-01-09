@@ -43,8 +43,9 @@ namespace TeamSuneat
 
         private void LateUpdate()
         {
+            CharacterManager.Instance.LateLogicUpdate();
             TSInputManager.Instance.ProcessButtonStates();
-            GameSetting.Instance.Video.RefreshResolutionRate();
+            GameSetting.Instance.Video.RefreshResolutionRate(); 
         }
 
         private void FixedUpdate()

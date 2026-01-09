@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22507350ff038554f8fe042b8a409e43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Owner: {fileID: 1372147516505837066}
 --- !u!1 &1626706125049526599
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,6 +104,9 @@ GameObject:
   - component: {fileID: 1368404571406023396}
   - component: {fileID: 7360293031695360724}
   - component: {fileID: 8258088628487119223}
+  - component: {fileID: 8444635825320176109}
+  - component: {fileID: 3376072309716983176}
+  - component: {fileID: 6947248560871979895}
   m_Layer: 11
   m_Name: Scarecrow
   m_TagString: Character
@@ -217,7 +219,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 2
   NameString: Scarecrow
-  FixedTargetCharacterCamp: 0
   OnBattleFeedbacks: {fileID: 0}
   OnLevelUpFeedbacks: {fileID: 0}
   CameraTarget: {fileID: 0}
@@ -228,7 +229,7 @@ MonoBehaviour:
   SendStateUpdateEvents: 1
   TargetMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
 --- !u!114 &1368404571406023396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,6 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2024cd26a44d1674b886c9bc444ed496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveSpeed: 5
 --- !u!114 &8258088628487119223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,6 +277,71 @@ MonoBehaviour:
   _skinWidth: 0.03
   _horizontalRayCount: 4
   _verticalRayCount: 4
+--- !u!114 &8444635825320176109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2547355166613048083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2e090a6e375c0d44b8bf674fa5057ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _knockbackForce: 10
+  _knockbackDuration: 0.1
+  _bounceMultiplier: 0.5
+  _verticalRatio: 0.3
+--- !u!114 &3376072309716983176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2547355166613048083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aad115aca74ce3c4891b3f6de0b4aae8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _serializedExposedParameters: []
+  _boundGraphSerialization: 
+  _boundGraphObjectReferences: []
+  _boundGraphSource:
+    _version: 0
+    _category: 
+    _comments: 
+    _translation: {x: 0, y: 0}
+    _zoomFactor: 1
+  _firstActivation: 1
+  _enableAction: 0
+  _disableAction: 0
+  _lockBoundGraphPrefabOverrides: 1
+  _preInitializeSubGraphs: 0
+  _updateMode: 0
+  _graph: {fileID: 11400000, guid: be2f3daa5958cc54fb36e46f466205b3, type: 2}
+  _blackboard: {fileID: 6947248560871979895}
+--- !u!114 &6947248560871979895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2547355166613048083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98a6db0b653f764eac834f85857a9dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _parentBlackboard: {fileID: 0}
+  _serializedBlackboard: '{"_variables":{"AttackHimark":{"_value":"ScarecrowAttack","_name":"AttackHimark","_id":"06897f03-d169-4457-a677-a30630765c6a","$type":"NodeCanvas.Framework.Variable`1[[System.String,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}}'
+  _objectReferences: []
+  _serializedVariables:
+  - _json: '{"_value":"ScarecrowAttack","_name":"AttackHimark","_id":"06897f03-d169-4457-a677-a30630765c6a","$type":"NodeCanvas.Framework.Variable`1[[System.String,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
+    _references: []
 --- !u!1 &5173444209251453515
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,8 +776,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2456943501835734346}
   - {fileID: 7354597894953501672}
+  - {fileID: 2456943501835734346}
   m_Father: {fileID: 3261457281909928430}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &5437015043003900828

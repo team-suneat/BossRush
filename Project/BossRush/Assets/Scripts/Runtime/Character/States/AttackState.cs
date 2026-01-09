@@ -6,7 +6,7 @@ namespace TeamSuneat
     {
         private CharacterStateMachine _stateMachine;
         private CharacterPhysics _physics;
-        private PlayerInput _input;
+        private readonly Character _character;
         private CharacterAnimator _animator;
 
         // 콤보 관련 필드
@@ -16,12 +16,12 @@ namespace TeamSuneat
         private bool _hasQueuedCombo = false;
         private bool _isAirAttack = false;
 
-        public AttackState(CharacterStateMachine stateMachine, CharacterPhysics physics, CharacterAnimator animator, PlayerInput input)
+        public AttackState(CharacterStateMachine stateMachine, CharacterPhysics physics, CharacterAnimator animator, Character character)
         {
             _stateMachine = stateMachine;
             _physics = physics;
             _animator = animator;
-            _input = input;
+            _character = character;
         }
 
         public void SetMaxComboCount(int maxComboCount)
@@ -92,13 +92,17 @@ namespace TeamSuneat
                 return;
             }
 
-            if (_input != null && _input.IsAttackPressed)
+            if (_character != null)
             {
-                if (_canQueueCombo)
+                var cmd = _character.Command;
+                if (cmd.IsAttackPressed)
                 {
-                    if (_currentComboIndex < _maxComboCount - 1)
+                    if (_canQueueCombo)
                     {
-                        _hasQueuedCombo = true;
+                        if (_currentComboIndex < _maxComboCount - 1)
+                        {
+                            _hasQueuedCombo = true;
+                        }
                     }
                 }
             }
@@ -106,7 +110,7 @@ namespace TeamSuneat
 
         public void OnFixedUpdate()
         {
-            if (_input == null || _physics == null || _animator == null)
+            if (_physics == null || _animator == null || _character == null)
             {
                 return;
             }
@@ -121,10 +125,11 @@ namespace TeamSuneat
 
             if (!_animator.IsAttacking)
             {
+                var cmd = _character.Command;
                 if (_physics.IsGrounded)
                 {
                     // 착지 시
-                    if (Mathf.Abs(_input.HorizontalInput) > 0.01f)
+                    if (Mathf.Abs(cmd.HorizontalInput) > 0.01f)
                     {
                         _stateMachine.TransitionToState(CharacterState.Walk);
                     }
@@ -166,11 +171,12 @@ namespace TeamSuneat
         private void PlayComboAnimation(int comboIndex)
         {
             // 콤보 전환 시 입력 방향에 맞게 캐릭터 반전 (flip 잠금 상태에서도 작동하도록 ForceFace 사용)
-            if (_input != null && _stateMachine != null && _stateMachine.Character != null)
+            if (_character != null && _stateMachine != null && _stateMachine.Character != null)
             {
-                if (Mathf.Abs(_input.HorizontalInput) > 0.01f)
+                var cmd = _character.Command;
+                if (Mathf.Abs(cmd.HorizontalInput) > 0.01f)
                 {
-                    Character.FacingDirections targetDirection = _input.HorizontalInput > 0
+                    Character.FacingDirections targetDirection = cmd.HorizontalInput > 0
                         ? Character.FacingDirections.Right
                         : Character.FacingDirections.Left;
 
@@ -185,11 +191,12 @@ namespace TeamSuneat
         private void PlayAirAttackAnimation()
         {
             // 공중 공격 시 입력 방향에 맞게 캐릭터 반전 (flip 잠금 상태에서도 작동하도록 ForceFace 사용)
-            if (_input != null && _stateMachine != null && _stateMachine.Character != null)
+            if (_character != null && _stateMachine != null && _stateMachine.Character != null)
             {
-                if (Mathf.Abs(_input.HorizontalInput) > 0.01f)
+                var cmd = _character.Command;
+                if (Mathf.Abs(cmd.HorizontalInput) > 0.01f)
                 {
-                    Character.FacingDirections targetDirection = _input.HorizontalInput > 0
+                    Character.FacingDirections targetDirection = cmd.HorizontalInput > 0
                         ? Character.FacingDirections.Right
                         : Character.FacingDirections.Left;
 

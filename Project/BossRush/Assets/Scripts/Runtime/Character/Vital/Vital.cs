@@ -400,11 +400,6 @@ namespace TeamSuneat
             LogErrorUseBattleResource(hitmarkAssetData, value);
         }
 
-        public virtual bool CheckConsumingPotion()
-        {
-            return true;
-        }
-
         #region Get Value
 
         public float GetCurrent(VitalResourceTypes resourceType)

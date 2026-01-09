@@ -13,25 +13,11 @@ namespace TeamSuneat
     {
         public CharacterState CurrentState { get; protected set; }
 
-        protected Dictionary<CharacterState, ICharacterState> _states;
+        protected Dictionary<CharacterState, ICharacterState> _states = new();
         protected Character _character;
 
         public Character Character => _character;
-
-        // 상태 우선순위 (높을수록 우선)
-        private static readonly Dictionary<CharacterState, int> StatePriority = new()
-        {
-            { CharacterState.Parry, 110 },
-            { CharacterState.Dead, 100 },
-            { CharacterState.Stunned, 80 },
-            { CharacterState.ControlledMovement, 40 },
-            { CharacterState.Dash, 30 },
-            { CharacterState.Attack, 30 },
-            { CharacterState.Jumping, 20 },
-            { CharacterState.Falling, 20 },
-            { CharacterState.Walk, 10 },
-            { CharacterState.Idle, 0 },
-        };
+        private static readonly Dictionary<CharacterState, int> StatePriority = new();
 
         protected virtual void Awake()
         {
@@ -79,7 +65,6 @@ namespace TeamSuneat
 
         public virtual void PhysisUpdate()
         {
-            // 현재 상태 FixedUpdate
             if (_states.TryGetValue(CurrentState, out ICharacterState currentState))
             {
                 currentState.OnFixedUpdate();

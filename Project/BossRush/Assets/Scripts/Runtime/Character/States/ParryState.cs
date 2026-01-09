@@ -6,15 +6,15 @@ namespace TeamSuneat
     {
         private CharacterStateMachine _stateMachine;
         private CharacterPhysics _physics;
-        private PlayerInput _input;
+        private readonly Character _character;
         private CharacterAnimator _animator;
 
-        public ParryState(CharacterStateMachine stateMachine, CharacterPhysics physics, CharacterAnimator animator, PlayerInput input)
+        public ParryState(CharacterStateMachine stateMachine, CharacterPhysics physics, CharacterAnimator animator, Character character)
         {
             _stateMachine = stateMachine;
             _physics = physics;
             _animator = animator;
-            _input = input;
+            _character = character;
         }
 
         public void OnEnter()
@@ -34,7 +34,7 @@ namespace TeamSuneat
 
         public void OnFixedUpdate()
         {
-            if (_input == null || _physics == null || _animator == null)
+            if (_physics == null || _animator == null || _character == null)
             {
                 return;
             }
@@ -42,10 +42,11 @@ namespace TeamSuneat
             // 애니메이션 종료 시 자동으로 Idle/Walk로 전환
             if (!_animator.IsParrying)
             {
+                var cmd = _character.Command;
                 if (_physics.IsGrounded)
                 {
                     // 착지 시
-                    if (Mathf.Abs(_input.HorizontalInput) > 0.01f)
+                    if (Mathf.Abs(cmd.HorizontalInput) > 0.01f)
                     {
                         _stateMachine.TransitionToState(CharacterState.Walk);
                     }

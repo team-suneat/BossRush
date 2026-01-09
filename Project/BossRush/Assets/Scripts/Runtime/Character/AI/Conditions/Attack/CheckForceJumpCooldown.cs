@@ -4,7 +4,7 @@ using ParadoxNotion.Design;
 
 namespace TeamSuneat
 {
-    [Category("@TeamSuneat/Attak")]
+    [Category("@TeamSuneat/Attack")]
     [Description("점프 재사용 대기시간인지 확인합니다.")]
     public class CheckForceJumpCooldown : ConditionTask<Character>
     {

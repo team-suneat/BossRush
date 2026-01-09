@@ -1,5 +1,4 @@
 ﻿using NodeCanvas.Framework;
-
 using ParadoxNotion.Design;
 
 namespace TeamSuneat
@@ -10,26 +9,43 @@ namespace TeamSuneat
     {
         protected override bool OnCheck()
         {
-            // 더 이상 사용되지 않음 - 항상 false 반환
-            return false;
+            // CharacterAnimator가 공격 중이 아닌지 확인
+            if (agent.CharacterAnimator != null)
+            {
+                if (agent.CharacterAnimator.IsAttacking)
+                {
+                    return false;
+                }
+            }
 
-            // if (agent.characterAnimator != null)
-            // {
-            //     if (false == agent.characterAnimator.TryAttack())
-            //     {
-            //         return false;
-            //     }
-            // }
-            //
-            // if (agent.attackSystem != null)
-            // {
-            //     if (false == agent.attackSystem.CheckAttackCooldown())
-            //     {
-            //         return agent.attackSystem.CheckAttackable();
-            //     }
-            // }
-            //
-            // return false;
+            // StateMachine이 공격 상태가 아닌지 확인
+            if (agent.StateMachine != null)
+            {
+                if (agent.StateMachine.CurrentState == CharacterState.Attack)
+                {
+                    return false;
+                }
+            }
+
+            // AttackSystem이 있는지 확인
+            if (agent.Attack == null)
+            {
+                return false;
+            }
+
+            // 조건 상태(Dead, Stunned 등)가 아닌지 확인
+            if (agent.StateMachine != null)
+            {
+                CharacterState currentState = agent.StateMachine.CurrentState;
+                if (currentState == CharacterState.Dead || 
+                    currentState == CharacterState.Stunned ||
+                    currentState == CharacterState.ControlledMovement)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

@@ -9,17 +9,14 @@ namespace TeamSuneat
     {
         protected override void OnExecute()
         {
-            // 더 이상 사용되지 않음 - 아무것도 하지 않음
-            EndAction();
-
-            // if (agent.commandSystem != null)
-            // {
-            //     agent.commandSystem.ResetCommand();
-            // }
-            //
-            // agent.SetDirectionalInput(0, 0);
-            //
-            // EndAction();
+            if (agent == null)
+            {
+                EndAction(false);
+                return;
+            }
+            agent.SetHorizontalInput(0f);
+            agent.SetVerticalInput(0f);
+            EndAction(true);
         }
     }
 }

@@ -6,13 +6,13 @@ namespace TeamSuneat
     {
         private CharacterStateMachine _stateMachine;
         private CharacterPhysics _physics;
-        private PlayerInput _input;
+        private readonly Character _character;
 
-        public IdleState(CharacterStateMachine stateMachine, CharacterPhysics physics, PlayerInput input)
+        public IdleState(CharacterStateMachine stateMachine, CharacterPhysics physics, Character character)
         {
             _stateMachine = stateMachine;
             _physics = physics;
-            _input = input;
+            _character = character;
         }
 
         public void OnEnter()
@@ -22,14 +22,15 @@ namespace TeamSuneat
 
         public void OnUpdate()
         {
-            // 입력이나 물리가 없으면 업데이트 스킵
-            if (_input == null || _physics == null)
+            // 물리가 없으면 업데이트 스킵
+            if (_physics == null || _character == null)
             {
                 return;
             }
 
             // 수평 입력이 있으면 Walk로 전환 (입력 기반 - Update에서 처리)
-            if (Mathf.Abs(_input.HorizontalInput) > 0.01f)
+            var cmd = _character.Command;
+            if (Mathf.Abs(cmd.HorizontalInput) > 0.01f)
             {
                 _stateMachine.TransitionToState(CharacterState.Walk);
                 return;
@@ -38,8 +39,8 @@ namespace TeamSuneat
 
         public void OnFixedUpdate()
         {
-            // 입력이나 물리가 없으면 업데이트 스킵
-            if (_input == null || _physics == null)
+            // 물리가 없으면 업데이트 스킵
+            if (_physics == null)
             {
                 return;
             }

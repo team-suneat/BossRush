@@ -6,8 +6,6 @@ namespace TeamSuneat
 {
     public class PlayerCharacter : Character
     {
-        [SerializeField] private float _moveSpeed = 5f;
-
         private PlayerInput _input;
         private Transform _modelTransform;
 
@@ -130,7 +128,7 @@ namespace TeamSuneat
             }
 
             // 2. 이동 속도 적용 (대시 중일 때는 일반 이동 입력 무시)
-            if (Physics != null && _input != null)
+            if (Physics != null)
             {
                 if (!Physics.IsDashing)
                 {
@@ -139,7 +137,7 @@ namespace TeamSuneat
                     if (!isMovementLocked)
                     {
                         // 즉각적인 반응: 입력에 바로 속도 적용 (가속/감속 없음)
-                        float targetVelocityX = _input.HorizontalInput * _moveSpeed;
+                        float targetVelocityX = Command.HorizontalInput * Physics.MoveSpeed;
 
                         // CharacterPhysics를 통해 수평 속도 적용 (Y축 속도는 자동으로 유지됨)
                         Physics.ApplyHorizontalInput(targetVelocityX);
@@ -155,21 +153,17 @@ namespace TeamSuneat
 
         private void UpdateModelDirection()
         {
-            if (_input == null)
-            {
-                return;
-            }
-
             // 패리 상태일 때는 방향 전환 차단
-            if (StateMachine != null && StateMachine.CurrentState == CharacterState.Parry)
+            if (StateMachine != null
+                && StateMachine.CurrentState == CharacterState.Parry)
             {
                 return;
             }
 
             // 입력값이 0이 아니면 방향 변경, 0이면 이전 방향 유지
-            if (Mathf.Abs(_input.HorizontalInput) > 0.01f)
+            if (Mathf.Abs(Command.HorizontalInput) > 0.01f)
             {
-                FacingDirections targetDirection = _input.HorizontalInput > 0
+                FacingDirections targetDirection = Command.HorizontalInput > 0
                     ? FacingDirections.Right
                     : FacingDirections.Left;
 

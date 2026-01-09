@@ -1,15 +1,14 @@
 using System.Collections.Generic;
-using TeamSuneat.Data;
 
-namespace TeamSuneat
+namespace TeamSuneat.Assets.Scripts.Runtime.Combat.Attack
 {
     public class AttackSystem : XBehaviour
     {
         private Character _ownerCharacter;
 
-        private Dictionary<HitmarkNames, AttackEntity> _entities = new();
+        private readonly Dictionary<HitmarkNames, AttackEntity> _entities = new();
 
-        private List<HitmarkNames> _hitmarks = new List<HitmarkNames>();
+        private readonly List<HitmarkNames> _hitmarkList = new();
 
         public override void AutoGetComponents()
         {
@@ -48,7 +47,7 @@ namespace TeamSuneat
 
         public void Initialize()
         {
-            _hitmarks.Clear();
+            _hitmarkList.Clear();
             _entities.Clear();
 
             RegisterAll();
@@ -64,9 +63,9 @@ namespace TeamSuneat
                     AttackEntity attackEntity = entities[i];
                     HitmarkNames hitmarkName = entities[i].Name;
 
-                    if (!_hitmarks.Contains(hitmarkName))
+                    if (!_hitmarkList.Contains(hitmarkName))
                     {
-                        _hitmarks.Add(hitmarkName);
+                        _hitmarkList.Add(hitmarkName);
                     }
 
                     if (!_entities.ContainsKey(hitmarkName))
@@ -97,9 +96,9 @@ namespace TeamSuneat
 
         public void Activate()
         {
-            if (_hitmarks.IsValid())
+            if (_hitmarkList.IsValid())
             {
-                HitmarkNames hitmarkName = _hitmarks[0];
+                HitmarkNames hitmarkName = _hitmarkList[0];
                 AttackEntity entity = FindEntity(hitmarkName);
                 if (entity != null)
                 {
@@ -169,11 +168,11 @@ namespace TeamSuneat
 
         public void DeactivateAll()
         {
-            if (_hitmarks.IsValid())
+            if (_hitmarkList.IsValid())
             {
-                for (int i = 0; i < _hitmarks.Count; i++)
+                for (int i = 0; i < _hitmarkList.Count; i++)
                 {
-                    Deactivate(_hitmarks[i]);
+                    Deactivate(_hitmarkList[i]);
                 }
             }
         }
@@ -182,11 +181,11 @@ namespace TeamSuneat
 
         public void OnDeath()
         {
-            for (int i = 0; i < _hitmarks.Count; i++)
+            for (int i = 0; i < _hitmarkList.Count; i++)
             {
-                if (_entities.ContainsKey(_hitmarks[i]))
+                if (_entities.ContainsKey(_hitmarkList[i]))
                 {
-                    _entities[_hitmarks[i]].OnOwnerDeath();
+                    _entities[_hitmarkList[i]].OnOwnerDeath();
                 }
             }
         }
@@ -211,57 +210,24 @@ namespace TeamSuneat
             return null;
         }
 
-        public AttackEntity CreateAndRegisterEntity(HitmarkAssetData assetData)
+        public virtual bool CheckTargetInAttackableArea(HitmarkNames hitmarkName)
         {
-            if (_entities.ContainsKey(assetData.Name))
+            if (!ContainEntity(hitmarkName))
             {
-                return _entities[assetData.Name];
+                return false;
             }
 
-            AttackEntity attackEntity = null;
-
-            if (assetData.EntityType == AttackEntityTypes.Target)
+            AttackEntity entity = FindEntity(hitmarkName);
+            if (entity != null)
             {
-                attackEntity = GameObjectEx.CreateGameObject<AttackTargetEntity>(assetData.Name.ToString(), transform);
-            }
-
-            if (attackEntity != null)
-            {
-                attackEntity.Name = assetData.Name;
-                attackEntity.AutoGetOwnerComponents();
-                attackEntity.Initialization();
-
-                _entities.Add(assetData.Name, attackEntity);
-                _hitmarks.Add(assetData.Name);
-            }
-            else
-            {
-                Log.Error($"공격 독립체({assetData.Name.ToLogString()})를 찾을 수 없습니다. 새로운 공격 독립체를 생성할 수 없습니다.");
-            }
-
-            return attackEntity;
-        }
-
-        public AttackEntity SpawnAndRegisterEntity(HitmarkNames hitmarkName)
-        {
-            if (!_entities.ContainsKey(hitmarkName))
-            {
-                AttackEntity attackEntity = ResourcesManager.SpawnAttackEntity(hitmarkName, transform);
-                if (attackEntity != null)
+                if (entity.EntityType == AttackEntityTypes.Area)
                 {
-                    attackEntity.Name = hitmarkName;
-                    attackEntity.SetOwner(_ownerCharacter);
-                    attackEntity.AutoGetOwnerComponents();
-                    attackEntity.Initialization();
-
-                    _entities.Add(hitmarkName, attackEntity);
-                    _hitmarks.Add(hitmarkName);
+                    AttackAreaEntity areaEntity = entity as AttackAreaEntity;
+                    return areaEntity.CheckTargetInArea();
                 }
-
-                return attackEntity;
             }
 
-            return null;
+            return false;
         }
 
         // Log Methods

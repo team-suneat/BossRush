@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TeamSuneat.Assets.Scripts.Runtime.Combat.Attack;
 using TeamSuneat.Data;
 using UnityEngine;
 
@@ -30,7 +31,7 @@ namespace TeamSuneat
 
         // Target
 
-        public virtual Transform Target => null;
+        public virtual Transform Target => TargetCharacter == null ? null : TargetCharacter.transform;
 
         public Character TargetCharacter { get; protected set; }
 

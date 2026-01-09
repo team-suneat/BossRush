@@ -5,6 +5,8 @@ namespace TeamSuneat
     [RequireComponent(typeof(CharacterPhysicsCore))]
     public class CharacterPhysics : MonoBehaviour
     {
+        [SerializeField] private float _moveSpeed = 5f;
+
         private CharacterPhysicsCore _core;
         private CharacterJump _jump;
         private CharacterDash _dash;
@@ -31,6 +33,7 @@ namespace TeamSuneat
         public bool IsCollideY => _core != null && _core.IsCollideY;
         public Vector2 RigidbodyVelocity => _core != null ? _core.RigidbodyVelocity : Vector2.zero;
         public int FacingDirection => _core != null ? _core.FacingDirection : 1;
+        public float MoveSpeed => _moveSpeed;
 
         #endregion Core 프로퍼티 위임
 

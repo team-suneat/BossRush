@@ -1,26 +1,29 @@
 ﻿using NodeCanvas.Framework;
-
 using ParadoxNotion.Design;
 
 namespace TeamSuneat
 {
-    [Category("@TeamSuneat/Attak")]
-    [Description("타겟이 공격영역내에 있는지 확인합니다.")]
-    public class CheckTargetInAttackableArea : ConditionTask<Character>
-    {
-        public int attackOrder = 0;
+	[Category("@TeamSuneat/Attack")]
+	[Description("타겟이 공격가능한 영역 안에 있는지 확인합니다.")]
+	public class CheckTargetInAttackableArea : ConditionTask<Character>
+	{
+        public string hitmarkNameString;
 
-        protected override bool OnCheck()
-        {
-            // 더 이상 사용되지 않음 - 항상 false 반환
-            return false;
+		protected override bool OnCheck()
+		{
+			if (agent.Attack != null)
+			{
+                HitmarkNames hitmarkName = DataConverter.ToEnum<HitmarkNames>(hitmarkNameString);
+                if (hitmarkName != HitmarkNames.None)
+                {
+                    if (agent.Attack.CheckTargetInAttackableArea(hitmarkName))
+					{
+						return true;
+					}
+                }
+			}
 
-            // if (agent.attackSystem != null)
-            // {
-            //     return agent.attackSystem.CheckTargetInAttackableArea(attackOrder);
-            // }
-            //
-            // return false;
-        }
-    }
+			return false;
+		}
+	}
 }

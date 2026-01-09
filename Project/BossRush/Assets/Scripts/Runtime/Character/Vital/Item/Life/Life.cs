@@ -339,7 +339,6 @@ namespace TeamSuneat
             }
 
             SendGlobalEventValueChanged();
-
             SpawnDamageFloatyText(damageResult, Type);
         }
 
@@ -350,11 +349,6 @@ namespace TeamSuneat
         private void SetTargetAttacker(Character attacker)
         {
             if (Vital.Owner == null)
-            {
-                return;
-            }
-
-            if (Vital.Owner.FixedTargetCharacterCamp)
             {
                 return;
             }

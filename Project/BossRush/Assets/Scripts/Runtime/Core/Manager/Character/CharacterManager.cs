@@ -55,6 +55,23 @@ namespace TeamSuneat
             _waitKillTime += Time.deltaTime;
         }
 
+        public void LateLogicUpdate()
+        {
+
+            if (Player != null)
+            {
+                Player.LateLogicUpdate();
+            }
+
+            if (Monsters.IsValid())
+            {
+                for (int i = 0; i < MonsterCount; i++)
+                {
+                    Monsters[i].LateLogicUpdate();
+                }
+            }
+        }
+
         public void PhysicsUpdate()
         {
             if (Scenes.XScene.IsChangeScene)

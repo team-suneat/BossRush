@@ -74,6 +74,7 @@ namespace TeamSuneat
             _animator.UpdateAnimatorBool(ANIMATOR_IS_RIGHT_COLLISION_PARAMETER_ID, false, AnimatorParameters);
             _animator.UpdateAnimatorBool(ANIMATOR_IS_SLIPPERY_PARAMETER_ID, false, AnimatorParameters);
             _animator.UpdateAnimatorBool(ANIMATOR_IS_PARRYING_PARAMETER_ID, false, AnimatorParameters);
+            _animator.UpdateAnimatorBool(ANIMATOR_IS_PARRY_SUCCESS_PARAMETER_ID, false, AnimatorParameters);
 
             Log.Info(LogTags.Animation, "등록된 애니메이터 파라메터: {0}, {1}", _animator.parameters.JoinToString(), this.GetHierarchyPath());
         }
@@ -231,7 +232,7 @@ namespace TeamSuneat
             {
                 OnAnimatorAttackStateEnter();
             }
-            else if (CheckStateName(stateInfo, "Parry"))
+            else if (CheckStateNames(stateInfo, "Parry", "ParrySuccess"))
             {
                 OnAnimatorParryStateEnter();
             }
@@ -265,7 +266,7 @@ namespace TeamSuneat
             {
                 OnAnimatorAttackStateExit();
             }
-            else if (CheckStateName(stateInfo, "Parry"))
+            else if (CheckStateNames(stateInfo, "Parry", "ParrySuccess"))
             {
                 OnAnimatorParryStateExit();
             }

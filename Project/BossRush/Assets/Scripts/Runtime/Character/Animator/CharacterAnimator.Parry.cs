@@ -23,9 +23,16 @@ namespace TeamSuneat
             AnimatorLog.LogInfo("패리 상태의 애니메이션에 진입했습니다.");
         }
 
+        public void SetParrySuccess(bool isSuccess)
+        {
+            _animator.UpdateAnimatorBool(ANIMATOR_IS_PARRY_SUCCESS_PARAMETER_ID, isSuccess, AnimatorParameters);
+            AnimatorLog.LogInfo("패링 성공 여부를 설정합니다: {0}", isSuccess);
+        }
+
         protected virtual void OnAnimatorParryStateExit()
         {
             _animator.UpdateAnimatorBool(ANIMATOR_IS_PARRYING_PARAMETER_ID, false, AnimatorParameters);
+            _animator.UpdateAnimatorBool(ANIMATOR_IS_PARRY_SUCCESS_PARAMETER_ID, false, AnimatorParameters);
             IsParrying = false;
             AnimatorLog.LogInfo("패리 상태의 애니메이션에서 퇴장했습니다.");
         }

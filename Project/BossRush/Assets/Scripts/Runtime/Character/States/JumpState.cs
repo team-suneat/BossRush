@@ -6,13 +6,13 @@ namespace TeamSuneat
     {
         private CharacterStateMachine _stateMachine;
         private CharacterPhysics _physics;
-        private PlayerInput _input;
+        private readonly Character _character;
 
-        public JumpState(CharacterStateMachine stateMachine, CharacterPhysics physics, PlayerInput input)
+        public JumpState(CharacterStateMachine stateMachine, CharacterPhysics physics, Character character)
         {
             _stateMachine = stateMachine;
             _physics = physics;
-            _input = input;
+            _character = character;
         }
 
         public void OnEnter()

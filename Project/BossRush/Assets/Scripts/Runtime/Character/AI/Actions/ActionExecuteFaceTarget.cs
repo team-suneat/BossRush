@@ -1,5 +1,6 @@
 ﻿using NodeCanvas.Framework;
 using ParadoxNotion.Design;
+using UnityEngine.UIElements;
 
 namespace TeamSuneat
 {
@@ -11,22 +12,8 @@ namespace TeamSuneat
 
         protected override void OnExecute()
         {
-            // 더 이상 사용되지 않음 - 아무것도 하지 않음
+            agent.FaceToTarget();
             EndAction();
-
-            // if (agent.TryFlip())
-            // {
-            //     if (agent.TargetVital != null)
-            //     {
-            //         agent.RefreshFlipWithTarget();
-            //     }
-            //     else
-            //     {
-            //         agent.RefreshFlip();
-            //     }
-            // }
-            //
-            // EndAction();
         }
     }
 }

@@ -4,7 +4,7 @@ using ParadoxNotion.Design;
 
 namespace TeamSuneat
 {
-    [Category("@TeamSuneat/Attak")]
+    [Category("@TeamSuneat/Attack")]
     [Description("공격 애니메이션을 재생할 수 있는지 확인합니다.")]
     public class CheckPlayAttackAnimation : ConditionTask<Character>
     {

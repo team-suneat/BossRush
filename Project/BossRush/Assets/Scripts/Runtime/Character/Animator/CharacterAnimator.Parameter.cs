@@ -21,6 +21,7 @@ namespace TeamSuneat
         private const string ANIMATOR_IS_RIGHT_COLLISION_PARAMETER_NAME = "IsRightCollision";
         private const string ANIMATOR_IS_SLIPPERY_PARAMETER_NAME = "IsSlippery";
         private const string ANIMATOR_IS_PARRYING_PARAMETER_NAME = "IsParrying";
+        private const string ANIMATOR_IS_PARRY_SUCCESS_PARAMETER_NAME = "IsParrySuccess";
         private const string ANIMATOR_USE_WALL_SLIDING_PARAMETER_NAME = "UseWallSliding";
 
         // trigger parameter
@@ -56,6 +57,7 @@ namespace TeamSuneat
         private int ANIMATOR_IS_RIGHT_COLLISION_PARAMETER_ID;
         private int ANIMATOR_IS_SLIPPERY_PARAMETER_ID;
         private int ANIMATOR_IS_PARRYING_PARAMETER_ID;
+        private int ANIMATOR_IS_PARRY_SUCCESS_PARAMETER_ID;
         private int ANIMATOR_USE_WALL_SLIDING_PARAMETER_ID;
 
         private int ANIMATOR_SPAWN_PARAMETER_ID;
@@ -92,6 +94,7 @@ namespace TeamSuneat
             _animator.AddAnimatorParameterIfExists(ANIMATOR_IS_RIGHT_COLLISION_PARAMETER_NAME, out ANIMATOR_IS_RIGHT_COLLISION_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_IS_SLIPPERY_PARAMETER_NAME, out ANIMATOR_IS_SLIPPERY_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_IS_PARRYING_PARAMETER_NAME, out ANIMATOR_IS_PARRYING_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);
+            _animator.AddAnimatorParameterIfExists(ANIMATOR_IS_PARRY_SUCCESS_PARAMETER_NAME, out ANIMATOR_IS_PARRY_SUCCESS_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_USE_WALL_SLIDING_PARAMETER_NAME, out ANIMATOR_USE_WALL_SLIDING_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_DISABLE_PARAMETER_NAME, out ANIMATOR_DISABLE_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);
 

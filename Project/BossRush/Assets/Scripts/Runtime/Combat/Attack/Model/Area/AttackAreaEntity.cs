@@ -397,6 +397,8 @@ namespace TeamSuneat
                         TriggerAttackOnParryFeedback(_collidingCollider.transform.position);
                     }
 
+                    ApplyParryKnockback(targetVital);
+                    ApplyParryPulseReward(targetVital);
                     return false;
                 }
             }
@@ -432,6 +434,96 @@ namespace TeamSuneat
             }
 
             return _isApplyAnyDamage;
+        }
+
+        // 패리 성공 시 양쪽 모두 넉백 적용
+        private void ApplyParryKnockback(Vital targetVital)
+        {
+            if (Owner == null || targetVital?.Owner == null)
+            {
+                return;
+            }
+
+            Character attacker = Owner;
+            Character defender = targetVital.Owner;
+
+            // 공격자와 피격자의 위치 기반으로 방향 계산
+            Vector3 attackerPosition = attacker.transform.position;
+            Vector3 defenderPosition = defender.transform.position;
+            Vector3 direction = (attackerPosition - defenderPosition).normalized;
+
+            // 수평 방향만 사용 (y는 0으로 설정하여 수평으로만 밀림)
+            Vector2 knockbackDirection = new Vector2(direction.x, 0f).normalized;
+
+            // 공격자는 피격자 방향에서 멀어지는 방향으로 넉백
+            if (attacker.Physics != null)
+            {
+                attacker.Physics.ApplyKnockback(knockbackDirection);
+            }
+
+            // 피격자는 공격자 방향에서 멀어지는 방향으로 넉백 (반대 방향)
+            if (defender.Physics != null)
+            {
+                defender.Physics.ApplyKnockback(-knockbackDirection);
+            }
+        }
+        // 패리 성공 시 피격자의 펄스 증가
+        private void ApplyParryPulseReward(Vital targetVital)
+        {
+            if (targetVital?.Owner == null)
+            {
+                return;
+            }
+
+            Character defender = targetVital.Owner;
+            if (defender.MyVital?.Pulse != null)
+            {
+                Pulse pulse = defender.MyVital.Pulse;
+                pulse.AddCurrentValue(1);
+                LogInfo("패링 성공! 피격자의 펄스를 증가시킵니다. {0}/{1}", pulse.Current, pulse.Max);
+            }
+
+            // 패링 성공 여부를 애니메이터에 전달
+            if (defender.CharacterAnimator != null)
+            {
+                defender.CharacterAnimator.SetParrySuccess(true);
+            }
+        }
+        public bool CheckTargetInArea()
+        {
+            if (Owner == null || Owner.TargetCharacter == null)
+            {
+                return false;
+            }
+
+            if (_attackCollider == null)
+            {
+                return false;
+            }
+
+            Vital targetVital = Owner.TargetCharacter.MyVital;
+            if (!targetVital.IsAlive)
+            {
+                return false;
+            }
+            if (targetVital.Life != null && targetVital.Life.CheckInvulnerable())
+            {
+                return false;
+            }
+
+            Vector3 attackAreaPosition = transform.position + (Vector3)_attackCollider.offset;
+            if (_attackCollider is BoxCollider2D boxCollider)
+            {
+                if (targetVital.CheckColliderInBox(attackAreaPosition, boxCollider.size))
+                    return true;
+            }
+            else if (_attackCollider is CircleCollider2D circleCollider)
+            {
+                if (targetVital.CheckColliderInCircle(attackAreaPosition, circleCollider.radius))
+                    return true;
+            }
+
+            return false;
         }
 
         #endregion Collider

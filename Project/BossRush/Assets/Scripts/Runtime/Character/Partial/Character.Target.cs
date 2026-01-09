@@ -19,7 +19,7 @@ namespace TeamSuneat
                 return;
             }
 
-            TargetCharacter = targetVital.Owner;
+            TargetCharacter = targetVital.Owner;            
             LogInfo("캐릭터의 타겟을 설정합니다: {0}", TargetCharacter.GetHierarchyName());
         }
 

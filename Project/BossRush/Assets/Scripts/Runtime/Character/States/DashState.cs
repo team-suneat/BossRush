@@ -6,22 +6,25 @@ namespace TeamSuneat
     {
         private CharacterStateMachine _stateMachine;
         private CharacterPhysics _physics;
-        private PlayerInput _input;
+        private readonly Character _character;
         private CharacterAnimator _animator;
 
-        public DashState(CharacterStateMachine stateMachine, CharacterPhysics physics, CharacterAnimator animator, PlayerInput input)
+        public DashState(CharacterStateMachine stateMachine, CharacterPhysics physics, CharacterAnimator animator, Character character)
         {
             _stateMachine = stateMachine;
             _physics = physics;
             _animator = animator;
-            _input = input;
+            _character = character;
         }
 
         public void OnEnter()
         {
             // Dash 상태 진입 시 대시 방향은 CharacterStateMachine에서 계산되어 전달됨
             // 여기서는 RequestDash만 호출하지 않음 (CharacterStateMachine에서 이미 호출됨)
-            _animator.PlayDashAnimation();
+            if (_animator != null)
+            {
+                _animator.PlayDashAnimation();
+            }
         }
 
         public void OnUpdate()
@@ -32,8 +35,8 @@ namespace TeamSuneat
 
         public void OnFixedUpdate()
         {
-            // 입력이나 물리가 없으면 업데이트 스킵
-            if (_input == null || _physics == null)
+            // 물리가 없으면 업데이트 스킵
+            if (_physics == null || _character == null)
             {
                 return;
             }
@@ -46,7 +49,8 @@ namespace TeamSuneat
 
             if (_physics.IsGrounded)
             {
-                if (Mathf.Abs(_input.HorizontalInput) > 0.01f)
+                var cmd = _character.Command;
+                if (Mathf.Abs(cmd.HorizontalInput) > 0.01f)
                 {
                     _stateMachine.TransitionToState(CharacterState.Walk);
                 }

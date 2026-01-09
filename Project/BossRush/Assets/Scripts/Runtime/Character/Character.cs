@@ -1,4 +1,5 @@
 using Lean.Pool;
+using TeamSuneat.Assets.Scripts.Runtime.Combat.Attack;
 using TeamSuneat.Data;
 using UnityEngine;
 
@@ -181,13 +182,41 @@ namespace TeamSuneat
         {
         }
 
+        #region Command
+
+        private CharacterCommand _command;
+
+        public CharacterCommand Command => _command;
+
+        public void SetHorizontalInput(float value) => _command.SetHorizontalInput(value);
+
+        public void SetVerticalInput(float value) => _command.SetVerticalInput(value);
+
+        public void SetDownInputPressed(bool value) => _command.SetDownInputPressed(value);
+
+        public void RequestJump(bool pressed) => _command.SetJumpPressed(pressed);
+
+        public void RequestJumpRelease(bool value) => _command.SetJumpReleased(value);
+
+        public void RequestDash() => _command.SetDashPressed(true);
+
+        public void RequestAttack() => _command.SetAttackPressed(true);
+
+        public void RequestParry() => _command.SetParryPressed(true);
+
+        #endregion Command
+
         #region Update
 
         public virtual void LogicUpdate()
         {
             UpdateAnimators();
         }
-
+        public virtual void LateLogicUpdate()
+        {
+            _command.ResetFrame();
+        }
+        
         public virtual void PhysicsUpdate()
         {
             if (!ActiveSelf)
