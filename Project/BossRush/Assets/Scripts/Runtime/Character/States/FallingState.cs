@@ -34,10 +34,18 @@ namespace TeamSuneat
                 return;
             }
 
-            // 바닥에 닿았고, 아래로 내려가는 중이 아니면 Idle 또는 Walk로 전환 (물리 변수 기반)
+            // 바닥에 닿았고, 아래로 내려가는 중이 아니면 착지 처리
             if (_physics.IsGrounded && _physics.RigidbodyVelocity.y >= 0f)
             {
-                // 실제 착지 시 점프 카운터 리셋
+                // 착지 시 버퍼된 점프 실행 시도
+                if (_physics.TryExecuteBufferedJump())
+                {
+                    // 버퍼된 점프가 성공적으로 실행되면 Jumping 상태로 전환
+                    _stateMachine.TransitionToState(CharacterState.Jumping);
+                    return;
+                }
+
+                // 점프가 실행되지 않았으면 점프 카운터 리셋 및 Idle/Walk로 전환
                 _physics.ResetJumpCounterOnLanding();
 
                 var cmd = _character.Command;

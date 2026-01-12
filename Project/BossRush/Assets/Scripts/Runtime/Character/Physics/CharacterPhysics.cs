@@ -45,6 +45,7 @@ namespace TeamSuneat
         public float DashCooldownRemaining => _dash != null ? _dash.DashCooldownRemaining : 0f;
         public int RemainingJumps => _jump != null ? _jump.RemainingJumps : 0;
         public int ExtraJumps => _jump != null ? _jump.ExtraJumps : 0;
+        public bool HasBufferedJump => _jump != null && _jump.HasBufferedJump;
         public bool IsKnockback => _knockback != null && _knockback.IsKnockback;
 
         #endregion Ability 프로퍼티 위임
@@ -120,6 +121,11 @@ namespace TeamSuneat
         public void ResetJumpCounterOnLanding()
         {
             _jump?.ResetJumpCounterOnLanding();
+        }
+
+        public bool TryExecuteBufferedJump()
+        {
+            return _jump != null && _jump.TryExecuteBufferedJump();
         }
 
         public void RequestDash()

@@ -17,6 +17,7 @@ namespace TeamSuneat
 
         public int RemainingJumps => _jumpCounter;
         public int ExtraJumps { get; private set; }
+        public bool HasBufferedJump => _jumpBufferCounter > 0f;
 
         private void Awake()
         {
@@ -91,6 +92,25 @@ namespace TeamSuneat
             {
                 _jumpBufferCounter -= Time.fixedDeltaTime;
             }
+        }
+
+        private bool CanJumpNow()
+        {
+            if (_physics == null) return false;
+            if (_physics.IsKnockback) return false;
+            if (_jumpCounter <= 0) return false;
+
+            // 지상 상태이거나 코요테 타임이 유효하면 점프 가능
+            return _physics.IsGrounded || _physics.CoyoteTimeRemaining > 0f;
+        }
+
+        public bool TryExecuteBufferedJump()
+        {
+            if (_jumpBufferCounter <= 0f) return false;
+            if (!CanJumpNow()) return false;
+
+            ExecuteJump();
+            return true;
         }
     }
 }

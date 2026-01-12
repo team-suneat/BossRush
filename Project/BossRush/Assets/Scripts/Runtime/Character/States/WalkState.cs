@@ -51,6 +51,16 @@ namespace TeamSuneat
                 _stateMachine.TransitionToState(CharacterState.Falling);
                 return;
             }
+
+            // 착지 상태에서 버퍼된 점프 확인 (안전장치)
+            if (_physics.IsGrounded && _physics.HasBufferedJump)
+            {
+                if (_physics.TryExecuteBufferedJump())
+                {
+                    _stateMachine.TransitionToState(CharacterState.Jumping);
+                    return;
+                }
+            }
         }
 
         public void OnExit()
