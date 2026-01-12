@@ -196,6 +196,9 @@
         /// <summary> UI 스킬 </summary>
         UI_Skill,
 
+        /// <summary> UI 선택 이벤트 </summary>
+        UI_SelectEvent,
+
         #endregion UI
 
         #region Media

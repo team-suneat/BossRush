@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 1193599522960920784}
   - component: {fileID: 6198024416312281978}
   - component: {fileID: 3412166561816713603}
+  - component: {fileID: 2721863990052454821}
   m_Layer: 5
   m_Name: UIButton
   m_TagString: Untagged
@@ -175,10 +176,48 @@ MonoBehaviour:
   _buttonImage: {fileID: 3129070075070095632}
   _nameText: {fileID: 8378141350773643411}
   _button: {fileID: 6198024416312281978}
+  _selectElement: {fileID: 2721863990052454821}
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
   OnClickFailure:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2721863990052454821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3547357239837772904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45167dd44b2a2ec4e99a36183c7ede8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PadClickType: 1
+  Clickable: {fileID: 8357366010392815912}
+  Selectable: {fileID: 3889072363519622347}
+  LockTrigger: 0
+  SelectIndex: 0
+  SelectOrderIndex: 0
+  SelectLeftIndex: 0
+  SelectRightIndex: 0
+  SelectUpIndex: 0
+  SelectDownIndex: 0
+  SelectFrameSizeDelta: {x: 256, y: 48}
+  SelectFrameOffset: {x: 0, y: 0, z: 0}
+  CustomMoveWaitTime: -1
+  OnPointerPressLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointerClickLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointerClickRightEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointerUpLeftEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &5610042082862500771
@@ -378,6 +417,8 @@ GameObject:
   - component: {fileID: 1217757894656359775}
   - component: {fileID: 6859523306180709720}
   - component: {fileID: 3129070075070095632}
+  - component: {fileID: 8357366010392815912}
+  - component: {fileID: 3889072363519622347}
   m_Layer: 5
   m_Name: Button Image
   m_TagString: Untagged
@@ -442,3 +483,49 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8357366010392815912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6218508587211648851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a5fc95c3db608e4388b3b79be3ab123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnPointerClickLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointerClickRightEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointerPressLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointerUpLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &3889072363519622347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6218508587211648851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bcd79cc9d16f6647882fda6ebbb165a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Index: 0
+  OnPointerEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointerOverEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointerExitEvent:
+    m_PersistentCalls:
+      m_Calls: []

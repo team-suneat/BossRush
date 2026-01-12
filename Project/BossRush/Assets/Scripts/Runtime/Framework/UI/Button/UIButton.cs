@@ -20,6 +20,9 @@ namespace TeamSuneat.UserInterface
         [FoldoutGroup("#UIButton")]
         [SerializeField] private Button _button;
 
+        [FoldoutGroup("#UIButton")]
+        [SerializeField] private UISelectElement _selectElement;
+
         [FoldoutGroup("#UIButton/Event")]
         public UnityEvent OnClickSuccess;
 
@@ -31,12 +34,14 @@ namespace TeamSuneat.UserInterface
         private bool _isHolding;
 
         public Button Button => _button;
+        public UISelectElement SelectElement => _selectElement;
 
         public override void AutoGetComponents()
         {
             base.AutoGetComponents();
 
             _button ??= GetComponent<Button>();
+            _selectElement ??= GetComponent<UISelectElement>();
         }
 
         //
@@ -45,6 +50,15 @@ namespace TeamSuneat.UserInterface
         {
             base.OnStart();
             InitializeButtonImage();
+            RegisterSelectElementEvents();
+        }
+
+        private void RegisterSelectElementEvents()
+        {
+            if (_selectElement != null)
+            {
+                _selectElement.OnPointerClickLeftEvent.AddListener(OnButtonClick);
+            }
         }
 
         private void InitializeButtonImage()
@@ -72,6 +86,11 @@ namespace TeamSuneat.UserInterface
             if (_button != null)
             {
                 _button.onClick.RemoveListener(OnButtonClick);
+            }
+
+            if (_selectElement != null)
+            {
+                _selectElement.OnPointerClickLeftEvent.RemoveListener(OnButtonClick);
             }
 
             StopHoldCoroutine();
@@ -215,10 +234,19 @@ namespace TeamSuneat.UserInterface
         }
 
         public void OnPointerEnter(PointerEventData eventData)
-        { }
+        {
+            _selectElement?.OnPointerEnter();
+        }
 
         public void OnPointerExit(PointerEventData eventData)
-        { }
+        {
+            _selectElement?.OnPointerExit();
+        }
+
+        public void OnPointerClick()
+        {
+            _selectElement?.OnPointerClick();
+        }
 
         #endregion Pointer Event
 

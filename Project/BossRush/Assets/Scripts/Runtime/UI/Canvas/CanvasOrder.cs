@@ -90,7 +90,7 @@ namespace TeamSuneat.UserInterface
             }
         }
 
-        public void SetEnabledRaycaster(bool isEnabled)
+        public void SetEnabledRaycast(bool isEnabled)
         {
             if (Raycaster != null)
             {

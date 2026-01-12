@@ -23,7 +23,8 @@ namespace TeamSuneat.UserInterface
         private Mana _mana;
         private Pulse _pulse;
 
-        public override void AutoGetComponents() {
+        public override void AutoGetComponents()
+        {
             base.AutoGetComponents();
 
             _characterPortrait ??= this.FindComponent<UnityEngine.UI.Image>("CharacterPortrait");
@@ -32,15 +33,18 @@ namespace TeamSuneat.UserInterface
             _pulseBars ??= GetComponentInChildren<UIPulseBars>();
         }
 
-        public void Bind(PlayerCharacter playerCharacter) {
+        public void Bind(PlayerCharacter playerCharacter)
+        {
             Unbind();
 
-            if (playerCharacter == null) {
+            if (playerCharacter == null)
+            {
                 return;
             }
 
             Vital vital = playerCharacter.MyVital;
-            if (vital == null) {
+            if (vital == null)
+            {
                 return;
             }
 
@@ -54,19 +58,24 @@ namespace TeamSuneat.UserInterface
             SetupPulse();
         }
 
-        public void Unbind() {
-            if (_vital != null) {
-                if (_vital.Life != null) {
+        public void Unbind()
+        {
+            if (_vital != null)
+            {
+                if (_vital.Life != null)
+                {
                     _vital.Life.OnValueChanged -= OnLifeChanged;
                 }
 
-                if (_pulse != null) {
+                if (_pulse != null)
+                {
                     _pulse.OnGaugeProgressChanged -= OnPulseGaugeProgressChanged;
                     _pulse.OnValueChanged -= OnPulseValueChanged;
                     _pulse.OnBurnoutStateChanged -= OnPulseBurnoutStateChanged;
                 }
 
-                if (_mana != null) {
+                if (_mana != null)
+                {
                     _mana.OnGaugeProgressChanged -= OnManaGaugeProgressChanged;
                     _mana.OnValueChanged -= OnManaValueChanged;
                 }
@@ -78,15 +87,19 @@ namespace TeamSuneat.UserInterface
             _pulse = null;
         }
 
-        private void SetupHealth() {
-            if (_vital.Life != null) {
+        private void SetupHealth()
+        {
+            if (_vital.Life != null)
+            {
                 _vital.Life.OnValueChanged += OnLifeChanged;
                 OnLifeChanged(_vital.Life.Current, _vital.Life.Max);
             }
         }
 
-        private void SetupMana() {
-            if (_mana != null) {
+        private void SetupMana()
+        {
+            if (_mana != null)
+            {
                 _mana.OnGaugeProgressChanged += OnManaGaugeProgressChanged;
                 _mana.OnValueChanged += OnManaValueChanged;
 
@@ -95,8 +108,10 @@ namespace TeamSuneat.UserInterface
             }
         }
 
-        private void SetupPulse() {
-            if (_pulse != null) {
+        private void SetupPulse()
+        {
+            if (_pulse != null)
+            {
                 _pulse.OnGaugeProgressChanged += OnPulseGaugeProgressChanged;
                 _pulse.OnValueChanged += OnPulseValueChanged;
                 _pulse.OnBurnoutStateChanged += OnPulseBurnoutStateChanged;
@@ -107,35 +122,44 @@ namespace TeamSuneat.UserInterface
             }
         }
 
-        private void OnLifeChanged(int current, int max) {
+        private void OnLifeChanged(int current, int max)
+        {
             _healthHearts?.SetHealth(current, max);
         }
 
-        private void OnManaGaugeProgressChanged(float progress) {
+        private void OnManaGaugeProgressChanged(float progress)
+        {
             _manaGauge?.SetGaugeProgress(progress);
         }
 
-        private void OnManaValueChanged(int current, int max) {
-            if (_mana != null) {
+        private void OnManaValueChanged(int current, int max)
+        {
+            if (_mana != null)
+            {
                 _manaGauge?.SetFullManaCount(current, max);
             }
         }
 
-        private void OnPulseGaugeProgressChanged(float progress) {
+        private void OnPulseGaugeProgressChanged(float progress)
+        {
             _pulseBars?.SetGaugeProgress(progress);
         }
 
-        private void OnPulseValueChanged(int current, int max) {
-            if (_pulse != null) {
+        private void OnPulseValueChanged(int current, int max)
+        {
+            if (_pulse != null)
+            {
                 _pulseBars?.SetFullPulseCount(current, max);
             }
         }
 
-        private void OnPulseBurnoutStateChanged(bool isBurnout) {
+        private void OnPulseBurnoutStateChanged(bool isBurnout)
+        {
             _pulseBars?.SetBurnoutState(isBurnout);
         }
 
-        private void OnDestroy() {
+        private void OnDestroy()
+        {
             Unbind();
         }
     }

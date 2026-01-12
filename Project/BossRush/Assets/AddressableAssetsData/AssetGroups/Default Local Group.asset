@@ -21,6 +21,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Ingame
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6f8098a40b7ba8f43aa9f5c5499a536e
+    m_Address: Assets/Addressables/Prefab/UI/Popup/UIGameOptionPopup.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ingame
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9b327578e2bfff645ab591cdd0c24dea
     m_Address: Assets/Addressables/Atlas/atlas_item.spriteatlasv2
     m_ReadOnly: 0

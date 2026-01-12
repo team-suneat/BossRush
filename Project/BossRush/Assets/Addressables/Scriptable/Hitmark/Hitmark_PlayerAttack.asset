@@ -46,7 +46,7 @@ MonoBehaviour:
     UseResourceOnAttackFailed: 0
     UseResourceOnInactive: 0
     UseResourceValue: 0
-    RestoreResourceValue: 0.1
+    RestoreResourceValue: 0.25
     ResourceConsumeType: 5
     ForceResourceConsume: 0
     IgnoreDeathByConsume: 0

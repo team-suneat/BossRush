@@ -18,4 +18,4 @@ MonoBehaviour:
   BaseAttackSpeed: 1
   BaseMana: 3
   BasePulse: 3
-  BasePulseRegen: 0.1
+  BasePulseRegen: 0.2

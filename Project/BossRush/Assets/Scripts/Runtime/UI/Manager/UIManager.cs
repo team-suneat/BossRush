@@ -13,6 +13,7 @@ namespace TeamSuneat.UserInterface
         [FoldoutGroup("Manager")] public UIPopupManager PopupManager;
         [FoldoutGroup("Manager")] public UIDetailsManager DetailsManager;
         [FoldoutGroup("Manager")] public UINoticeManager NoticeManager;
+        [FoldoutGroup("Manager")] public UISelectController SelectController;
         public UIScreenFader ScreenFader;
 
         public Vector3 WorldPositionMin { get; set; }
@@ -36,12 +37,14 @@ namespace TeamSuneat.UserInterface
             NoticeManager = GetComponentInChildren<UINoticeManager>();
             TextManager = GetComponentInChildren<UITextManager>();
             ScreenFader = GetComponentInChildren<UIScreenFader>();
+            SelectController = GetComponentInChildren<UISelectController>();
         }
 
         public void Clear()
         {
             PopupManager?.ResetValues();
-            GaugeManager?.Clear();            
+            GaugeManager?.Clear();
+            SelectController?.Clear();
         }
 
         public CanvasOrder GetCanvas(CanvasOrderNames canvasOrderName)
@@ -58,6 +61,7 @@ namespace TeamSuneat.UserInterface
 
             PopupManager?.LogicUpdate();
             NoticeManager?.LogicUpdate();
+            SelectController?.LogicUpdate();
         }
 
         internal void SpawnSoliloquyNotice(SoliloquyTypes content)

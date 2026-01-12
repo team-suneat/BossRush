@@ -107,6 +107,7 @@ GameObject:
   - component: {fileID: 8444635825320176109}
   - component: {fileID: 3376072309716983176}
   - component: {fileID: 6947248560871979895}
+  - component: {fileID: 7363120785550179232}
   m_Layer: 11
   m_Name: Scarecrow
   m_TagString: Character
@@ -342,6 +343,18 @@ MonoBehaviour:
   - _json: '{"_value":"ScarecrowAttack","_name":"AttackHimark","_id":"06897f03-d169-4457-a677-a30630765c6a","$type":"NodeCanvas.Framework.Variable`1[[System.String,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
     _references: []
+--- !u!114 &7363120785550179232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2547355166613048083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1704a61fb64efd4a983e2d3d4d27932, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5173444209251453515
 GameObject:
   m_ObjectHideFlags: 0

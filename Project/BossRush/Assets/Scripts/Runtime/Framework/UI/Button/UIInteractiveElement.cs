@@ -182,5 +182,25 @@ namespace TeamSuneat
                 _buttonImage.color = color;
             }
         }
+
+        public void ShowUnderline()
+        {
+            if (_nameText == null)
+            {
+                return;
+            }
+
+            _nameText.fontStyle |= TMPro.FontStyles.Underline;
+        }
+
+        public void HideUnderline()
+        {
+            if (_nameText == null)
+            {
+                return;
+            }
+
+            _nameText.fontStyle &= ~TMPro.FontStyles.Underline;
+        }
     }
 }

@@ -140,7 +140,8 @@ namespace TeamSuneat
         {
             // 레벨 체크 후 조기 반환
             if (false == IsLogLevelEnabled(level)) return;
-            if (false == ScriptableDataManager.Instance.FindLog(tag)) return;
+            if (ScriptableDataManager.Instance.CheckLoaded() &&
+                false == ScriptableDataManager.Instance.FindLog(tag)) return;
 
             ValidateArgs(format, args);
             string content = FormatMessage(format, args);

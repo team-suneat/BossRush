@@ -125,6 +125,7 @@ namespace TeamSuneat
         [FoldoutGroup("[UI]")][SuffixLabel("팝업")] public bool UI_Popup;
         [FoldoutGroup("[UI]")][SuffixLabel("상세정보")] public bool UI_Details;
         [FoldoutGroup("[UI]")][SuffixLabel("기술")] public bool UI_Skill;
+        [FoldoutGroup("[UI]")][SuffixLabel("선택 이벤트")] public bool UI_SelectEvent;
 
         #endregion UI
 
@@ -215,6 +216,7 @@ namespace TeamSuneat
             UI_Popup = true;
             UI_Details = true;
             UI_Skill = true;
+            UI_SelectEvent = true;
 
             Video = true;
         }
@@ -280,6 +282,7 @@ namespace TeamSuneat
             UI_Popup = false;
             UI_Details = false;
             UI_Skill = false;
+            UI_SelectEvent = false;
 
             Video = false;
         }
@@ -354,6 +357,7 @@ namespace TeamSuneat
                 LogTags.UI_Popup => UI_Popup,
                 LogTags.UI_Details => UI_Details,
                 LogTags.UI_Skill => UI_Skill,
+                LogTags.UI_SelectEvent => UI_SelectEvent,
 
                 LogTags.Video => Video,
 
@@ -424,6 +428,7 @@ namespace TeamSuneat
                 case LogTags.UI_Popup: { UI_Popup = true; } break;
                 case LogTags.UI_Details: { UI_Details = true; } break;
                 case LogTags.UI_Skill: { UI_Skill = true; } break;
+                case LogTags.UI_SelectEvent: { UI_SelectEvent = true; } break;
 
                 case LogTags.Video: { Video = true; } break;
             }
@@ -492,6 +497,7 @@ namespace TeamSuneat
                 case LogTags.UI_Popup: { UI_Popup = false; } break;
                 case LogTags.UI_Details: { UI_Details = false; } break;
                 case LogTags.UI_Skill: { UI_Skill = false; } break;
+                case LogTags.UI_SelectEvent: { UI_SelectEvent = false; } break;
 
                 case LogTags.Video: { Video = false; } break;
             }

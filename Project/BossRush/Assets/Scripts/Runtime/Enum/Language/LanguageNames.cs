@@ -5,5 +5,11 @@ namespace TeamSuneat
         None,
         English,
         Korean,
+        SimplifiedChinese,
+        TraditionalChinese,
+        French,
+        German,
+        Italian,
+        Spanish,
     }
 }

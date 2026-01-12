@@ -24,9 +24,9 @@ namespace TeamSuneat.Data
             else if (!_fontAssets.IsValid()) { return false; }
             else if (!_floatyAssets.IsValid()) { return false; }
             else if (!_flickerAssets.IsValid()) { return false; }
-            else if (!_soundAssets.IsValid()) { return false; }
-            else if (!_stageAssets.IsValid()) { return false; }
-            else if (!_forceVelocityAssets.IsValid()) { return false; }
+            // else if (!_soundAssets.IsValid()) { return false; }
+            // else if (!_stageAssets.IsValid()) { return false; }
+            // else if (!_forceVelocityAssets.IsValid()) { return false; }
             else if (_playerCharacterStatAsset == null) { return false; }
 
             return true;

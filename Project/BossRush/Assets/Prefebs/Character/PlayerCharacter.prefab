@@ -1155,7 +1155,7 @@ MonoBehaviour:
   Current: 3
   Max: 3
   DamageTextPoint: {fileID: 0}
-  InvincibilityDurationOnDamage: 0
+  InvincibilityDurationOnDamage: 0.5
   Invulnerable: 0
   Defensible: 0
   TemporarilyInvulnerable: []

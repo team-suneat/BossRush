@@ -16,7 +16,7 @@ namespace TeamSuneat
         [Title("#Life")]
         [FoldoutGroup("#Toggle")]
         [SuffixLabel("피해를 입은 후 피해를 입지 않는 시간")]
-        public float InvincibilityDurationOnDamage;
+        public float InvincibilityDurationOnDamage = 0.5f;
 
         [FoldoutGroup("#Toggle")]
         [SuffixLabel("피해를 입지 않음")]

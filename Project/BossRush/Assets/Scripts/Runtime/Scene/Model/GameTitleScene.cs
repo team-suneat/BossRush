@@ -4,7 +4,6 @@ using TeamSuneat.Setting;
 using TeamSuneat.UserInterface;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 namespace TeamSuneat.Scenes
 {
@@ -17,7 +16,9 @@ namespace TeamSuneat.Scenes
         public float DelayTimeForChangeScene;
 
         [Title("#Component")]
-        public Button GameStartButton;
+        public UISelectElement GameStartButton;
+        public UISelectElement GameOptionButton;
+        public UISelectElement GameExitButton;
         public UIGauge LoadingGauge;
 
         private bool _isChangingScene;
@@ -51,7 +52,9 @@ namespace TeamSuneat.Scenes
 
         private void RegisterButtonEvent()
         {
-            GameStartButton.onClick.AddListener(OnGameStart);
+            GameStartButton.OnPointerClickLeftEvent.AddListener(OnGameStart);
+            GameExitButton.OnPointerClickLeftEvent.AddListener(OnGameExit);
+            GameOptionButton.OnPointerClickLeftEvent.AddListener(OnGameOption);
         }
 
         private void OnGameStart()
@@ -60,9 +63,34 @@ namespace TeamSuneat.Scenes
             StartChangeMainScene();
         }
 
+        private void OnGameExit()
+        {
+            SetInteractableButtons(false);
+            QuitGame();
+        }
+
+        private void OnGameOption()
+        {
+            ShowOptionPopup();
+        }
+
         private void SetInteractableButtons(bool value)
         {
-            GameStartButton.interactable = value;
+            // UISelectElement는 LockTrigger가 true이면 선택되지 않음
+            if (GameStartButton != null)
+            {
+                GameStartButton.LockTrigger = !value;
+            }
+
+            if (GameExitButton != null)
+            {
+                GameExitButton.LockTrigger = !value;
+            }
+
+            if (GameOptionButton != null)
+            {
+                GameOptionButton.LockTrigger = !value;
+            }
         }
 
         //───────────────────────────────────────────────────────────────────────────
@@ -109,6 +137,28 @@ namespace TeamSuneat.Scenes
             {
                 ChangeScene(sceneName);
             }
+        }
+
+        private void QuitGame()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+        }
+
+        private void ShowOptionPopup()
+        {
+            if (UIManager.Instance != null && UIManager.Instance.PopupManager != null)
+            {
+                UIManager.Instance.PopupManager.SpawnCenterPopup(UIPopupNames.GameOption, OnOptionPopupClosed);
+            }
+        }
+
+        private void OnOptionPopupClosed(bool popupResult)
+        {
+            // 옵션 팝업이 닫힌 후 처리할 로직이 있다면 여기에 추가
         }
     }
 }

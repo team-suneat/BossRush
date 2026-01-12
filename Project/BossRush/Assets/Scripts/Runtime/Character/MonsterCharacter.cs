@@ -2,13 +2,28 @@
 {
     public class MonsterCharacter : Character
     {
+        public AIBrain Brain { get; private set; }
+
         public override LogTags LogTag => LogTags.Monster;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            Brain = GetComponent<AIBrain>();
+        }
 
         public override void Initialize()
         {
             base.Initialize();
 
             CharacterManager.Instance.Register(this);
+        }
+
+        public override void BattleReady()
+        {
+            base.BattleReady();
+
+            Brain?.Activate();
         }
 
         public override void OnDespawn()

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace TeamSuneat
 {
-    public class MonsterMovementStateMachine : CharacterStateMachine
+    public class MonsterStateMachine : CharacterStateMachine
     {
         private CharacterPhysics _physics;
         private CharacterAnimator _animator;
@@ -41,7 +41,7 @@ namespace TeamSuneat
         {
             if (_character == null) return;
 
-            var cmd = _character.Command;
+            CharacterCommand cmd = _character.Command;
 
             // 점프 입력 감지
             if (cmd.IsJumpPressed && !cmd.IsDownInputPressed)

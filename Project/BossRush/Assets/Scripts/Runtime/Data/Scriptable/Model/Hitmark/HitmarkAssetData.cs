@@ -84,31 +84,31 @@ namespace TeamSuneat.Data
 
         // 연결된 값
 
-        [FoldoutGroup("연결된 참조 피해량")]
+        [FoldoutGroup("#연결된 참조 피해량")]
         [Tooltip("피해량을 고정으로 설정하지 않고, 해당 값을 찾아 비례 피해를 입힙니다")]
         [GUIColor("GetLinkedDamageTypeColor")]
         [SuffixLabel("연결된 값 종류*")]
         public LinkedDamageTypes LinkedDamageType;
 
-        [FoldoutGroup("연결된 참조 피해량")]
+        [FoldoutGroup("#연결된 참조 피해량")]
         [DisableIf("LinkedDamageType", LinkedDamageTypes.None)]
         [GUIColor("GetStateEffectColor")]
         [SuffixLabel("연결된 상태 이상")]
         public StateEffects LinkedStateEffect;
 
-        [FoldoutGroup("연결된 참조 피해량")]
+        [FoldoutGroup("#연결된 참조 피해량")]
         [GUIColor("GetFloatColor")]
         [DisableIf("LinkedDamageType", LinkedDamageTypes.None)]
         [SuffixLabel("연결된 값 배율(%)")]
         public float LinkedHitmarkMagnification;
 
-        [FoldoutGroup("연결된 참조 피해량")]
+        [FoldoutGroup("#연결된 참조 피해량")]
         [GUIColor("GetFloatColor")]
         [DisableIf("LinkedDamageType", LinkedDamageTypes.None)]
         [SuffixLabel("연결된 값 배율(%) (레벨별)")]
         public float LinkedValueMagnificationByLevel;
 
-        [FoldoutGroup("연결된 참조 피해량")]
+        [FoldoutGroup("#연결된 참조 피해량")]
         [GUIColor("GetFloatColor")]
         [DisableIf("LinkedDamageType", LinkedDamageTypes.None)]
         [SuffixLabel("연결된 값 배율(%) (스택별)")]

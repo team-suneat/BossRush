@@ -65,7 +65,8 @@ namespace TeamSuneat.Audio
                 return;
             }
 
-            SetMixerVolume("Music", GameSetting.Instance.Audio.BGMVolume, GameSetting.Instance.Audio.MuteBGM);
+            SetMixerVolume("Master", GameSetting.Instance.Audio.MasterVolume, false);
+            SetMixerVolume("Music", GameSetting.Instance.Audio.MusicVolume, GameSetting.Instance.Audio.MuteMusic);
             SetMixerVolume("SFX", GameSetting.Instance.Audio.SFXVolume, GameSetting.Instance.Audio.MuteSFX);
         }
 
