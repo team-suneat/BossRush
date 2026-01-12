@@ -478,8 +478,8 @@ namespace TeamSuneat
             Character defender = targetVital.Owner;
             if (defender.MyVital?.Pulse != null)
             {
-                Pulse pulse = defender.MyVital.Pulse;
-                pulse.AddCurrentValue(1);
+                Pulse pulse = defender.MyVital.Pulse;                
+                pulse.OnParrySuccess();                
                 LogInfo("패링 성공! 피격자의 펄스를 증가시킵니다. {0}/{1}", pulse.Current, pulse.Max);
             }
 

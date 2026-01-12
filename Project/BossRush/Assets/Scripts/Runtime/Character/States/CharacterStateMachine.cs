@@ -154,7 +154,7 @@ namespace TeamSuneat
                    state == CharacterState.ControlledMovement;
         }
 
-        public void RequestJump()
+        protected void RequestJump()
         {
             // 점프 요청 처리 (상태별로 다르게 처리)
             if (_states.TryGetValue(CurrentState, out ICharacterState currentState))
@@ -163,7 +163,14 @@ namespace TeamSuneat
             }
         }
 
-        public virtual void RequestDash(Vector2 direction)
+        // 방향 없이 대시 요청 (캐릭터가 바라보는 방향으로 대시)
+        protected virtual void RequestDash()
+        {
+            Vector2 direction = new Vector2(_character != null && _character.Physics != null ? _character.Physics.FacingDirection : 1f, 0f);
+            RequestDash(direction);
+        }
+
+        private void RequestDash(Vector2 direction)
         {
             // 대시 요청 처리
             if (_states.TryGetValue(CurrentState, out ICharacterState currentState))
@@ -180,13 +187,6 @@ namespace TeamSuneat
                     currentState.OnDashRequested(direction);
                 }
             }
-        }
-
-        // 방향 없이 대시 요청 (캐릭터가 바라보는 방향으로 대시)
-        public virtual void RequestDash()
-        {
-            Vector2 direction = new Vector2(_character != null && _character.Physics != null ? _character.Physics.FacingDirection : 1f, 0f);
-            RequestDash(direction);
         }
 
         private void OnDrawGizmos()

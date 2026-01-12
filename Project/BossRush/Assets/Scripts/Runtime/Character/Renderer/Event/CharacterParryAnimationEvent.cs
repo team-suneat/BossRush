@@ -13,10 +13,8 @@ namespace TeamSuneat
 
         private void CallParryAnimationEvent()
         {
-            if (_character != null && _character.MyVital != null && _character.MyVital.Pulse != null)
-            {
-                _character.MyVital.Pulse.UseParry();
-            }
+            // 펄스 소모는 ParryState.OnEnter()에서 처리하므로 여기서는 제거
+            // 필요시 다른 로직 추가 가능
         }
     }
 }

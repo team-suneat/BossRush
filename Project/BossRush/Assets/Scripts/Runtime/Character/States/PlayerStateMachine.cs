@@ -1,12 +1,10 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace TeamSuneat
 {
     public class PlayerStateMachine : CharacterStateMachine
     {
         private CharacterPhysics _physics;
-        private PlayerInput _input;
         private CharacterAnimator _animator;
 
         protected override void Awake()
@@ -14,7 +12,6 @@ namespace TeamSuneat
             base.Awake();
 
             _physics = GetComponent<CharacterPhysics>();
-            _input = GetComponent<PlayerInput>();
             _animator = GetComponentInChildren<CharacterAnimator>();
         }
 
@@ -76,7 +73,9 @@ namespace TeamSuneat
             }
         }
 
-        public virtual void RequestAttack()
+        //
+
+        private void RequestAttack()
         {
             if (_states.TryGetValue(CurrentState, out ICharacterState currentState))
             {
@@ -87,14 +86,25 @@ namespace TeamSuneat
             }
         }
 
-        public virtual void RequestParry()
+        protected override void RequestDash()
         {
-            // 패링 가능 여부 검사 (온전한 한 칸이 있는지 확인)
-            if (_character != null && _character.MyVital != null && _character.MyVital.Pulse != null)
+            if (_character != null && _character.MyVital != null)
             {
-                if (!_character.MyVital.CanParry)
+                if (!_character.MyVital.CanUsePulse)
                 {
-                    // 패링 게이지가 부족하여 상태 변경 불가
+                    return;
+                }
+            }
+
+            base.RequestDash();
+        }
+
+        private void RequestParry()
+        {
+            if (_character != null && _character.MyVital != null)
+            {
+                if (!_character.MyVital.CanUsePulse)
+                {
                     return;
                 }
             }
@@ -107,6 +117,8 @@ namespace TeamSuneat
                 }
             }
         }
+
+        //
 
         public void EnableComboInput()
         {

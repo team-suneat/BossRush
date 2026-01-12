@@ -20,7 +20,9 @@ namespace TeamSuneat
         protected override void OnRelease()
         {
             base.OnRelease();
+
             Life?.UnregisterOnDeathEvent(OnDeath);
+            Pulse?.StopRegenerate();
         }
 
         public virtual void OnBattleReady()
@@ -32,8 +34,17 @@ namespace TeamSuneat
             Barrier?.Initialize();
 
             RegisterVital();
-            StartRegenerate();
         }
+
+        public void Despawn()
+        {
+            if (Owner != null)
+            {
+                Owner.Despawn();
+            }
+        }
+
+        //
 
         public void RegisterVital()
         {
@@ -45,13 +56,7 @@ namespace TeamSuneat
             VitalManager.Instance?.Remove(this);
         }
 
-        public void Despawn()
-        {
-            if (Owner != null)
-            {
-                Owner.Despawn();
-            }
-        }
+        //
 
         public bool CheckDamageImmunity(DamageResult damageResult)
         {
@@ -108,8 +113,6 @@ namespace TeamSuneat
             }
         }
 
-        // Damage Hitmark On Hit
-
         private void ApplyDamageInfo(DamageResult damageResult, Vital targetVital)
         {
             switch (damageResult.DamageType)
@@ -146,6 +149,8 @@ namespace TeamSuneat
             }
         }
 
+        //
+
         // Event
 
         protected virtual void OnDeath(DamageResult damageResult)
@@ -155,79 +160,49 @@ namespace TeamSuneat
 
         public void Heal(int value)
         {
-            Life?.Heal(value);
+            if (Life != null)
+            {
+                Life.Heal(value);
+            }
         }
 
         public void RestoreMana(int value)
         {
-            Mana?.AddCurrentValue(value);
+            if (Mana != null)
+            {
+                _ = Mana.AddCurrentValue(value);
+            }
         }
 
         public void Charge(int value)
         {
-            Barrier?.AddCurrentValue(value);
-        }
-
-        public void AddCurrentValue(VitalConsumeTypes consumeType, float value)
-        {
-            switch (consumeType)
+            if (Barrier != null)
             {
-                case VitalConsumeTypes.FixedLife:
-                    {
-                        Heal((int)value);
-                    }
-                    break;
-
-                case VitalConsumeTypes.FixedBarrier:
-                    {
-                        Charge((int)value);
-                    }
-                    break;
-
-                case VitalConsumeTypes.FixedResource:
-                    {
-                        // 게이지 증가량(0~1)으로 사용
-                        if (Mana != null)
-                        {
-                            float gainAmount = Mathf.Clamp01(value);
-                            Mana.OnAttackSuccess(gainAmount);
-                        }
-                    }
-                    break;
-
-                case VitalConsumeTypes.FixedPulse:
-                    {
-                        // 게이지 증가량(0~1)으로 사용
-                        if (Pulse != null)
-                        {
-                            float gainAmount = Mathf.Clamp01(value);
-                            Pulse.OnAttackSuccess(gainAmount);
-                        }
-                    }
-                    break;
-
-                case VitalConsumeTypes.FixedResourceAndPulse:
-                    {
-                        // 게이지 증가량(0~1)으로 사용
-                        float gainAmount = Mathf.Clamp01(value);
-                        if (Mana != null)
-                        {
-                            Mana.OnAttackSuccess(gainAmount);
-                        }
-                        if (Pulse != null)
-                        {
-                            Pulse.OnAttackSuccess(gainAmount);
-                        }
-                    }
-                    break;
-
-                default:
-                    {
-                        LogErrorAddResource(consumeType, value);
-                    }
-                    break;
+                _ = Barrier.AddCurrentValue(value);
             }
         }
+
+        public bool UseParry()
+        {
+            if (Pulse == null)
+            {
+                return false;
+            }
+
+            return Pulse.UseCurrentValue();
+        }
+
+        public bool UseDash()
+        {
+            if (Pulse == null)
+            {
+                return false;
+            }
+
+            return Pulse.UseCurrentValue();
+        }
+
+        //
 
         public void AddCurrentValue(VitalConsumeTypes consumeType, int value)
         {
@@ -247,7 +222,6 @@ namespace TeamSuneat
 
                 case VitalConsumeTypes.FixedResource:
                     {
-                        // 게이지 증가량(0~1)으로 사용
                         if (Mana != null)
                         {
                             float gainAmount = Mathf.Clamp01(value);
@@ -258,7 +232,6 @@ namespace TeamSuneat
 
                 case VitalConsumeTypes.FixedPulse:
                     {
-                        // 게이지 증가량(0~1)으로 사용
                         if (Pulse != null)
                         {
                             float gainAmount = Mathf.Clamp01(value);
@@ -269,7 +242,6 @@ namespace TeamSuneat
 
                 case VitalConsumeTypes.FixedResourceAndPulse:
                     {
-                        // 게이지 증가량(0~1)으로 사용
                         float gainAmount = Mathf.Clamp01(value);
                         if (Mana != null)
                         {
@@ -313,7 +285,7 @@ namespace TeamSuneat
                         {
                             if (value > 0)
                             {
-                                Barrier.UseCurrentValue(value);
+                                _ = Barrier.UseCurrentValue(value);
                                 return;
                             }
                         }
@@ -350,7 +322,7 @@ namespace TeamSuneat
                                 // 온전한 펄스를 value 개수만큼 사용
                                 for (int i = 0; i < value; i++)
                                 {
-                                    if (!Pulse.TryUseFullPulse())
+                                    if (!Pulse.UseCurrentValue())
                                     {
                                         LogErrorUseBattleResource(hitmarkAssetData, value);
                                         return;
@@ -385,7 +357,7 @@ namespace TeamSuneat
                             {
                                 for (int i = 0; i < value; i++)
                                 {
-                                    if (!Pulse.TryUseFullPulse())
+                                    if (!Pulse.UseCurrentValue())
                                     {
                                         LogErrorUseBattleResource(hitmarkAssetData, value);
                                         return;

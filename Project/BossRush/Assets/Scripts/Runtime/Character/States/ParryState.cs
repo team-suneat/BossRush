@@ -19,6 +19,12 @@ namespace TeamSuneat
 
         public void OnEnter()
         {
+            // 펄스 소모
+            if (_character != null && _character.MyVital != null && _character.MyVital.Pulse != null)
+            {
+                _character.MyVital.UseParry();
+            }
+
             // 이동 및 방향 전환 잠금
             _animator?.LockMovement();
             _animator?.LockFlip();
@@ -42,7 +48,7 @@ namespace TeamSuneat
             // 애니메이션 종료 시 자동으로 Idle/Walk로 전환
             if (!_animator.IsParrying)
             {
-                var cmd = _character.Command;
+                CharacterCommand cmd = _character.Command;
                 if (_physics.IsGrounded)
                 {
                     // 착지 시
@@ -98,4 +104,3 @@ namespace TeamSuneat
         }
     }
 }
-

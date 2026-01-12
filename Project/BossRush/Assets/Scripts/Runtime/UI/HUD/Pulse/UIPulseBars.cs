@@ -1,10 +1,9 @@
-using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TeamSuneat.UserInterface
 {
-    /// <summary> 펄스 게이지를 한 칸 단위로 표시하는 클래스입니다. </summary>
     public class UIPulseBars : XBehaviour
     {
         [FoldoutGroup("#UIPulseBars")]
@@ -16,6 +15,7 @@ namespace TeamSuneat.UserInterface
         private float _currentGaugeProgress = 0f;
         private int _currentFullPulseCount = 0;
         private int _currentMaxPulseCount = 0;
+        private bool _isBurnout = false;
 
         public override void AutoGetComponents()
         {
@@ -33,17 +33,12 @@ namespace TeamSuneat.UserInterface
             }
         }
 
-        /// <summary> 게이지 진행도를 설정합니다. </summary>
-        /// <param name="progress">게이지 진행도 (0~1)</param>
         public void SetGaugeProgress(float progress)
         {
             _currentGaugeProgress = Mathf.Clamp01(progress);
             UpdateBars();
         }
 
-        /// <summary> 온전한 펄스 개수를 설정합니다. </summary>
-        /// <param name="count">현재 온전한 펄스 개수</param>
-        /// <param name="maxCount">최대 온전한 펄스 개수</param>
         public void SetFullPulseCount(int count, int maxCount)
         {
             if (maxCount <= 0)
@@ -62,7 +57,12 @@ namespace TeamSuneat.UserInterface
             UpdateBars();
         }
 
-        /// <summary> 펄스 바 상태를 업데이트합니다. </summary>
+        public void SetBurnoutState(bool isBurnout)
+        {
+            _isBurnout = isBurnout;
+            UpdateBars();
+        }
+
         private void UpdateBars()
         {
             for (int i = 0; i < _pulseBars.Count; i++)
@@ -76,20 +76,41 @@ namespace TeamSuneat.UserInterface
                 {
                     _pulseBars[i].SetActive(true);
 
-                    // 그레이 이미지는 항상 fillAmount 1.0 (배경 역할)
-                    float grayAmount = 1f;
+                    // 번아웃 상태에 따라 이미지 활성화/비활성화
+                    _pulseBars[i].SetBurnoutState(_isBurnout);
 
-                    // 온전한 펄스는 fillAmount 1.0, 그 외는 게이지 진행도
+                    float grayAmount = 1f;
                     float fillAmount = 0f;
-                    if (i < _currentFullPulseCount)
+
+                    if (_isBurnout)
                     {
-                        // 온전한 펄스
-                        fillAmount = 1f;
+                        // 번아웃 상태일 때: 그레이 이미지가 게이지 진행도를 표시
+                        if (i < _currentFullPulseCount)
+                        {
+                            grayAmount = 1f;
+                        }
+                        else if (i == _currentFullPulseCount)
+                        {
+                            grayAmount = _currentGaugeProgress;
+                        }
+                        else
+                        {
+                            grayAmount = 0f;
+                        }
+                        fillAmount = 0f; // fill 이미지는 비활성화되어 있음
                     }
-                    else if (i == _currentFullPulseCount)
+                    else
                     {
-                        // 마지막 부분 채워진 펄스는 게이지 진행도로 표시
-                        fillAmount = _currentGaugeProgress;
+                        // 번아웃이 아닐 때: fill 이미지가 게이지 진행도를 표시
+                        grayAmount = 1f;
+                        if (i < _currentFullPulseCount)
+                        {
+                            fillAmount = 1f;
+                        }
+                        else if (i == _currentFullPulseCount)
+                        {
+                            fillAmount = _currentGaugeProgress;
+                        }
                     }
 
                     _pulseBars[i].SetFillAmount(grayAmount, fillAmount);
@@ -101,7 +122,6 @@ namespace TeamSuneat.UserInterface
             }
         }
 
-        /// <summary> 모든 펄스 바를 비활성화합니다. </summary>
         private void DeactivateAllBars()
         {
             for (int i = 0; i < _pulseBars.Count; i++)
@@ -114,4 +134,3 @@ namespace TeamSuneat.UserInterface
         }
     }
 }
-

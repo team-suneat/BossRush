@@ -1,5 +1,6 @@
-using System;
 using Sirenix.OdinInspector;
+using System;
+using System.Collections;
 using UnityEngine;
 
 namespace TeamSuneat
@@ -17,14 +18,31 @@ namespace TeamSuneat
 
         public event Action<float> OnGaugeProgressChanged;
 
+        [Title("#Burnout")]
+        [ReadOnly]
+        [FoldoutGroup("#PulseGauge")]
+        [SuffixLabel("번아웃 상태 여부")]
+        private bool _isBurnout = false;
+
+        public event Action<bool> OnBurnoutStateChanged;
+
+        [Title("#Regenerate")]
+        [ReadOnly]
+        [FoldoutGroup("#PulseGauge")]
+        [SuffixLabel("재생 비율")]
+        public float RegenerateRate { get; set; }
+
+        private Coroutine _regenerateCoroutine;
+
         #endregion Field
 
         #region Parameter
 
         public override VitalResourceTypes Type => VitalResourceTypes.Pulse;
 
-        /// <summary> 패링 사용 가능 여부 (Current 1 이상). </summary>
-        public bool CanParry => Current >= 1;
+        public bool IsBurnout => _isBurnout;
+
+        public bool CanUsePulse => Current >= 1 && !_isBurnout;
 
         #endregion Parameter
 
@@ -38,6 +56,7 @@ namespace TeamSuneat
             LoadCurrentValue();
 
             GaugeProgress = 0f;
+            _isBurnout = false;
             NotifyGaugeProgressChanged();
         }
 
@@ -45,6 +64,7 @@ namespace TeamSuneat
         {
             Current = Max;
             GaugeProgress = 0f;
+            _isBurnout = false;
             NotifyGaugeProgressChanged();
             SendGlobalEventOfChange();
 
@@ -80,7 +100,8 @@ namespace TeamSuneat
             }
         }
 
-        /// <summary> 공격 성공 시 게이지 증가. </summary>
+        //
+
         public void OnAttackSuccess(float gainAmount = 0f)
         {
             if (gainAmount <= 0f)
@@ -89,10 +110,9 @@ namespace TeamSuneat
             }
 
             float newProgress = GaugeProgress + gainAmount;
-
             if (newProgress >= 1f)
             {
-                if (AddFullPulse())
+                if (AddCurrentValue(1))
                 {
                     GaugeProgress = 0f;
                 }
@@ -106,56 +126,151 @@ namespace TeamSuneat
             LogInfo("공격 성공으로 펄스 게이지를 증가합니다. 진행도: {0:F1}%", GaugeProgress * 100f);
         }
 
-        /// <summary> 온전한 펄스 추가. </summary>
-        private bool AddFullPulse()
+        public void OnRegenerate(float gainAmount)
         {
-            if (Current >= Max)
+            if (gainAmount <= 0f)
             {
-                LogWarning("온전한 펄스가 최대 개수에 도달했습니다. {0}/{1}", Current, Max);
-                return false;
+                return;
             }
 
-            Current++;
-            SendGlobalEventOfChange();
-            LogInfo("온전한 펄스를 획득합니다. {0}/{1}", Current, Max);
-            return true;
-        }
-
-        /// <summary> 온전한 펄스 사용 시도. </summary>
-        public bool TryUseFullPulse()
-        {
-            if (Current <= 0)
+            float newProgress = GaugeProgress + gainAmount;
+            if (newProgress >= 1f)
             {
-                LogWarning("온전한 펄스가 부족합니다. 현재: {0}", Current);
-                return false;
+                if (AddCurrentValue(1))
+                {
+                    GaugeProgress = 0f;
+                }
+            }
+            else if (newProgress < 0f)
+            {
+                GaugeProgress = 0f;
+            }
+            else
+            {
+                GaugeProgress = newProgress;
             }
 
-            Current--;
-            SendGlobalEventOfChange();
-            LogInfo("온전한 펄스를 사용합니다. 남은 개수: {0}/{1}", Current, Max);
-
-            return true;
+            NotifyGaugeProgressChanged();
         }
 
-        /// <summary> 패링 시전 시 게이지 소모. (검사 없이 소모만 수행) </summary>
-        public void UseParry()
-        {
-            // Current 값을 1 감소
-            Current = Mathf.Max(0, Current - 1);
-            SendGlobalEventOfChange();
-            LogInfo("패링 게이지를 소모합니다. 남은 Current: {0}/{1}", Current, Max);
-        }
-
-        /// <summary> 패링 성공 시 게이지 회복. </summary>
         public void OnParrySuccess()
         {
-            OnAttackSuccess(0.5f);
             LogInfo("패링 성공! 게이지를 회복합니다.");
+            AddCurrentValue(1);
+        }
+
+        public override bool UseCurrentValue(int value, DamageResult damageResult)
+        {
+            bool result = base.UseCurrentValue(value, damageResult);
+
+            if (result && Current == 0 && !_isBurnout)
+            {
+                _isBurnout = true;
+                NotifyBurnoutStateChanged();
+                LogInfo("펄스가 0이 되어 번아웃 상태로 진입합니다.");
+                StartRegenerate();
+            }
+
+            return result;
+        }
+
+        public override bool AddCurrentValue(int value)
+        {
+            bool wasBurnout = _isBurnout;
+            bool result = base.AddCurrentValue(value);
+
+            if (result && wasBurnout && Current >= 3)
+            {
+                _isBurnout = false;
+                NotifyBurnoutStateChanged();
+                LogInfo("펄스가 3이 되어 번아웃 상태가 해제됩니다.");
+                StopRegenerate();
+            }
+
+            return result;
         }
 
         private void NotifyGaugeProgressChanged()
         {
             OnGaugeProgressChanged?.Invoke(GaugeProgress);
+        }
+
+        private void NotifyBurnoutStateChanged()
+        {
+            OnBurnoutStateChanged?.Invoke(_isBurnout);
+        }
+
+        //
+
+        public void StartRegenerate()
+        {
+            if (Vital?.Owner == null)
+            {
+                return;
+            }
+
+            if (_regenerateCoroutine != null)
+            {
+                LogWarning("펄스 재생 코루틴이 이미 실행 중입니다.");
+                return;
+            }
+
+            if (RegenerateRate <= 0f)
+            {
+                LogInfo("재생 비율이 0 이하이므로 재생을 시작하지 않습니다.");
+                return;
+            }
+
+            _regenerateCoroutine = StartXCoroutine(ProcessRegenerate());
+            LogInfo("펄스 재생을 시작합니다. 재생 비율: {0}", RegenerateRate);
+        }
+
+        public void StopRegenerate()
+        {
+            StopXCoroutine(ref _regenerateCoroutine);
+        }
+
+        private IEnumerator ProcessRegenerate()
+        {
+            while (true)
+            {
+                if (Vital?.Owner == null)
+                {
+                    LogInfo("바이탈 또는 소유자가 없어 재생을 중지합니다.");
+                    break;
+                }
+
+                if (!Vital.Owner.IsAlive)
+                {
+                    LogInfo("캐릭터가 생존하지 않아 재생을 중지합니다.");
+                    break;
+                }
+
+                if (RegenerateRate <= 0f)
+                {
+                    LogInfo("재생 비율이 0 이하로 변경되어 재생을 중지합니다.");
+                    break;
+                }
+
+                if (!_isBurnout)
+                {
+                    LogInfo("번아웃 상태가 해제되어 재생을 중지합니다.");
+                    break;
+                }
+
+                yield return null;
+
+                float frameGainAmount = Mathf.Clamp01(RegenerateRate * Time.deltaTime);
+                OnRegenerate(frameGainAmount);
+            }
+
+            _regenerateCoroutine = null;
+        }
+
+        protected override void OnRelease()
+        {
+            base.OnRelease();
+            StopRegenerate();
         }
     }
 }

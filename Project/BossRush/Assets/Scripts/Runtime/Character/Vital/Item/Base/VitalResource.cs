@@ -117,6 +117,11 @@ namespace TeamSuneat
 
         //
 
+        public virtual bool UseCurrentValue()
+        {
+            return UseCurrentValue(1, null);
+        }
+
         public virtual bool UseCurrentValue(int value)
         {
             return UseCurrentValue(value, null);

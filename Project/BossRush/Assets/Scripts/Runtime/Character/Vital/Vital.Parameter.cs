@@ -18,6 +18,6 @@
 
         //
 
-        public bool CanParry => Pulse != null && Pulse.CanParry;
+        public bool CanUsePulse => Pulse != null && Pulse.CanUsePulse;
     }
 }

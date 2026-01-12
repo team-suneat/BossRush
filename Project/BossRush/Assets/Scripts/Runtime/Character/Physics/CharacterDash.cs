@@ -14,18 +14,20 @@ namespace TeamSuneat
         [SerializeField] private bool _airDashEnabled = true;
 
         private CharacterPhysicsCore _physics;
+        private Vital _vital;
         private float _dashDurationCounter;
         private float _dashCooldownRemaining;
         private Vector2 _dashDirection;
 
         public bool IsDashing => _physics != null && _physics.IsDashing;
-        public bool CanDash => _dashCooldownRemaining <= 0f && !IsDashing;
+        public bool CanDash => _dashCooldownRemaining <= 0f && !IsDashing && HasPulse();
         public bool IsAirDashEnabled => _airDashEnabled;
         public float DashCooldownRemaining => _dashCooldownRemaining;
 
         private void Awake()
         {
             _physics = GetComponent<CharacterPhysicsCore>();
+            _vital = GetComponentInChildren<Vital>();
         }
 
         // 방향 없이 대시 요청 (캐릭터가 바라보는 방향으로 대시)
@@ -53,6 +55,12 @@ namespace TeamSuneat
             else
             {
                 direction.Normalize();
+            }
+
+            // 펄스 소모
+            if (!ConsumePulse())
+            {
+                return;
             }
 
             float dashSpeed = _dashDistance.SafeDivide(_dashDuration);
@@ -93,6 +101,25 @@ namespace TeamSuneat
             {
                 _dashCooldownRemaining -= Time.fixedDeltaTime;
             }
+        }
+
+        private bool HasPulse()
+        {
+            if (_vital == null)
+            {
+                return false;
+            }
+
+            return _vital.CanUsePulse;
+        }
+
+        private bool ConsumePulse()
+        {
+            if (_vital == null)
+            {
+                return false;
+            }
+            return _vital.UseDash();
         }
     }
 }

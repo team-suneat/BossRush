@@ -36,10 +36,10 @@ namespace TeamSuneat
 
         private void RefreshPulseRegenerate(StatSystem StatSystem)
         {
-            if (StatSystem.Owner.MyVital != null)
+            if (StatSystem.Owner.MyVital != null && StatSystem.Owner.MyVital.Pulse != null)
             {
                 float pulseRegenValue = StatSystem.FindValueOrDefault(StatNames.PulseRegen);
-                StatSystem.Owner.MyVital.PulseRegenerateRate = pulseRegenValue;
+                StatSystem.Owner.MyVital.Pulse.RegenerateRate = pulseRegenValue;
 
                 if (Log.LevelInfo)
                 {
