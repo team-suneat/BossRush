@@ -15,6 +15,7 @@ namespace TeamSuneat
         private const float PUNCH_SCALE_ELASTICITY = 0.5f;
         private const float ALPHA_OPAQUE = 1f;
         private const float DURATION_ZERO = 0f;
+        private const float DISABLED_ALPHA = 0.5f;
 
         [FoldoutGroup("#UIInteractiveElement"), SerializeField] protected Image _frameImage;
         [FoldoutGroup("#UIInteractiveElement"), SerializeField] protected Image _buttonImage;
@@ -28,6 +29,7 @@ namespace TeamSuneat
         protected bool _isClickable = true;
 
         public bool IsClickable => _isClickable;
+        public Image ButtonImage => _buttonImage;
 
         protected Color _frameImageOriginalColor;
         protected Color _nameTextOriginalColor;
@@ -73,7 +75,38 @@ namespace TeamSuneat
             KillAllTweens();
         }
 
-        protected bool CheckClickCooldown()
+        // 클릭 가능 여부 설정 시 비주얼도 함께 처리
+        public virtual void SetClickable(bool clickable)
+        {
+            if (_isClickable == clickable)
+            {
+                return;
+            }
+
+            _isClickable = clickable;
+            UpdateClickableVisual(clickable);
+        }
+
+        protected virtual void UpdateClickableVisual(bool clickable)
+        {
+            float targetAlpha = clickable ? ALPHA_OPAQUE : DISABLED_ALPHA;
+
+            if (_frameImage != null)
+            {
+                Color color = _frameImage.color;
+                color.a = targetAlpha;
+                _frameImage.color = color;
+            }
+
+            if (_nameText != null)
+            {
+                Color color = _nameText.color;
+                color.a = targetAlpha;
+                _nameText.color = color;
+            }
+        }
+
+        public bool CheckClickCooldown()
         {
             if (!_isClickable)
             {
@@ -90,7 +123,7 @@ namespace TeamSuneat
             return true;
         }
 
-        protected void PlayPunchScaleAnimation()
+        public void PlayPunchScaleAnimation()
         {
             KillScaleTween();
 
@@ -107,7 +140,7 @@ namespace TeamSuneat
             _scaleTween = null;
         }
 
-        protected virtual void KillAllTweens()
+        public virtual void KillAllTweens()
         {
             KillScaleTween();
         }
@@ -145,7 +178,7 @@ namespace TeamSuneat
             }
         }
 
-        protected void SetFrameImageColor(Color color, float alpha = ALPHA_OPAQUE, float duration = DURATION_ZERO)
+        public void SetFrameImageColor(Color color, float alpha = ALPHA_OPAQUE, float duration = DURATION_ZERO)
         {
             if (_frameImage == null)
             {

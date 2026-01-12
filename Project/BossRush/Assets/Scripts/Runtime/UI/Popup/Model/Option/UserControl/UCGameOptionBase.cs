@@ -54,7 +54,7 @@ namespace TeamSuneat.UserInterface
             _indexer?.DeactivateRaycast();
         }
 
-        protected void SetActiveEventButton(UISelectElement element, bool isActive)
+        protected void SetActiveEventButton(UISelectButton element, bool isActive)
         {
             if (element != null)
             {
@@ -62,7 +62,7 @@ namespace TeamSuneat.UserInterface
             }
         }
 
-        protected void HideUnderlineEventButton(UISelectElement element)
+        protected void HideUnderlineEventButton(UISelectButton element)
         {
             UIInteractiveElement interactiveElement = element.GetComponentNoAlloc<UIInteractiveElement>();
             interactiveElement?.HideUnderline();

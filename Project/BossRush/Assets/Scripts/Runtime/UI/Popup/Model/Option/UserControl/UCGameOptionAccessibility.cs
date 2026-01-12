@@ -8,15 +8,15 @@ namespace TeamSuneat.UserInterface
     public class UCGameOptionAccessibility : UCGameOptionBase
     {
         [FoldoutGroup("#Accessibility/Buttons")]
-        [SerializeField] private UISelectElement _vibrationButton;
+        [SerializeField] private UISelectButton _vibrationButton;
         [FoldoutGroup("#Accessibility/Buttons")]
-        [SerializeField] private UISelectElement _cameraShakeButton;
+        [SerializeField] private UISelectButton _cameraShakeButton;
         [FoldoutGroup("#Accessibility/Buttons")]
-        [SerializeField] private UISelectElement _damageTextButton;
+        [SerializeField] private UISelectButton _damageTextButton;
         [FoldoutGroup("#Accessibility/Buttons")]
-        [SerializeField] private UISelectElement _defaultValuesButton;
+        [SerializeField] private UISelectButton _defaultValuesButton;
         [FoldoutGroup("#Accessibility/Buttons")]
-        [SerializeField] private UISelectElement _backButton;
+        [SerializeField] private UISelectButton _backButton;
 
         [FoldoutGroup("#Accessibility")]
         [SerializeField] private UILocalizedText _descriptionText;
@@ -27,11 +27,11 @@ namespace TeamSuneat.UserInterface
 
             _indexer ??= GetComponentInChildren<UISelectElementIndexer>();
 
-            _vibrationButton = this.FindComponent<UISelectElement>("#Content/Vibration Button");
-            _cameraShakeButton = this.FindComponent<UISelectElement>("#Content/CameraShake Button");
-            _damageTextButton = this.FindComponent<UISelectElement>("#Content/DamageText Button");
-            _defaultValuesButton = this.FindComponent<UISelectElement>("#Content/Default Values Button");
-            _backButton = this.FindComponent<UISelectElement>("#Content/Back Button");
+            _vibrationButton = this.FindComponent<UISelectButton>("#Content/Vibration Button");
+            _cameraShakeButton = this.FindComponent<UISelectButton>("#Content/CameraShake Button");
+            _damageTextButton = this.FindComponent<UISelectButton>("#Content/DamageText Button");
+            _defaultValuesButton = this.FindComponent<UISelectButton>("#Content/Default Values Button");
+            _backButton = this.FindComponent<UISelectButton>("#Content/Back Button");
             _descriptionText = this.FindComponent<UILocalizedText>("Description Text");
         }
 

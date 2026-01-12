@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace TeamSuneat.UserInterface
 {
     // 구매 버튼 컴포넌트
-    public class UIPurchaseButton : UIButton
+    public class UIPurchaseButton : UISelectButton
     {
         [FoldoutGroup("#UIButton-Purchase"), SerializeField]
         private Image _currencyIconImage;
@@ -93,12 +93,12 @@ namespace TeamSuneat.UserInterface
 
         protected void ActivateFrameColor()
         {
-            SetFrameImageColor(GameColors.MediumAquamarine);
+            _interactive?.SetFrameImageColor(GameColors.MediumAquamarine);
         }
 
         protected void DeactivateFrameColor()
         {
-            SetFrameImageColor(GameColors.IndianRed);
+            _interactive?.SetFrameImageColor(GameColors.IndianRed);
         }
 
         protected bool CanPurchase(VProfile profile)

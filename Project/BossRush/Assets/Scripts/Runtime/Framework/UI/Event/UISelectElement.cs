@@ -81,8 +81,8 @@ namespace TeamSuneat.UserInterface
         {
             base.AutoGetComponents();
 
-            Clickable = GetComponentInChildren<UIClickable>();
-            Selectable = GetComponentInChildren<UISelectable>();
+            Clickable ??= GetComponentInChildren<UIClickable>();
+            Selectable ??= GetComponentInChildren<UISelectable>();
         }
 
         public override void AutoSetting()
@@ -103,44 +103,28 @@ namespace TeamSuneat.UserInterface
 
         private void RegisterClickableEvents()
         {
-            if (Clickable != null)
-            {
-                Clickable.RegisterPointerClickLeftEvent((PointerEventData pointerEventData) => { OnPointerClickLeft(); });
-                Clickable.RegisterPointerClickRightEvent((PointerEventData pointerEventData) => { OnPointerClickRight(); });
-                Clickable.RegisterPointerPressLeftEvent((PointerEventData pointerEventData) => { OnPointerPressLeft(); });
-                Clickable.RegisterPointerUpLeftEvent((PointerEventData pointerEventData) => { OnPointerUpLeft(); });
-            }
+            if (Clickable == null) return;
+
+            Clickable.RegisterPointerClickLeftEvent(_ => OnPointerClickLeft());
+            Clickable.RegisterPointerClickRightEvent(_ => OnPointerClickRight());
+            Clickable.RegisterPointerPressLeftEvent(_ => OnPointerPressLeft());
+            Clickable.RegisterPointerUpLeftEvent(_ => OnPointerUpLeft());
         }
 
         private void RegisterSelectableEvents()
         {
-            if (Selectable != null)
-            {
-                Selectable.RegisterPointerEnterEvent(OnPointerEnterEvent);
-                Selectable.RegisterPointerExitEvent(OnPointerExitEvent);
-            }
-        }
+            if (Selectable == null) return;
 
-        protected virtual void OnPointerEnterEvent(PointerEventData eventData)
-        {
-            OnPointerEnter();
-        }
-
-        protected virtual void OnPointerExitEvent(PointerEventData eventData)
-        {
-            OnPointerExit();
+            Selectable.RegisterPointerEnterEvent(_ => OnPointerEnter());
+            Selectable.RegisterPointerExitEvent(_ => OnPointerExit());
         }
 
         public void OnPointerClick()
         {
             if (PadClickType == PadClickTypes.Left)
-            {
                 OnPointerClickLeft();
-            }
             else if (PadClickType == PadClickTypes.Right)
-            {
                 OnPointerClickRight();
-            }
         }
 
         public virtual void OnPointerPressLeft()
@@ -168,7 +152,12 @@ namespace TeamSuneat.UserInterface
             _enterEventAction?.Invoke();
             IsEnterPointer = true;
 
-            UIManager.Instance.SelectController.ShowSelectFrame(UISelectFrameTypes.Normal, SelectFrameSizeDelta, SelectFrameOffset, transform, transform);
+            UIManager.Instance.SelectController
+                .ShowSelectFrame(UISelectFrameTypes.Normal,
+                                 SelectFrameSizeDelta,
+                                 SelectFrameOffset,
+                                 transform,
+                                 transform);
         }
 
         public virtual void OnPointerExit()
@@ -181,18 +170,12 @@ namespace TeamSuneat.UserInterface
 
         public virtual void RegisterOnPointEnter(UnityAction unityAction)
         {
-            Log.Info(LogTags.UI_SelectEvent, "{0}, 영역에서 진입할 때의 이벤트를 등록합니다: {1}", this.GetHierarchyName(), unityAction.Method.Name);
             _enterEventAction += unityAction;
         }
 
         public virtual void RegisterOnPointExit(UnityAction unityAction)
         {
-            Log.Info(LogTags.UI_SelectEvent, "{0}, 영역에서 벗어날 때의 이벤트를 등록합니다: {1}", this.GetHierarchyName(), unityAction.Method.Name);
             _exitEventAction += unityAction;
-        }
-
-        public virtual void OnPointerPressed()
-        {
         }
 
         public void ClearSelectIndex()
@@ -202,15 +185,11 @@ namespace TeamSuneat.UserInterface
             SelectRightIndex = DEFAULT_SELECT_INDEX;
             SelectUpIndex = DEFAULT_SELECT_INDEX;
             SelectDownIndex = DEFAULT_SELECT_INDEX;
-
-            Log.Info(LogTags.UI_SelectEvent, "{0}, 선택 인덱스를 초기화했습니다. SelectIndex: {1}", this.GetHierarchyName(), SelectIndex);
         }
 
         public void SetSelectIndex(int selectIndex)
         {
             SelectIndex = selectIndex;
-
-            Log.Info(LogTags.UI_SelectEvent, "{0}, 선택 인덱스를 설정했습니다. SelectIndex: {1}", this.GetHierarchyName(), SelectIndex);
         }
 
         private void OnDrawGizmos()
