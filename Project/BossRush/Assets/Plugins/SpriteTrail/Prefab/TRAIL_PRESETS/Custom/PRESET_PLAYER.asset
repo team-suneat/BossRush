@@ -16,7 +16,7 @@ MonoBehaviour:
   m_UseOnlyAlpha: 0
   m_TrailColor:
     serializedVersion: 2
-    key0: {r: 1, g: 1, b: 1, a: 1}
+    key0: {r: 1, g: 1, b: 1, a: 0.3764706}
     key1: {r: 0.5568628, g: 0.27058825, b: 0.7176471, a: 0}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
@@ -46,10 +46,10 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   m_TrailElementDurationCondition: 0
   m_TrailMaxLength: 10
-  m_TrailDuration: 0.15
+  m_TrailDuration: 0.075
   m_TrailElementSpawnCondition: 2
   m_TimeBetweenSpawns: 0
-  m_FramesBetweenSpawns: 12
+  m_FramesBetweenSpawns: 4
   m_DistanceBetweenSpawns: 0.225
   m_DistanceCorrection: 1
   m_UseSizeModifier: 0
