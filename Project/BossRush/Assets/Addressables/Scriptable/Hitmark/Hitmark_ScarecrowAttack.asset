@@ -17,18 +17,18 @@ MonoBehaviour:
     IsChangingAsset: 0
     Name: 2
     AttackTargetType: 2
-    EntityType: 0
+    EntityType: 2
     IsCrowdControl: 0
     DamageType: 1
     IgnoreEvasion: 0
+    IgnoreParry: 0
     NotPlayDamageAnimation: 0
+    ApplyKnockback: 0
     ApplyToSelf: 0
     ApplyMultiplierToSelf: 0
     ExecutionConditionalTargetLifeRate: 0
-    MinDamageValue: 1
     FixedDamage: 0
     FixedDamageByLevel: 0
-    UseWeaponDamage: 0
     LinkedDamageType: 0
     LinkedStateEffect: 0
     LinkedHitmarkMagnification: 0
@@ -38,10 +38,7 @@ MonoBehaviour:
     LinkedDamageTypeString: None
     LinkedStateEffectString: None
     NameOnHitString: 
-    UseWeaponDamageString: False
-    DiminishingType: 0
-    DiminishingRate: 0
-    ApplyDiminishingFromFirst: 0
+    DiminishingTypeString: None
     StopAttackAnimationOnResourceLack: 0
     UseResourceOnActivate: 0
     UseResourceOnApply: 0
@@ -55,6 +52,6 @@ MonoBehaviour:
     ForceResourceConsume: 0
     IgnoreDeathByConsume: 0
     ConsumeDelayTime: 0
+    HitFXPrefab: {fileID: 566794294309531314, guid: 8f2c1d117fb190d489553b521343800e, type: 3}
     AttackTargetTypeString: TargetOfOwner
-    DiminishingTypeString: None
     ResourceConsumeTypeString: None

@@ -18,7 +18,7 @@ MonoBehaviour:
   Player: 0
   Monster: 0
   CharacterSpawn: 0
-  CharacterState: 0
+  CharacterState: 1
   Animation: 0
   Attack: 0
   BattleResource: 0
@@ -55,9 +55,9 @@ MonoBehaviour:
   UI_Toggle: 0
   UI_Page: 0
   UI_Notice: 0
-  UI_Popup: 1
+  UI_Popup: 0
   UI_Details: 0
   UI_Skill: 0
-  UI_SelectEvent: 1
+  UI_SelectEvent: 0
   Video: 0
   LoadString: 0

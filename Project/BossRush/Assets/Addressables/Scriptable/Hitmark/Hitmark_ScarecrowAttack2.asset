@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44a1fdb7a9d3e48429d7d49c64140db0, type: 3}
-  m_Name: Hitmark_PlayerAttack
+  m_Name: Hitmark_ScarecrowAttack2
   m_EditorClassIdentifier: 
-  NameString: PlayerAttack
+  NameString: ScarecrowAttack2
   Data:
     IsChangingAsset: 0
-    Name: 1
+    Name: 3
     AttackTargetType: 2
     EntityType: 2
     IsCrowdControl: 0
     DamageType: 1
     IgnoreEvasion: 0
-    IgnoreParry: 0
+    IgnoreParry: 1
     NotPlayDamageAnimation: 0
     ApplyKnockback: 0
     ApplyToSelf: 0
     ApplyMultiplierToSelf: 0
     ExecutionConditionalTargetLifeRate: 0
-    FixedDamage: 1
+    FixedDamage: 0
     FixedDamageByLevel: 0
     LinkedDamageType: 0
     LinkedStateEffect: 0
@@ -42,16 +42,16 @@ MonoBehaviour:
     StopAttackAnimationOnResourceLack: 0
     UseResourceOnActivate: 0
     UseResourceOnApply: 0
-    UseResourceOnAttack: 1
-    UseResourceOnAttackSucceeded: 1
+    UseResourceOnAttack: 0
+    UseResourceOnAttackSucceeded: 0
     UseResourceOnAttackFailed: 0
     UseResourceOnInactive: 0
     UseResourceValue: 0
-    RestoreResourceValue: 0.25
-    ResourceConsumeType: 5
+    RestoreResourceValue: 0
+    ResourceConsumeType: 0
     ForceResourceConsume: 0
     IgnoreDeathByConsume: 0
     ConsumeDelayTime: 0
-    HitFXPrefab: {fileID: 568059700334458846, guid: c94febebf2e71fb439bec4ec19a4e4e7, type: 3}
+    HitFXPrefab: {fileID: 566794294309531314, guid: 8f2c1d117fb190d489553b521343800e, type: 3}
     AttackTargetTypeString: TargetOfOwner
-    ResourceConsumeTypeString: FixedResourceAndPulse
+    ResourceConsumeTypeString: None

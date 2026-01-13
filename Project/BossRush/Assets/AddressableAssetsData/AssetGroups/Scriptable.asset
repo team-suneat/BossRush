@@ -117,6 +117,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d1b02129a11162f42af00c2e0f70636d
+    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_ScarecrowAttack2.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dbc2a86de7829c04892900c58161dfb4
     m_Address: Assets/Addressables/Scriptable/Sound/Sound_Movement_Landing.asset
     m_ReadOnly: 0

@@ -5,6 +5,8 @@
         None,
 
         PlayerAttack,
+        
         ScarecrowAttack,
+        ScarecrowAttack2,
     }
 }

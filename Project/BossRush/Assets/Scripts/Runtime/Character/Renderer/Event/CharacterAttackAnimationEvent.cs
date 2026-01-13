@@ -4,7 +4,7 @@ namespace TeamSuneat
 {
     public class CharacterAttackAnimationEvent : MonoBehaviour
     {
-        private Character _character;
+        protected Character _character;
 
         private void Awake()
         {

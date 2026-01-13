@@ -388,6 +388,12 @@ namespace TeamSuneat
                 return false;
             }
 
+            // 패링 불가능한 공격인지 확인
+            if (AssetData != null && AssetData.IgnoreParry)
+            {
+                return false;
+            }
+
             if (!targetVital.Owner.CharacterAnimator.IsParrying)
             {
                 return false;

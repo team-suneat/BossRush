@@ -83,6 +83,17 @@ namespace TeamSuneat
         {
             if (_physics == null) return;
 
+            if (_vital != null && !_vital.IsAlive)
+            {
+                if (_physics.IsDashing)
+                {
+                    _physics.SetDashing(false);
+                    _dashDirection = Vector2.zero;
+                    _dashDurationCounter = 0f;
+                }
+                return;
+            }
+
             if (_physics.IsDashing)
             {
                 _dashDurationCounter -= Time.fixedDeltaTime;

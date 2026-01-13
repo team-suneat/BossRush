@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3845228328777077405}
   - component: {fileID: 8980597540413158258}
   m_Layer: 0
-  m_Name: fx_monster_damage
+  m_Name: fx_scarecrow_attack_success
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

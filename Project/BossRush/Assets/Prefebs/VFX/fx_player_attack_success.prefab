@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1295097222983229976}
   - component: {fileID: 7218102330292929221}
   m_Layer: 0
-  m_Name: fx_attack_success
+  m_Name: fx_player_attack_success
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
