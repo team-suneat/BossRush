@@ -51,5 +51,6 @@ MonoBehaviour:
     ForceResourceConsume: 0
     IgnoreDeathByConsume: 0
     ConsumeDelayTime: 0
+    HitFXPrefab: {fileID: 568059700334458846, guid: c94febebf2e71fb439bec4ec19a4e4e7, type: 3}
     AttackTargetTypeString: TargetOfOwner
     ResourceConsumeTypeString: FixedResourceAndPulse

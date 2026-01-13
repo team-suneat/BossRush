@@ -1,7 +1,6 @@
 ﻿using DG.Tweening;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
-using TeamSuneat.Audio;
 using TeamSuneat.Setting;
 using TeamSuneat.UserInterface;
 using UnityEngine;
@@ -303,6 +302,7 @@ namespace TeamSuneat
             {
                 SpawnDamageBloodVFX(damageResult.DamagePosition);
             }
+            SpawnHitFX(damageResult, damageResult.DamagePosition);
             OnDamageFlicker(damageResult);
 
             if (Current <= 0)
@@ -677,6 +677,34 @@ namespace TeamSuneat
                     }
                     break;
             }
+        }
+
+        private void SpawnHitFX(DamageResult damageResult, Vector3 damagePosition)
+        {
+            if (damageResult.Asset == null)
+            {
+                return;
+            }
+
+            if (Vital == null || Vital.Owner == null)
+            {
+                return;
+            }
+
+            GameObject prefab = damageResult.Asset.HitFXPrefab;
+
+            if (prefab == null)
+            {
+                return;
+            }
+
+            bool isFacingRight = true;
+            if (damageResult.TargetCharacter != null)
+            {
+                isFacingRight = damageResult.TargetCharacter.IsFacingRight;
+            }
+
+            _ = VFXManager.Spawn(prefab, damagePosition, isFacingRight);
         }
 
         #endregion Effect

@@ -1,6 +1,7 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using TeamSuneat.Assets.Scripts.Runtime.Character.Effect;
 using UnityEngine;
 
 namespace TeamSuneat
@@ -144,13 +145,11 @@ namespace TeamSuneat
         {
             base.OnDisabled();
 
-            _timerCoroutine = null; // StopCoroutine 호출 없이 핸들만 무효화
-
+            _timerCoroutine = null;
             ClearTargetsOfChainLightning();
-
             if (StatNameOfSize != StatNames.None || StatNameOfActiveDuration != StatNames.None)
             {
-                Owner.Stat.RegisterOnRefresh(OnRefreshStat);
+                Owner.Stat.UnregisterOnRefresh(OnRefreshStat);
             }
         }
 
@@ -383,24 +382,45 @@ namespace TeamSuneat
             OnAttack(false);
         }
 
+        private bool TryHandleParry(Vital targetVital)
+        {
+            if (targetVital == null || targetVital.Owner == null || targetVital.Owner.CharacterAnimator == null)
+            {
+                return false;
+            }
+
+            if (!targetVital.Owner.CharacterAnimator.IsParrying)
+            {
+                return false;
+            }
+
+            LogInfo("타겟이 패리 상태이므로 공격을 막습니다: {0}", targetVital.GetHierarchyPath());
+
+            if (_collidingCollider != null)
+            {
+                TriggerAttackOnParryFeedback(_collidingCollider.transform.position);
+            }
+
+            // PlayerParryEffect를 통한 패리 성공 처리
+            PlayerParryEffect parryEffect = targetVital.Owner.GetComponentNoAlloc<PlayerParryEffect>();
+            if (parryEffect != null)
+            {
+                Vector3 attackPosition = _attackCollider != null
+                    ? _attackCollider.transform.position
+                    : transform.position;
+
+                parryEffect.OnParrySuccess(Owner, attackPosition);
+            }
+
+            return true;
+        }
+
         private bool ApplyToTargetVital(Vital targetVital)
         {
-            // 패리 상태 체크
-            if (targetVital != null && targetVital.Owner != null && targetVital.Owner.CharacterAnimator != null)
+            // 패리 상태 체크 및 처리
+            if (TryHandleParry(targetVital))
             {
-                if (targetVital.Owner.CharacterAnimator.IsParrying)
-                {
-                    LogInfo("타겟이 패리 상태이므로 공격을 막습니다: {0}", targetVital.GetHierarchyPath());
-
-                    if (_collidingCollider != null)
-                    {
-                        TriggerAttackOnParryFeedback(_collidingCollider.transform.position);
-                    }
-
-                    ApplyParryKnockback(targetVital);
-                    ApplyParryPulseReward(targetVital);
-                    return false;
-                }
+                return false;
             }
 
             _damageCalculator.SetTargetVital(targetVital);
@@ -436,59 +456,6 @@ namespace TeamSuneat
             return _isApplyAnyDamage;
         }
 
-        // 패리 성공 시 양쪽 모두 넉백 적용
-        private void ApplyParryKnockback(Vital targetVital)
-        {
-            if (Owner == null || targetVital?.Owner == null)
-            {
-                return;
-            }
-
-            Character attacker = Owner;
-            Character defender = targetVital.Owner;
-
-            // 공격자와 피격자의 위치 기반으로 방향 계산
-            Vector3 attackerPosition = attacker.transform.position;
-            Vector3 defenderPosition = defender.transform.position;
-            Vector3 direction = (attackerPosition - defenderPosition).normalized;
-
-            // 수평 방향만 사용 (y는 0으로 설정하여 수평으로만 밀림)
-            Vector2 knockbackDirection = new Vector2(direction.x, 0f).normalized;
-
-            // 공격자는 피격자 방향에서 멀어지는 방향으로 넉백
-            if (attacker.Physics != null)
-            {
-                attacker.Physics.ApplyKnockback(knockbackDirection);
-            }
-
-            // 피격자는 공격자 방향에서 멀어지는 방향으로 넉백 (반대 방향)
-            if (defender.Physics != null)
-            {
-                defender.Physics.ApplyKnockback(-knockbackDirection);
-            }
-        }
-        // 패리 성공 시 피격자의 펄스 증가
-        private void ApplyParryPulseReward(Vital targetVital)
-        {
-            if (targetVital?.Owner == null)
-            {
-                return;
-            }
-
-            Character defender = targetVital.Owner;
-            if (defender.MyVital?.Pulse != null)
-            {
-                Pulse pulse = defender.MyVital.Pulse;                
-                pulse.OnParrySuccess();                
-                LogInfo("패링 성공! 피격자의 펄스를 증가시킵니다. {0}/{1}", pulse.Current, pulse.Max);
-            }
-
-            // 패링 성공 여부를 애니메이터에 전달
-            if (defender.CharacterAnimator != null)
-            {
-                defender.CharacterAnimator.SetParrySuccess(true);
-            }
-        }
         public bool CheckTargetInArea()
         {
             if (Owner == null || Owner.TargetCharacter == null)

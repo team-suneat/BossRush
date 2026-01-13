@@ -185,6 +185,14 @@ namespace TeamSuneat.Data
 
         #endregion 자원 (Resource)
 
+        #region Effect
+
+        [FoldoutGroup("#Effect")]
+        [SuffixLabel("피격 시 FX 프리팹")]
+        public GameObject HitFXPrefab;
+
+        #endregion Effect
+
         #region 스트링 (String)
 
         [FoldoutGroup("#String")] public string AttackTargetTypeString;
@@ -286,6 +294,8 @@ namespace TeamSuneat.Data
                 LinkedHitmarkMagnification = LinkedHitmarkMagnification,
                 LinkedValueMagnificationByLevel = LinkedValueMagnificationByLevel,
                 LinkedValueMagnificationByStack = LinkedValueMagnificationByStack,
+
+                HitFXPrefab = HitFXPrefab,
             };
 
             return clone;
