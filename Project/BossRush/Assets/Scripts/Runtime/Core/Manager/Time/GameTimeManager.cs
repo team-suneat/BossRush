@@ -10,13 +10,43 @@ namespace TeamSuneat
     /// </summary>
     public class GameTimeManager : Singleton<GameTimeManager>
     {
-        #region Private Fields
-
         private float _factor = 1.0f; // 100%
 
-        #endregion Private Fields
+        public void LogicUpdate()
+        {
+            if (!GameDefine.IS_EDITOR_OR_DEVELOPMENT_BUILD)
+            {
+                return;
+            }
 
-        #region Public Methods
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                if (Input.GetKeyDown(KeyCode.Alpha0))
+                {
+                    SetFactor(0.1f);
+                }
+                if (Input.GetKeyDown(KeyCode.Alpha1))
+                {
+                    SetFactor(1f);
+                }
+                if (Input.GetKeyDown(KeyCode.Alpha2))
+                {
+                    SetFactor(2f);
+                }
+                if (Input.GetKeyDown(KeyCode.Alpha3))
+                {
+                    SetFactor(3f);
+                }
+                if (Input.GetKeyDown(KeyCode.Alpha4))
+                {
+                    SetFactor(4f);
+                }
+                if (Input.GetKeyDown(KeyCode.Alpha5))
+                {
+                    SetFactor(5f);
+                }
+            }
+        }
 
         public void SetFactor(float factor, bool useSetScale = true)
         {
@@ -39,7 +69,5 @@ namespace TeamSuneat
 
             onCompleted?.Invoke();
         }
-
-        #endregion Public Methods
     }
 }

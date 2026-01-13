@@ -398,8 +398,8 @@ namespace TeamSuneat
                         }
                     }
 
-                    bool isActuallyGrounded = !isOneWayPlatform || currentVelocityY >= 0f;
-
+                    // 아래로 떨어지거나 정지 상태일 때만 지면 충돌 인정
+                    bool isActuallyGrounded = !isOneWayPlatform && currentVelocityY <= 0f;
                     if (isActuallyGrounded)
                     {
                         _collisionInfo.below = true;

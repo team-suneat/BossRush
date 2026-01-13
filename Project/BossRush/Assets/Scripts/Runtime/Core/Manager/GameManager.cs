@@ -1,6 +1,4 @@
-using System.Collections;
 using TeamSuneat.Setting;
-using TeamSuneat.Stage;
 using TeamSuneat.UserInterface;
 using UnityEngine;
 
@@ -39,6 +37,7 @@ namespace TeamSuneat
             TSInputManager.Instance.GetInputState();
             CharacterManager.Instance.LogicUpdate();
             UIManager.Instance?.LogicUpdate();
+            GameTimeManager.Instance.LogicUpdate();
         }
 
         private void LateUpdate()
