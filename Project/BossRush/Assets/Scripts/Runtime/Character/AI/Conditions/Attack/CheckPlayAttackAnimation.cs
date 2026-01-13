@@ -10,15 +10,12 @@ namespace TeamSuneat
     {
         protected override bool OnCheck()
         {
-            // 더 이상 사용되지 않음 - 항상 false 반환
-            return false;
+            if (agent.CharacterAnimator != null)
+            {
+                return agent.CharacterAnimator.IsAttacking;
+            }
 
-            // if (agent.characterAnimator != null)
-            // {
-            //     return agent.characterAnimator.TryAttack();
-            // }
-            //
-            // return false;
+            return false;
         }
     }
 }

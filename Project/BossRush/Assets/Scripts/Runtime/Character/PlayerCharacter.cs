@@ -14,7 +14,6 @@ namespace TeamSuneat
         public override void OnDespawn()
         {
             base.OnDespawn();
-
             GlobalEvent.Send(GlobalEventType.PLAYER_CHARACTER_DESPAWNED);
         }
 

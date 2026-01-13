@@ -110,8 +110,10 @@ namespace TeamSuneat
             PlaySpawnAnimation();
 
             UnlockFlip();
+            
             Attack?.Initialize();
             CharacterRenderer?.ResetRenderer();
+            StateMachine?.InitializeStates();
 
             _ = CoroutineNextFrame(BattleReady);
         }

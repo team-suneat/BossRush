@@ -11,24 +11,16 @@ namespace TeamSuneat
     {
         protected override bool OnCheck()
         {
-            // 더 이상 사용되지 않음 - 항상 false 반환
-            return false;
+            if (agent != null && agent.TargetCharacter != null)
+            {
+                bool isTargetRight = agent.TargetCharacter.position.x > agent.position.x;
+                if (agent.IsFacingRight == isTargetRight)
+                {
+                    return true;
+                }
+            }
 
-            // if (agent != null && agent.TargetVital != null)
-            // {
-            //     if (UnityEngine.Mathf.Approximately(agent.TargetVital.position.x, agent.position.x))
-            //     {
-            //         return true;
-            //     }
-            //     else
-            //     {
-            //         bool facingRight = agent.TargetVital.position.x > agent.position.x;
-            //
-            //         return agent.FacingRight == facingRight;
-            //     }
-            // }
-            //
-            // return false;
+            return false;
         }
     }
 }

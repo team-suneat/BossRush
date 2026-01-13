@@ -118,7 +118,8 @@ namespace TeamSuneat.UserInterface
         {
             if (_textPro != null)
             {
-                DefaultTextColor = _textPro.color;
+                _textPro.raycastTarget = false;
+                DefaultTextColor = _textPro.color;             
                 FontLocalizer?.InitializeDefaultFontSize(_textPro.fontSize);
             }
         }

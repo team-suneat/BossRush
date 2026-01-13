@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using UnityEngine;
+using TeamSuneat.Data;
 
 namespace TeamSuneat
 {
@@ -45,7 +47,7 @@ namespace TeamSuneat
             _ownerCharacter = this.FindFirstParentComponent<Character>();
         }
 
-        public void Initialize()
+        public virtual void Initialize()
         {
             _hitmarkList.Clear();
             _entities.Clear();
@@ -210,24 +212,28 @@ namespace TeamSuneat
             return null;
         }
 
-        public virtual bool CheckTargetInAttackableArea(HitmarkNames hitmarkName)
+        public virtual bool CheckTargetInAttackableArea()
         {
-            if (!ContainEntity(hitmarkName))
-            {
-                return false;
-            }
-
-            AttackEntity entity = FindEntity(hitmarkName);
-            if (entity != null)
-            {
-                if (entity.EntityType == AttackEntityTypes.Area)
-                {
-                    AttackAreaEntity areaEntity = entity as AttackAreaEntity;
-                    return areaEntity.CheckTargetInArea();
-                }
-            }
-
             return false;
+        }
+
+        //---------------------------------------------------------------------------------------------------------------
+        // 쿨타임 관리 (몬스터 전용 - virtual 메서드)
+
+        public virtual bool CheckAttackCooldown(int attackOrder)
+        {
+            // 플레이어는 항상 쿨타임 체크 통과
+            return false;
+        }
+
+        public virtual void StartAttackCooldown(int attackOrder)
+        {
+            // 플레이어는 쿨타임을 사용하지 않음
+        }
+
+        public virtual void SetAttackCooldown(int attackOrder, float cooldownTime)
+        {
+            // 플레이어는 쿨타임을 사용하지 않음
         }
 
         // Log Methods

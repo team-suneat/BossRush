@@ -53,7 +53,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7354597894953501672}
-  - component: {fileID: 4418781973913641319}
+  - component: {fileID: 6264732488548238598}
   m_Layer: 0
   m_Name: '#Attack'
   m_TagString: Untagged
@@ -76,9 +76,10 @@ Transform:
   m_Children:
   - {fileID: 941525849378946713}
   - {fileID: 1294921269769323825}
+  - {fileID: 8930137559443295240}
   m_Father: {fileID: 4438493862345198907}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4418781973913641319
+--- !u!114 &6264732488548238598
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,9 +88,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1626706125049526599}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f0e0237622775442b0a106ef70ee5d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f7640ced53a08f41b027d82a6485775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cooldownTimes:
+  - 8
+  - 5
+  - 3
+  _attackableArea: {fileID: 3755986450878267297}
 --- !u!1 &2547355166613048083
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,6 +138,7 @@ Transform:
   - {fileID: 4438493862345198907}
   - {fileID: 5752919124375933058}
   - {fileID: 4750677680634852237}
+  - {fileID: 4419530674931222820}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &4702711960246884916
@@ -337,13 +344,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parentBlackboard: {fileID: 0}
-  _serializedBlackboard: '{"_variables":{"AttackHimark":{"_value":"ScarecrowAttack","_name":"AttackHimark","_id":"06897f03-d169-4457-a677-a30630765c6a","$type":"NodeCanvas.Framework.Variable`1[[System.String,
-    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}}'
+  _serializedBlackboard: '{"_variables":{}}'
   _objectReferences: []
-  _serializedVariables:
-  - _json: '{"_value":"ScarecrowAttack","_name":"AttackHimark","_id":"06897f03-d169-4457-a677-a30630765c6a","$type":"NodeCanvas.Framework.Variable`1[[System.String,
-      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
-    _references: []
+  _serializedVariables: []
 --- !u!114 &7363120785550179232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,6 +359,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1704a61fb64efd4a983e2d3d4d27932, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3111041020131128673
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4419530674931222820}
+  m_Layer: 11
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4419530674931222820
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3111041020131128673}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3261457281909928430}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3768082756364189453
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,6 +706,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4438493862345198907}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6070903870239720809
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8930137559443295240}
+  - component: {fileID: 3755986450878267297}
+  m_Layer: 0
+  m_Name: AttackableArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8930137559443295240
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6070903870239720809}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7354597894953501672}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3755986450878267297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6070903870239720809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b2a29849521bc748b98f629d32aac99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _detectAreaType: 3
+  _boxSize: {x: 3, y: 2}
+  _radius: 0
 --- !u!1 &6172564968502640533
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,6 +1009,7 @@ GameObject:
   - component: {fileID: 5437015043003900828}
   - component: {fileID: 8954963856524400904}
   - component: {fileID: 7312785035844742054}
+  - component: {fileID: 1105992736235353021}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -1003,3 +1085,15 @@ MonoBehaviour:
   _parryableAttackReadyVFX: {fileID: 833724591910656553, guid: 5b751d22f20f4bc4fb47b6cbcb5f911c, type: 3}
   _unparryableAttackReadyVFX: {fileID: 833724591910656553, guid: ea8d1438c7f8f1947af3f4bc864368c4, type: 3}
   _vfxSpawnPoint: {fileID: 5333217155316105721}
+--- !u!114 &1105992736235353021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8565262397648575048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4183c9ad4dd67b540bd71a212ba51f89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

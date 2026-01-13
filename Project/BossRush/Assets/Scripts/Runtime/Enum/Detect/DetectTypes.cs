@@ -3,11 +3,8 @@
     public enum DetectAreaTypes
     {
         None,
-
         Arc,
-
         Circle,
-
         Box,
     }
 

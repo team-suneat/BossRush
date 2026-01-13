@@ -203,6 +203,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnPoint: {fileID: 49243914}
   _playerPrefab: {fileID: 2798198713300856252, guid: d1f97f54a3cea2f41abc5e2dd69c0aa0, type: 3}
+  _useRespawn: 1
+  _respawnDelayTime: 3
 --- !u!4 &49243914
 Transform:
   m_ObjectHideFlags: 0
@@ -2296,9 +2298,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.1712963
-    width: 0.25625002
-    height: 0.25625
+    y: 0
+    width: 1
+    height: 1
   near clip plane: 0.1
   far clip plane: 5000
   field of view: 40

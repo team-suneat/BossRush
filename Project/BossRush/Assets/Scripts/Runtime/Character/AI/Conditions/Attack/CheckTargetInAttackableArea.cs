@@ -3,27 +3,21 @@ using ParadoxNotion.Design;
 
 namespace TeamSuneat
 {
-	[Category("@TeamSuneat/Attack")]
-	[Description("타겟이 공격가능한 영역 안에 있는지 확인합니다.")]
-	public class CheckTargetInAttackableArea : ConditionTask<Character>
-	{
-        public string hitmarkNameString;
-
-		protected override bool OnCheck()
-		{
-			if (agent.Attack != null)
-			{
-                HitmarkNames hitmarkName = DataConverter.ToEnum<HitmarkNames>(hitmarkNameString);
-                if (hitmarkName != HitmarkNames.None)
+    [Category("@TeamSuneat/Attack")]
+    [Description("타겟이 공격가능한 영역 안에 있는지 확인합니다.")]
+    public class CheckTargetInAttackableArea : ConditionTask<Character>
+    {
+        protected override bool OnCheck()
+        {
+            if (agent.Attack != null)
+            {
+                if (agent.Attack.CheckTargetInAttackableArea())
                 {
-                    if (agent.Attack.CheckTargetInAttackableArea(hitmarkName))
-					{
-						return true;
-					}
+                    return true;
                 }
-			}
+            }
 
-			return false;
-		}
-	}
+            return false;
+        }
+    }
 }

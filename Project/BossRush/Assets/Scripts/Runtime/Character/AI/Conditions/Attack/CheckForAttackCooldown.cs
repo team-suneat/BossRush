@@ -11,15 +11,15 @@ namespace TeamSuneat
 
         protected override bool OnCheck()
         {
-            // 더 이상 사용되지 않음 - 항상 false 반환
-            return false;
+            if (agent.Attack != null)
+            {
+                if (agent.Attack.CheckAttackCooldown(order))
+                {
+                    return true;
+                }
+            }
 
-            // if (agent.attackSystem != null)
-            // {
-            //     return agent.attackSystem.CheckAttackCooldown(order);
-            // }
-            //
-            // return false;
+            return false;
         }
     }
 }

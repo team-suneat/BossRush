@@ -24,12 +24,7 @@ namespace TeamSuneat
             _character = GetComponent<Character>();
         }
 
-        private void Start()
-        {
-            InitializeStates();
-        }
-
-        protected virtual void InitializeStates()
+        public virtual void InitializeStates()
         {
             // 기본 구현은 비어있음
             // 하위 클래스에서 오버라이드하여 상태 초기화

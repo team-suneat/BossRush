@@ -103,7 +103,6 @@
 
             CharacterManager.Instance.Unregister(this);
             transform.SetParent(null);
-            CharacterAnimator?.PlayDeathAnimation();
 
             GlobalEvent<Character>.Send(GlobalEventType.MONSTER_CHARACTER_DEATH, this);
         }

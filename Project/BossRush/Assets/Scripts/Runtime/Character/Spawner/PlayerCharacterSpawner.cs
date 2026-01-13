@@ -5,15 +5,35 @@ namespace TeamSuneat
 {
     public class PlayerCharacterSpawner : XBehaviour
     {
-        [SerializeField]
-        private Transform _spawnPoint;
-
-        [SerializeField]
-        private GameObject _playerPrefab;
+        [SerializeField] private Transform _spawnPoint;
+        [SerializeField] private GameObject _playerPrefab;
+        [SerializeField] private bool _useRespawn;
+        [SerializeField] private float _respawnDelayTime;
 
         private XScene _parentScene;
 
         public PlayerCharacter SpawnedPlayer { get; private set; }
+
+        protected override void RegisterGlobalEvent()
+        {
+            base.RegisterGlobalEvent();
+
+            GlobalEvent.Register(GlobalEventType.PLAYER_CHARACTER_DESPAWNED, OnPlayerCharacterDespawned);
+        }
+
+        protected override void UnregisterGlobalEvent()
+        {
+            base.UnregisterGlobalEvent();
+            GlobalEvent.Unregister(GlobalEventType.PLAYER_CHARACTER_DESPAWNED, OnPlayerCharacterDespawned);
+        }
+
+        void OnPlayerCharacterDespawned()
+        {
+            if (_useRespawn)
+            {
+                CoroutineNextTimer(_respawnDelayTime, SpawnPlayer);
+            }
+        }
 
         public void Initialize(XScene parentScene)
         {

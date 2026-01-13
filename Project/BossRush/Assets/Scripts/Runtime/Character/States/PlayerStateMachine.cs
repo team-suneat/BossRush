@@ -15,7 +15,7 @@ namespace TeamSuneat
             _animator = GetComponentInChildren<CharacterAnimator>();
         }
 
-        protected override void InitializeStates()
+        public override void InitializeStates()
         {
             _states = new Dictionary<CharacterState, ICharacterState>
             {
@@ -25,7 +25,7 @@ namespace TeamSuneat
                 { CharacterState.Jumping, new JumpState(this, _physics, _character) },
                 { CharacterState.Falling, new FallingState(this, _physics, _character) },
                 { CharacterState.Dash, new DashState(this, _physics, _animator, _character) },
-                { CharacterState.Attack, new AttackState(this, _physics, _animator, _character) },
+                { CharacterState.Attack, new PlayerAttackState(this, _physics, _animator, _character) },
                 { CharacterState.Parry, new ParryState(this, _physics, _animator, _character) },
 
                 // 조건 상태
@@ -124,7 +124,7 @@ namespace TeamSuneat
         {
             if (_states.TryGetValue(CharacterState.Attack, out ICharacterState attackState))
             {
-                if (attackState is AttackState attack)
+                if (attackState is PlayerAttackState attack)
                 {
                     attack.EnableComboQueue();
                 }
@@ -135,7 +135,7 @@ namespace TeamSuneat
         {
             if (_states.TryGetValue(CharacterState.Attack, out ICharacterState attackState))
             {
-                if (attackState is AttackState attack)
+                if (attackState is PlayerAttackState attack)
                 {
                     attack.DisableComboQueue();
                 }
@@ -146,7 +146,7 @@ namespace TeamSuneat
         {
             if (_states.TryGetValue(CharacterState.Attack, out ICharacterState attackState))
             {
-                if (attackState is AttackState attack)
+                if (attackState is PlayerAttackState attack)
                 {
                     attack.EnableFlip();
                 }
@@ -157,7 +157,7 @@ namespace TeamSuneat
         {
             if (_states.TryGetValue(CharacterState.Attack, out ICharacterState attackState))
             {
-                if (attackState is AttackState attack)
+                if (attackState is PlayerAttackState attack)
                 {
                     attack.DisableFlip();
                 }

@@ -1057,7 +1057,7 @@ MonoBehaviour:
   ImmuneToDamage: 0
   DrawFlashLitOnDamage: 0
   DestroyOnDeath: 1
-  DelayBeforeDestruction: 5
+  DelayBeforeDestruction: 1
   CollisionsOffOnDeath: 0
   GravityOffOnDeath: 0
   RespawnAtInitialLocation: 0
