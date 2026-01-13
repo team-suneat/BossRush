@@ -685,7 +685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2e090a6e375c0d44b8bf674fa5057ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _knockbackForce: 10
+  _knockbackForce: 2
   _knockbackDuration: 0.1
   _bounceMultiplier: 0.5
   _verticalRatio: 0.3
@@ -702,7 +702,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parrySuccessVFXPrefab: {fileID: 8554548559816220945, guid: 798522a924458e547975569a24bef6c1, type: 3}
-  _useKnockback: 0
+  _knockbackType: 1
+  _slowMotionDuration: 0.05
+  _slowMotionFactor: 0.01
+  _vibrationLeftMotorIntensity: 0.6
+  _vibrationRightMotorIntensity: 0.6
+  _vibrationDuration: 0.15
 --- !u!1 &5608298625970809574
 GameObject:
   m_ObjectHideFlags: 0

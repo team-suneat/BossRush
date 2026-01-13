@@ -1,4 +1,4 @@
-namespace TeamSuneat.Assets.Scripts.Runtime.Enum.Target
+namespace TeamSuneat
 {
     public enum AttackTargetTypes
     {

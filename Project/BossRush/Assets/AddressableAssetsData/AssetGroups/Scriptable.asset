@@ -45,6 +45,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 65cf673a119d1774ab524cec0c2492fd
+    m_Address: Assets/Addressables/Scriptable/Sound/Sound_Movement_Run.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 69dcdc3aa0006eb45a2600a6674f03f0
     m_Address: Assets/Addressables/Scriptable/Floaty/Floaty_Content.asset
     m_ReadOnly: 0
@@ -53,6 +59,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 751b94256fa13af49954152221056101
     m_Address: Assets/Addressables/Scriptable/Floaty/Floaty_HealHealth.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 76b0cdd5c52f473418b5975b6bfb6110
+    m_Address: Assets/Addressables/Scriptable/Sound/Sound_Movement_Dash.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -75,8 +87,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9653943a6dca21f4dbacebccb721632c
+    m_Address: Assets/Addressables/Scriptable/Sound/Sound_UI_Error.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 99f24bf92908a09478db4a276566d20e
     m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_PlayerAttack.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a63c9e25fb2b5724197ecb5144f56a9f
+    m_Address: Assets/Addressables/Scriptable/Sound/Sound_Parry_Success.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -93,8 +117,32 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dbc2a86de7829c04892900c58161dfb4
+    m_Address: Assets/Addressables/Scriptable/Sound/Sound_Movement_Landing.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e6fe1bbf4dcb52e428544301768c05e2
+    m_Address: Assets/Addressables/Scriptable/Sound/Sound_Movement_Jump.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f459283f253bda8479fa4e0cd5bcb8a5
+    m_Address: Assets/Addressables/Scriptable/Sound/Sound_UI_Select.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f6436ff00b34c524a8fd8fed3a5e92e3
     m_Address: Assets/Addressables/Scriptable/Floaty/Floaty_Execution.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f7856f18930e1b249acc7eaabce36dcf
+    m_Address: Assets/Addressables/Scriptable/Sound/Sound_UI_Move.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable

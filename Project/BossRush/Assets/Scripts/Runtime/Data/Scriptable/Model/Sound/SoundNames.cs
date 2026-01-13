@@ -8,7 +8,12 @@ namespace TeamSuneat
         Movement_Jump,
         Movement_AirJump,
         Movement_Landing,
-        Movement_ClimbLadder,
-        Movement_ClimbLedge,
+        Movement_Dash,
+
+        Parry_Success,
+
+        UI_Move,
+        UI_Select,
+        UI_Error,
     }
 }

@@ -1,7 +1,6 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
-using TeamSuneat.Assets.Scripts.Runtime.Character.Effect;
 using UnityEngine;
 
 namespace TeamSuneat

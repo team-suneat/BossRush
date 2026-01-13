@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace TeamSuneat.Assets.Scripts.Runtime.Combat.Attack
+namespace TeamSuneat
 {
     public class AttackSystem : XBehaviour
     {

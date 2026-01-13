@@ -150,23 +150,4 @@
 
         Dying,
     }
-
-    public enum PlayerAttackTypes
-    {
-        Attack,
-
-        Skill,
-
-        Dash,
-
-        SubWeapon,
-
-        Core,
-    }
-
-    public enum AttackTargetTypes
-    {
-        None,
-        Owner, TargetOfOwner,
-    }
 }

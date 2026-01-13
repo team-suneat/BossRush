@@ -1,7 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace TeamSuneat.Assets.Scripts.Runtime.Transform
+namespace TeamSuneat.Assets
 {
     public class FlipController : XBehaviour
     {

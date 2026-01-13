@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 8ae69caa87d75de4a951c5e9b4709838
   m_SerializeEntries:
+  - m_GUID: 27ca5778d3ca5414bbc5875553b0726f
+    m_Address: Assets/Addressables/Prefab/AudioObject.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Ingame
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 577e02325167be74b8eb99ec2a3eae09
     m_Address: Assets/Addressables/Atlas/atlas_ui.spriteatlasv2
     m_ReadOnly: 0
