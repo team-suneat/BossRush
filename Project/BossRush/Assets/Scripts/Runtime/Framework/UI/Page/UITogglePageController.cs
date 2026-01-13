@@ -1,7 +1,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace TeamSuneat
+namespace TeamSuneat.UserInterface
 {
     public class UITogglePageController : XBehaviour
     {

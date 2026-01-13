@@ -54,7 +54,6 @@ namespace TeamSuneat.UserInterface
         {
             base.RegisterGlobalEvent();
 
-            GlobalEvent<UIPopupNames>.Register(GlobalEventType.GAME_POPUP_CLOSE, OnPopupClosed);
             GlobalEvent.Register(GlobalEventType.GAME_POPUP_CLOSE_ALL, OnPopupClosedAll);
         }
 
@@ -62,16 +61,7 @@ namespace TeamSuneat.UserInterface
         {
             base.UnregisterGlobalEvent();
 
-            GlobalEvent<UIPopupNames>.Unregister(GlobalEventType.GAME_POPUP_CLOSE, OnPopupClosed);
             GlobalEvent.Unregister(GlobalEventType.GAME_POPUP_CLOSE_ALL, OnPopupClosedAll);
-        }
-
-        private void OnPopupClosed(UIPopupNames popupName)
-        {
-            if (UIManager.Instance.PopupManager.CenterPopup == null)
-            {
-                HideSelectFrame();
-            }
         }
 
         private void OnPopupClosedAll()
@@ -600,7 +590,7 @@ namespace TeamSuneat.UserInterface
 
             if (SelectedEventSlots.TryGetValue(currentIndex, out UISelectElement pointerEvent))
             {
-                pointerEvent.OnPointerPressed();
+                pointerEvent.OnPointerPressLeft();
             }
             else
             {
@@ -690,7 +680,6 @@ namespace TeamSuneat.UserInterface
 
             SelectFrame.Show();
         }
-
 
         #endregion Select Slot Frame
     }

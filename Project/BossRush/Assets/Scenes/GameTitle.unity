@@ -279,8 +279,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -324.20685}
-  m_SizeDelta: {x: 256, y: 48}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &245822470
 MonoBehaviour:
@@ -689,8 +689,8 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 0.9993599
-    height: 0.9996341
+    width: 1
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -1023,9 +1023,9 @@ MonoBehaviour:
     RightIndex: -1
   _fixedLastSelectElement: {fileID: 0}
   Elements:
-  - {fileID: 2721863990582320376}
-  - {fileID: 2721863990797080276}
-  - {fileID: 2721863990844027350}
+  - {fileID: 6198024416805967401}
+  - {fileID: 6198024417178541069}
+  - {fileID: 6198024417064499979}
 --- !u!1 &1652464053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1133,6 +1133,7 @@ GameObject:
   - component: {fileID: 1843076389}
   - component: {fileID: 1843076386}
   - component: {fileID: 1843076385}
+  - component: {fileID: 1843076390}
   - component: {fileID: 1843076388}
   m_Layer: 5
   m_Name: '#UI'
@@ -1215,7 +1216,7 @@ MonoBehaviour:
   TextManager: {fileID: 1843076386}
   HUDManager: {fileID: 0}
   PopupManager: {fileID: 568546158}
-  DetailsManager: {fileID: 0}
+  DetailsManager: {fileID: 1843076390}
   NoticeManager: {fileID: 0}
   SelectController: {fileID: 1843076385}
   ScreenFader: {fileID: 0}
@@ -1243,6 +1244,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fca13bec0e88e647b665f393f18a64a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1843076390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843076376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1845bc94d281d4289f2cf4e61ac01d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Details: []
 --- !u!1 &1889525126
 GameObject:
   m_ObjectHideFlags: 0
@@ -1475,9 +1489,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DelayTimeForChangeScene: 0
-  GameStartButton: {fileID: 2721863990582320376}
-  GameOptionButton: {fileID: 2721863990797080276}
-  GameExitButton: {fileID: 2721863990844027350}
+  GameStartButton: {fileID: 6198024416805967401}
+  GameOptionButton: {fileID: 6198024417178541069}
+  GameExitButton: {fileID: 6198024417064499979}
   LoadingGauge: {fileID: 0}
 --- !u!222 &110904533206059493
 CanvasRenderer:
@@ -1609,9 +1623,9 @@ RectTransform:
   - {fileID: 6495430966794098184}
   m_Father: {fileID: 1434393189}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 960, y: -388}
   m_SizeDelta: {x: 256, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &1217757893072019458
@@ -1767,117 +1781,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2721863990582320376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3547357238167851317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45167dd44b2a2ec4e99a36183c7ede8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PadClickType: 1
-  Clickable: {fileID: 8357366008741377141}
-  Selectable: {fileID: 3889072365156901270}
-  LockTrigger: 0
-  SelectIndex: 1000
-  SelectOrderIndex: 0
-  SelectLeftIndex: 0
-  SelectRightIndex: 0
-  SelectUpIndex: 1002
-  SelectDownIndex: 1001
-  SelectFrameSizeDelta: {x: 256, y: 48}
-  SelectFrameOffset: {x: 0, y: 0, z: 0}
-  CustomMoveWaitTime: -1
-  OnPointerPressLeftEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPointerClickLeftEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPointerClickRightEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPointerUpLeftEvent:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &2721863990797080276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3547357239093418777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45167dd44b2a2ec4e99a36183c7ede8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PadClickType: 1
-  Clickable: {fileID: 8357366009111330393}
-  Selectable: {fileID: 3889072364251655098}
-  LockTrigger: 0
-  SelectIndex: 1001
-  SelectOrderIndex: 0
-  SelectLeftIndex: 0
-  SelectRightIndex: 0
-  SelectUpIndex: 1000
-  SelectDownIndex: 1002
-  SelectFrameSizeDelta: {x: 256, y: 48}
-  SelectFrameOffset: {x: 0, y: 0, z: 0}
-  CustomMoveWaitTime: -1
-  OnPointerPressLeftEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPointerClickLeftEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPointerClickRightEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPointerUpLeftEvent:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &2721863990844027350
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3547357238980951067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45167dd44b2a2ec4e99a36183c7ede8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PadClickType: 1
-  Clickable: {fileID: 8357366008998877531}
-  Selectable: {fileID: 3889072364340530360}
-  LockTrigger: 0
-  SelectIndex: 1002
-  SelectOrderIndex: 0
-  SelectLeftIndex: 0
-  SelectRightIndex: 0
-  SelectUpIndex: 1001
-  SelectDownIndex: 1000
-  SelectFrameSizeDelta: {x: 256, y: 48}
-  SelectFrameOffset: {x: 0, y: 0, z: 0}
-  CustomMoveWaitTime: -1
-  OnPointerPressLeftEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPointerClickLeftEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPointerClickRightEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPointerUpLeftEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &2817932721666447293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2058,75 +1961,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3412166560413847282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3547357239093418777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6829bce26d7370940971bd92f9667a40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _frameImage: {fileID: 2817932721679806655}
-  _buttonImage: {fileID: 3129070075806070369}
-  _nameText: {fileID: 8378141349496344546}
-  _button: {fileID: 6198024417178541067}
-  _selectElement: {fileID: 2721863990797080276}
-  OnClickSuccess:
-    m_PersistentCalls:
-      m_Calls: []
-  OnClickFailure:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &3412166560425667056
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3547357238980951067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6829bce26d7370940971bd92f9667a40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _frameImage: {fileID: 2817932721666447293}
-  _buttonImage: {fileID: 3129070075893895523}
-  _nameText: {fileID: 8378141349415856352}
-  _button: {fileID: 6198024417064499977}
-  _selectElement: {fileID: 2721863990844027350}
-  OnClickSuccess:
-    m_PersistentCalls:
-      m_Calls: []
-  OnClickFailure:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &3412166561221969118
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3547357238167851317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6829bce26d7370940971bd92f9667a40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _frameImage: {fileID: 2817932721926027923}
-  _buttonImage: {fileID: 3129070076688120909}
-  _nameText: {fileID: 8378141350210094542}
-  _button: {fileID: 6198024416805967399}
-  _selectElement: {fileID: 2721863990582320376}
-  OnClickSuccess:
-    m_PersistentCalls:
-      m_Calls: []
-  OnClickFailure:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &3547357238167851317
 GameObject:
   m_ObjectHideFlags: 0
@@ -2137,8 +1971,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1193599523490778509}
   - component: {fileID: 6198024416805967399}
-  - component: {fileID: 3412166561221969118}
-  - component: {fileID: 2721863990582320376}
+  - component: {fileID: 6198024416805967401}
+  - component: {fileID: 6198024416805967400}
   m_Layer: 5
   m_Name: UIButton (GameStart)
   m_TagString: Untagged
@@ -2156,8 +1990,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1193599523747209379}
   - component: {fileID: 6198024417064499977}
-  - component: {fileID: 3412166560425667056}
-  - component: {fileID: 2721863990844027350}
+  - component: {fileID: 6198024417064499979}
+  - component: {fileID: 6198024417064499978}
   m_Layer: 5
   m_Name: UIButton (Exit)
   m_TagString: Untagged
@@ -2175,15 +2009,15 @@ GameObject:
   m_Component:
   - component: {fileID: 1193599523835561889}
   - component: {fileID: 6198024417178541067}
-  - component: {fileID: 3412166560413847282}
-  - component: {fileID: 2721863990797080276}
+  - component: {fileID: 6198024417178541069}
+  - component: {fileID: 6198024417178541068}
   m_Layer: 5
   m_Name: UIButton (Option)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &3777752787458051734
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2438,6 +2272,66 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6198024416805967400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3547357238167851317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07eaab39efb532341bd1855e5494aa68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _frameImage: {fileID: 2817932721926027923}
+  _buttonImage: {fileID: 3129070076688120909}
+  _nameText: {fileID: 8378141350210094542}
+--- !u!114 &6198024416805967401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3547357238167851317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PadClickType: 1
+  Clickable: {fileID: 8357366008741377141}
+  Selectable: {fileID: 3889072365156901270}
+  LockTrigger: 0
+  SelectIndex: 1000
+  SelectOrderIndex: 0
+  SelectLeftIndex: 0
+  SelectRightIndex: 0
+  SelectUpIndex: 1001
+  SelectDownIndex: 1001
+  SelectFrameSizeDelta: {x: 256, y: 48}
+  SelectFrameOffset: {x: 0, y: 0, z: 0}
+  CustomMoveWaitTime: -1
+  OnPointerPressLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointerClickLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointerClickRightEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointerUpLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _button: {fileID: 6198024416805967399}
+  _interactive: {fileID: 6198024416805967400}
+  OnClickSuccess:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClickFailure:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6198024417064499977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2482,6 +2376,66 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6198024417064499978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3547357238980951067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07eaab39efb532341bd1855e5494aa68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _frameImage: {fileID: 2817932721666447293}
+  _buttonImage: {fileID: 3129070075893895523}
+  _nameText: {fileID: 8378141349415856352}
+--- !u!114 &6198024417064499979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3547357238980951067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PadClickType: 1
+  Clickable: {fileID: 8357366008998877531}
+  Selectable: {fileID: 3889072364340530360}
+  LockTrigger: 0
+  SelectIndex: 1001
+  SelectOrderIndex: 0
+  SelectLeftIndex: 0
+  SelectRightIndex: 0
+  SelectUpIndex: 1000
+  SelectDownIndex: 1000
+  SelectFrameSizeDelta: {x: 256, y: 48}
+  SelectFrameOffset: {x: 0, y: 0, z: 0}
+  CustomMoveWaitTime: -1
+  OnPointerPressLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointerClickLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointerClickRightEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointerUpLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _button: {fileID: 6198024417064499977}
+  _interactive: {fileID: 6198024417064499978}
+  OnClickSuccess:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClickFailure:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6198024417178541067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2524,6 +2478,66 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 0}
   m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &6198024417178541068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3547357239093418777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07eaab39efb532341bd1855e5494aa68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _frameImage: {fileID: 2817932721679806655}
+  _buttonImage: {fileID: 3129070075806070369}
+  _nameText: {fileID: 8378141349496344546}
+--- !u!114 &6198024417178541069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3547357239093418777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PadClickType: 1
+  Clickable: {fileID: 8357366009111330393}
+  Selectable: {fileID: 3889072364251655098}
+  LockTrigger: 0
+  SelectIndex: 1001
+  SelectOrderIndex: 0
+  SelectLeftIndex: 0
+  SelectRightIndex: 0
+  SelectUpIndex: 1000
+  SelectDownIndex: 1002
+  SelectFrameSizeDelta: {x: 256, y: 48}
+  SelectFrameOffset: {x: 0, y: 0, z: 0}
+  CustomMoveWaitTime: -1
+  OnPointerPressLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointerClickLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointerClickRightEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointerUpLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _button: {fileID: 6198024417178541067}
+  _interactive: {fileID: 6198024417178541068}
+  OnClickSuccess:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClickFailure:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &6218508585624695310

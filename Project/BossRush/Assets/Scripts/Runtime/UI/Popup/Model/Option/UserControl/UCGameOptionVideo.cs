@@ -10,34 +10,46 @@ namespace TeamSuneat.UserInterface
     {
         [FoldoutGroup("#Video")]
         [SerializeField] private UISelectButton _fullScreenButton;
+
         [FoldoutGroup("#Video")]
         [SerializeField] private UISelectButton _borderlessButton;
+
         [FoldoutGroup("#Video")]
         [SerializeField] private UISelectButton _resolutionButton;
+
         [FoldoutGroup("#Video")]
         [SerializeField] private UISelectButton _vSyncButton;
+
         [FoldoutGroup("#Video")]
         [SerializeField] private UISelectButton _defaultValuesButton;
+
         [FoldoutGroup("#Video")]
         [SerializeField] private UISelectButton _backButton;
 
         [FoldoutGroup("#Video/Buttons")]
         [SerializeField] private GameObject _borderlessButton2Object;
+
         [FoldoutGroup("#Video/Buttons")]
         [SerializeField] private UISelectButton _prevResolutionButton;
+
         [FoldoutGroup("#Video/Buttons")]
         [SerializeField] private UISelectButton _nextResolutionButton;
+
         [FoldoutGroup("#Video/Buttons")]
         [SerializeField] private UISelectButton _applyResolutionButton;
+
         [FoldoutGroup("#Video/Buttons")]
         [SerializeField] private UISelectButton _prevDisplayButton;
+
         [FoldoutGroup("#Video/Buttons")]
         [SerializeField] private UISelectButton _nextDisplayButton;
 
         [FoldoutGroup("#Video/Text")]
         [SerializeField] private UILocalizedText _resolutionText;
+
         [FoldoutGroup("#Video/Text")]
         [SerializeField] private UILocalizedText _displayText;
+
         [FoldoutGroup("#Video/Text")]
         [SerializeField] private UILocalizedText _applyText;
 

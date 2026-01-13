@@ -1,7 +1,7 @@
+using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 
 namespace TeamSuneat.UserInterface
 {
@@ -12,6 +12,9 @@ namespace TeamSuneat.UserInterface
             Right,
             Left,
         }
+
+        private const int DEFAULT_SELECT_INDEX = 0;
+        private const float DEFAULT_CLICK_DELAY = 0.3f;
 
         [FoldoutGroup("#UISelectElement")]
         public PadClickTypes PadClickType;
@@ -59,9 +62,6 @@ namespace TeamSuneat.UserInterface
         [Tooltip("커스텀 이동 대기 시간 (초). -1이면 기본값 사용, 양수면 해당 값 사용")]
         public float CustomMoveWaitTime = -1f;
 
-        private UnityAction _enterEventAction;
-        private UnityAction _exitEventAction;
-
         [FoldoutGroup("#UISelectElement-Event")]
         public UnityEvent OnPointerPressLeftEvent;
 
@@ -74,8 +74,29 @@ namespace TeamSuneat.UserInterface
         [FoldoutGroup("#UISelectElement-Event")]
         public UnityEvent OnPointerUpLeftEvent;
 
-        private const int DEFAULT_SELECT_INDEX = 0;
         protected bool IsEnterPointer { get; private set; }
+
+        private UnityAction _enterEventAction;
+        private UnityAction _exitEventAction;
+        private Tween _clickDelayTween;
+
+        protected virtual void Awake()
+        {
+            RegisterClickableEvents();
+            RegisterSelectableEvents();
+        }
+
+        protected override void OnDisabled()
+        {
+            base.OnDisabled();
+            KillClickDelayTween();
+        }
+
+        protected override void OnRelease()
+        {
+            base.OnRelease();
+            KillClickDelayTween();
+        }
 
         public override void AutoGetComponents()
         {
@@ -93,38 +114,23 @@ namespace TeamSuneat.UserInterface
             {
                 ClearSelectIndex();
             }
-        }
 
-        protected virtual void Awake()
-        {
-            RegisterClickableEvents();
-            RegisterSelectableEvents();
-        }
-
-        private void RegisterClickableEvents()
-        {
-            if (Clickable == null) return;
-
-            Clickable.RegisterPointerClickLeftEvent(_ => OnPointerClickLeft());
-            Clickable.RegisterPointerClickRightEvent(_ => OnPointerClickRight());
-            Clickable.RegisterPointerPressLeftEvent(_ => OnPointerPressLeft());
-            Clickable.RegisterPointerUpLeftEvent(_ => OnPointerUpLeft());
-        }
-
-        private void RegisterSelectableEvents()
-        {
-            if (Selectable == null) return;
-
-            Selectable.RegisterPointerEnterEvent(_ => OnPointerEnter());
-            Selectable.RegisterPointerExitEvent(_ => OnPointerExit());
+            if (SelectFrameSizeDelta.IsZero())
+            {
+                SelectFrameSizeDelta = rectTransform.sizeDelta;
+            }
         }
 
         public void OnPointerClick()
         {
             if (PadClickType == PadClickTypes.Left)
+            {
                 OnPointerClickLeft();
+            }
             else if (PadClickType == PadClickTypes.Right)
+            {
                 OnPointerClickRight();
+            }
         }
 
         public virtual void OnPointerPressLeft()
@@ -134,12 +140,24 @@ namespace TeamSuneat.UserInterface
 
         public virtual void OnPointerClickLeft()
         {
-            OnPointerClickLeftEvent?.Invoke();
+            // 딜레이 중이면 클릭 무시
+            if (_clickDelayTween != null)
+            {
+                return;
+            }
+
+            StartClickDelay(() => OnPointerClickLeftEvent?.Invoke());
         }
 
         public virtual void OnPointerClickRight()
         {
-            OnPointerClickRightEvent?.Invoke();
+            // 딜레이 중이면 클릭 무시
+            if (_clickDelayTween != null)
+            {
+                return;
+            }
+
+            StartClickDelay(() => OnPointerClickRightEvent?.Invoke());
         }
 
         public virtual void OnPointerUpLeft()
@@ -190,6 +208,40 @@ namespace TeamSuneat.UserInterface
         public void SetSelectIndex(int selectIndex)
         {
             SelectIndex = selectIndex;
+        }
+
+        private void RegisterClickableEvents()
+        {
+            if (Clickable == null) return;
+
+            Clickable.RegisterPointerClickLeftEvent(_ => OnPointerClickLeft());
+            Clickable.RegisterPointerClickRightEvent(_ => OnPointerClickRight());
+            Clickable.RegisterPointerPressLeftEvent(_ => OnPointerPressLeft());
+            Clickable.RegisterPointerUpLeftEvent(_ => OnPointerUpLeft());
+        }
+
+        private void RegisterSelectableEvents()
+        {
+            if (Selectable == null) return;
+
+            Selectable.RegisterPointerEnterEvent(_ => OnPointerEnter());
+            Selectable.RegisterPointerExitEvent(_ => OnPointerExit());
+        }
+
+        private void StartClickDelay(UnityAction action)
+        {
+            KillClickDelayTween();
+            _clickDelayTween = DOVirtual.DelayedCall(DEFAULT_CLICK_DELAY, () =>
+            {
+                _clickDelayTween = null;
+                action?.Invoke();
+            });
+        }
+
+        private void KillClickDelayTween()
+        {
+            _clickDelayTween?.Kill();
+            _clickDelayTween = null;
         }
 
         private void OnDrawGizmos()

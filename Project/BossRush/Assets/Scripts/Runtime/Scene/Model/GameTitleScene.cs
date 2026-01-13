@@ -7,9 +7,6 @@ using UnityEngine.Events;
 
 namespace TeamSuneat.Scenes
 {
-    /// <summary>
-    /// 게임 타이틀 씬을 관리하는 클래스
-    /// </summary>
     public class GameTitleScene : XScene
     {
         [Title("#Settings")]
@@ -46,9 +43,17 @@ namespace TeamSuneat.Scenes
 
         private IEnumerator WaitForInitialize()
         {
-            yield return new WaitUntil(() => { return GameApp.Instance.IsInitialized; });
+            yield return new WaitUntil(() => GameApp.Instance.IsInitialized);
             SetInteractableButtons(true);
         }
+
+        private IEnumerator ProcessChangeScene(UnityAction changeSceneAction)
+        {
+            yield return new WaitForSeconds(DelayTimeForChangeScene);
+            changeSceneAction.Invoke();
+        }
+
+        //───────────────────────────────────────────────────────────────────────────
 
         private void RegisterButtonEvent()
         {
@@ -71,8 +76,17 @@ namespace TeamSuneat.Scenes
 
         private void OnGameOption()
         {
+            SetInteractableButtons(false);
             ShowOptionPopup();
         }
+
+        private void OnOptionPopupClosed(bool popupResult)
+        {
+            UIManager.Instance.SelectController.Select(GameOptionButton.SelectIndex);
+            SetInteractableButtons(true);
+        }
+
+        //───────────────────────────────────────────────────────────────────────────
 
         private void SetInteractableButtons(bool value)
         {
@@ -93,14 +107,10 @@ namespace TeamSuneat.Scenes
             }
         }
 
-        //───────────────────────────────────────────────────────────────────────────
-
         public void StartChangeMainScene()
         {
             StartChangeScene(ChangeMainScene);
         }
-
-        // 씬 전환 메서드들
 
         private void StartChangeScene(UnityAction changeSceneAction)
         {
@@ -116,12 +126,6 @@ namespace TeamSuneat.Scenes
             {
                 changeSceneAction.Invoke();
             }
-        }
-
-        private IEnumerator ProcessChangeScene(UnityAction changeSceneAction)
-        {
-            yield return new WaitForSeconds(DelayTimeForChangeScene);
-            changeSceneAction.Invoke();
         }
 
         private void ChangeMainScene()
@@ -154,11 +158,6 @@ namespace TeamSuneat.Scenes
             {
                 UIManager.Instance.PopupManager.SpawnCenterPopup(UIPopupNames.GameOption, OnOptionPopupClosed);
             }
-        }
-
-        private void OnOptionPopupClosed(bool popupResult)
-        {
-            // 옵션 팝업이 닫힌 후 처리할 로직이 있다면 여기에 추가
         }
     }
 }

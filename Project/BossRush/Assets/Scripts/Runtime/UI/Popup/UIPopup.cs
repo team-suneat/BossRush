@@ -17,10 +17,13 @@ namespace TeamSuneat.UserInterface
         public UILocalizedText TitleText;
 
         [FoldoutGroup("#UIPopup")]
-        public Button CancelButton;
+        public UISelectButton CancelButton;
 
         [FoldoutGroup("#UIPopup")]
         public Button BackdropButton;
+
+        [FoldoutGroup("#UIPopup")]
+        public UISelectElement[] PointerEvents;
 
         // 핸들러들
 
@@ -49,8 +52,10 @@ namespace TeamSuneat.UserInterface
             base.AutoGetComponents();
 
             TitleText ??= this.FindComponent<UILocalizedText>("Rect/Title Text");
-            CancelButton ??= this.FindComponent<Button>("Rect/Cancel Button");
+            CancelButton ??= this.FindComponent<UISelectButton>("Rect/Cancel Button");
             BackdropButton ??= this.FindComponent<Button>("Backdrop Button");
+
+            PointerEvents = GetComponentsInChildren<UISelectElement>();
         }
 
         public override void AutoNaming()
@@ -62,13 +67,14 @@ namespace TeamSuneat.UserInterface
         {
             if (CancelButton != null)
             {
-                CancelButton.onClick.AddListener(OnClickCancelButton);
+                CancelButton.RegisterClickSuccessEvent(OnClickCancelButton);
             }
-
             if (BackdropButton != null)
             {
                 BackdropButton.onClick.AddListener(CloseWithFailure);
             }
+
+            PointerEvents = GetComponentsInChildren<UISelectElement>();
 
             InitializeHandlers();
         }
@@ -227,12 +233,18 @@ namespace TeamSuneat.UserInterface
 
         public void RegisterCloseCallback(UnityAction<bool> action)
         {
-            _callbackHandler?.RegisterCloseCallback(action);
+            if (_callbackHandler != null)
+            {
+                _callbackHandler.RegisterCloseCallback(action);
+            }
         }
 
         public void UnregisterCloseCallback(UnityAction<bool> action)
         {
-            _callbackHandler?.UnregisterCloseCallback(action);
+            if (_callbackHandler != null)
+            {
+                _callbackHandler.UnregisterCloseCallback(action);
+            }
         }
 
         public void SpawnFloatyText(string content, UIFloatyMoveNames moveType)

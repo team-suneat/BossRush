@@ -9,30 +9,40 @@ namespace TeamSuneat.UserInterface
     {
         [FoldoutGroup("#Audio/Buttons")]
         [SerializeField] private UISelectButton _muteMusicButton;
+
         [FoldoutGroup("#Audio/Buttons")]
         [SerializeField] private UISelectButton _muteSFXButton;
+
         [FoldoutGroup("#Audio/Buttons")]
         [SerializeField] private UISelectButton _masterVolumeButton;
+
         [FoldoutGroup("#Audio/Buttons")]
         [SerializeField] private UISelectButton _musicVolumeButton;
+
         [FoldoutGroup("#Audio/Buttons")]
         [SerializeField] private UISelectButton _sfxVolumeButton;
+
         [FoldoutGroup("#Audio/Buttons")]
         [SerializeField] private UISelectButton _defaultValuesButton;
+
         [FoldoutGroup("#Audio/Buttons")]
         [SerializeField] private UISelectButton _backButton;
 
         [FoldoutGroup("#Audio")]
         [SerializeField] private UILocalizedText _masterVolumeText;
+
         [FoldoutGroup("#Audio")]
         [SerializeField] private UILocalizedText _musicVolumeText;
+
         [FoldoutGroup("#Audio")]
         [SerializeField] private UILocalizedText _sfxVolumeText;
 
         [FoldoutGroup("#Audio/Slider")]
         [SerializeField] private Slider _masterVolumeSlider;
+
         [FoldoutGroup("#Audio/Slider")]
         [SerializeField] private Slider _musicVolumeSlider;
+
         [FoldoutGroup("#Audio/Slider")]
         [SerializeField] private Slider _sfxVolumeSlider;
 

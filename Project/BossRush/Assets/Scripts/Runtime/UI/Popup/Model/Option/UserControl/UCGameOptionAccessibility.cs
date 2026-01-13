@@ -9,12 +9,16 @@ namespace TeamSuneat.UserInterface
     {
         [FoldoutGroup("#Accessibility/Buttons")]
         [SerializeField] private UISelectButton _vibrationButton;
+
         [FoldoutGroup("#Accessibility/Buttons")]
         [SerializeField] private UISelectButton _cameraShakeButton;
+
         [FoldoutGroup("#Accessibility/Buttons")]
         [SerializeField] private UISelectButton _damageTextButton;
+
         [FoldoutGroup("#Accessibility/Buttons")]
         [SerializeField] private UISelectButton _defaultValuesButton;
+
         [FoldoutGroup("#Accessibility/Buttons")]
         [SerializeField] private UISelectButton _backButton;
 

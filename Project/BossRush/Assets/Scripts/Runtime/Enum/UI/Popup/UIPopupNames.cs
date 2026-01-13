@@ -4,9 +4,7 @@ namespace TeamSuneat
     {
         None = 0,
 
-        GameStartSelection,
-        CharacterInfo,
-        Purchase,
         GameOption,
+        Pause,
     }
 }

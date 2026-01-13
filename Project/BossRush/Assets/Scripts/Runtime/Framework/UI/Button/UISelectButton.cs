@@ -1,11 +1,10 @@
-using System.Collections;
 using DG.Tweening;
 using Sirenix.OdinInspector;
-using TeamSuneat;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 namespace TeamSuneat.UserInterface
 {
@@ -48,7 +47,6 @@ namespace TeamSuneat.UserInterface
             base.OnStart();
 
             InitializeButtonImage();
-            RegisterButtonEvents();
         }
 
         private void InitializeButtonImage()
@@ -61,20 +59,9 @@ namespace TeamSuneat.UserInterface
             }
         }
 
-        private void RegisterButtonEvents()
-        {
-            if (_button != null)
-                _button.onClick.AddListener(OnButtonClick);
-
-            OnPointerClickLeftEvent.AddListener(OnButtonClick);
-        }
-
         protected override void OnEnabled()
         {
             base.OnEnabled();
-
-            if (_button != null)
-                _button.onClick.AddListener(OnButtonClick);
 
             OnPointerClickLeftEvent.AddListener(OnButtonClick);
         }
@@ -82,9 +69,6 @@ namespace TeamSuneat.UserInterface
         protected override void OnDisabled()
         {
             base.OnDisabled();
-
-            if (_button != null)
-                _button.onClick.RemoveListener(OnButtonClick);
 
             OnPointerClickLeftEvent.RemoveListener(OnButtonClick);
 
@@ -99,6 +83,18 @@ namespace TeamSuneat.UserInterface
             KillAllTweens();
         }
 
+        public override void OnPointerClickLeft()
+        {
+            base.OnPointerClickLeft();
+            PlayClickVisual();
+        }
+
+        public override void OnPointerClickRight()
+        {
+            base.OnPointerClickRight();
+            PlayClickVisual();
+        }
+
         // 실제 클릭 처리
         protected virtual void OnButtonClick()
         {
@@ -108,7 +104,6 @@ namespace TeamSuneat.UserInterface
                 return;
             }
 
-            PlayClickVisual();
             OnClickSucceeded();
         }
 
@@ -120,20 +115,25 @@ namespace TeamSuneat.UserInterface
                 return;
             }
 
-            PlayClickVisual();
             OnHoldSucceeded();
         }
 
         protected virtual bool CheckClickable()
         {
-            if (_interactive == null) return true;
+            if (_interactive == null)
+            {
+                return true;
+            }
 
             return _interactive.IsClickable && _interactive.CheckClickCooldown();
         }
 
         private void PlayClickVisual()
         {
-            if (_interactive == null) return;
+            if (_interactive == null)
+            {
+                return;
+            }
 
             _interactive.PlayPunchScaleAnimation();
             PlayButtonImageAlphaAnimation();
@@ -152,7 +152,7 @@ namespace TeamSuneat.UserInterface
                     {
                         if (_interactive?.ButtonImage != null)
                         {
-                            _interactive.ButtonImage.DOFade(ALPHA_TRANSPARENT, halfDuration)
+                            _ = _interactive.ButtonImage.DOFade(ALPHA_TRANSPARENT, halfDuration)
                                 .SetEase(Ease.InQuad);
                         }
                     });
@@ -232,13 +232,16 @@ namespace TeamSuneat.UserInterface
             StopHold();
         }
 
-        #endregion Pointer Event
+        #endregion Pointer Event (홀드용으로만 유지)
 
         #region Hold
 
         public void StartHold()
         {
-            if (!CheckClickable()) return;
+            if (!CheckClickable())
+            {
+                return;
+            }
 
             _isHolding = true;
             StartHoldCoroutine();
@@ -273,10 +276,22 @@ namespace TeamSuneat.UserInterface
             {
                 yield return new WaitForSeconds(DEFAULT_HOLD_INTERVAL);
                 if (_isHolding && CheckClickable())
+                {
                     OnButtonHold();
+                }
             }
         }
 
         #endregion Hold
+
+        public void ActivateRaycast()
+        {
+            _interactive?.ActivateRaycast();
+        }
+
+        public void DeactivateRaycast()
+        {
+            _interactive?.DeactivateRaycast();
+        }
     }
 }

@@ -36,7 +36,7 @@ namespace TeamSuneat.UserInterface
         {
             if (_indexer != null)
             {
-                UIManager.Instance.SelectController.Select(_indexer.DefaultIndex);
+                _ = UIManager.Instance.SelectController.Select(_indexer.DefaultIndex);
             }
         }
 
@@ -56,10 +56,7 @@ namespace TeamSuneat.UserInterface
 
         protected void SetActiveEventButton(UISelectButton element, bool isActive)
         {
-            if (element != null)
-            {
-                element.SetActive(isActive);
-            }
+            element?.SetActive(isActive);
         }
 
         protected void HideUnderlineEventButton(UISelectButton element)

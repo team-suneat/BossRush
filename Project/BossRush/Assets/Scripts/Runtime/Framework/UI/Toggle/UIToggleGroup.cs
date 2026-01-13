@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace TeamSuneat
+namespace TeamSuneat.UserInterface
 {
     public class UIToggleGroup : XBehaviour
     {
@@ -95,8 +95,8 @@ namespace TeamSuneat
         {
             if (!_allowSwitchOff && _toggles.IsValidArray())
             {
-                _toggles[0].SetIsOn(true);                
-                _currentActiveIndex = 0;                
+                _toggles[0].SetIsOn(true);
+                _currentActiveIndex = 0;
                 Log.Info(LogTags.UI_Toggle, $"(Group) {gameObject.name} 기본 Toggle 설정: 인덱스 0");
             }
         }

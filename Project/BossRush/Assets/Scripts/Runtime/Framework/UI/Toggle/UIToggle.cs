@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace TeamSuneat
+namespace TeamSuneat.UserInterface
 {
     public class UIToggle : UIInteractiveElement
     {
@@ -162,9 +162,10 @@ namespace TeamSuneat
             }
         }
 
-        protected override void KillAllTweens()
+        public override void KillAllTweens()
         {
             base.KillAllTweens();
+
             KillColorTweens();
         }
 

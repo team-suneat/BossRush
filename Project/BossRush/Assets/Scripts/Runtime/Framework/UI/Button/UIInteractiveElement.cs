@@ -4,9 +4,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TeamSuneat
+namespace TeamSuneat.UserInterface
 {
-    public abstract class UIInteractiveElement : XBehaviour
+    public class UIInteractiveElement : XBehaviour
     {
         private const float DEFAULT_CLICK_COOLDOWN = 0.15f;
         private const float DEFAULT_PUNCH_SCALE_DURATION = 0.1f;
@@ -22,7 +22,7 @@ namespace TeamSuneat
         [FoldoutGroup("#UIInteractiveElement"), SerializeField] protected TextMeshProUGUI _nameText;
 
         protected Vector3 _punchScale =
-            new Vector3(DEFAULT_PUNCH_SCALE_VALUE, DEFAULT_PUNCH_SCALE_VALUE, DEFAULT_PUNCH_SCALE_VALUE);
+            new(DEFAULT_PUNCH_SCALE_VALUE, DEFAULT_PUNCH_SCALE_VALUE, DEFAULT_PUNCH_SCALE_VALUE);
 
         protected float _lastClickTime;
         protected Tween _scaleTween;
@@ -170,7 +170,7 @@ namespace TeamSuneat
 
             if (duration > DURATION_ZERO)
             {
-                _nameText.DOColor(color, duration).SetEase(Ease.OutQuad);
+                _ = _nameText.DOColor(color, duration).SetEase(Ease.OutQuad);
             }
             else
             {
@@ -189,7 +189,7 @@ namespace TeamSuneat
 
             if (duration > DURATION_ZERO)
             {
-                _frameImage.DOColor(color, duration).SetEase(Ease.OutQuad);
+                _ = _frameImage.DOColor(color, duration).SetEase(Ease.OutQuad);
             }
             else
             {
@@ -208,7 +208,7 @@ namespace TeamSuneat
 
             if (duration > DURATION_ZERO)
             {
-                _buttonImage.DOColor(color, duration).SetEase(Ease.OutQuad);
+                _ = _buttonImage.DOColor(color, duration).SetEase(Ease.OutQuad);
             }
             else
             {
@@ -234,6 +234,42 @@ namespace TeamSuneat
             }
 
             _nameText.fontStyle &= ~TMPro.FontStyles.Underline;
+        }
+
+        public void ActivateRaycast()
+        {
+            if (_frameImage != null)
+            {
+                _frameImage.raycastTarget = true;
+            }
+
+            if (_buttonImage != null)
+            {
+                _buttonImage.raycastTarget = true;
+            }
+
+            if (_nameText != null)
+            {
+                _nameText.raycastTarget = true;
+            }
+        }
+
+        public void DeactivateRaycast()
+        {
+            if (_frameImage != null)
+            {
+                _frameImage.raycastTarget = false;
+            }
+
+            if (_buttonImage != null)
+            {
+                _buttonImage.raycastTarget = false;
+            }
+
+            if (_nameText != null)
+            {
+                _nameText.raycastTarget = false;
+            }
         }
     }
 }

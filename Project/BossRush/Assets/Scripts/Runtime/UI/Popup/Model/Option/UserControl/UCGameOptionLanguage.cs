@@ -8,20 +8,28 @@ namespace TeamSuneat.UserInterface
     {
         [FoldoutGroup("#Language")]
         [SerializeField] private UISelectButton _englishButton;
+
         [FoldoutGroup("#Language")]
         [SerializeField] private UISelectButton _koreanButton;
+
         [FoldoutGroup("#Language")]
         [SerializeField] private UISelectButton _simplifiedChineseButton;
+
         [FoldoutGroup("#Language")]
         [SerializeField] private UISelectButton _traditionalChineseButton;
+
         [FoldoutGroup("#Language")]
         [SerializeField] private UISelectButton _frenchButton;
+
         [FoldoutGroup("#Language")]
         [SerializeField] private UISelectButton _germanButton;
+
         [FoldoutGroup("#Language")]
         [SerializeField] private UISelectButton _italianButton;
+
         [FoldoutGroup("#Language")]
         [SerializeField] private UISelectButton _spanishButton;
+
         [FoldoutGroup("#Language")]
         [SerializeField] private UISelectButton _backButton;
 
