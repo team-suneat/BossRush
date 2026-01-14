@@ -1,9 +1,8 @@
 {
-    "name": "BossRush.Editor",
-    "rootNamespace": "TeamSuneat",
+    "name": "SpriteTrail.Editor",
+    "rootNamespace": "",
     "references": [
-        "BossRush.Runtime",
-        "SpriteTrail.Editor"
+        "GUID:d0a57b79079083147b409c53f8d35581"
     ],
     "includePlatforms": [
         "Editor"

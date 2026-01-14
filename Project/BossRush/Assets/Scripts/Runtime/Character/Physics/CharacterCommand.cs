@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TeamSuneat
 {
-    public struct CharacterCommand
+    public class CharacterCommand
     {
         // 이동 입력
         public float HorizontalInput;
@@ -21,6 +21,12 @@ namespace TeamSuneat
         private bool _wasDashPressed;
         private bool _wasAttackPressed;
         private bool _wasParryPressed;
+
+        // 공격 입력 버퍼
+        public bool IsAttackBuffered { get; private set; }
+
+        private float _attackBufferEndTime;
+        private const float ATTACK_BUFFER_DURATION = 0.15f;
 
         public void SetHorizontalInput(float value)
         {
@@ -73,6 +79,11 @@ namespace TeamSuneat
             if (value && !_wasAttackPressed)
             {
                 IsAttackPressed = true;
+
+                // 공격 입력 버퍼 시작
+                IsAttackBuffered = true;
+                _attackBufferEndTime = Time.time + ATTACK_BUFFER_DURATION;
+                Log.Info(LogTags.Input_Command, "[공격 입력 버퍼] 버퍼 시작. 만료 시간: {0:F3}초 후", ATTACK_BUFFER_DURATION);
             }
             else if (!value)
             {
@@ -94,6 +105,27 @@ namespace TeamSuneat
             _wasParryPressed = value;
         }
 
+        // 버퍼 업데이트 (매 프레임 호출)
+        public void UpdateBuffer()
+        {
+            // 버퍼 만료 체크 (만료만 담당)
+            if (IsAttackBuffered && Time.time > _attackBufferEndTime)
+            {
+                IsAttackBuffered = false;
+                Log.Info(LogTags.Input_Command, "[공격 입력 버퍼] 버퍼 만료. 시간 초과로 무시됨");
+            }
+        }
+
+        // 버퍼 소비
+        public void ConsumeAttackBuffer()
+        {
+            if (IsAttackBuffered)
+            {
+                IsAttackBuffered = false;
+                Log.Info(LogTags.Input_Command, "[공격 입력 버퍼] 버퍼 소비됨. 공격 실행");
+            }
+        }
+
         public void ResetFrame()
         {
             // 한 프레임만 true인 값들 초기화
@@ -108,6 +140,9 @@ namespace TeamSuneat
             _wasDashPressed = false;
             _wasAttackPressed = false;
             _wasParryPressed = false;
+
+            // 공격 버퍼(IsAttackBuffered)는 여기서 건드리지 않음
+            // UpdateBuffer()와 ConsumeAttackBuffer()로만 관리
         }
 
         public void Reset()
@@ -124,6 +159,9 @@ namespace TeamSuneat
             _wasDashPressed = false;
             _wasAttackPressed = false;
             _wasParryPressed = false;
+
+            IsAttackBuffered = false;
+            _attackBufferEndTime = 0f;
         }
     }
 }

@@ -20,7 +20,7 @@ MonoBehaviour:
     _version: 3.33
     _category: Monster
     _comments: 
-    _translation: {x: 1005, y: -549}
+    _translation: {x: 210.06068, y: -1137.4795}
     _zoomFactor: 0.9995298
   _haltSerialization: 0
   _externalSerializationFile: {fileID: 0}

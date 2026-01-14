@@ -9,7 +9,6 @@ namespace TeamSuneat.Data
     {
         #region Sync Methods
 
-        [MenuItem("Tools/Json/모든 Json 파일 불러오기")]
         public static void LoadJsonSheetsSync()
         {
             ClearAll();

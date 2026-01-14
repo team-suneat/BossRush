@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: animation_redhairrat_attack2
+  m_Name: animation_scarecrow_attack3
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -37,20 +37,8 @@ AnimationClip:
     - time: 0.75
       value: {fileID: 1335832710191323697, guid: 13d5171d8dcd267478028a9396f496be, type: 3}
     - time: 0.8333333
-      value: {fileID: -3015562060075933421, guid: 13d5171d8dcd267478028a9396f496be, type: 3}
-    - time: 0.9166667
-      value: {fileID: -5755618333518709817, guid: 13d5171d8dcd267478028a9396f496be, type: 3}
-    - time: 1
-      value: {fileID: -958284234527012936, guid: 13d5171d8dcd267478028a9396f496be, type: 3}
-    - time: 1.0833334
-      value: {fileID: -1721946843587189210, guid: 13d5171d8dcd267478028a9396f496be, type: 3}
-    - time: 1.1666666
-      value: {fileID: 5423213414905419974, guid: 13d5171d8dcd267478028a9396f496be, type: 3}
-    - time: 1.25
-      value: {fileID: 1335832710191323697, guid: 13d5171d8dcd267478028a9396f496be, type: 3}
-    - time: 1.3333334
       value: {fileID: -1197739984356612354, guid: 13d5171d8dcd267478028a9396f496be, type: 3}
-    - time: 1.4166666
+    - time: 0.9166667
       value: {fileID: 6999757945771719937, guid: 13d5171d8dcd267478028a9396f496be, type: 3}
     attribute: m_Sprite
     path: Body
@@ -82,12 +70,6 @@ AnimationClip:
     - {fileID: -1721946843587189210, guid: 13d5171d8dcd267478028a9396f496be, type: 3}
     - {fileID: 5423213414905419974, guid: 13d5171d8dcd267478028a9396f496be, type: 3}
     - {fileID: 1335832710191323697, guid: 13d5171d8dcd267478028a9396f496be, type: 3}
-    - {fileID: -3015562060075933421, guid: 13d5171d8dcd267478028a9396f496be, type: 3}
-    - {fileID: -5755618333518709817, guid: 13d5171d8dcd267478028a9396f496be, type: 3}
-    - {fileID: -958284234527012936, guid: 13d5171d8dcd267478028a9396f496be, type: 3}
-    - {fileID: -1721946843587189210, guid: 13d5171d8dcd267478028a9396f496be, type: 3}
-    - {fileID: 5423213414905419974, guid: 13d5171d8dcd267478028a9396f496be, type: 3}
-    - {fileID: 1335832710191323697, guid: 13d5171d8dcd267478028a9396f496be, type: 3}
     - {fileID: -1197739984356612354, guid: 13d5171d8dcd267478028a9396f496be, type: 3}
     - {fileID: 6999757945771719937, guid: 13d5171d8dcd267478028a9396f496be, type: 3}
   m_AnimationClipSettings:
@@ -95,7 +77,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.5
+    m_StopTime: 1
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -123,20 +105,6 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.6666667
-    functionName: StartAttackAnimationEvent
-    data: ScarecrowAttack
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.8333333
-    functionName: CallFaceAnimationEvent
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 1.1666666
     functionName: StartAttackAnimationEvent
     data: ScarecrowAttack
     objectReferenceParameter: {fileID: 0}

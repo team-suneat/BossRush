@@ -85,6 +85,7 @@ namespace TeamSuneat
         [FoldoutGroup("[게임 설정]")][SuffixLabel("글로벌 이벤트")] public bool Global;
         [FoldoutGroup("[게임 설정]")][SuffixLabel("입력")] public bool Input;
         [FoldoutGroup("[게임 설정]")][SuffixLabel("입력 버튼 상태")] public bool Input_ButtonState;
+        [FoldoutGroup("[게임 설정]")][SuffixLabel("입력 커맨드")] public bool Input_Command;
 
         #endregion Setting
 
@@ -196,6 +197,7 @@ namespace TeamSuneat
             Global = true;
             Input = true;
             Input_ButtonState = true;
+            Input_Command = true;
 
             Stage = true;
             Scene = true;
@@ -262,6 +264,7 @@ namespace TeamSuneat
             Global = false;
             Input = false;
             Input_ButtonState = false;
+            Input_Command = false;
 
             Stage = false;
             Scene = false;
@@ -337,6 +340,7 @@ namespace TeamSuneat
                 LogTags.Global => Global,
                 LogTags.Input => Input,
                 LogTags.Input_ButtonState => Input_ButtonState,
+                LogTags.Input_Command => Input_Command,
 
                 LogTags.Stage => Stage,
                 LogTags.Scene => Scene,
@@ -408,6 +412,7 @@ namespace TeamSuneat
                 case LogTags.Global: { Global = true; } break;
                 case LogTags.Input: { Input = true; } break;
                 case LogTags.Input_ButtonState: { Input_ButtonState = true; } break;
+                case LogTags.Input_Command: { Input_Command = true; } break;
 
                 case LogTags.Stage: { Stage = true; } break;
                 case LogTags.Scene: { Scene = true; } break;
@@ -477,6 +482,7 @@ namespace TeamSuneat
                 case LogTags.Global: { Global = false; } break;
                 case LogTags.Input: { Input = false; } break;
                 case LogTags.Input_ButtonState: { Input_ButtonState = false; } break;
+                case LogTags.Input_Command: { Input_Command = false; } break;
 
                 case LogTags.Stage: { Stage = false; } break;
                 case LogTags.Scene: { Scene = false; } break;

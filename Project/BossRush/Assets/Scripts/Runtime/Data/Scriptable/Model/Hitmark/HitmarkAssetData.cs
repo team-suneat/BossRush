@@ -10,7 +10,7 @@ namespace TeamSuneat.Data
     {
         [SuffixLabel("개별 에셋 변경 모드")]
         public bool IsChangingAsset;
-
+                
         [EnableIf("IsChangingAsset")]
         [SuffixLabel("히트마크 이름")]
         public HitmarkNames Name;

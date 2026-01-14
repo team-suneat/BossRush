@@ -11,6 +11,7 @@
   <Project Path="CW.Common.csproj" />
   <Project Path="DOTween.Modules.csproj" />
   <Project Path="Sirenix.OdinInspector.Modules.Unity.Addressables.csproj" />
+  <Project Path="SpriteTrail.Editor.csproj" />
   <Project Path="Rewired_Windows_Functions.csproj" />
   <Project Path="DOTweenPro.EditorScripts.csproj" />
   <Project Path="LeanPool.csproj" />
