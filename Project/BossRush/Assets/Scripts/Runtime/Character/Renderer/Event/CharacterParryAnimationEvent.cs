@@ -11,10 +11,12 @@ namespace TeamSuneat
             _character = this.FindFirstParentComponent<Character>();
         }
 
-        private void CallParryAnimationEvent()
+        private void CallReleaseParryAnimationEvent()
         {
-            // 펄스 소모는 ParryState.OnEnter()에서 처리하므로 여기서는 제거
-            // 필요시 다른 로직 추가 가능
+            if (_character?.CharacterAnimator != null)
+            {
+                _character.CharacterAnimator.ReleaseParryState();
+            }
         }
     }
 }
