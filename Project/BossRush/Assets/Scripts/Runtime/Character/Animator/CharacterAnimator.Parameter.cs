@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TeamSuneat
 {
-    public partial class CharacterAnimator : XBehaviour, IAnimatorStateMachine
+    public partial class CharacterAnimator
     {
         protected int _damageTriggerIndex;
         protected int _damageTypeIndex;

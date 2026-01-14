@@ -6,31 +6,16 @@ namespace TeamSuneat
 {
     public partial class CharacterAnimator : XBehaviour, IAnimatorStateMachine
     {
-        //-------------------------------------------------------------------------------------------
-
         [Title("#Character Animator")]
-        public bool IgnoreFlipOnAttacking;
+        [SerializeField]
+        [LabelText("공격 중 반전 잠금 무시")]
+        private bool _ignoreFlipOnAttacking;
 
-        // 공격 중 피격 애니메이션을 재생할 수 없도록 금지합니다.
-        protected bool IsBlockingDamageAnimationWhileAttack;
+        [SerializeField]
+        [LabelText("공격 중 피격 애니메이션 재생 차단")]
+        private bool _blockDamageAnimationWhileAttack;
 
         protected CharacterAnimatorLog AnimatorLog;
-
-        public bool IsAttacking { get; set; }
-
-        public bool IsDashing { get; set; }
-
-        public bool IsDamaging { get; set; }
-
-        public bool IsParrying { get; set; }
-
-        public bool IsConsumingPotion { get; set; }
-
-        public bool IsBlinking { get; set; }
-
-        public bool IsTurning { get; set; }
-
-        public bool IsBlockDeathAnimation { get; set; }
 
         // Component
 
@@ -52,14 +37,7 @@ namespace TeamSuneat
 
         public virtual void Initialize()
         {
-            IsAttacking = false;
-            IsDashing = false;
-            IsDamaging = false;
-            IsParrying = false;
-            IsConsumingPotion = false;
-            IsBlinking = false;
-            IsTurning = false;
-            IsBlockDeathAnimation = false;
+            _stateFlags.Reset();
 
             _animator.UpdateAnimatorBoolIfExists("IsSuicide", false);
 
@@ -175,6 +153,12 @@ namespace TeamSuneat
 
         public virtual bool PlayDamageAnimation()
         {
+            if (_blockDamageAnimationWhileAttack && IsAttacking)
+            {
+                AnimatorLog.LogInfo("공격 중이므로 피격 애니메이션 재생을 차단합니다.");
+                return false;
+            }
+
             return _animator.UpdateAnimatorTrigger(ANIMATOR_DAMAGE_PARAMETER_ID, AnimatorParameters);
         }
 
@@ -384,30 +368,28 @@ namespace TeamSuneat
             AnimatorLog.LogInfo("피격 상태의 애니메이션에 진입했습니다.");
             LockMovement();
 
-            _animator.UpdateAnimatorBool(ANIMATOR_IS_DAMAGING_PARAMETER_ID, true, AnimatorParameters);
-            IsDamaging = true;
+            SetDamaging(true);
         }
 
         protected virtual void OnAnimatorDamageStateExit()
         {
             UnlockMovement();
 
-            _animator.UpdateAnimatorBool(ANIMATOR_IS_DAMAGING_PARAMETER_ID, false, AnimatorParameters);
-            IsDamaging = false;
+            SetDamaging(false);
         }
 
         protected void OnAnimatorDashStateEnter()
         {
             AnimatorLog.LogInfo("대시 상태의 애니메이션에 진입했습니다.");
 
-            IsDashing = true;
+            SetDashing(true);
 
             LockMovement();
         }
 
         protected void OnAnimatorDashStateExit()
         {
-            IsDashing = false;
+            SetDashing(false);
 
             UnlockMovement();
         }

@@ -77,23 +77,19 @@ namespace TeamSuneat
 
         protected virtual void OnAnimatorAttackStateEnter()
         {
-            _animator.UpdateAnimatorBool(ANIMATOR_IS_ATTACKING_PARAMETER_ID, true, AnimatorParameters);
-
-            if (IgnoreFlipOnAttacking)
+            if (_ignoreFlipOnAttacking)
             {
                 LockFlip();
             }
 
-            IsAttacking = true;
+            SetAttacking(true);
         }
 
         protected virtual void OnAnimatorAttackStateExit()
         {
             StopAttacking();
 
-            IsAttacking = false;
-
-            ResetBlockDamageAnimationWhileAttack();
+            SetAttacking(false);
         }
 
         public void StopAttacking()
@@ -102,7 +98,7 @@ namespace TeamSuneat
 
             _animator.UpdateAnimatorBool(ANIMATOR_IS_ATTACKING_PARAMETER_ID, false, AnimatorParameters);
 
-            if (IgnoreFlipOnAttacking)
+            if (_ignoreFlipOnAttacking)
             {
                 UnlockFlip();
             }
@@ -113,18 +109,6 @@ namespace TeamSuneat
         }
 
         //
-
-        public void SetBlockDamageAnimationWhileAttack()
-        {
-            IsBlockingDamageAnimationWhileAttack = true;
-            AnimatorLog.LogInfo($"공격 중 피격 애니메이션 재생 차단: {true.ToBoolString()}");
-        }
-
-        public void ResetBlockDamageAnimationWhileAttack()
-        {
-            IsBlockingDamageAnimationWhileAttack = false;
-            AnimatorLog.LogInfo($"공격 중 피격 애니메이션 재생 차단: {false.ToBoolString()}");
-        }
 
         public void CallRefreshCooldownEvent()
         {

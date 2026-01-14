@@ -1070,6 +1070,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IgnoreFlipOnAttacking: 0
+  _blockDamageAnimationWhileAttack: 1
 --- !u!114 &7312785035844742054
 MonoBehaviour:
   m_ObjectHideFlags: 0

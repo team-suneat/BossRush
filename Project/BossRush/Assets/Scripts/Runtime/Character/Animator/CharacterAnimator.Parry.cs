@@ -18,8 +18,7 @@ namespace TeamSuneat
 
         protected virtual void OnAnimatorParryStateEnter()
         {
-            _animator.UpdateAnimatorBool(ANIMATOR_IS_PARRYING_PARAMETER_ID, true, AnimatorParameters);
-            IsParrying = true;
+            SetParrying(true);
             AnimatorLog.LogInfo("패리 상태의 애니메이션에 진입했습니다.");
         }
 
@@ -31,9 +30,8 @@ namespace TeamSuneat
 
         protected virtual void OnAnimatorParryStateExit()
         {
-            _animator.UpdateAnimatorBool(ANIMATOR_IS_PARRYING_PARAMETER_ID, false, AnimatorParameters);
             _animator.UpdateAnimatorBool(ANIMATOR_IS_PARRY_SUCCESS_PARAMETER_ID, false, AnimatorParameters);
-            IsParrying = false;
+            SetParrying(false);
             AnimatorLog.LogInfo("패리 상태의 애니메이션에서 퇴장했습니다.");
         }
     }
