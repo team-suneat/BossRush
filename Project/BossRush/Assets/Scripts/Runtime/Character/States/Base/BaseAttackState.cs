@@ -21,9 +21,6 @@ namespace TeamSuneat
         {
             // flip 잠금 (애니메이션 이벤트로 해제)
             _animator?.LockFlip();
-
-            // 이동 잠금
-            _animator?.LockMovement();
         }
 
         public abstract void OnUpdate();

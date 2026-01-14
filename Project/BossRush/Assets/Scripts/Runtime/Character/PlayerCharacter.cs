@@ -1,5 +1,6 @@
 ﻿using TeamSuneat.CameraSystem.Core;
 using TeamSuneat.Data;
+using TeamSuneat.Setting;
 using UnityEngine;
 
 namespace TeamSuneat
@@ -196,6 +197,36 @@ namespace TeamSuneat
         }
 
         //
+
+        protected override void OnDamage(DamageResult damageResult)
+        {
+            base.OnDamage(damageResult);
+
+            ApplySlowMotion();
+            ApplyVibration();
+        }
+
+        private void ApplySlowMotion()
+        {
+            GameTimeManager.Instance?.StartSlowMotion(0.05f, 0.01f);
+        }
+
+        private void ApplyVibration()
+        {
+            if (GameSetting.Instance?.Play?.Vibration != true)
+            {
+                return;
+            }
+
+            Rewired.Player inputPlayer = TSInputManager.Instance?.InputPlayer;
+            if (inputPlayer == null)
+            {
+                return;
+            }
+
+            inputPlayer.SetVibration(0, 0.6f, 0.15f);
+            inputPlayer.SetVibration(1, 0.6f, 0.15f);
+        }
 
         protected override void OnDeath(DamageResult damageResult)
         {

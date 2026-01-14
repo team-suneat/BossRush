@@ -47,6 +47,9 @@ namespace TeamSuneat
             // 첫 번째 공격 재생
             int firstAttackIndex = _attackOrder[0];
             PlayAttackAnimation(firstAttackIndex);
+
+            // 이동 잠금
+            _animator?.LockMovement();
         }
 
         public override void OnUpdate()

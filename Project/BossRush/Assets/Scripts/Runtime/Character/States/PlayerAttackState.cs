@@ -58,6 +58,9 @@ namespace TeamSuneat
                 _isAirAttack = false;
                 _maxComboCount = 3;  // 기본값으로 초기화
                 PlayAttackAnimation(_currentComboIndex);
+
+                // 이동 잠금
+                _animator?.LockMovement();
             }
         }
 
