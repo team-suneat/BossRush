@@ -122,6 +122,25 @@ namespace TeamSuneat
             _isAirAttack = false;
         }
 
+        public override void OnJumpRequested()
+        {
+            // 공중 공격은 캔슬 불가
+            if (_isAirAttack)
+            {
+                return;
+            }
+
+            // 지상 공격이면 바로 점프로 전환
+            if (_physics != null && _physics.IsGrounded)
+            {
+                // 공격 애니메이션 중지
+                _animator?.StopAttacking();
+
+                // 점프 상태로 전환
+                _stateMachine.ChangeState(CharacterState.Jumping);
+            }
+        }
+
         protected override Character.FacingDirections? GetAttackDirection()
         {
             // 플레이어: 입력 방향에 맞게 캐릭터 반전

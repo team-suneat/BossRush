@@ -34,9 +34,10 @@ namespace TeamSuneat
             _animator?.UnlockFlip();
         }
 
-        public void OnJumpRequested()
+        public virtual void OnJumpRequested()
         {
-            // 공격 중에는 점프 무시
+            // 기본 구현: 공격 중에는 점프 무시
+            // PlayerAttackState에서 오버라이드하여 지상 공격 캔슬 구현
         }
 
         public void OnDashRequested(Vector2 direction)
