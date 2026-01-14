@@ -204,6 +204,7 @@ namespace TeamSuneat
 
             ApplySlowMotion();
             ApplyVibration();
+            ApplyCameraShake(damageResult.AttackPosition);
         }
 
         private void ApplySlowMotion()
@@ -226,6 +227,31 @@ namespace TeamSuneat
 
             inputPlayer.SetVibration(0, 0.6f, 0.15f);
             inputPlayer.SetVibration(1, 0.6f, 0.15f);
+        }
+
+        private void ApplyCameraShake(Vector3 attackPosition)
+        {
+            if (CameraManager.Instance == null)
+            {
+                return;
+            }
+
+            // 공격자 위치를 기준으로 방향 결정
+            Vector3 defenderPosition = position;
+            Vector3 direction = (attackPosition - defenderPosition).normalized;
+
+            // X축 방향에 따라 GameImpulseType 결정
+            GameImpulseType shakeType = direction.x > 0f
+                ? GameImpulseType.Horizontal_Right
+                : GameImpulseType.Horizontal_Left;
+
+            CameraImpulseAsset asset = ScriptableDataManager.Instance?.GetCameraImpulseAsset(shakeType);
+            if (asset == null)
+            {
+                return;
+            }
+
+            CameraManager.Instance.ShakeAtPosition(position, asset);
         }
 
         protected override void OnDeath(DamageResult damageResult)

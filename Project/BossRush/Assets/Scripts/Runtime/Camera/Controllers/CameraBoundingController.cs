@@ -6,21 +6,20 @@ namespace TeamSuneat.CameraSystem.Controllers
 {
     public class CameraBoundingController : XBehaviour
     {
+        // 상수 정의
+        private const string CAMERA_TYPE_PLAYER = "Player";
+
         [Title("바운딩 제어 설정")]
         [InfoBox("현재 스테이지의 바운딩 콜라이더를 자동으로 감지하고 적용합니다.")]
-        public bool AutoDetectBounding = true;
+        [SerializeField] private bool _autoDetectBounding = true;
 
-        public VirtualCamera VirtualPlayerCharacterCamera;
-
+        private VirtualCamera _virtualCamera;
         private Collider2D _defaultBoundingShape;
         private Collider2D _currentBoundingShape;
 
-        public override void AutoGetComponents()
+        private void Awake()
         {
-            base.AutoGetComponents();
-
-            // 직접 컴포넌트 참조
-            VirtualPlayerCharacterCamera = this.FindComponent<VirtualCamera>("#Cinemachine/Cinemachine Virtual PlayerCharacter Camera");
+            _virtualCamera = GetComponentInChildren<VirtualCamera>();
         }
 
         public void SetStageBoundingShape2D(Collider2D boundingShape, bool isDefault = false)
@@ -38,20 +37,19 @@ namespace TeamSuneat.CameraSystem.Controllers
                 _defaultBoundingShape = boundingShape;
             }
 
-            ApplyBoundingToAllCameras();
+            ApplyBoundingToPlayerCamera();
 
             Log.Info(LogTags.Camera, "(Bounding) 바운딩 콜라이더가 설정되었습니다: {0}", boundingShape.name);
         }
 
-        private void ApplyBoundingToAllCameras()
+        private void ApplyBoundingToPlayerCamera()
         {
             if (_currentBoundingShape == null)
             {
                 return;
             }
 
-            // 플레이어 카메라에 적용
-            ApplyBoundingToCamera(VirtualPlayerCharacterCamera, "Player");
+            ApplyBoundingToCamera(_virtualCamera, CAMERA_TYPE_PLAYER);
         }
 
         private void ApplyBoundingToCamera(VirtualCamera virtualCamera, string cameraType)
@@ -77,25 +75,27 @@ namespace TeamSuneat.CameraSystem.Controllers
 
         private void ClearPlayerBounding()
         {
-            if (VirtualPlayerCharacterCamera == null) return;
-            if (VirtualPlayerCharacterCamera.Confiner == null) return;
+            if (_virtualCamera?.Confiner == null)
+            {
+                return;
+            }
+
+            var confiner = _virtualCamera.Confiner;
+            var currentCollider = confiner.BoundingShape2D;
 
             if (_defaultBoundingShape == null)
             {
-                if (VirtualPlayerCharacterCamera.Confiner.BoundingShape2D != null)
+                if (currentCollider != null)
                 {
-                    Collider2D collider = VirtualPlayerCharacterCamera.Confiner.BoundingShape2D;
-                    Log.Info(LogTags.Camera, "(Bounding) 플레이어 바운딩을 제거합니다: {0}", collider.name);
-
-                    VirtualPlayerCharacterCamera.Confiner.BoundingShape2D = null;
+                    Log.Info(LogTags.Camera, "(Bounding) 플레이어 바운딩을 제거합니다: {0}", currentCollider.name);
+                    confiner.BoundingShape2D = null;
                 }
             }
             else
             {
-                Collider2D collider = VirtualPlayerCharacterCamera.Confiner.BoundingShape2D;
-                Log.Info(LogTags.Camera, "(Bounding) 플레이어 바운딩을 초기화합니다: {0} >> {1}", collider.name, _defaultBoundingShape);
-
-                VirtualPlayerCharacterCamera.Confiner.BoundingShape2D = _defaultBoundingShape;
+                Log.Info(LogTags.Camera, "(Bounding) 플레이어 바운딩을 초기화합니다: {0} >> {1}",
+                    currentCollider?.name ?? "null", _defaultBoundingShape.name);
+                confiner.BoundingShape2D = _defaultBoundingShape;
             }
         }
     }

@@ -13,7 +13,7 @@ namespace TeamSuneat.Data
         [EnableIf("IsChangingAsset")]
         public UIFloatyMoveNames Name;
 
-        
+
         [EnableIf("IsChangingAsset")]
         [FoldoutGroup("#Font")] public GameFontTypes FontType;
         [FoldoutGroup("#Font")] public Color TextColor;

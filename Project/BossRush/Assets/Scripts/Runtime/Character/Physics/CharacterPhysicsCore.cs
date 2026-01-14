@@ -124,6 +124,14 @@ namespace TeamSuneat
             _rb.linearVelocity = velocity;
         }
 
+        public void ResetVelocity()
+        {
+            if (_rb != null)
+            {
+                _rb.linearVelocity = Vector2.zero;
+            }
+        }
+
         public void PhysicsTick()
         {
             UpdateCollisionDetection();

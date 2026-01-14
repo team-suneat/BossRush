@@ -66,6 +66,12 @@ namespace TeamSuneat
 
         public override void OnUpdate()
         {
+            // 캐릭터가 살아있지 않으면 업데이트 스킵
+            if (!_character.IsAlive)
+            {
+                return;
+            }
+
             // 공중 공격 중에는 콤보 입력 무시 (단일 콤보만 지원)
             if (_isAirAttack)
             {

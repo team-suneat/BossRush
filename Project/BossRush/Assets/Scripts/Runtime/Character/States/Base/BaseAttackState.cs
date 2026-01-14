@@ -19,8 +19,6 @@ namespace TeamSuneat
 
         public virtual void OnEnter()
         {
-            // flip 잠금 (애니메이션 이벤트로 해제)
-            _animator?.LockFlip();
         }
 
         public abstract void OnUpdate();

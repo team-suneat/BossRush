@@ -383,8 +383,7 @@ namespace TeamSuneat
                 return;
             }
 
-            RendererFlickerNames flickerName = damageResult.DamageType.ConvertToFlicker();
-            Vital.Owner.CharacterRenderer.StartFlickerCoroutine(flickerName);
+            Vital.Owner.CharacterRenderer.StartFlickerCoroutine(RendererFlickerNames.Damage);
         }
 
         #region Floaty Text

@@ -28,6 +28,7 @@ namespace TeamSuneat.Data
             // else if (!_stageAssets.IsValid()) { return false; }
             // else if (!_forceVelocityAssets.IsValid()) { return false; }
             else if (_playerCharacterStatAsset == null) { return false; }
+            else if (_cameraImpulseAssets.IsValid()) { return false; }
 
             return true;
         }
@@ -359,6 +360,14 @@ namespace TeamSuneat.Data
                         if (!_forceVelocityAssets.ContainsKey(forceVelocity.TID))
                         {
                             _forceVelocityAssets[forceVelocity.TID] = forceVelocity;
+                            count++;
+                        }
+                        break;
+
+                    case CameraImpulseAsset cameraImpulse:
+                        if (!_cameraImpulseAssets.ContainsKey(cameraImpulse.TID))
+                        {
+                            _cameraImpulseAssets[cameraImpulse.TID] = cameraImpulse;
                             count++;
                         }
                         break;

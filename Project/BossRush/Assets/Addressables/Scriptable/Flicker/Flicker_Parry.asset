@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a06c599e26bfbc4cbd6e6be9cd62d69, type: 3}
-  m_Name: Flicker_Damage
+  m_Name: Flicker_Parry
   m_EditorClassIdentifier: 
-  NameString: Damage
+  NameString: Parry
   IsChangingAsset: 0
-  Name: 1
+  Name: 3
   FlickerColor: {r: 1, g: 1, b: 1, a: 1}
   FlickerBlend: 0.5
   FlickerSpeed: 0.1

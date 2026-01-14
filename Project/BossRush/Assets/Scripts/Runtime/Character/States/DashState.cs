@@ -41,6 +41,12 @@ namespace TeamSuneat
                 return;
             }
 
+            // 캐릭터가 살아있지 않으면 업데이트 스킵
+            if (!_character.IsAlive)
+            {
+                return;
+            }
+
             // 대시가 끝나면 Idle/Walk/Falling로 전환 (물리 변수 기반)
             if (_animator.IsDashing || _physics.IsDashing)
             {

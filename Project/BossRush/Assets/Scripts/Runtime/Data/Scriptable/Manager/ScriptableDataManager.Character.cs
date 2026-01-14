@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using TeamSuneat;
 
 namespace TeamSuneat.Data
 {
@@ -161,4 +160,3 @@ namespace TeamSuneat.Data
         #endregion Character Validation Methods
     }
 }
-

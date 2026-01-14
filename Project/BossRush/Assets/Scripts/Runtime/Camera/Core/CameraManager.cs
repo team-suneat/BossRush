@@ -9,44 +9,48 @@ namespace TeamSuneat.CameraSystem.Core
 {
     public class CameraManager : XStaticBehaviour<CameraManager>
     {
-        // 상수 정의
         private const float DEFAULT_BLEND_TIME = 0f;
 
-        public CameraAsset CameraAsset;
-        public Camera MainCamera;
-        public Camera UICamera;
-
-        // 직접 컴포넌트 참조 (Controller 대체)
-        public CinemachineBrain BrainCamera;
+        [SerializeField] private CameraAsset _cameraAsset;
+        [SerializeField] private Camera _mainCamera;
+        [SerializeField] private Camera _uiCamera;
+        [SerializeField] private CinemachineBrain _brainCamera;
 
         [Title("#Controllers")]
-        public CameraBoundingController BoundingController;
-        public CameraShakeController ShakeController;
-        public CameraZoomController ZoomController;
-        public CameraRenderController RenderController;
-        public CameraCinemachineController CinemachineController;
-        public CameraSettingsController SettingsController;
-        public CameraFollowController FollowController;
+        [SerializeField] private CameraBoundingController _boundingController;
+        [SerializeField] private CameraShakeController _shakeController;
+        [SerializeField] private CameraZoomController _zoomController;
+        [SerializeField] private CameraRenderController _renderController;
+        [SerializeField] private CameraCinemachineController _cinemachineController;
+        [SerializeField] private CameraSettingsController _settingsController;
+        [SerializeField] private CameraFollowController _followController;
+
+        public CameraAsset CameraAsset => _cameraAsset;
+        public Camera MainCamera => _mainCamera;
+        public Camera UICamera => _uiCamera;
+        public CinemachineBrain BrainCamera => _brainCamera;
+        public CameraBoundingController BoundingController => _boundingController;
+        public CameraShakeController ShakeController => _shakeController;
+        public CameraZoomController ZoomController => _zoomController;
+        public CameraRenderController RenderController => _renderController;
+        public CameraCinemachineController CinemachineController => _cinemachineController;
+        public CameraSettingsController SettingsController => _settingsController;
+        public CameraFollowController FollowController => _followController;
 
         public override void AutoGetComponents()
         {
             base.AutoGetComponents();
 
-            // 기본 카메라 컴포넌트들
-            MainCamera = this.FindComponent<Camera>("MainCamera");
-            UICamera = this.FindComponent<Camera>("UICamera");
-
-            // 직접 컴포넌트 참조
-            BrainCamera = GetComponentInChildren<CinemachineBrain>();
-
-            // 카메라 컨트롤러들
-            BoundingController = GetComponent<CameraBoundingController>();
-            ShakeController = GetComponent<CameraShakeController>();
-            ZoomController = GetComponent<CameraZoomController>();
-            RenderController = GetComponent<CameraRenderController>();
-            CinemachineController = GetComponent<CameraCinemachineController>();
-            SettingsController = GetComponent<CameraSettingsController>();
-            FollowController = GetComponent<CameraFollowController>();
+            _mainCamera ??= this.FindComponent<Camera>("MainCamera");
+            _uiCamera ??= this.FindComponent<Camera>("UICamera");
+            _brainCamera ??= GetComponentInChildren<CinemachineBrain>();
+            _boundingController ??= GetComponent<CameraBoundingController>();
+            _shakeController ??= GetComponent<CameraShakeController>();
+            _zoomController ??= GetComponent<CameraZoomController>();
+            _renderController ??= GetComponent<CameraRenderController>();
+            _cinemachineController ??= GetComponent<CameraCinemachineController>();
+            _settingsController ??= GetComponent<CameraSettingsController>();
+            _followController ??= GetComponent<CameraFollowController>();
         }
 
         protected override void Awake()
@@ -57,93 +61,94 @@ namespace TeamSuneat.CameraSystem.Core
 
         public CinemachineBrain GetBrainCamera()
         {
-            return BrainCamera;
+            return _brainCamera;
         }
 
         public Transform GetMainCameraPoint()
         {
-            if (MainCamera == null)
+            if (_mainCamera == null)
             {
                 Log.Warning(LogTags.Camera, "MainCamera가 null입니다. 카메라 설정을 확인하세요.");
                 return null;
             }
-            return MainCamera.transform;
+            return _mainCamera.transform;
         }
 
         public void Initialize()
         {
-            Setup(CameraAsset);
+            Setup(_cameraAsset);
         }
 
         public void Setup(CameraAsset cameraAsset)
         {
-            SettingsController?.Setup(cameraAsset);
+            _cameraAsset = cameraAsset;
+            _settingsController?.Setup(cameraAsset);
         }
 
         public float GetDefaultBlendTime()
         {
-            return SettingsController?.GetDefaultBlendTime() ?? DEFAULT_BLEND_TIME;
+            return _settingsController?.GetDefaultBlendTime() ?? DEFAULT_BLEND_TIME;
         }
 
         public void SetCullingMaskToDefault()
         {
-            RenderController?.SetCullingMaskToDefault();
+            _renderController?.SetCullingMaskToDefault();
         }
 
         public void SetCullingMaskToEverything()
         {
-            RenderController?.SetCullingMaskToEverything();
+            _renderController?.SetCullingMaskToEverything();
         }
 
         public void SetLookaheadTime(float time)
         {
-            CinemachineController?.SetLookaheadTime(time);
+            _cinemachineController?.SetLookaheadTime(time);
         }
 
         public void SetSoftZoneWidth(float width)
         {
-            CinemachineController?.SetSoftZoneWidth(width);
+            _cinemachineController?.SetSoftZoneWidth(width);
         }
 
         public void ResetAllCinemachineParameters()
         {
-            CinemachineController?.ResetAllParameters();
+            _cinemachineController?.ResetAllParameters();
         }
 
         public void ResetAllCameraSettings()
         {
-            ShakeController?.ResetShakeSettings();
-            ZoomController?.ResetZoomSettings();
-            BoundingController?.ClearBounding();
-            RenderController?.ResetCullingMask();
-            CinemachineController?.ResetAllParameters();
-            SettingsController?.ResetToDefaultSettings();
+            _shakeController?.ResetShakeSettings();
+            _zoomController?.ResetZoomSettings();
+            _boundingController?.ClearBounding();
+            _renderController?.ResetCullingMask();
+            _cinemachineController?.ResetAllParameters();
+            _settingsController?.ResetToDefaultSettings();
         }
 
         #region Camera Zoom (위임 패턴)
 
         public void Zoom(Transform target, float zoomSize)
         {
-            ZoomController?.Zoom(target, zoomSize);
+            _zoomController?.Zoom(target, zoomSize);
         }
 
         public void ZoomDefault(Transform target)
         {
-            ZoomController?.ZoomDefault(target);
+            _zoomController?.ZoomDefault(target);
         }
 
         #endregion Camera Zoom (위임 패턴)
 
         #region Camera Shake (위임 패턴)
 
-        public void Shake(CinemachineImpulseSource impulseSource)
+        public void Shake(CinemachineImpulseSource impulseSource, CameraImpulseAsset preset)
         {
-            ShakeController?.Shake(impulseSource);
+            _shakeController?.Shake(impulseSource, preset);
         }
 
-        public void Shake(CinemachineImpulseSource impulseSource, ImpulsePreset preset)
+        public void ShakeAtPosition(Vector3 position, CameraImpulseAsset preset)
         {
-            ShakeController?.Shake(impulseSource, preset);
+            _shakeController?.ShakeAtPosition(position, preset);
         }
 
         #endregion Camera Shake (위임 패턴)
@@ -152,22 +157,22 @@ namespace TeamSuneat.CameraSystem.Core
 
         public void SetFollowTarget(Transform target)
         {
-            FollowController?.SetFollowTarget(target);
+            _followController?.SetFollowTarget(target);
         }
 
         public void StopFollow()
         {
-            FollowController?.StopFollow();
+            _followController?.StopFollow();
         }
 
         public bool IsFollowing()
         {
-            return FollowController?.IsFollowing() ?? false;
+            return _followController?.IsFollowing() ?? false;
         }
 
         public Transform GetCurrentFollowTarget()
         {
-            return FollowController?.GetCurrentFollowTarget();
+            return _followController?.GetCurrentFollowTarget();
         }
 
         #endregion Camera Follow (위임 패턴)
@@ -176,31 +181,29 @@ namespace TeamSuneat.CameraSystem.Core
 
         public void SetStageBoundingShape2D(Collider2D boundingShape)
         {
-            // BoundingController가 아직 초기화되지 않았다면 지연 초기화
-            if (BoundingController == null)
+            if (_boundingController == null)
             {
                 _ = StartCoroutine(SetStageBoundingShape2DDelayed(boundingShape));
                 return;
             }
 
-            BoundingController.SetStageBoundingShape2D(boundingShape, true);
+            _boundingController.SetStageBoundingShape2D(boundingShape, true);
         }
 
         private IEnumerator SetStageBoundingShape2DDelayed(Collider2D boundingShape)
         {
-            // BoundingController가 준비될 때까지 최대 10프레임 대기
             int maxWaitFrames = 10;
             int currentFrame = 0;
 
-            while (BoundingController == null && currentFrame < maxWaitFrames)
+            while (_boundingController == null && currentFrame < maxWaitFrames)
             {
                 yield return null;
                 currentFrame++;
             }
 
-            if (BoundingController != null)
+            if (_boundingController != null)
             {
-                BoundingController.SetStageBoundingShape2D(boundingShape, true);
+                _boundingController.SetStageBoundingShape2D(boundingShape, true);
                 Log.Info(LogTags.Camera, "지연 초기화로 바운딩이 설정되었습니다: {0}", boundingShape?.name);
             }
             else
@@ -211,12 +214,12 @@ namespace TeamSuneat.CameraSystem.Core
 
         public void SetCustomBoundingShape2D(Collider2D boundingShape)
         {
-            BoundingController?.SetStageBoundingShape2D(boundingShape);
+            _boundingController?.SetStageBoundingShape2D(boundingShape);
         }
 
         public void ResetBoundingShape2D()
         {
-            BoundingController?.ClearBounding();
+            _boundingController?.ClearBounding();
         }
 
         #endregion Camera Bounding

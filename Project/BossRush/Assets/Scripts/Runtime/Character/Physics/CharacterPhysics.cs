@@ -84,6 +84,11 @@ namespace TeamSuneat
             }
         }
 
+        public void ResetVelocity()
+        {
+            _core?.ResetVelocity();
+        }
+
         #endregion Core 메서드 위임
 
         #region Ability 메서드 위임

@@ -12,7 +12,7 @@ namespace TeamSuneat.CameraSystem.Implementations
         {
             base.AutoGetComponents();
 
-            BoundingShape = GetComponent<PolygonCollider2D>();
+            _boundingShape = GetComponent<PolygonCollider2D>();
         }
 
         public override void AutoSetting()

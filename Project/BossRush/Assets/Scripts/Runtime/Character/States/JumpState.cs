@@ -39,6 +39,12 @@ namespace TeamSuneat
                 return;
             }
 
+            // 캐릭터가 살아있지 않으면 업데이트 스킵
+            if (!_character.IsAlive)
+            {
+                return;
+            }
+
             // 상승 속도가 0 이하이면 Falling로 전환 (물리 변수 기반 - FixedUpdate에서 처리)
             // 바닥 착지는 FallingState에서 처리 (단방향 플랫폼 통과 시 문제 방지)
             if (_physics.RigidbodyVelocity.y <= 0f)

@@ -45,6 +45,12 @@ namespace TeamSuneat
                 return;
             }
 
+            // 캐릭터가 살아있지 않으면 업데이트 스킵
+            if (!_character.IsAlive)
+            {
+                return;
+            }
+
             // 애니메이션 종료 시 자동으로 Idle/Walk로 전환
             if (!_animator.IsParrying)
             {

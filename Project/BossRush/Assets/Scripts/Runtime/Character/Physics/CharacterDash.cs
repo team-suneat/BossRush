@@ -83,6 +83,7 @@ namespace TeamSuneat
         {
             if (_physics == null) return;
 
+            // 캐릭터가 살아있지 않으면 업데이트 스킵
             if (_vital != null && !_vital.IsAlive)
             {
                 if (_physics.IsDashing)

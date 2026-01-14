@@ -169,6 +169,9 @@ namespace TeamSuneat
             Attack?.OnDeath();
             Stat?.Clear();
 
+            // Rigidbody2D velocity 초기화
+            Physics?.ResetVelocity();
+
             if (StateMachine != null)
             {
                 StateMachine.ChangeState(CharacterState.Dead);

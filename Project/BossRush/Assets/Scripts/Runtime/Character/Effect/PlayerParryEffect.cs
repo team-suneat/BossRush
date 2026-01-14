@@ -1,6 +1,8 @@
 using Rewired;
 using Sirenix.OdinInspector;
 using TeamSuneat.Audio;
+using TeamSuneat.CameraSystem.Core;
+using TeamSuneat.Data;
 using TeamSuneat.Setting;
 using UnityEngine;
 
@@ -47,7 +49,6 @@ namespace TeamSuneat
         private Character _character;
         private CharacterPhysics _physics;
         private Vital _vital;
-        private Coroutine _slowMotionCoroutine;
 
         private void Awake()
         {
@@ -56,14 +57,12 @@ namespace TeamSuneat
             _vital = _character?.MyVital;
         }
 
-        public void OnParrySuccess(Character attacker, Vector3 attackPosition)
+        public void OnParrySuccess(Character attacker, Character targetCharacter, Vector3 attackPosition)
         {
             if (_character == null)
             {
                 return;
             }
-
-            ApplyPulseReward();
 
             if (_knockbackType != KnockbackType.None && attacker != null)
             {
@@ -71,9 +70,13 @@ namespace TeamSuneat
             }
 
             SpawnVFX(attackPosition);
+
+            ApplyPulseReward();
             ApplySound();
             ApplySlowMotion();
             ApplyVibration();
+            ApplyParryRendererEffect(targetCharacter);
+            ApplyCameraShake(attackPosition);
         }
 
         private void ApplyPulseReward()
@@ -148,20 +151,15 @@ namespace TeamSuneat
 
         public void ApplySlowMotion()
         {
-            _slowMotionCoroutine ??= StartXCoroutine(GameTimeManager.Instance.ActivateSlowMotion(_slowMotionDuration, _slowMotionFactor, OnCompletedSlowMotion));
-        }
-
-        private void OnCompletedSlowMotion()
-        {
-            _slowMotionCoroutine = null;
+            GameTimeManager.Instance?.StartSlowMotion(_slowMotionDuration, _slowMotionFactor);
         }
 
         private void ApplyVibration()
         {
-            // if (GameSetting.Instance?.Play?.Vibration != true)
-            // {
-            //     return;
-            // }
+            if (GameSetting.Instance?.Play?.Vibration != true)
+            {
+                return;
+            }
 
             Player inputPlayer = TSInputManager.Instance?.InputPlayer;
             if (inputPlayer == null)
@@ -171,6 +169,39 @@ namespace TeamSuneat
 
             inputPlayer.SetVibration(0, _vibrationLeftMotorIntensity, _vibrationDuration);
             inputPlayer.SetVibration(1, _vibrationRightMotorIntensity, _vibrationDuration);
+        }
+
+        private void ApplyParryRendererEffect(Character targetCharacter)
+        {
+            if (targetCharacter.CharacterRenderer != null)
+            {
+                targetCharacter.CharacterRenderer.StartFlickerCoroutine(RendererFlickerNames.Parry);
+            }
+        }
+
+        private void ApplyCameraShake(Vector3 attackPosition)
+        {
+            if (CameraManager.Instance == null)
+            {
+                return;
+            }
+
+            // 공격자 위치를 기준으로 방향 결정
+            Vector3 defenderPosition = _character.transform.position;
+            Vector3 direction = (attackPosition - defenderPosition).normalized;
+
+            // X축 방향에 따라 GameImpulseType 결정
+            GameImpulseType shakeType = direction.x > 0f
+                ? GameImpulseType.Horizontal_Right
+                : GameImpulseType.Horizontal_Left;
+
+            CameraImpulseAsset asset = ScriptableDataManager.Instance?.GetCameraImpulseAsset(shakeType);
+            if (asset == null)
+            {
+                return;
+            }
+
+            CameraManager.Instance.ShakeAtPosition(_character.transform.position, asset);
         }
     }
 }

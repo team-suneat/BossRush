@@ -34,6 +34,12 @@ namespace TeamSuneat
                 return;
             }
 
+            // 캐릭터가 살아있지 않으면 업데이트 스킵
+            if (!_character.IsAlive)
+            {
+                return;
+            }
+
             // 바닥에 닿았고, 아래로 내려가는 중이 아니면 착지 처리
             if (_physics.IsGrounded && _physics.RigidbodyVelocity.y >= 0f)
             {

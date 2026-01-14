@@ -394,7 +394,9 @@ namespace TeamSuneat
                 return false;
             }
 
-            if (!targetVital.Owner.CharacterAnimator.IsParrying)
+            var targetCharacter = targetVital.Owner;
+
+            if (!targetCharacter.CharacterAnimator.IsParrying)
             {
                 return false;
             }
@@ -407,14 +409,14 @@ namespace TeamSuneat
             }
 
             // PlayerParryEffect를 통한 패리 성공 처리
-            PlayerParryEffect parryEffect = targetVital.Owner.GetComponentNoAlloc<PlayerParryEffect>();
+            PlayerParryEffect parryEffect = targetCharacter.GetComponentNoAlloc<PlayerParryEffect>();
             if (parryEffect != null)
             {
                 Vector3 attackPosition = _attackCollider != null
                     ? _attackCollider.transform.position
                     : transform.position;
 
-                parryEffect.OnParrySuccess(Owner, attackPosition);
+                parryEffect.OnParrySuccess(Owner, targetCharacter, attackPosition);
             }
 
             return true;

@@ -27,6 +27,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 24813a5af48c78c4a9556cefefba20ea
+    m_Address: Assets/Addressables/Scriptable/Camera/CameraImpulse_Horizontal_Right.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2cc909dbd55810749b2736dff821e0ca
     m_Address: Assets/Addressables/Scriptable/Floaty/Floaty_PlayerDamaged.asset
     m_ReadOnly: 0
@@ -35,6 +41,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 33da283afde72b148a0eddacaa59b029
     m_Address: Assets/Addressables/Scriptable/Floaty/Floaty_RestoreMana.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5b3db7e71dd32e749b6911ba0ec74264
+    m_Address: Assets/Addressables/Scriptable/Flicker/Flicker_Parry.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -149,6 +161,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f7856f18930e1b249acc7eaabce36dcf
     m_Address: Assets/Addressables/Scriptable/Sound/Sound_UI_Move.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fc89c745a05479d4ea7398d84800a995
+    m_Address: Assets/Addressables/Scriptable/Camera/CameraImpulse_Horizontal_Left.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable

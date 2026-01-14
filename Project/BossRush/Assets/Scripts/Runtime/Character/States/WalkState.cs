@@ -27,6 +27,11 @@ namespace TeamSuneat
             {
                 return;
             }
+            // 캐릭터가 살아있지 않으면 업데이트 스킵
+            if (!_character.IsAlive)
+            {
+                return;
+            }
 
             // 수평 입력이 없으면 Idle로 전환 (입력 기반 - Update에서 처리)
             var cmd = _character.Command;
@@ -41,6 +46,12 @@ namespace TeamSuneat
         {
             // 물리가 없으면 업데이트 스킵
             if (_physics == null)
+            {
+                return;
+            }
+
+            // 캐릭터가 살아있지 않으면 업데이트 스킵
+            if (!_character.IsAlive)
             {
                 return;
             }

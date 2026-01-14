@@ -17,6 +17,7 @@ namespace TeamSuneat.Data
         private readonly Dictionary<int, SoundAsset> _soundAssets = new();
         private readonly Dictionary<int, StageAsset> _stageAssets = new();
         private readonly Dictionary<int, ForceVelocityAsset> _forceVelocityAssets = new();
+        private readonly Dictionary<int, CameraImpulseAsset> _cameraImpulseAssets = new();
 
         public void Clear()
         {
@@ -31,6 +32,7 @@ namespace TeamSuneat.Data
             _flickerAssets.Clear();
             _stageAssets.Clear();
             _forceVelocityAssets.Clear();
+            _cameraImpulseAssets.Clear();
             _playerCharacterStatAsset = null;
         }
 
@@ -44,6 +46,7 @@ namespace TeamSuneat.Data
             RefreshAllSounds();
             RefreshAllStage();
             RefreshAllForceVelocity();
+            RefreshAllCameraImpulse();
         }
     }
 }
