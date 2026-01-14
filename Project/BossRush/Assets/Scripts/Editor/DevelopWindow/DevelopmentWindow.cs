@@ -7,9 +7,7 @@ namespace TeamSuneat.Development
 {
     public class DevelopmentWindow : EditorWindow
     {
-        private Vector2 _scrollPosition;
-        private GUIStyle _titleStyle;
-        private GUIStyle _contentStyle;
+        private DevelopmentToolsGUI _gui;
 
         [MenuItem("Tools/개발 도구")]
         private static void ShowWindow()
@@ -20,39 +18,24 @@ namespace TeamSuneat.Development
 
         private void OnEnable()
         {
-            InitializeStyles();
+            InitializeGUI();
         }
 
-        private void InitializeStyles()
+        private void InitializeGUI()
         {
-            _titleStyle ??= new GUIStyle(EditorStyles.boldLabel)
-            {
-                fontSize = 14,
-                fontStyle = FontStyle.Bold
-            };
-
-            _contentStyle ??= new GUIStyle(EditorStyles.label)
-            {
-                fontSize = 11,
-                fontStyle = FontStyle.Normal,
-            };
-        }
-
-        private void DrawTitleLabel(string title)
-        {
-            InitializeStyles();
-            EditorGUILayout.LabelField(title, _titleStyle);
-        }
-
-        private void DrawContentLabel(string content)
-        {
-            InitializeStyles();
-            EditorGUILayout.LabelField(content, _contentStyle);
+            _gui = new DevelopmentToolsGUI();
+            // OnEnable에서는 EditorStyles가 null일 수 있으므로 OnGUI에서 초기화
         }
 
         private void OnGUI()
         {
-            _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
+            // OnGUI 내부에서는 EditorStyles가 유효하므로 스타일 초기화 확인
+            if (_gui.TitleStyle == null)
+            {
+                _gui.RefreshStyle(isEditor: true);
+            }
+
+            _gui.ScrollPosition = EditorGUILayout.BeginScrollView(_gui.ScrollPosition);
 
             EditorGUILayout.LabelField("[개발용 에디터 윈도우]", EditorStyles.boldLabel);
             EditorGUILayout.Space(10);
@@ -77,7 +60,7 @@ namespace TeamSuneat.Development
         private void DrawPathManagerSection()
         {
             _ = EditorGUILayout.BeginVertical("box");
-            DrawTitleLabel("Path Manager");
+            _gui.DrawTitleLabel("Path Manager");
 
             if (GUILayout.Button("파일 경로 저장", GUILayout.Width(250)))
             {
@@ -89,7 +72,7 @@ namespace TeamSuneat.Development
         private void DrawJsonDataManagerSection()
         {
             _ = EditorGUILayout.BeginVertical("box");
-            DrawTitleLabel("Json Data Manager");
+            _gui.DrawTitleLabel("Json Data Manager");
 
             if (GUILayout.Button("JSON 시트 불러오기", GUILayout.Width(250)))
             {
@@ -101,7 +84,7 @@ namespace TeamSuneat.Development
         private void DrawExcelSection()
         {
             _ = EditorGUILayout.BeginVertical("box");
-            DrawTitleLabel("Excel");
+            _gui.DrawTitleLabel("Excel");
 
             if (GUILayout.Button("모든 엑셀 파일 불러오기", GUILayout.Width(250)))
             {
@@ -113,7 +96,7 @@ namespace TeamSuneat.Development
         private void DrawGoogleSheetsSection()
         {
             _ = EditorGUILayout.BeginVertical("box");
-            DrawTitleLabel("Google Sheets");
+            _gui.DrawTitleLabel("Google Sheets");
 
             if (GUILayout.Button("모든 시트 불러오기 (GID 목록)", GUILayout.Width(250)))
             {
@@ -140,7 +123,7 @@ namespace TeamSuneat.Development
         private void DrawLogLevelSection()
         {
             _ = EditorGUILayout.BeginVertical("box");
-            DrawTitleLabel("Log Level");
+            _gui.DrawTitleLabel("Log Level");
 
             bool progress = Log.LevelProgress;
             bool info = Log.LevelInfo;
