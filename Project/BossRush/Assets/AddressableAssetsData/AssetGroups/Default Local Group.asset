@@ -19,43 +19,55 @@ MonoBehaviour:
     m_Address: Assets/Addressables/Prefab/AudioObject.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Ingame
+    - default
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 577e02325167be74b8eb99ec2a3eae09
     m_Address: Assets/Addressables/Atlas/atlas_ui.spriteatlasv2
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Ingame
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 66a6e2fd0b92cc743835183fc23dc09c
+    m_Address: Assets/Addressables/Scriptable/Font/Font_English.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6f8098a40b7ba8f43aa9f5c5499a536e
     m_Address: Assets/Addressables/Prefab/UI/Popup/UIGameOptionPopup.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Ingame
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7e493870cf5dd9d4fb7ffc6b1671c7f2
+    m_Address: Assets/Addressables/Scriptable/Font/Font_Korean.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9b327578e2bfff645ab591cdd0c24dea
     m_Address: Assets/Addressables/Atlas/atlas_item.spriteatlasv2
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Ingame
+    - default
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c7125cbb71e3107449098bdcc3818625
     m_Address: Assets/Addressables/Prefab/UI/Follow/UIFloatyText.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Ingame
+    - default
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d0e914d5f9f147b47abcacd3abec69b4
     m_Address: Assets/Addressables/Prefab/UI/Gauge/UIPlayerGauge.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Ingame
+    - default
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: eb8d74baaf4a0ab47a9bfda9ef9fdeb0
     m_Address: Assets/Addressables/Prefab/UI/Gauge/UIEnemyGauge.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Ingame
+    - default
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 0bfdb79b140772546ac483b0ad9449ba, type: 2}

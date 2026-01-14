@@ -185,7 +185,7 @@ namespace TeamSuneat
 
         #region Command
 
-        private CharacterCommand _command;
+        private CharacterCommand _command = new CharacterCommand();
 
         public CharacterCommand Command => _command;
 
@@ -215,6 +215,7 @@ namespace TeamSuneat
         }
         public virtual void LateLogicUpdate()
         {
+            _command.UpdateBuffer();
             _command.ResetFrame();
         }
         

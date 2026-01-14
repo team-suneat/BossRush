@@ -2,6 +2,7 @@ namespace TeamSuneat
 {
     public static class AddressableLabels
     {
+        public const string Default = "default";
         public const string Scriptable = "Scriptable";
         public const string ScriptableSync = "ScriptableSync";
         public const string Json = "JSON";

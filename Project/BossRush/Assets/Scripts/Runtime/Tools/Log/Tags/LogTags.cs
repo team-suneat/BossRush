@@ -131,6 +131,9 @@
         /// <summary> 입력 버튼 상태 </summary>
         Input_ButtonState,
 
+        /// <summary> 입력 커맨드 </summary>
+        Input_Command,
+
         #endregion Setting
 
         #region Stage

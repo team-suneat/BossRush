@@ -30,26 +30,26 @@ public static class AllIn1ShaderImporter
 	private const string LIT_SHADER_UNITY_VERSION_KEY = "AllIn1SpriteShader_LitShader_UnityVersion";
 	private const string LIT_SHADER_FIRST_TIME_PROJECT = "AllIn1SpriteShader_LitShader_FirstTimeProject";
 
-	private const string LIT_SHADER_PATH = "../../Plugins/AllIn1SpriteShader/Shaders/AllIn1SpriteShaderLit.shader";
+    private const string LIT_SHADER_PATH = "../Shaders/AllIn1SpriteShaderLit.shader";
 
-	private const string SHADER_PATH_STANDARD	= "../../Plugins/AllIn1SpriteShader/Shaders/LitShaders/AllIn1SpriteShaderLit_BetterShader_Standard.txt";
+    private const string SHADER_PATH_STANDARD = "../Shaders/LitShaders/AllIn1SpriteShaderLit_BetterShader_Standard.txt";
 
-	private const string SHADER_PATH_URP_2019	= "../../Plugins/AllIn1SpriteShader/Shaders/LitShaders/AllIn1SpriteShaderLit_BetterShader_URP2019.txt";
-	private const string SHADER_PATH_HDRP_2019	= "../../Plugins/AllIn1SpriteShader/Shaders/LitShaders/AllIn1SpriteShaderLit_HDRP2019.txt";
+    private const string SHADER_PATH_URP_2019 = "../Shaders/LitShaders/AllIn1SpriteShaderLit_BetterShader_URP2019.txt";
+    private const string SHADER_PATH_HDRP_2019 = "../Shaders/LitShaders/AllIn1SpriteShaderLit_HDRP2019.txt";
 
-	private const string SHADER_PATH_URP_2020	= "../../Plugins/AllIn1SpriteShader/Shaders/LitShaders/AllIn1SpriteShaderLit_BetterShader_URP2020.txt";
-	private const string SHADER_PATH_HDRP_2020	= "../../Plugins/AllIn1SpriteShader/Shaders/LitShaders/AllIn1SpriteShaderLit_BetterShader_HDRP2020.txt";
+    private const string SHADER_PATH_URP_2020 = "../Shaders/LitShaders/AllIn1SpriteShaderLit_BetterShader_URP2020.txt";
+    private const string SHADER_PATH_HDRP_2020 = "../Shaders/LitShaders/AllIn1SpriteShaderLit_BetterShader_HDRP2020.txt";
 
-	private const string SHADER_PATH_URP_2021	= "../../Plugins/AllIn1SpriteShader/Shaders/LitShaders/AllIn1SpriteShaderLit_BetterShader_URP2021.txt";
-	private const string SHADER_PATH_HDRP_2021	= "../../Plugins/AllIn1SpriteShader/Shaders/LitShaders/AllIn1SpriteShaderLit_BetterShader_HDRP2021.txt";
+    private const string SHADER_PATH_URP_2021 = "../Shaders/LitShaders/AllIn1SpriteShaderLit_BetterShader_URP2021.txt";
+    private const string SHADER_PATH_HDRP_2021 = "../Shaders/LitShaders/AllIn1SpriteShaderLit_BetterShader_HDRP2021.txt";
 
-	private const string SHADER_PATH_URP_2022	= "../../Plugins/AllIn1SpriteShader/Shaders/LitShaders/AllIn1SpriteShaderLit_BetterShader_URP2022.txt";
-	private const string SHADER_PATH_HDRP_2022	= "../../Plugins/AllIn1SpriteShader/Shaders/LitShaders/AllIn1SpriteShaderLit_BetterShader_HDRP2022.txt";
+    private const string SHADER_PATH_URP_2022 = "../Shaders/LitShaders/AllIn1SpriteShaderLit_BetterShader_URP2022.txt";
+    private const string SHADER_PATH_HDRP_2022 = "../Shaders/LitShaders/AllIn1SpriteShaderLit_BetterShader_HDRP2022.txt";
 
-	private const string SHADER_PATH_URP_2023	= "../../Plugins/AllIn1SpriteShader/Shaders/LitShaders/AllIn1SpriteShaderLit_BetterShader_URP2023.txt";
-	private const string SHADER_PATH_HDRP_2023	= "../../Plugins/AllIn1SpriteShader/Shaders/LitShaders/AllIn1SpriteShaderLit_BetterShader_HDRP2023.txt";
+    private const string SHADER_PATH_URP_2023 = "../Shaders/LitShaders/AllIn1SpriteShaderLit_BetterShader_URP2023.txt";
+    private const string SHADER_PATH_HDRP_2023 = "../Shaders/LitShaders/AllIn1SpriteShaderLit_BetterShader_HDRP2023.txt";
 
-	static AllIn1ShaderImporter()
+    static AllIn1ShaderImporter()
 	{
 		EditorApplication.quitting += Quit;
 

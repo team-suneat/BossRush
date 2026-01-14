@@ -11,19 +11,18 @@ namespace TeamSuneat
     /// </summary>
     public static class GoogleSheetsMenu
     {
-        [MenuItem("Tools/Google Sheets/모든 시트 불러오기 (GID 목록)")]
-        public static async void LoadMultipleSheetsByGids()
+        public static async void LoadMultipleSheetsByGIDs()
         {
             // 중앙집중식 GID 상수 사용
-            string[] gids = new string[]
+            string[] GIDs = new string[]
             {
-                GoogleSheetDatasetGids.Stat,
-                GoogleSheetDatasetGids.String,
+                GoogleSheetDatasetGIDs.Stat,
+                GoogleSheetDatasetGIDs.String,
             };
 
-            for (int idx = 0; idx < gids.Length; idx++)
+            for (int idx = 0; idx < GIDs.Length; idx++)
             {
-                string gid = gids[idx];
+                string gid = GIDs[idx];
                 string url = GameGoogleSheetLoader.BuildPublishedTSVUrlForGid(gid);
                 Debug.Log($"[GoogleSheets] (gid:{gid}) 시작 - URL: {url}");
 
@@ -45,23 +44,20 @@ namespace TeamSuneat
 
         #region Convert Sheet To Json
 
-        [MenuItem("Tools/Google Sheets/Convert To Json/All")]
         public static void ConvertAllToJson()
         {
             ConvertStatToJson();
             ConvertStringToJson();
         }
 
-        [MenuItem("Tools/Google Sheets/Convert To Json/Stat")]
         public static void ConvertStatToJson()
         {
-            ConvertCacheToJson<StatData>("Stat", GoogleSheetDatasetGids.Stat);
+            ConvertCacheToJson<StatData>("Stat", GoogleSheetDatasetGIDs.Stat);
         }
 
-        [MenuItem("Tools/Google Sheets/Convert To Json/String")]
         public static void ConvertStringToJson()
         {
-            ConvertCacheToJson<StringData>("String", GoogleSheetDatasetGids.String);
+            ConvertCacheToJson<StringData>("String", GoogleSheetDatasetGIDs.String);
         }
 
         private static async void ConvertCacheToJson<IData>(string key, string gid)

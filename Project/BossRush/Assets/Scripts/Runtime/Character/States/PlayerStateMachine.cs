@@ -60,11 +60,14 @@ namespace TeamSuneat
                 RequestDash();
             }
 
-            // 공격 입력 감지
+            // 공격 입력 감지 (즉시 처리)
             if (cmd.IsAttackPressed)
             {
                 RequestAttack();
             }
+
+            // 공격 입력 버퍼 소비
+            TryConsumeAttackBuffer();
 
             // 패리 입력 감지
             if (cmd.IsParryPressed)
@@ -74,6 +77,33 @@ namespace TeamSuneat
         }
 
         //
+
+        // 공격 버퍼 소비
+        private void TryConsumeAttackBuffer()
+        {
+            if (_character == null) return;
+
+            var cmd = _character.Command;
+
+            if (!cmd.IsAttackBuffered)
+                return;
+
+            // 공격 시작 가능한 상태 명시적 정의
+            // 초기 구현: Idle, Walk, Jumping, Falling만 허용
+            if (CurrentState == CharacterState.Idle ||
+                CurrentState == CharacterState.Walk ||
+                CurrentState == CharacterState.Jumping ||
+                CurrentState == CharacterState.Falling)
+            {
+                Log.Info(LogTags.Input_Command, "[공격 입력 버퍼] 버퍼 소비 시도. 현재 상태: {0}", CurrentState);
+                cmd.ConsumeAttackBuffer();
+                RequestAttack();
+            }
+            else
+            {
+                Log.Info(LogTags.Input_Command, "[공격 입력 버퍼] 버퍼 소비 실패. 공격 불가능한 상태: {0}", CurrentState);
+            }
+        }
 
         private void RequestAttack()
         {

@@ -14,7 +14,6 @@ public partial class Excel4Unity : Editor
         public List<T> items;
     }
 
-    [MenuItem("Tools/Excel/모든 엑셀 파일 불러오기")]
     public static void ConvertAllExcelToJSON()
     {
         string[] excelNames = System.Enum.GetNames(typeof(ExcelNames));
@@ -24,7 +23,7 @@ public partial class Excel4Unity : Editor
             ParseExcel(string.Format("/{0}.xlsx", excelNames[i].ToString()));
         }
 
-        EditorUtility.DisplayDialog("Successed!", "Parse all files.", "OK");
+        EditorUtility.DisplayDialog("Succeeded!", "Parse all files.", "OK");
     }
 
     public static void ConvertOneExcelToJSON(ExcelNames[] excelNames)
@@ -37,7 +36,7 @@ public partial class Excel4Unity : Editor
         }
 
         string dialogContent = string.Format("Parse [{0}] file.", JoinToString(excelNames));
-        EditorUtility.DisplayDialog("Successed!", dialogContent, "OK");
+        EditorUtility.DisplayDialog("Succeeded!", dialogContent, "OK");
     }
 
     public static void ConvertOneExcelToJSON(ExcelNames excelName)
@@ -46,7 +45,7 @@ public partial class Excel4Unity : Editor
         {
             string dialogContent = string.Format("Parse [{0}] file.", excelName.ToString());
 
-            EditorUtility.DisplayDialog("Successed!", dialogContent, "OK");
+            EditorUtility.DisplayDialog("Succeeded!", dialogContent, "OK");
         }
     }
 
@@ -62,7 +61,7 @@ public partial class Excel4Unity : Editor
             ParseExcel(string.Format("/{0}.xlsx", excelNames[i].ToString()));
         }
 
-        EditorUtility.DisplayDialog("Successed!", "Parse String file.", "OK");
+        EditorUtility.DisplayDialog("Succeeded!", "Parse String file.", "OK");
     }
 
     private static bool ParseExcel(string excelName)

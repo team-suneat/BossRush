@@ -10,8 +10,8 @@ namespace TeamSuneat
     {
         private static readonly Dictionary<string, object> gidToConverter = new()
         {
-            { GoogleSheetDatasetGids.String, new StringRowConverter() },
-            { GoogleSheetDatasetGids.Stat, new StatRowConverter() },
+            { GoogleSheetDatasetGIDs.String, new StringRowConverter() },
+            { GoogleSheetDatasetGIDs.Stat, new StatRowConverter() },
         };
 
         public static bool HasConverterForGid(string gid)

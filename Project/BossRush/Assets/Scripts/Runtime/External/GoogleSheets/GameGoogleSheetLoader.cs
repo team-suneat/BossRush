@@ -48,7 +48,7 @@ namespace TeamSuneat
         /// </summary>
         public static string BuildPublishedCsvUrlForDataset(GoogleSheetDatasetId datasetId)
         {
-            string gid = GoogleSheetDatasetGids.GetGid(datasetId);
+            string gid = GoogleSheetDatasetGIDs.GetGid(datasetId);
             return BuildPublishedTSVUrlForGid(gid);
         }
 

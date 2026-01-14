@@ -29,7 +29,7 @@ namespace TeamSuneat
 
             // LINQ 대신 명시적인 루프 사용 (성능 규칙 준수)
             List<(GoogleSheetDatasetId datasetId, string gid, string cache)> targets = new();
-            foreach ((GoogleSheetDatasetId datasetId, string gid) pair in GoogleSheetDatasetGids.EnumerateMappings())
+            foreach ((GoogleSheetDatasetId datasetId, string gid) pair in GoogleSheetDatasetGIDs.EnumerateMappings())
             {
                 if (pair.datasetId != GoogleSheetDatasetId.None)
                 {

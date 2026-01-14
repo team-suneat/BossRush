@@ -11,10 +11,18 @@ namespace TeamSuneat
             _character = this.FindFirstParentComponent<Character>();
         }
 
-        private void z()
+        // 애니메이션 이벤트로 호출됩니다.
+        private void CallFaceAnimationEvent()
         {
-            if (_character == null) return;
-            if (_character.TargetCharacter == null) return;
+            if (_character == null)
+            {
+                return;
+            }
+
+            if (_character.TargetCharacter == null)
+            {
+                return;
+            }
 
             _character.FaceToTarget();
         }
