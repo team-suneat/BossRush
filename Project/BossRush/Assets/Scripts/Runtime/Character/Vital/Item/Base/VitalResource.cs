@@ -221,6 +221,10 @@ namespace TeamSuneat
 
         public UIFloatyText SpawnFloatyText(string content, Transform parent, UIFloatyMoveNames moveType)
         {
+            // 옵션 기능을 지원하기 전까지 전투 자원에서 FloatyText를 생성하지 않습니다.
+            // ToDo: 옵션 기능 지원 후 예외처리 삭제
+            return null;
+
             if (GameSetting.Instance.Play.UseDamageText)
             {
                 if (moveType == UIFloatyMoveNames.Execution)

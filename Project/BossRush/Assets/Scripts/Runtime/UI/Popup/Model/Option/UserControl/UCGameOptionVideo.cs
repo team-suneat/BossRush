@@ -216,14 +216,9 @@ namespace TeamSuneat.UserInterface
 
             _applyText?.SetActive(false);
 
-            HideUnderlineEventButton(_fullScreenButton);
-            HideUnderlineEventButton(_borderlessButton);
-            HideUnderlineEventButton(_resolutionButton);
-            HideUnderlineEventButton(_vSyncButton);
-
-            SetActiveEventButton(_fullScreenButton, GameSetting.Instance.Video.IsFullScreen);
-            SetActiveEventButton(_borderlessButton, GameSetting.Instance.Video.IsBorderless);
-            SetActiveEventButton(_vSyncButton, GameSetting.Instance.Video.UseVSync);
+            SetButtonSelected(_fullScreenButton, GameSetting.Instance.Video.IsFullScreen);
+            SetButtonSelected(_borderlessButton, GameSetting.Instance.Video.IsBorderless);
+            SetButtonSelected(_vSyncButton, GameSetting.Instance.Video.UseVSync);
 
             SetActiveBorderlessButton();
         }
@@ -231,20 +226,20 @@ namespace TeamSuneat.UserInterface
         private void SwitchVSync()
         {
             GameSetting.Instance.Video.SwitchVSync();
-            SetActiveEventButton(_vSyncButton, GameSetting.Instance.Video.UseVSync);
+            SetButtonSelected(_vSyncButton, GameSetting.Instance.Video.UseVSync);
         }
 
         private void SwitchFullScreen()
         {
             GameSetting.Instance.Video.SwitchFullScreen();
-            SetActiveEventButton(_fullScreenButton, GameSetting.Instance.Video.IsFullScreen);
+            SetButtonSelected(_fullScreenButton, GameSetting.Instance.Video.IsFullScreen);
             SetActiveBorderlessButton();
         }
 
         private void SwitchBorderless()
         {
             GameSetting.Instance.Video.SwitchBorderless();
-            SetActiveEventButton(_borderlessButton, GameSetting.Instance.Video.IsBorderless);
+            SetButtonSelected(_borderlessButton, GameSetting.Instance.Video.IsBorderless);
         }
 
         #region Resolution
@@ -399,9 +394,9 @@ namespace TeamSuneat.UserInterface
             GameSetting.Instance.Video.ResetVSync();
             GameSetting.Instance.Video.ResetResolution();
 
-            SetActiveEventButton(_fullScreenButton, GameSetting.Instance.Video.IsFullScreen);
-            SetActiveEventButton(_borderlessButton, GameSetting.Instance.Video.IsBorderless);
-            SetActiveEventButton(_vSyncButton, GameSetting.Instance.Video.UseVSync);
+            SetButtonSelected(_fullScreenButton, GameSetting.Instance.Video.IsFullScreen);
+            SetButtonSelected(_borderlessButton, GameSetting.Instance.Video.IsBorderless);
+            SetButtonSelected(_vSyncButton, GameSetting.Instance.Video.UseVSync);
 
             _resolutionSelectedIndex = GameSetting.Instance.Video.CurrentResolutionIndex;
             _resolutionCurrentIndex = GameSetting.Instance.Video.CurrentResolutionIndex;

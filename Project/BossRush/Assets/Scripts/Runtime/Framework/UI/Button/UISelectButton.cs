@@ -23,17 +23,34 @@ namespace TeamSuneat.UserInterface
         [FoldoutGroup("#UISelectButton")]
         [SerializeField] protected UIInteractiveElement _interactive;
 
-        [FoldoutGroup("#UISelectButton/Event")]
+        [FoldoutGroup("#UISelectButton/State")]
+        [SerializeField] private ButtonState _currentState = ButtonState.UnlockedUnselected;
+
+        [FoldoutGroup("#UISelectButton/State")]
+        [SerializeField] private ButtonType _buttonType = ButtonType.Immediate;
+
+        [FoldoutGroup("#Event")]
         public UnityEvent OnClickSuccess;
 
-        [FoldoutGroup("#UISelectButton/Event")]
+        [FoldoutGroup("#Event")]
         public UnityEvent OnClickFailure;
+
+        [FoldoutGroup("#Event")]
+        public UnityEvent<ButtonState> OnStateChanged;
+
+        [FoldoutGroup("#Event")]
+        public UnityEvent OnImmediateClick;
+
+        [FoldoutGroup("#Event")]
+        public UnityEvent<bool> OnToggleChanged;
 
         private Tween _alphaTween;
         private Coroutine _holdCoroutine;
         private bool _isHolding;
 
         public Button Button => _button;
+        public ButtonState CurrentState => _currentState;
+        public ButtonType ButtonType => _buttonType;
 
         public override void AutoGetComponents()
         {
@@ -47,6 +64,7 @@ namespace TeamSuneat.UserInterface
             base.OnStart();
 
             InitializeButtonImage();
+            UpdateVisualByState();
         }
 
         private void InitializeButtonImage()
@@ -98,7 +116,7 @@ namespace TeamSuneat.UserInterface
         // 실제 클릭 처리
         protected virtual void OnButtonClick()
         {
-            if (!CheckClickable())
+            if (!TryHandleClick())
             {
                 OnClickFailed();
                 return;
@@ -120,8 +138,15 @@ namespace TeamSuneat.UserInterface
 
         protected virtual bool CheckClickable()
         {
+            if (_currentState == ButtonState.Locked)
+            {
+                Log.Warning(LogTags.UI_Button, "버튼이 잠금 상태입니다. 클릭할 수 없습니다.");
+                return false;
+            }
+
             if (_interactive == null)
             {
+                Log.Warning(LogTags.UI_Button, "UIInteractiveElement 컴포넌트가 비어있습니다. 클릭할 수 있습니다.");
                 return true;
             }
 
@@ -293,5 +318,96 @@ namespace TeamSuneat.UserInterface
         {
             _interactive?.DeactivateRaycast();
         }
+
+        #region State Management
+
+        public void SetState(ButtonState newState)
+        {
+            if (_currentState == newState)
+            {
+                return;
+            }
+
+            _currentState = newState;
+
+            // Locked 상태일 때 강제 잠금 설정
+            if (newState == ButtonState.Locked)
+            {
+                _interactive?.SetLockedForced(true);
+                _interactive?.SetClickable(false);
+            }
+            else
+            {
+                _interactive?.SetLockedForced(false);
+                _interactive?.SetClickable(true);
+            }
+
+            UpdateVisualByState();
+            OnStateChanged?.Invoke(newState);
+        }
+
+        public void SetUnlocked(bool unlocked, bool selected = false)
+        {
+            if (unlocked)
+            {
+                SetState(selected ? ButtonState.UnlockedSelected : ButtonState.UnlockedUnselected);
+            }
+            else
+            {
+                SetState(ButtonState.Locked);
+            }
+        }
+
+        public void ToggleSelection()
+        {
+            if (_buttonType != ButtonType.Toggle)
+            {
+                return;
+            }
+
+            if (_currentState == ButtonState.UnlockedSelected)
+            {
+                SetState(ButtonState.UnlockedUnselected);
+                OnToggleChanged?.Invoke(false);
+            }
+            else if (_currentState == ButtonState.UnlockedUnselected)
+            {
+                SetState(ButtonState.UnlockedSelected);
+                OnToggleChanged?.Invoke(true);
+            }
+        }
+
+        public void UpdateVisualByState()
+        {
+            _interactive?.UpdateStateVisual(_currentState);
+        }
+
+        public bool TryHandleClick()
+        {
+            if (!CheckClickable())
+            {
+                return false;
+            }
+
+            if (_currentState == ButtonState.Locked)
+            {
+                return false;
+            }
+
+            if (_buttonType == ButtonType.Immediate)
+            {
+                OnImmediateClick?.Invoke();
+                return true;
+            }
+            else if (_buttonType == ButtonType.Toggle)
+            {
+                ToggleSelection();
+                return true;
+            }
+
+            return false;
+        }
+
+        #endregion State Management
     }
 }

@@ -168,23 +168,20 @@ namespace TeamSuneat.UserInterface
         {
             base.OnShow();
 
-            HideUnderlineEventButton(_muteMusicButton);
-            HideUnderlineEventButton(_muteSFXButton);
-
-            SetActiveEventButton(_muteMusicButton, GameSetting.Instance.Audio.MuteMusic);
-            SetActiveEventButton(_muteSFXButton, GameSetting.Instance.Audio.MuteSFX);
+            SetButtonSelected(_muteMusicButton, GameSetting.Instance.Audio.MuteMusic);
+            SetButtonSelected(_muteSFXButton, GameSetting.Instance.Audio.MuteSFX);
         }
 
         private void SwitchMuteMusic()
         {
             GameSetting.Instance.Audio.MuteMusic = !GameSetting.Instance.Audio.MuteMusic;
-            SetActiveEventButton(_muteMusicButton, GameSetting.Instance.Audio.MuteMusic);
+            SetButtonSelected(_muteMusicButton, GameSetting.Instance.Audio.MuteMusic);
         }
 
         private void SwitchMuteSFX()
         {
             GameSetting.Instance.Audio.MuteSFX = !GameSetting.Instance.Audio.MuteSFX;
-            SetActiveEventButton(_muteSFXButton, GameSetting.Instance.Audio.MuteSFX);
+            SetButtonSelected(_muteSFXButton, GameSetting.Instance.Audio.MuteSFX);
         }
 
         private void AddMasterVolume()
@@ -266,8 +263,8 @@ namespace TeamSuneat.UserInterface
         {
             GameSetting.Instance.Audio.SetDefaultValues();
 
-            SetActiveEventButton(_muteMusicButton, GameSetting.Instance.Audio.MuteMusic);
-            SetActiveEventButton(_muteSFXButton, GameSetting.Instance.Audio.MuteSFX);
+            SetButtonSelected(_muteMusicButton, GameSetting.Instance.Audio.MuteMusic);
+            SetButtonSelected(_muteSFXButton, GameSetting.Instance.Audio.MuteSFX);
 
             _masterVolumeText.SetText(ValueStringEx.GetPercentString(GameSetting.Instance.Audio.MasterVolume));
             _musicVolumeText.SetText(ValueStringEx.GetPercentString(GameSetting.Instance.Audio.MusicVolume));

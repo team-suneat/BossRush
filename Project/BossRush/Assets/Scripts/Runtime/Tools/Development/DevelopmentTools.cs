@@ -285,17 +285,6 @@ namespace TeamSuneat.Development
             _gui.DrawContentLabel(vibrationLabel, useWidth: false, useHeight: true);
             GUILayout.EndHorizontal();
 
-            // 아이템 옵션 범위
-            GUILayout.BeginHorizontal();
-            play.ShowItemOptionRange = _gui.DrawToggleButton(play.ShowItemOptionRange, useColor: true, useWidth: true, useHeight: true);
-            string itemOptionRangeLabel = JsonDataManager.FindStringClone("Option_ItemOptionRange");
-            if (string.IsNullOrEmpty(itemOptionRangeLabel))
-            {
-                itemOptionRangeLabel = "아이템 옵션 범위";
-            }
-            _gui.DrawContentLabel(itemOptionRangeLabel, useWidth: false, useHeight: true);
-            GUILayout.EndHorizontal();
-
             // 튜토리얼
             GUILayout.BeginHorizontal();
             play.UseTutorial = _gui.DrawToggleButton(play.UseTutorial, useColor: true, useWidth: true, useHeight: true);

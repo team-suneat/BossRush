@@ -20,6 +20,7 @@ namespace TeamSuneat.UserInterface
         [FoldoutGroup("#UIInteractiveElement"), SerializeField] protected Image _frameImage;
         [FoldoutGroup("#UIInteractiveElement"), SerializeField] protected Image _buttonImage;
         [FoldoutGroup("#UIInteractiveElement"), SerializeField] protected TextMeshProUGUI _nameText;
+        [FoldoutGroup("#UIInteractiveElement"), SerializeField] protected Image _selectedImage;
 
         protected Vector3 _punchScale =
             new(DEFAULT_PUNCH_SCALE_VALUE, DEFAULT_PUNCH_SCALE_VALUE, DEFAULT_PUNCH_SCALE_VALUE);
@@ -27,6 +28,7 @@ namespace TeamSuneat.UserInterface
         protected float _lastClickTime;
         protected Tween _scaleTween;
         protected bool _isClickable = true;
+        protected bool _isLockedForced = false;
 
         public bool IsClickable => _isClickable;
         public Image ButtonImage => _buttonImage;
@@ -43,6 +45,7 @@ namespace TeamSuneat.UserInterface
             _frameImage ??= this.FindComponent<Image>("Frame Image");
             _buttonImage ??= this.FindComponent<Image>("Button Image");
             _nameText ??= this.FindComponent<TextMeshProUGUI>("Button Name Text");
+            _selectedImage ??= this.FindComponent<Image>("Selected Image");
         }
 
         private void Awake()
@@ -78,6 +81,12 @@ namespace TeamSuneat.UserInterface
         // 클릭 가능 여부 설정 시 비주얼도 함께 처리
         public virtual void SetClickable(bool clickable)
         {
+            // Locked 상태일 때는 강제로 false 유지
+            if (_isLockedForced)
+            {
+                clickable = false;
+            }
+
             if (_isClickable == clickable)
             {
                 return;
@@ -85,6 +94,15 @@ namespace TeamSuneat.UserInterface
 
             _isClickable = clickable;
             UpdateClickableVisual(clickable);
+        }
+
+        public void SetLockedForced(bool locked)
+        {
+            _isLockedForced = locked;
+            if (locked)
+            {
+                SetClickable(false);
+            }
         }
 
         protected virtual void UpdateClickableVisual(bool clickable)
@@ -216,26 +234,6 @@ namespace TeamSuneat.UserInterface
             }
         }
 
-        public void ShowUnderline()
-        {
-            if (_nameText == null)
-            {
-                return;
-            }
-
-            _nameText.fontStyle |= TMPro.FontStyles.Underline;
-        }
-
-        public void HideUnderline()
-        {
-            if (_nameText == null)
-            {
-                return;
-            }
-
-            _nameText.fontStyle &= ~TMPro.FontStyles.Underline;
-        }
-
         public void ActivateRaycast()
         {
             if (_frameImage != null)
@@ -269,6 +267,41 @@ namespace TeamSuneat.UserInterface
             if (_nameText != null)
             {
                 _nameText.raycastTarget = false;
+            }
+        }
+
+        // 상태별 비주얼 업데이트 (UISelectButton에서 호출)
+        public virtual void UpdateStateVisual(ButtonState state)
+        {
+            bool isClickable = state != ButtonState.Locked;
+            SetClickable(isClickable);
+
+            if (state == ButtonState.UnlockedSelected)
+            {
+                UpdateSelectedVisual(true);
+                SetNameTextColor(GameColors.White);
+                SetFrameImageColor(GameColors.White);
+            }
+            else if (state == ButtonState.UnlockedUnselected)
+            {
+                UpdateSelectedVisual(false);
+                SetNameTextColor(GameColors.Gray);
+                SetFrameImageColor(GameColors.Gray);
+            }
+            else if (state == ButtonState.Locked)
+            {
+                UpdateSelectedVisual(false);
+                SetNameTextColor(GameColors.BlackGray);
+                SetFrameImageColor(GameColors.BlackGray);
+            }
+        }
+
+        // 선택 상태 비주얼 업데이트
+        protected virtual void UpdateSelectedVisual(bool isSelected)
+        {
+            if (_selectedImage != null)
+            {
+                _selectedImage.gameObject.SetActive(isSelected);
             }
         }
     }

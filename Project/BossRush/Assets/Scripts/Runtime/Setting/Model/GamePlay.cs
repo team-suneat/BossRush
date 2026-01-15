@@ -9,8 +9,6 @@
         private bool _useDamageText;            // 피해량 텍스트 사용
         private bool _useStateEffectText;       // 상테이상 텍스트 사용
         private bool _showMonsterLifeText;      // 몬스터 생맹력 텍스트 사용
-        private bool _showItemOptionRange;      // 아이템 옵션 범위 사용
-        private bool _showItemOptionCompare;    // 아이템 옵션 비교 사용
         private bool _showStatusCalculations;   // 능력치 계산식 가시화 사용
         private bool _useGameplayTimer;         // 게임플레이 타이머 사용
 
@@ -62,34 +60,6 @@
                     _showMonsterLifeText = value;
                     GamePrefs.SetBool(GamePrefTypes.OPTION_SHOW_MONSTER_LIFE_TEXT, value);
                     _ = GlobalEvent<bool>.Send(GlobalEventType.GAME_PLAY_SHOW_GAUGE_VALUE_TEXT, value);
-                }
-            }
-        }
-
-        /// <summary> 아이템의 옵션 범위를 표시합니다. </summary>
-        public bool ShowItemOptionRange
-        {
-            get => _showItemOptionRange;
-            set
-            {
-                if (_showItemOptionRange != value)
-                {
-                    _showItemOptionRange = value;
-                    GamePrefs.SetBool(GamePrefTypes.OPTION_SHOW_ITEM_OPTION_RANGE, value);
-                }
-            }
-        }
-
-        /// <summary> 아이템의 옵션 비교를 표시합니다. </summary>
-        public bool ShowItemOptionCompare
-        {
-            get => _showItemOptionCompare;
-            set
-            {
-                if (_showItemOptionCompare != value)
-                {
-                    _showItemOptionCompare = value;
-                    GamePrefs.SetBool(GamePrefTypes.OPTION_SHOW_ITEM_OPTION_COMPARE, value);
                 }
             }
         }
@@ -289,7 +259,6 @@
                 _showMonsterAttackCooldown = false;
             }
 
-
             if (GamePrefs.HasKey(GamePrefTypes.OPTION_SHOW_STATUS_CALCULATIONS))
             {
                 _showStatusCalculations = GamePrefs.GetBool(GamePrefTypes.OPTION_SHOW_STATUS_CALCULATIONS);
@@ -306,24 +275,6 @@
             else
             {
                 _showInvulnerableRenderer = false;
-            }
-
-            if (GamePrefs.HasKey(GamePrefTypes.OPTION_SHOW_ITEM_OPTION_RANGE))
-            {
-                _showItemOptionRange = GamePrefs.GetBool(GamePrefTypes.OPTION_SHOW_ITEM_OPTION_RANGE);
-            }
-            else
-            {
-                _showItemOptionRange = false;
-            }
-
-            if (GamePrefs.HasKey(GamePrefTypes.OPTION_SHOW_ITEM_OPTION_COMPARE))
-            {
-                _showItemOptionCompare = GamePrefs.GetBool(GamePrefTypes.OPTION_SHOW_ITEM_OPTION_COMPARE);
-            }
-            else
-            {
-                _showItemOptionCompare = false;
             }
 
             if (GamePrefs.HasKey(GamePrefTypes.OPTION_USE_TUTORIAL))
@@ -350,7 +301,7 @@
             }
             else
             {
-                _useDamageText = true;
+                _useDamageText = false;
             }
 
             if (GamePrefs.HasKey(GamePrefTypes.OPTION_USE_STATE_EFFECT_TEXT))

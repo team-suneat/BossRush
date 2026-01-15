@@ -109,7 +109,7 @@ namespace TeamSuneat.UserInterface
             if (option == null || button == null) return;
 
             ActivateAllButtonsRaycast();
-            option.DeactivateRaycast();
+            option.DeactivateRaycastAll();
 
             UIManager.Instance.SelectController.Select(button.SelectIndex);
 

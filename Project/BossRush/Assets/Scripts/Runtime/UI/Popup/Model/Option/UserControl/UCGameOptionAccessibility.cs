@@ -17,6 +17,9 @@ namespace TeamSuneat.UserInterface
         [SerializeField] private UISelectButton _damageTextButton;
 
         [FoldoutGroup("#Accessibility/Buttons")]
+        [SerializeField] private UISelectButton _stateEffectTextButton;
+
+        [FoldoutGroup("#Accessibility/Buttons")]
         [SerializeField] private UISelectButton _defaultValuesButton;
 
         [FoldoutGroup("#Accessibility/Buttons")]
@@ -34,6 +37,7 @@ namespace TeamSuneat.UserInterface
             _vibrationButton = this.FindComponent<UISelectButton>("#Content/Vibration Button");
             _cameraShakeButton = this.FindComponent<UISelectButton>("#Content/CameraShake Button");
             _damageTextButton = this.FindComponent<UISelectButton>("#Content/DamageText Button");
+            _stateEffectTextButton = this.FindComponent<UISelectButton>("#Content/StateEffectText Button");
             _defaultValuesButton = this.FindComponent<UISelectButton>("#Content/Default Values Button");
             _backButton = this.FindComponent<UISelectButton>("#Content/Back Button");
             _descriptionText = this.FindComponent<UILocalizedText>("Description Text");
@@ -46,12 +50,14 @@ namespace TeamSuneat.UserInterface
             _vibrationButton?.RegisterOnPointEnter(SetVibrationDescription);
             _cameraShakeButton?.RegisterOnPointEnter(SetCameraShakeDescription);
             _damageTextButton?.RegisterOnPointEnter(SetDamageTextDescription);
+            _stateEffectTextButton?.RegisterOnPointEnter(SetStateEffectTextDescription);
             _defaultValuesButton?.RegisterOnPointEnter(SetDefaultValuesDescription);
             _backButton?.RegisterOnPointEnter(ResetDescription);
 
             _vibrationButton?.OnPointerClickLeftEvent.AddListener(SwitchVibration);
             _cameraShakeButton?.OnPointerClickLeftEvent.AddListener(SwitchCameraShake);
             _damageTextButton?.OnPointerClickLeftEvent.AddListener(SwitchDamageText);
+            _stateEffectTextButton?.OnPointerClickLeftEvent.AddListener(SwitchStateEffectText);
             _defaultValuesButton?.OnPointerClickLeftEvent.AddListener(SetDefaultValues);
             _backButton?.OnPointerClickLeftEvent.AddListener(Hide);
         }
@@ -60,13 +66,10 @@ namespace TeamSuneat.UserInterface
         {
             base.OnShow();
 
-            HideUnderlineEventButton(_vibrationButton);
-            HideUnderlineEventButton(_cameraShakeButton);
-            HideUnderlineEventButton(_damageTextButton);
-
-            SetActiveEventButton(_vibrationButton, GameSetting.Instance.Play.Vibration);
-            SetActiveEventButton(_cameraShakeButton, GameSetting.Instance.Play.CameraShake);
-            SetActiveEventButton(_damageTextButton, GameSetting.Instance.Play.UseDamageText);
+            SetButtonSelected(_vibrationButton, GameSetting.Instance.Play.Vibration);
+            SetButtonSelected(_cameraShakeButton, GameSetting.Instance.Play.CameraShake);
+            SetButtonSelected(_damageTextButton, GameSetting.Instance.Play.UseDamageText);
+            SetButtonSelected(_stateEffectTextButton, GameSetting.Instance.Play.UseStateEffectText);
         }
 
         #region Set Description
@@ -86,6 +89,11 @@ namespace TeamSuneat.UserInterface
             _descriptionText?.SetText(JsonDataManager.FindStringClone("Option_Desc_DamageText"));
         }
 
+        private void SetStateEffectTextDescription()
+        {
+            _descriptionText?.SetText(JsonDataManager.FindStringClone("Option_Desc_StateEffectText"));
+        }
+
         private void SetDefaultValuesDescription()
         {
             _descriptionText?.SetText(JsonDataManager.FindStringClone("Option_Desc_DefaultValues"));
@@ -103,20 +111,26 @@ namespace TeamSuneat.UserInterface
         private void SwitchVibration()
         {
             GameSetting.Instance.Play.Vibration = !GameSetting.Instance.Play.Vibration;
-            SetActiveEventButton(_vibrationButton, GameSetting.Instance.Play.Vibration);
+            SetButtonSelected(_vibrationButton, GameSetting.Instance.Play.Vibration);
         }
 
         private void SwitchCameraShake()
         {
             GameSetting.Instance.Play.CameraShake = !GameSetting.Instance.Play.CameraShake;
-            SetActiveEventButton(_cameraShakeButton, GameSetting.Instance.Play.CameraShake);
+            SetButtonSelected(_cameraShakeButton, GameSetting.Instance.Play.CameraShake);
         }
 
         private void SwitchDamageText()
         {
             GameSetting.Instance.Play.UseDamageText = !GameSetting.Instance.Play.UseDamageText;
-            SetActiveEventButton(_damageTextButton, GameSetting.Instance.Play.UseDamageText);
+            SetButtonSelected(_damageTextButton, GameSetting.Instance.Play.UseDamageText);
         }
+        private void SwitchStateEffectText()
+        {
+            GameSetting.Instance.Play.UseStateEffectText = !GameSetting.Instance.Play.UseStateEffectText;
+            SetButtonSelected(_damageTextButton, GameSetting.Instance.Play.UseStateEffectText);
+        }
+
 
         #endregion Switch
 
@@ -126,14 +140,11 @@ namespace TeamSuneat.UserInterface
             GameSetting.Instance.Play.CameraShake = true;
             GameSetting.Instance.Play.UseDamageText = true;
             GameSetting.Instance.Play.UseStateEffectText = true;
-            GameSetting.Instance.Play.ShowMonsterLifeText = false;
-            GameSetting.Instance.Play.ShowItemOptionRange = false;
-            GameSetting.Instance.Play.ShowStatusCalculations = false;
-            GameSetting.Instance.Play.UseGameplayTimer = false;
 
-            SetActiveEventButton(_vibrationButton, GameSetting.Instance.Play.Vibration);
-            SetActiveEventButton(_cameraShakeButton, GameSetting.Instance.Play.CameraShake);
-            SetActiveEventButton(_damageTextButton, GameSetting.Instance.Play.UseDamageText);
+            SetButtonSelected(_vibrationButton, GameSetting.Instance.Play.Vibration);
+            SetButtonSelected(_cameraShakeButton, GameSetting.Instance.Play.CameraShake);
+            SetButtonSelected(_damageTextButton, GameSetting.Instance.Play.UseDamageText);
+            SetButtonSelected(_damageTextButton, GameSetting.Instance.Play.UseStateEffectText);
         }
     }
 }

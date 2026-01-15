@@ -54,7 +54,7 @@ namespace TeamSuneat
                 return;
             }
 
-            _ = _life.SpawnFloatyText(healValue.ToString(), _life.DamageTextPoint, UIFloatyMoveNames.HealLife);
+            _life.SpawnFloatyText(healValue.ToString(), _life.DamageTextPoint, UIFloatyMoveNames.HealLife);
         }
 
         private void HandleDamageText(DamageResult damage)

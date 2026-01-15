@@ -14,7 +14,7 @@ namespace TeamSuneat.UserInterface
 
         public virtual void Show()
         {
-            ActivateRaycast();
+            ActivateRaycastAll();
             SetActive(true);
             OnShow();
         }
@@ -44,25 +44,19 @@ namespace TeamSuneat.UserInterface
         {
         }
 
-        public virtual void ActivateRaycast()
+        public virtual void ActivateRaycastAll()
         {
-            _indexer?.ActivateRaycast();
+            _indexer?.ActivateRaycastAll();
         }
 
-        public virtual void DeactivateRaycast()
+        public virtual void DeactivateRaycastAll()
         {
-            _indexer?.DeactivateRaycast();
+            _indexer?.DeactivateRaycastAll();
         }
 
-        protected void SetActiveEventButton(UISelectButton element, bool isActive)
+        protected void SetButtonSelected(UISelectButton element, bool isActive)
         {
-            element?.SetActive(isActive);
-        }
-
-        protected void HideUnderlineEventButton(UISelectButton element)
-        {
-            UIInteractiveElement interactiveElement = element.GetComponentNoAlloc<UIInteractiveElement>();
-            interactiveElement?.HideUnderline();
+            element.SetUnlocked(true, isActive);
         }
     }
 }

@@ -69,15 +69,6 @@ namespace TeamSuneat.UserInterface
         {
             base.OnShow();
 
-            HideUnderlineEventButton(_englishButton);
-            HideUnderlineEventButton(_koreanButton);
-            HideUnderlineEventButton(_simplifiedChineseButton);
-            HideUnderlineEventButton(_traditionalChineseButton);
-            HideUnderlineEventButton(_frenchButton);
-            HideUnderlineEventButton(_germanButton);
-            HideUnderlineEventButton(_italianButton);
-            HideUnderlineEventButton(_spanishButton);
-
             SetActiveEventButtonAll();
         }
 
@@ -131,14 +122,14 @@ namespace TeamSuneat.UserInterface
 
         private void SetActiveEventButtonAll()
         {
-            SetActiveEventButton(_englishButton, GameSetting.Instance.Language.Name == LanguageNames.English);
-            SetActiveEventButton(_koreanButton, GameSetting.Instance.Language.Name == LanguageNames.Korean);
-            SetActiveEventButton(_simplifiedChineseButton, GameSetting.Instance.Language.Name == LanguageNames.SimplifiedChinese);
-            SetActiveEventButton(_traditionalChineseButton, GameSetting.Instance.Language.Name == LanguageNames.TraditionalChinese);
-            SetActiveEventButton(_frenchButton, GameSetting.Instance.Language.Name == LanguageNames.French);
-            SetActiveEventButton(_germanButton, GameSetting.Instance.Language.Name == LanguageNames.German);
-            SetActiveEventButton(_italianButton, GameSetting.Instance.Language.Name == LanguageNames.Italian);
-            SetActiveEventButton(_spanishButton, GameSetting.Instance.Language.Name == LanguageNames.Spanish);
+            SetButtonSelected(_englishButton, GameSetting.Instance.Language.Name == LanguageNames.English);
+            SetButtonSelected(_koreanButton, GameSetting.Instance.Language.Name == LanguageNames.Korean);
+            SetButtonSelected(_simplifiedChineseButton, GameSetting.Instance.Language.Name == LanguageNames.SimplifiedChinese);
+            SetButtonSelected(_traditionalChineseButton, GameSetting.Instance.Language.Name == LanguageNames.TraditionalChinese);
+            SetButtonSelected(_frenchButton, GameSetting.Instance.Language.Name == LanguageNames.French);
+            SetButtonSelected(_germanButton, GameSetting.Instance.Language.Name == LanguageNames.German);
+            SetButtonSelected(_italianButton, GameSetting.Instance.Language.Name == LanguageNames.Italian);
+            SetButtonSelected(_spanishButton, GameSetting.Instance.Language.Name == LanguageNames.Spanish);
         }
     }
 }

@@ -62,16 +62,16 @@ namespace TeamSuneat.UserInterface
         [Tooltip("커스텀 이동 대기 시간 (초). -1이면 기본값 사용, 양수면 해당 값 사용")]
         public float CustomMoveWaitTime = -1f;
 
-        [FoldoutGroup("#UISelectElement-Event")]
+        [FoldoutGroup("#Event")]
         public UnityEvent OnPointerPressLeftEvent;
 
-        [FoldoutGroup("#UISelectElement-Event")]
+        [FoldoutGroup("#Event")]
         public UnityEvent OnPointerClickLeftEvent;
 
-        [FoldoutGroup("#UISelectElement-Event")]
+        [FoldoutGroup("#Event")]
         public UnityEvent OnPointerClickRightEvent;
 
-        [FoldoutGroup("#UISelectElement-Event")]
+        [FoldoutGroup("#Event")]
         public UnityEvent OnPointerUpLeftEvent;
 
         protected bool IsEnterPointer { get; private set; }

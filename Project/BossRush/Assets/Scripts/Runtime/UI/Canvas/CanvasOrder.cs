@@ -32,11 +32,6 @@ namespace TeamSuneat.UserInterface
         {
             _canvas = GetComponent<Canvas>();
             _raycaster = GetComponent<GraphicRaycaster>();
-
-            if (OrderName == CanvasOrderNames.IngameWorldSpace)
-            {
-                _canvas.worldCamera = CameraManager.Instance.MainCamera;
-            }
         }
 
         public void SetSortingOrder()

@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.7698455, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -387,11 +387,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OrderName: 9
-  Canvas: {fileID: 568546157}
-  CanvasGroup: {fileID: 0}
-  Raycaster: {fileID: 568546155}
-  IngameCanvasRect: []
-  Scaler: {fileID: 568546156}
 --- !u!114 &568546155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,11 +515,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OrderName: 4
-  Canvas: {fileID: 652714345}
-  CanvasGroup: {fileID: 0}
-  Raycaster: {fileID: 652714343}
-  IngameCanvasRect: []
-  Scaler: {fileID: 652714344}
 --- !u!114 &652714343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -915,11 +905,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OrderName: 3
-  Canvas: {fileID: 1407519215}
-  CanvasGroup: {fileID: 0}
-  Raycaster: {fileID: 1407519213}
-  IngameCanvasRect: []
-  Scaler: {fileID: 1407519214}
 --- !u!1 &1434393188
 GameObject:
   m_ObjectHideFlags: 0
@@ -1024,7 +1009,6 @@ MonoBehaviour:
   _fixedLastSelectElement: {fileID: 0}
   Elements:
   - {fileID: 6198024416805967401}
-  - {fileID: 6198024417178541069}
   - {fileID: 6198024417064499979}
 --- !u!1 &1652464053
 GameObject:
@@ -1623,9 +1607,9 @@ RectTransform:
   - {fileID: 6495430966794098184}
   m_Father: {fileID: 1434393189}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 960, y: -388}
   m_SizeDelta: {x: 256, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &1217757893072019458
@@ -2017,7 +2001,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &3777752787458051734
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2287,6 +2271,7 @@ MonoBehaviour:
   _frameImage: {fileID: 2817932721926027923}
   _buttonImage: {fileID: 3129070076688120909}
   _nameText: {fileID: 8378141350210094542}
+  _selectedImage: {fileID: 0}
 --- !u!114 &6198024416805967401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2307,7 +2292,7 @@ MonoBehaviour:
   SelectOrderIndex: 0
   SelectLeftIndex: 0
   SelectRightIndex: 0
-  SelectUpIndex: 1002
+  SelectUpIndex: 1001
   SelectDownIndex: 1001
   SelectFrameSizeDelta: {x: 256, y: 48}
   SelectFrameOffset: {x: 0, y: 0, z: 0}
@@ -2326,10 +2311,21 @@ MonoBehaviour:
       m_Calls: []
   _button: {fileID: 6198024416805967399}
   _interactive: {fileID: 6198024416805967400}
+  _currentState: 3
+  _buttonType: 1
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
   OnClickFailure:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnImmediateClick:
+    m_PersistentCalls:
+      m_Calls: []
+  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &6198024417064499977
@@ -2391,6 +2387,7 @@ MonoBehaviour:
   _frameImage: {fileID: 2817932721666447293}
   _buttonImage: {fileID: 3129070075893895523}
   _nameText: {fileID: 8378141349415856352}
+  _selectedImage: {fileID: 0}
 --- !u!114 &6198024417064499979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2407,11 +2404,11 @@ MonoBehaviour:
   Clickable: {fileID: 8357366008998877531}
   Selectable: {fileID: 3889072364340530360}
   LockTrigger: 0
-  SelectIndex: 1002
+  SelectIndex: 1001
   SelectOrderIndex: 0
   SelectLeftIndex: 0
   SelectRightIndex: 0
-  SelectUpIndex: 1001
+  SelectUpIndex: 1000
   SelectDownIndex: 1000
   SelectFrameSizeDelta: {x: 256, y: 48}
   SelectFrameOffset: {x: 0, y: 0, z: 0}
@@ -2430,10 +2427,21 @@ MonoBehaviour:
       m_Calls: []
   _button: {fileID: 6198024417064499977}
   _interactive: {fileID: 6198024417064499978}
+  _currentState: 3
+  _buttonType: 1
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
   OnClickFailure:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnImmediateClick:
+    m_PersistentCalls:
+      m_Calls: []
+  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &6198024417178541067
@@ -2495,6 +2503,7 @@ MonoBehaviour:
   _frameImage: {fileID: 2817932721679806655}
   _buttonImage: {fileID: 3129070075806070369}
   _nameText: {fileID: 8378141349496344546}
+  _selectedImage: {fileID: 0}
 --- !u!114 &6198024417178541069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2534,10 +2543,21 @@ MonoBehaviour:
       m_Calls: []
   _button: {fileID: 6198024417178541067}
   _interactive: {fileID: 6198024417178541068}
+  _currentState: 1
+  _buttonType: 1
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
   OnClickFailure:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnImmediateClick:
+    m_PersistentCalls:
+      m_Calls: []
+  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &6218508585624695310
@@ -2836,8 +2856,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4286611584
+  m_fontColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2927,8 +2947,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4286611584
+  m_fontColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3018,8 +3038,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4286611584
+  m_fontColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

@@ -166,7 +166,7 @@ namespace TeamSuneat
             SendGlobalEventHeal();
         }
 
-        public void Heal(int healValue, bool useFloatyText = true)
+        public void Heal(int healValue, bool useFloatyText = false)
         {
             if (Current <= 0)
             {

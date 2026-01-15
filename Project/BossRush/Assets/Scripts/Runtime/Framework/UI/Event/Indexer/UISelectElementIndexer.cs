@@ -346,13 +346,13 @@ namespace TeamSuneat.UserInterface
             }
         }
 
-        public void ActivateRaycast()
+        public void ActivateRaycastAll()
         {
             Log.Info(LogTags.UI_SelectEvent, "레이캐스트를 활성화합니다.");
             SetRaycast(true);
         }
 
-        public void DeactivateRaycast()
+        public void DeactivateRaycastAll()
         {
             Log.Info(LogTags.UI_SelectEvent, "레이캐스트를 비활성화합니다.");
             SetRaycast(false);
