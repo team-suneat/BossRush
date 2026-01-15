@@ -20,7 +20,6 @@ MonoBehaviour:
     EntityType: 2
     IsCrowdControl: 0
     DamageType: 1
-    IgnoreEvasion: 0
     ParryType: 2
     NotPlayDamageAnimation: 0
     ApplyKnockback: 0
@@ -35,6 +34,7 @@ MonoBehaviour:
     LinkedValueMagnificationByLevel: 0
     LinkedValueMagnificationByStack: 0
     DamageTypeString: Normal
+    ParryTypeString: ParryableWithStun
     LinkedDamageTypeString: None
     LinkedStateEffectString: None
     NameOnHitString: 

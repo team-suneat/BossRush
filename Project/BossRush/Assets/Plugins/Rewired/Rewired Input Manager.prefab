@@ -164,6 +164,7 @@ MonoBehaviour:
       activateActionButtonsOnNegativeValue: 0
       deferControllerConnectedEventsOnStart: 0
       logLevel: 7
+      disableAxis2dClamping: 0
       editorSettings:
         exportConsts_useParentClass: 0
         exportConsts_parentClassName: RewiredConsts
@@ -1078,7 +1079,7 @@ MonoBehaviour:
         _modifierKey2: 0
         _modifierKey3: 0
       - _actionCategoryId: 0
-        _actionId: 4
+        _actionId: 79
         _elementType: 1
         _elementIdentifierId: -1
         _axisRange: 0
@@ -1100,7 +1101,7 @@ MonoBehaviour:
         _modifierKey2: 0
         _modifierKey3: 0
       - _actionCategoryId: 0
-        _actionId: 79
+        _actionId: 4
         _elementType: 1
         _elementIdentifierId: -1
         _axisRange: 0

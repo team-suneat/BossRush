@@ -35,11 +35,7 @@ namespace TeamSuneat.Data
         [GUIColor("GetDamageTypeColor")]
         public DamageTypes DamageType;
 
-        [FoldoutGroup("#피해 정보 - 토글")]
-        [GUIColor("GetBoolColor")]
-        [SuffixLabel("회피 불가 공격")]
-        public bool IgnoreEvasion;
-
+        [EnableIf("IsChangingAsset")]
         [FoldoutGroup("#피해 정보 - 토글")]
         [GUIColor("GetParryTypeColor")]
         [SuffixLabel("패링 타입")]
@@ -123,6 +119,7 @@ namespace TeamSuneat.Data
         // 스트링
 
         [FoldoutGroup("#String")] public string DamageTypeString;
+        [FoldoutGroup("#String")] public string ParryTypeString;
         [FoldoutGroup("#String")] public string LinkedDamageTypeString;
         [FoldoutGroup("#String")] public string LinkedStateEffectString;
         [FoldoutGroup("#String")] public string NameOnHitString;
@@ -227,6 +224,10 @@ namespace TeamSuneat.Data
                 {
                     Log.Error("HitmarkAssetData의 DamageType을 변환하지 못합니다. Name:{0}, {1}", Name, DamageTypeString);
                 }
+                if (!EnumEx.ConvertTo(ref ParryType, ParryTypeString))
+                {
+                    Log.Error("HitmarkAssetData의 ParryType을 변환하지 못합니다. Name:{0}, {1}", Name, ParryTypeString);
+                }
                 if (!EnumEx.ConvertTo(ref LinkedDamageType, LinkedDamageTypeString))
                 {
                     Log.Error("HitmarkAssetData의 LinkedDamageType을 변환하지 못합니다. Name:{0}, {1}", Name, LinkedDamageTypeString);
@@ -285,7 +286,6 @@ namespace TeamSuneat.Data
                 RestoreResourceValue = RestoreResourceValue,
 
                 DamageType = DamageType,
-                IgnoreEvasion = IgnoreEvasion,
                 ParryType = ParryType,
                 NotPlayDamageAnimation = NotPlayDamageAnimation,
                 ApplyKnockback = ApplyKnockback,
@@ -313,6 +313,7 @@ namespace TeamSuneat.Data
         private void RefreshDamageString()
         {
             DamageTypeString = DamageType.ToString();
+            ParryTypeString = ParryType.ToString();
             LinkedDamageTypeString = LinkedDamageType.ToString();
             LinkedStateEffectString = LinkedStateEffect.ToString();
         }
@@ -360,7 +361,6 @@ namespace TeamSuneat.Data
         {
             if (Name != another.Name) { return false; }
             if (DamageType != another.DamageType) { return false; }
-            if (IgnoreEvasion != another.IgnoreEvasion) { return false; }
             if (NotPlayDamageAnimation != another.NotPlayDamageAnimation) { return false; }
             if (ApplyKnockback != another.ApplyKnockback) { return false; }
             if (ApplyToSelf != another.ApplyToSelf) { return false; }
@@ -387,6 +387,7 @@ namespace TeamSuneat.Data
             UpdateIfChanged(ref ResourceConsumeTypeString, ResourceConsumeType);
 
             UpdateIfChanged(ref DamageTypeString, DamageType);
+            UpdateIfChanged(ref ParryTypeString, ParryType);
             UpdateIfChanged(ref LinkedDamageTypeString, LinkedDamageType);
             UpdateIfChanged(ref LinkedStateEffectString, LinkedStateEffect);
 

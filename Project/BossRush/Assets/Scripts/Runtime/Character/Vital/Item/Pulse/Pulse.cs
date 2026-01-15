@@ -1,6 +1,7 @@
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
+using TeamSuneat.Setting;
 using UnityEngine;
 
 namespace TeamSuneat
@@ -161,6 +162,11 @@ namespace TeamSuneat
 
         public override bool UseCurrentValue(int value, DamageResult damageResult)
         {
+            if (GameSetting.Instance.Cheat.IsNotCostPulse)
+            {
+                return true;
+            }
+
             bool result = base.UseCurrentValue(value, damageResult);
 
             if (result && Current == 0 && !_isBurnout)

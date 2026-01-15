@@ -8,6 +8,7 @@
         private bool _isOneDamageAttack;
 
         private bool _isNotCostResource;
+        private bool _isNotCostPulse;
         private bool _isNoCooldownTime;
         private bool _isReceiveDamageOnlyOne;
         private bool _isNotDead;
@@ -120,6 +121,25 @@
             }
         }
 
+        public bool IsNotCostPulse
+        {
+            get
+            {
+                if (!GameDefine.IS_EDITOR_OR_DEVELOPMENT_BUILD) { return false; }
+                if (!_isInitialized)
+                {
+                    Initialize();
+                }
+
+                return _isNotCostPulse;
+            }
+            set
+            {
+                _isNotCostPulse = value;
+                GamePrefs.SetBool(GamePrefTypes.GAME_CHEAT_NOT_COST_PULSE, value);
+            }
+        }
+
         public bool IsReceiveDamageOnlyOne
         {
             get
@@ -184,6 +204,7 @@
             _isOneDamageAttack = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_ONE_DAMAGE_ATTACK);
 
             _isNotCostResource = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_NOT_COST_RESOURCE);
+            _isNotCostPulse = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_NOT_COST_PULSE);
             _isNoCooldownTime = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_NO_COOLDOWN_TIME);
 
             _isReceiveDamageOnlyOne = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_RECEIVE_DAMAGE_ONLY_ONE);

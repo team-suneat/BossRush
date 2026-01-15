@@ -255,19 +255,17 @@ namespace TeamSuneat.Development
             }
         }
 
-#if UNITY_EDITOR
-
         // 버튼을 그립니다 (Editor용)
         private void DrawButtonEditor(string text, UnityAction onClick, bool useWidth, bool useHeight)
         {
+#if UNITY_EDITOR
             GUILayoutOption[] options = GetLayoutOptions(useWidth, useHeight);
             if (GUILayout.Button(text, options))
             {
                 onClick?.Invoke();
             }
-        }
-
 #endif
+        }
 
         // 제목 레이블을 그립니다
         public void DrawTitleLabel(string text, bool useWidth = false, bool useHeight = true)
@@ -359,10 +357,10 @@ namespace TeamSuneat.Development
         {
             int contentCount = contents.Length;
             int row = Mathf.CeilToInt((float)contentCount / count);
-            
+
             float width = ButtonWidth * count;
             float height = ButtonHeight * row;
-            
+
             int result = index;
             GUILayout.BeginVertical("box");
             {
@@ -399,11 +397,11 @@ namespace TeamSuneat.Development
                         GUILayout.Height(height)
                     };
                 }
-                
+
                 result = GUILayout.SelectionGrid(index, contents, count, options);
             }
             GUILayout.EndVertical();
-            
+
             return result;
         }
 
