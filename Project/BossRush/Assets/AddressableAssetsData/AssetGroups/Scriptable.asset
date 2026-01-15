@@ -147,6 +147,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eb6f1547e51b6324780ef7d2046290b2
+    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_ScarecrowAttack3.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f459283f253bda8479fa4e0cd5bcb8a5
     m_Address: Assets/Addressables/Scriptable/Sound/Sound_UI_Select.asset
     m_ReadOnly: 0

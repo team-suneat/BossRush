@@ -209,7 +209,7 @@ namespace TeamSuneat
 
         private void ApplySlowMotion()
         {
-            GameTimeManager.Instance?.StartSlowMotion(0.05f, 0.01f);
+            GameTimeManager.Instance?.StartSlowMotion(0.1f, 0.01f);
         }
 
         private void ApplyVibration()

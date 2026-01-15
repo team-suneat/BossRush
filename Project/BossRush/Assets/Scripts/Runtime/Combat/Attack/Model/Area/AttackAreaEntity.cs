@@ -326,18 +326,22 @@ namespace TeamSuneat
             _colliderVital = VitalManager.Instance.Find(_collidingCollider);
             if (_colliderVital == null)
             {
+                Log.Warning(LogTags.Attack, "충돌체의 바이탈을 찾을 수 없습니다. {0}", _collidingCollider.GetHierarchyPath());
                 return false;
             }
             if (_colliderVital.Life == null)
             {
+                Log.Warning(LogTags.Attack, "충돌체의 바이탈의 생명체를 찾을 수 없습니다. {0}", _collidingCollider.GetHierarchyPath());
                 return false;
             }
             if (!_colliderVital.IsAlive)
             {
+                Log.Warning(LogTags.Attack, "충돌체의 바이탈이 살아있지 않습니다. {0}", _collidingCollider.GetHierarchyPath());
                 return false;
             }
             if (_colliderVital.Life.CheckInvulnerable())
             {
+                Log.Warning(LogTags.Attack, "충돌체의 바이탈이 무적 상태입니다. {0}", _collidingCollider.GetHierarchyPath());
                 return false;
             }
 
@@ -388,8 +392,15 @@ namespace TeamSuneat
                 return false;
             }
 
+            // 패링 타입 확인
+            ParryTypes parryType = ParryTypes.Parryable;
+            if (AssetData != null)
+            {
+                parryType = AssetData.ParryType;
+            }
+
             // 패링 불가능한 공격인지 확인
-            if (AssetData != null && AssetData.IgnoreParry)
+            if (parryType == ParryTypes.Unparryable)
             {
                 return false;
             }
@@ -401,6 +412,19 @@ namespace TeamSuneat
                 return false;
             }
 
+            // 공격 위치 계산
+            Vector3 attackPosition = _attackCollider != null
+                ? _attackCollider.transform.position
+                : transform.position;
+
+            // 피격자가 공격 방향을 바라보고 있는지 확인
+            Vector3 targetPosition = targetCharacter.transform.position;
+            bool isAttackRight = attackPosition.x > targetPosition.x;
+            if (targetCharacter.IsFacingRight != isAttackRight)
+            {
+                return false;
+            }
+
             LogInfo("타겟이 패리 상태이므로 공격을 막습니다: {0}", targetVital.GetHierarchyPath());
 
             if (_collidingCollider != null)
@@ -408,15 +432,14 @@ namespace TeamSuneat
                 TriggerAttackOnParryFeedback(_collidingCollider.transform.position);
             }
 
+            // 패링 타입에 따라 스턴 적용 여부 결정
+            bool applyStun = parryType == ParryTypes.ParryableWithStun;
+
             // PlayerParryEffect를 통한 패리 성공 처리
             PlayerParryEffect parryEffect = targetCharacter.GetComponentNoAlloc<PlayerParryEffect>();
             if (parryEffect != null)
             {
-                Vector3 attackPosition = _attackCollider != null
-                    ? _attackCollider.transform.position
-                    : transform.position;
-
-                parryEffect.OnParrySuccess(Owner, targetCharacter, attackPosition);
+                parryEffect.OnParrySuccess(Owner, targetCharacter, attackPosition, applyStun);
             }
 
             return true;

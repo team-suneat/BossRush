@@ -107,6 +107,7 @@ Transform:
   m_Children:
   - {fileID: 941525849378946713}
   - {fileID: 1294921269769323825}
+  - {fileID: 7071318549883533379}
   - {fileID: 8930137559443295240}
   m_Father: {fileID: 4438493862345198907}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1044,9 +1045,8 @@ MonoBehaviour:
   Current: 99999999
   Max: 99999999
   DamageTextPoint: {fileID: 0}
-  _invincibilityDurationOnDamage: 0.5
+  _invincibilityDurationOnDamage: 0
   _invulnerable: 0
-  _defensible: 0
   PostDamageInvulnerable: 0
   _immuneToDamage: 0
   _drawFlashLitOnDamage: 0
@@ -1249,6 +1249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parryableAttackReadyVFX: {fileID: 833724591910656553, guid: 5b751d22f20f4bc4fb47b6cbcb5f911c, type: 3}
+  _parryableWithStunAttackReadyVFX: {fileID: 833724591910656553, guid: 2c920937c34bcba41b6f797220cedfa1, type: 3}
   _unparryableAttackReadyVFX: {fileID: 833724591910656553, guid: ea8d1438c7f8f1947af3f4bc864368c4, type: 3}
   _vfxSpawnPoint: {fileID: 5333217155316105721}
 --- !u!114 &1105992736235353021
@@ -1263,3 +1264,130 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4183c9ad4dd67b540bd71a212ba51f89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8956792543618927517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7071318549883533379}
+  - component: {fileID: 7565241929535244050}
+  - component: {fileID: 3022582478036716002}
+  m_Layer: 21
+  m_Name: ScarecrowAttack3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7071318549883533379
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8956792543618927517}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7354597894953501672}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &7565241929535244050
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8956792543618927517}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 2, y: 2}
+  m_EdgeRadius: 0
+--- !u!114 &3022582478036716002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8956792543618927517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eff2f6f645dc9924082dc15947d6b2f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: 4
+  NameString: ScarecrowAttack3
+  Owner: {fileID: 1372147516505837066}
+  Vital: {fileID: 0}
+  Index: 0
+  AutoSetTargetToCharacterTarget: 0
+  AutoSetTargetToPlayer: 0
+  AttackStartTSFeedback: {fileID: 0}
+  AttackUsedTSFeedback: {fileID: 0}
+  AttackStopTSFeedback: {fileID: 0}
+  AttackReloadTSFeedback: {fileID: 0}
+  AttackReloadNeededTSFeedback: {fileID: 0}
+  AttackOnMissFeedback: {fileID: 0}
+  AttackOnHitDamageableFeedback: {fileID: 0}
+  AttackOnHitNonDamageableFeedback: {fileID: 0}
+  AttackOnKillFeedback: {fileID: 0}
+  AttackOnParryFeedback: {fileID: 0}
+  LateDamageHit: 0
+  DisableColliderOnHit: 0
+  UseActiveColliderOnInit: 0
+  TargetLayerMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  UseIgnoreHitTarget: 1
+  AreaTime: 0
+  InitialApplyDelay: 0
+  ActiveFrameCount: 1
+  ActiveDuration: 0.02
+  UseIntervalActive: 0
+  ActiveTime: 0
+  ActiveInterval: 0.02
+  StatNameOfSize: 0
+  StatNameOfSizeString: 
+  StatNameOfActiveDuration: 0
+  StatNameOfActiveDurationString: 
+  ChainLightning: {fileID: 0}

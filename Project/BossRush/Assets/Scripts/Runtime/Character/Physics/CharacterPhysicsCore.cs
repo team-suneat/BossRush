@@ -33,6 +33,7 @@ namespace TeamSuneat
         public bool IsCollideY { get; private set; }
 
         public Vector2 RigidbodyVelocity => _rb != null ? _rb.linearVelocity : Vector2.zero;
+        public Rigidbody2D Rigidbody => _rb;
         public int FacingDirection { get; private set; } = 1;
 
         public float CoyoteTimeRemaining => _coyoteTimeCounter;

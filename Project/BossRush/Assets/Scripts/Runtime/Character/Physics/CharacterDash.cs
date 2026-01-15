@@ -18,6 +18,7 @@ namespace TeamSuneat
         private float _dashDurationCounter;
         private float _dashCooldownRemaining;
         private Vector2 _dashDirection;
+        private float? _originalGravityScale;
 
         public bool IsDashing => _physics != null && _physics.IsDashing;
         public bool CanDash => _dashCooldownRemaining <= 0f && !IsDashing && HasPulse();
@@ -69,6 +70,13 @@ namespace TeamSuneat
             Vector2 dashVelocity = new Vector2(_dashDirection.x * dashSpeed, DASH_VELOCITY_Y);
             _physics.ApplyVelocity(dashVelocity);
 
+            // 대시 중 중력 비활성화
+            if (_physics.Rigidbody != null)
+            {
+                _originalGravityScale = _physics.Rigidbody.gravityScale;
+                _physics.Rigidbody.gravityScale = 0f;
+            }
+
             _physics.SetDashing(true);
             _dashDurationCounter = _dashDuration;
             _dashCooldownRemaining = _dashCooldown;
@@ -88,6 +96,7 @@ namespace TeamSuneat
             {
                 if (_physics.IsDashing)
                 {
+                    RestoreGravity();
                     _physics.SetDashing(false);
                     _dashDirection = Vector2.zero;
                     _dashDurationCounter = 0f;
@@ -104,6 +113,7 @@ namespace TeamSuneat
 
                 if (_dashDurationCounter <= 0f)
                 {
+                    RestoreGravity();
                     _physics.SetDashing(false);
                     _dashDirection = Vector2.zero;
                 }
@@ -132,6 +142,15 @@ namespace TeamSuneat
                 return false;
             }
             return _vital.UseDash();
+        }
+
+        private void RestoreGravity()
+        {
+            if (_physics.Rigidbody != null && _originalGravityScale.HasValue)
+            {
+                _physics.Rigidbody.gravityScale = _originalGravityScale.Value;
+                _originalGravityScale = null;
+            }
         }
     }
 }

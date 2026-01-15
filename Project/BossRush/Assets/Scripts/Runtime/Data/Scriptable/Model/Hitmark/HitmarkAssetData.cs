@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using TeamSuneat;
 
 namespace TeamSuneat.Data
 {
@@ -10,7 +11,7 @@ namespace TeamSuneat.Data
     {
         [SuffixLabel("개별 에셋 변경 모드")]
         public bool IsChangingAsset;
-                
+
         [EnableIf("IsChangingAsset")]
         [SuffixLabel("히트마크 이름")]
         public HitmarkNames Name;
@@ -40,9 +41,9 @@ namespace TeamSuneat.Data
         public bool IgnoreEvasion;
 
         [FoldoutGroup("#피해 정보 - 토글")]
-        [GUIColor("GetBoolColor")]
-        [SuffixLabel("패링 불가 공격")]
-        public bool IgnoreParry;
+        [GUIColor("GetParryTypeColor")]
+        [SuffixLabel("패링 타입")]
+        public ParryTypes ParryType;
 
         // 피격
 
@@ -285,7 +286,7 @@ namespace TeamSuneat.Data
 
                 DamageType = DamageType,
                 IgnoreEvasion = IgnoreEvasion,
-                IgnoreParry = IgnoreParry,
+                ParryType = ParryType,
                 NotPlayDamageAnimation = NotPlayDamageAnimation,
                 ApplyKnockback = ApplyKnockback,
                 ApplyToSelf = ApplyToSelf,
@@ -424,6 +425,11 @@ namespace TeamSuneat.Data
         }
 
         private Color GetLinkedDamageTypeColor(LinkedDamageTypes key)
+        {
+            return GetFieldColor(key);
+        }
+
+        private Color GetParryTypeColor(ParryTypes key)
         {
             return GetFieldColor(key);
         }

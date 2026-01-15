@@ -101,7 +101,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -6049843511950045354, guid: 70824674151c0a74c8935f40f70d3898, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.49999988, g: 0.9282527, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 105423867500794035}
   - component: {fileID: 3436435675540417178}
   m_Layer: 0
-  m_Name: fx_monster_attack_ready_unparry
+  m_Name: fx_monster_attack_ready_with_stun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

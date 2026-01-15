@@ -19,10 +19,6 @@ namespace TeamSuneat
         [SuffixLabel("피해를 입지 않음")]
         [SerializeField] private bool _invulnerable;
 
-        [FoldoutGroup("#Toggle")]
-        [SuffixLabel("방어할 수 있음")]
-        [SerializeField] private bool _defensible;
-
         [ReadOnly]
         [FoldoutGroup("#Toggle")]
         [SuffixLabel("잠시 피해를 입지 않음")]
@@ -79,7 +75,7 @@ namespace TeamSuneat
 
         public float InvincibilityDurationOnDamage => _invincibilityDurationOnDamage;
         public bool Invulnerable => _invulnerable;
-        public bool Defensible => _defensible;
+
         public bool ImmuneToDamage => _immuneToDamage;
         public bool DrawFlashLitOnDamage => _drawFlashLitOnDamage;
         public bool DestroyOnDeath => _destroyOnDeath;

@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44a1fdb7a9d3e48429d7d49c64140db0, type: 3}
-  m_Name: Hitmark_ScarecrowAttack2
+  m_Name: Hitmark_ScarecrowAttack3
   m_EditorClassIdentifier: 
-  NameString: ScarecrowAttack2
+  NameString: ScarecrowAttack3
   Data:
     IsChangingAsset: 0
-    Name: 3
+    Name: 4
     AttackTargetType: 2
     EntityType: 2
     IsCrowdControl: 0
     DamageType: 1
     IgnoreEvasion: 0
-    ParryType: 2
+    ParryType: 3
     NotPlayDamageAnimation: 0
     ApplyKnockback: 0
     ApplyToSelf: 0

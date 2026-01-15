@@ -57,7 +57,7 @@ namespace TeamSuneat
             _vital = _character?.MyVital;
         }
 
-        public void OnParrySuccess(Character attacker, Character targetCharacter, Vector3 attackPosition)
+        public void OnParrySuccess(Character attacker, Character targetCharacter, Vector3 attackPosition, bool applyStun = true)
         {
             if (_character == null)
             {
@@ -69,8 +69,8 @@ namespace TeamSuneat
                 ApplyKnockback(attacker);
             }
 
-            // 공격자에게 1초 기절 적용
-            if (attacker != null)
+            // 공격자에게 1초 기절 적용 (패링 타입에 따라 결정)
+            if (applyStun && attacker != null)
             {
                 attacker.ApplyStun(1f);
             }

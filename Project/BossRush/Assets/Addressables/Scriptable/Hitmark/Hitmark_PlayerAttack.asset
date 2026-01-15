@@ -21,7 +21,7 @@ MonoBehaviour:
     IsCrowdControl: 0
     DamageType: 1
     IgnoreEvasion: 0
-    IgnoreParry: 0
+    ParryType: 3
     NotPlayDamageAnimation: 0
     ApplyKnockback: 0
     ApplyToSelf: 0

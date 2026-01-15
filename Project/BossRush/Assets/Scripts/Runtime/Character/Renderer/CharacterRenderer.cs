@@ -18,10 +18,16 @@ namespace TeamSuneat
             _renderer = GetComponent<SpriteRenderer>();
         }
 
+        void OnEnable()
+        {
+            ResetRenderer();
+        }
+
         internal void ResetRenderer()
         {
             StopFlickerCoroutine();
             DeactivateHitEffectAll();
+            HideOutline();
         }
 
         internal void StartFlickerCoroutine(RendererFlickerNames flickerName, float flickerDuration = 0)
