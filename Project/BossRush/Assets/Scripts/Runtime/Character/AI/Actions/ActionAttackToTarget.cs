@@ -22,5 +22,13 @@ namespace TeamSuneat
 
             EndAction();
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "타겟에게 공격";
+            }
+        }
     }
 }

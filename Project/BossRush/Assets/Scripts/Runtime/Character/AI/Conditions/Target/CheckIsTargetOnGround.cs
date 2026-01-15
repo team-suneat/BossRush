@@ -19,5 +19,13 @@ namespace TeamSuneat
             //
             // return false;
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "타겟 지면 접촉 여부 확인 (사용 안 함)";
+            }
+        }
     }
 }

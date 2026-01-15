@@ -22,5 +22,13 @@ namespace TeamSuneat
 
             return false;
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "타겟을 바라보고 있는지 확인";
+            }
+        }
     }
 }

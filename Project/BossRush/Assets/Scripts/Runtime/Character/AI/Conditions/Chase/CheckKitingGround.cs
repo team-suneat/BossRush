@@ -28,5 +28,13 @@ namespace TeamSuneat
             //
             // return false;
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "지상 카이팅 가능 여부 확인 (사용 안 함)";
+            }
+        }
     }
 }

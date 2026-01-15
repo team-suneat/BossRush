@@ -19,5 +19,13 @@ namespace TeamSuneat
 
             return false;
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "타겟이 공격 가능 영역 내 확인";
+            }
+        }
     }
 }

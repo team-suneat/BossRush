@@ -20,5 +20,13 @@ namespace TeamSuneat
             //
             // return false;
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "순찰 전방 지면 확인 (사용 안 함)";
+            }
+        }
     }
 }

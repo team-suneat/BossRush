@@ -28,5 +28,13 @@ namespace TeamSuneat
             result = null;
             return false;
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "이동 차단 상태 확인";
+            }
+        }
     }
 }

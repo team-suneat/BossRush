@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 7354597894953501672}
   - component: {fileID: 6264732488548238598}
   m_Layer: 0
-  m_Name: '#Attack'
+  m_Name: Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,10 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f7640ced53a08f41b027d82a6485775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cooldownTimes:
-  - 8
-  - 5
-  - 3
+  _cooldownTimes: []
+  _globalCooldownTime: 3
   _attackableArea: {fileID: 3755986450878267297}
 --- !u!1 &2528712602095307911
 GameObject:

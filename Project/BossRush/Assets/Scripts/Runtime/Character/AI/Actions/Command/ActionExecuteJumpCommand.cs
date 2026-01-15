@@ -17,5 +17,13 @@ namespace TeamSuneat
             agent.RequestJump(true);
             EndAction(true);
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "점프 명령 실행";
+            }
+        }
     }
 }

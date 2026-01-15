@@ -18,5 +18,13 @@ namespace TeamSuneat
             agent.SetVerticalInput(0f);
             EndAction(true);
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "명령 초기화";
+            }
+        }
     }
 }

@@ -44,5 +44,21 @@ namespace TeamSuneat
 
             EndAction(true);
         }
+
+        protected override string info
+        {
+            get
+            {
+                if (direction.value != Vector2.zero)
+                {
+                    return $"이동 명령 설정: 방향 ({direction.value.x:F1}, {direction.value.y:F1})";
+                }
+                else if (horizontalInput.value != 0f || verticalInput.value != 0f)
+                {
+                    return $"이동 명령 설정: H={horizontalInput.value:F1}, V={verticalInput.value:F1}";
+                }
+                return "이동 명령 설정";
+            }
+        }
     }
 }

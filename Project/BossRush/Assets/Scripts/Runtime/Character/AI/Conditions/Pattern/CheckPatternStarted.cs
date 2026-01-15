@@ -28,5 +28,13 @@ namespace TeamSuneat
             //
             // return false;
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "패턴 시작 여부 확인 (사용 안 함)";
+            }
+        }
     }
 }

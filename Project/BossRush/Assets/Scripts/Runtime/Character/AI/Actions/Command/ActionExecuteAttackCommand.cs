@@ -17,5 +17,13 @@ namespace TeamSuneat
             agent.RequestAttack();
             EndAction(true);
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "공격 명령 실행";
+            }
+        }
     }
 }

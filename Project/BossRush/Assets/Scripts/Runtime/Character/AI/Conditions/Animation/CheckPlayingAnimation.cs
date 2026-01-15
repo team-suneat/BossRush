@@ -21,5 +21,13 @@ namespace TeamSuneat
             //
             // return false;
         }
+
+        protected override string info
+        {
+            get
+            {
+                return $"애니메이션 재생 중 확인 (사용 안 함): {StateName}";
+            }
+        }
     }
 }

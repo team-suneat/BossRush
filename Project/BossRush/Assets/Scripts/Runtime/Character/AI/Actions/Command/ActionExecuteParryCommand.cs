@@ -17,5 +17,13 @@ namespace TeamSuneat
             agent.RequestParry();
             EndAction(true);
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "패리 명령 실행";
+            }
+        }
     }
 }

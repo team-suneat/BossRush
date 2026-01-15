@@ -21,5 +21,13 @@ namespace TeamSuneat
             //     Log.Error("Failed to action start pattern. agent.patternSystem is null. path: {0}", agent.GetHierarchyPath());
             // }
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "패턴 시작 (사용 안 함)";
+            }
+        }
     }
 }

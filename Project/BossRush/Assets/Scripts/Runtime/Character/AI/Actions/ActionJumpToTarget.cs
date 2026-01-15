@@ -24,5 +24,13 @@ namespace TeamSuneat
             //
             // EndAction();
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "타겟으로 점프 (사용 안 함)";
+            }
+        }
     }
 }

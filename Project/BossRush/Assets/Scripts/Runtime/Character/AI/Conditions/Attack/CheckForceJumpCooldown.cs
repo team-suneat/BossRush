@@ -20,5 +20,13 @@ namespace TeamSuneat
             //
             // return false;
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "강제 점프 재사용 대기시간 확인 (사용 안 함)";
+            }
+        }
     }
 }

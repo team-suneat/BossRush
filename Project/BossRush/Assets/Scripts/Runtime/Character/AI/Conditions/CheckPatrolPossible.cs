@@ -13,5 +13,13 @@ namespace TeamSuneat
 
             // return agent.monsterPatrolSystem.TryPatrol();
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "순찰 가능 여부 확인 (사용 안 함)";
+            }
+        }
     }
 }

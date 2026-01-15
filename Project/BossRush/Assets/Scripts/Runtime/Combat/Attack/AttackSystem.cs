@@ -226,6 +226,12 @@ namespace TeamSuneat
             return false;
         }
 
+        public virtual bool CheckGlobalCooldown()
+        {
+            // 플레이어는 항상 쿨타임 체크 통과
+            return false;
+        }
+
         public virtual void StartAttackCooldown(int attackOrder)
         {
             // 플레이어는 쿨타임을 사용하지 않음

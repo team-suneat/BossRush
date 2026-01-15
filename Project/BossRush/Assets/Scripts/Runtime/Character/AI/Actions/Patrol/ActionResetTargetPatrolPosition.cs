@@ -19,5 +19,13 @@ namespace TeamSuneat
             //
             // EndAction();
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "순찰 위치 리셋 (사용 안 함)";
+            }
+        }
     }
 }

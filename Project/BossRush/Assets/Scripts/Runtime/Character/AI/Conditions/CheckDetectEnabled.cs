@@ -14,5 +14,13 @@ namespace TeamSuneat
 
             // return agent.detectSystem.CheckActive();
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "탐지 활성화 여부 확인 (사용 안 함)";
+            }
+        }
     }
 }

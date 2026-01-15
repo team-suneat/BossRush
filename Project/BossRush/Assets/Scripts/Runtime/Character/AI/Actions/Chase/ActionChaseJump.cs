@@ -12,5 +12,13 @@ namespace TeamSuneat
             // 더 이상 사용되지 않음 - 아무것도 하지 않음
             EndAction();
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "점프 추적 (사용 안 함)";
+            }
+        }
     }
 }

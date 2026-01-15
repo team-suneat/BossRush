@@ -20,5 +20,13 @@ namespace TeamSuneat
             //
             // EndAction();
         }
+
+        protected override string info
+        {
+            get
+            {
+                return $"추적 준비 (사용 안 함): 속도 배율 {ChaseSpeedMultiplier:F1}";
+            }
+        }
     }
 }

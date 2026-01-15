@@ -28,5 +28,13 @@ namespace TeamSuneat
             //
             // EndAction();
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "플립 갱신 (사용 안 함)";
+            }
+        }
     }
 }

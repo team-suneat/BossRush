@@ -31,5 +31,13 @@ namespace TeamSuneat
             //
             // return false;
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "타겟이 오너 아래에 있는지 확인 (사용 안 함)";
+            }
+        }
     }
 }

@@ -18,5 +18,13 @@ namespace TeamSuneat
             //
             // return false;
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "순찰 목표 위치 설정 여부 확인 (사용 안 함)";
+            }
+        }
     }
 }

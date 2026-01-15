@@ -15,5 +15,13 @@ namespace TeamSuneat
 
             return false;
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "타겟 생존 확인";
+            }
+        }
     }
 }

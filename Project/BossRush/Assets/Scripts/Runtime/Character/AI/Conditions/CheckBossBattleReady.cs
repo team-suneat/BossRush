@@ -19,5 +19,13 @@ namespace TeamSuneat
             //
             // return false;
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "보스 전투 준비 상태 확인 (사용 안 함)";
+            }
+        }
     }
 }

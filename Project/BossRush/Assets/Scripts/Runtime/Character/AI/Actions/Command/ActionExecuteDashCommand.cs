@@ -17,5 +17,13 @@ namespace TeamSuneat
             agent.RequestDash();
             EndAction(true);
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "대시 명령 실행";
+            }
+        }
     }
 }

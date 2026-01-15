@@ -8,15 +8,18 @@ namespace TeamSuneat
     {
         protected override void OnExecute()
         {
-            // 더 이상 사용되지 않음 - 아무것도 하지 않음
+            agent.ResetTarget();
             EndAction();
 
-            // agent.ResetTargetVital();
-            //
-            // if (agent.detectSystem != null)
-            // {
-            //     agent.detectSystem.StartDetect();
-            // }
+            // agent.detectSystem.StartDetect();
+        }
+
+        protected override string info
+        {
+            get
+            {
+                return "캐릭터의 목표 캐릭터 초기화";
+            }
         }
     }
 }

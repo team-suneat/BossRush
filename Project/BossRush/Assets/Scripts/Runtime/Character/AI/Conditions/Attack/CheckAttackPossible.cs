@@ -47,5 +47,13 @@ namespace TeamSuneat
 
             return true;
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "공격 가능 여부 확인";
+            }
+        }
     }
 }

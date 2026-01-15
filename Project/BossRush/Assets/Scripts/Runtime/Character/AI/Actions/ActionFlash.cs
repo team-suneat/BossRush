@@ -24,5 +24,13 @@ namespace TeamSuneat
             //
             // EndAction();
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "플래시 (사용 안 함)";
+            }
+        }
     }
 }

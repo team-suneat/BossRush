@@ -24,5 +24,13 @@ namespace TeamSuneat
             //
             // EndAction();
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "블링크 (사용 안 함)";
+            }
+        }
     }
 }

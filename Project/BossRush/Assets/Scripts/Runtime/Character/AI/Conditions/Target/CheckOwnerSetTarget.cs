@@ -10,5 +10,13 @@ namespace TeamSuneat
         {
             return agent.TargetCharacter != null;
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "타겟 설정 여부 확인";
+            }
+        }
     }
 }

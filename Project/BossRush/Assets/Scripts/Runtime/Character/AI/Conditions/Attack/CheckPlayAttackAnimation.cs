@@ -17,5 +17,13 @@ namespace TeamSuneat
 
             return false;
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "공격 애니메이션 재생 중 확인";
+            }
+        }
     }
 }

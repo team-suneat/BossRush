@@ -11,6 +11,12 @@ namespace TeamSuneat
         // 공격 순서별 쿨타임 시간 설정 저장 (기본값 관리용)
         private readonly Dictionary<int, float> _cooldownTimes = new();
 
+        // 전역 쿨타임 시간 설정 저장
+        private float _globalCooldownTime = 0f;
+
+        // 전역 쿨타임 종료 시간 저장
+        private float _globalCooldownEndTime = 0f;
+
         public void SetCooldown(int attackOrder, float cooldownTime)
         {
             if (cooldownTime <= 0f)
@@ -71,7 +77,46 @@ namespace TeamSuneat
         public void Initialize()
         {
             _cooldownEndTimes.Clear();
-            // _cooldownTimes는 유지 (설정된 쿨타임 시간 보존)
+            _globalCooldownEndTime = 0f;
+            // _cooldownTimes와 _globalCooldownTime은 유지 (설정된 쿨타임 시간 보존)
+        }
+
+        //──────────────────────────────────────────────────────────────────────────────────────────
+        // 전역 쿨타임 관리
+
+        public void SetGlobalCooldown(float cooldownTime)
+        {
+            if (cooldownTime <= 0f)
+            {
+                _globalCooldownTime = 0f;
+                return;
+            }
+
+            _globalCooldownTime = cooldownTime;
+        }
+
+        public bool CheckGlobalCooldown()
+        {
+            // 전역 쿨타임이 설정되지 않았으면 쿨타임중이 아님
+            if (_globalCooldownTime <= 0f)
+            {
+                return false;
+            }
+
+            // 전역 쿨타임 종료 시간 체크
+            return Time.time < _globalCooldownEndTime; // 쿨타임 여부 반환
+        }
+
+        public void StartGlobalCooldown()
+        {
+            // 전역 쿨타임 시간이 설정되어 있지 않으면 시작하지 않음
+            if (_globalCooldownTime <= 0f)
+            {
+                return;
+            }
+
+            // 전역 쿨타임 시작 (현재 시간 + 쿨타임 시간)
+            _globalCooldownEndTime = Time.time + _globalCooldownTime;
         }
     }
 }

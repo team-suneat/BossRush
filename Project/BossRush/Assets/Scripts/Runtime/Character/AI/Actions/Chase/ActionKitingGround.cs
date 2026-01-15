@@ -19,5 +19,13 @@ namespace TeamSuneat
             //
             // EndAction();
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "지상 카이팅 (사용 안 함)";
+            }
+        }
     }
 }

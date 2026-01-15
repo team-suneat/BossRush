@@ -25,5 +25,13 @@ namespace TeamSuneat
             //
             // EndAction();
         }
+
+        protected override string info
+        {
+            get
+            {
+                return $"지연 공격 (사용 안 함): {DelayTime}초";
+            }
+        }
     }
 }

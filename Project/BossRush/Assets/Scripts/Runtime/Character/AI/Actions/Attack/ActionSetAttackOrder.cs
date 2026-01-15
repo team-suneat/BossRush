@@ -21,6 +21,14 @@ namespace TeamSuneat
 
             if (agent.StateMachine is MonsterStateMachine monsterStateMachine)
             {
+                // 유효성 검사
+                if (AttackOrder == null || AttackOrder.Count == 0)
+                {
+                    Log.Warning(LogTags.CharacterState, "ActionSetAttackOrder: 공격 순서가 비어있습니다.");
+                    EndAction(false);
+                    return;
+                }
+
                 monsterStateMachine.SetAttackOrder(AttackOrder);
                 EndAction(true);
             }
@@ -41,7 +49,7 @@ namespace TeamSuneat
                 }
 
                 string orderString = string.Join(", ", AttackOrder);
-                return $"공격 순서 설정: [{orderString}] ";
+                return $"공격 순서 설정: [{orderString}]";
             }
         }
     }

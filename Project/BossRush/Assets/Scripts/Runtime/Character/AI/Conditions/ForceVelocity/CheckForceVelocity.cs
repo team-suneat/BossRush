@@ -15,5 +15,13 @@ namespace TeamSuneat
 
             // return agent.CheckAppliedAnyForceVelocity();
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "강제 속도 적용 여부 확인 (사용 안 함)";
+            }
+        }
     }
 }

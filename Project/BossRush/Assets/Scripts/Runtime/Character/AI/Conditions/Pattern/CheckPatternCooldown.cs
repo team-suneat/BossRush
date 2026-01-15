@@ -21,5 +21,13 @@ namespace TeamSuneat
             //     return false;
             // }
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "패턴 재사용 대기시간 확인 (사용 안 함)";
+            }
+        }
     }
 }

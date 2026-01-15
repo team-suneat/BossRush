@@ -49,5 +49,13 @@ namespace TeamSuneat
             //
             // return true;
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "대시 가능 여부 확인 (사용 안 함)";
+            }
+        }
     }
 }

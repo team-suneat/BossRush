@@ -35,5 +35,13 @@ namespace TeamSuneat
 
             return true;
         }
+
+        protected override string info
+        {
+            get
+            {
+                return "캐릭터 생존 확인";
+            }
+        }
     }
 }
