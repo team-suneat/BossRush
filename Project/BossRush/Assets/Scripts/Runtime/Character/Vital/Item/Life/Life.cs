@@ -1,7 +1,6 @@
 ﻿using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using TeamSuneat.Setting;
-using TeamSuneat.UserInterface;
 using UnityEngine;
 
 namespace TeamSuneat
@@ -29,7 +28,7 @@ namespace TeamSuneat
         [SuffixLabel("잠시 피해를 입지 않음")]
         private List<Component> _temporarilyInvulnerable = new();
 
-        public System.Collections.Generic.IReadOnlyList<Component> TemporarilyInvulnerable => _temporarilyInvulnerable;
+        public IReadOnlyList<Component> TemporarilyInvulnerable => _temporarilyInvulnerable;
 
         [ReadOnly]
         [FoldoutGroup("#Toggle")]
@@ -162,6 +161,7 @@ namespace TeamSuneat
             PlayHealFeedbacks(value);
 
             SendGlobalEventValueChanged();
+            OnLifeValueChanged?.Invoke(Current, Max);
 
             SendGlobalEventHeal();
         }
@@ -191,14 +191,15 @@ namespace TeamSuneat
         {
             PlayHealFeedbacks(healValue);
 
-            if (useFloatyText)
-            {
-                SpawnHealFloatyText(healValue);
-            }
-
             SendGlobalEventValueChanged();
+            OnLifeValueChanged?.Invoke(Current, Max);
 
             SendGlobalEventHeal();
+
+            if (useFloatyText)
+            {
+                OnLifeHealRequested?.Invoke(healValue);
+            }
         }
 
         private int CalculateHealingValue(int baseValue)
@@ -308,10 +309,9 @@ namespace TeamSuneat
             bool isDead = Current < 1 && !ignoreDeath;
             ProcessDamageResult(attacker, null, isDead);
 
-            SpawnUseFloatyText(damageValue);
-
             PlayDamageFeedbacks(damageValue);
             SendGlobalEventValueChanged();
+            OnLifeValueChanged?.Invoke(Current, Max);
         }
 
         public void TakeDamage(DamageResult damageResult, Character attacker)
@@ -327,20 +327,9 @@ namespace TeamSuneat
             }
 
             IsDamaged = true;
-            if (attacker != null && attacker.IsPlayer)
-            {
-                GameSetting.Instance.Statistics.AddDamage(damageResult, Time.time);
-            }
 
             OnDamage?.Invoke(damageResult);
 
-            SpawnDamageVFX(damageResult, damageResult.DamagePosition);
-            SpawnElementalDamageVFX(damageResult, damageResult.DamagePosition);
-            if (damageResult.DamageType.IsInstantDamage())
-            {
-                SpawnDamageBloodVFX(damageResult.DamagePosition);
-            }
-            SpawnHitFX(damageResult, damageResult.DamagePosition);
             OnDamageFlicker(damageResult);
 
             bool isDead = Current <= 0;
@@ -361,7 +350,7 @@ namespace TeamSuneat
             }
 
             SendGlobalEventValueChanged();
-            SpawnDamageFloatyText(damageResult, Type);
+            OnLifeValueChanged?.Invoke(Current, Max);
         }
 
         private void ProcessDamageResult(Character attacker, DamageResult damageResult, bool isDead)
@@ -449,39 +438,6 @@ namespace TeamSuneat
                 Vital.Owner.CharacterRenderer.StartFlickerCoroutine(RendererFlickerNames.Damage);
             }
         }
-
-        #region Floaty Text
-
-        public void SpawnHealFloatyText(int healValue)
-        {
-            _ = SpawnFloatyText(healValue.ToString(), DamageTextPoint, UIFloatyMoveNames.HealLife);
-        }
-
-        private void SpawnUseFloatyText(int useValue)
-        {
-            _ = SpawnFloatyText(useValue.ToString(), DamageTextPoint, UIFloatyMoveNames.Damage);
-        }
-
-        private void SpawnDamageFloatyText(DamageResult damageResult, VitalResourceTypes vitalResourceType)
-        {
-            if (damageResult.TargetCharacter == null)
-            {
-                return;
-            }
-
-            string content = string.Empty;
-            UIFloatyMoveNames moveType = UIFloatyMoveNames.None;
-
-            if (damageResult.DamageValue > 0)
-            {
-                moveType = UIFloatyText.ConvertToName(damageResult, vitalResourceType);
-                content = damageResult.DamageValueToInt.ToString();
-            }
-
-            SpawnFloatyText(content, DamageTextPoint, moveType);
-        }
-
-        #endregion Floaty Text
 
         public void Killed(Character attacker)
         {
@@ -660,99 +616,5 @@ namespace TeamSuneat
                 _ = GlobalEvent<int, int>.Send(GlobalEventType.MONSTER_CHARACTER_REFRESH_LIFE, Current, Max);
             }
         }
-
-        #region Effect
-
-        private void SpawnElementalDamageVFX(DamageResult damageResult, Vector3 damagePosition)
-        {
-            switch (damageResult.DamageType)
-            {
-                case DamageTypes.DamageOverTime:
-                    _ = VFXManager.Spawn("fx_damage_blood", damagePosition, true);
-                    break;
-            }
-        }
-
-        private void SpawnDamageBloodVFX(Vector3 damagePosition)
-        {
-            if (Vital == null || Vital.Owner == null)
-            {
-                return;
-            }
-
-            if (Vital.Owner.IsPlayer)
-            {
-                _ = VFXManager.Spawn("fx_player_damage_blood", damagePosition, true);
-            }
-        }
-
-        private void SpawnDamageVFX(DamageResult damageResult, Vector3 damagePosition)
-        {
-            if (!damageResult.DamageType.IsInstantDamage())
-            {
-                return;
-            }
-
-            if (Vital == null)
-            {
-                Log.Error("피격 이펙트를 생성할 수 없습니다. 바이탈 또는 캐릭터가 설정되지 않았습니다. {0}", this.GetHierarchyPath());
-                return;
-            }
-
-            switch (damageResult.InstantVFXDamageType)
-            {
-                case VFXInstantDamageType.Sharp:
-                    if (Vital.Owner != null && Vital.Owner.IsPlayer)
-                    {
-                        _ = VFXManager.Spawn("fx_player_damage_sharp", damagePosition, true);
-                    }
-                    else
-                    {
-                        _ = VFXManager.Spawn("fx_monster_damage_sharp", damagePosition, true);
-                    }
-                    break;
-
-                case VFXInstantDamageType.Blunt:
-                    if (Vital.Owner != null && Vital.Owner.IsPlayer)
-                    {
-                        _ = VFXManager.Spawn("fx_player_damage_blunt", damagePosition, true);
-                    }
-                    else
-                    {
-                        _ = VFXManager.Spawn("fx_monster_damage_blunt", damagePosition, true);
-                    }
-                    break;
-            }
-        }
-
-        private void SpawnHitFX(DamageResult damageResult, Vector3 damagePosition)
-        {
-            if (damageResult.Asset == null)
-            {
-                return;
-            }
-
-            if (Vital == null || Vital.Owner == null)
-            {
-                return;
-            }
-
-            GameObject prefab = damageResult.Asset.HitFXPrefab;
-
-            if (prefab == null)
-            {
-                return;
-            }
-
-            bool isFacingRight = true;
-            if (damageResult.TargetCharacter != null)
-            {
-                isFacingRight = damageResult.TargetCharacter.IsFacingRight;
-            }
-
-            _ = VFXManager.Spawn(prefab, damagePosition, isFacingRight);
-        }
-
-        #endregion Effect
     }
 }

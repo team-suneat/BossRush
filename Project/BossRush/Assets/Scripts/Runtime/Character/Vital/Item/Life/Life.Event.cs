@@ -20,11 +20,23 @@ namespace TeamSuneat
 
         public delegate void OnKilledDelegate(Character attacker);
 
+        public delegate void OnLifeValueChangedDelegate(int current, int max);
+
+        public delegate void OnLifeHealRequestedDelegate(int healValue);
+
         public event OnDamageDelegate OnDamage;
+
         public event OnDamageZeroDelegate OnDamageZero;
+
         public event OnReviveDelegate OnRevive;
+
         public event OnDeathDelegate OnDeath;
+
         public event OnKilledDelegate OnKilled;
+
+        public event OnLifeValueChangedDelegate OnLifeValueChanged;
+
+        public event OnLifeHealRequestedDelegate OnLifeHealRequested;
 
         #endregion Delegate
 

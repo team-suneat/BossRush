@@ -7,13 +7,14 @@ namespace TeamSuneat
     {
         /// <summary>
         /// 무적 상태 관리
-        /// 
+        ///
         /// CheckInvulnerable()에서 다음 조건 중 하나라도 true이면 무적 상태로 판단합니다:
         /// - TemporarilyInvulnerable: 임시 무적 리스트에 항목이 있는 경우
         /// - _invulnerable: 일반 무적 플래그
         /// - _immuneToDamage: 영구 피해 면역 플래그
         /// - PostDamageInvulnerable: 피해 후 무적 상태
         /// </summary>
+
         #region Invulnerable
 
         private Coroutine _postDamageInvulnerabilityCoroutine;

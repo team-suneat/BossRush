@@ -96,6 +96,76 @@ MonoBehaviour:
   - 5
   - 3
   _attackableArea: {fileID: 3755986450878267297}
+--- !u!1 &2528712602095307911
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4689819941747238345}
+  - component: {fileID: 3835949821553115101}
+  - component: {fileID: 1454178946698607149}
+  - component: {fileID: 8141174275373711499}
+  m_Layer: 10
+  m_Name: Listener-Life
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4689819941747238345
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2528712602095307911}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4750677680634852237}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3835949821553115101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2528712602095307911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6493e6300af7cf348899edbb26d69ee2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1454178946698607149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2528712602095307911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967adb30c7b825441abb12477d364f5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8141174275373711499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2528712602095307911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9026de244797b3e4491f5b7505698e82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2547355166613048083
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,6 +856,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1361818229381099511}
+  - {fileID: 4689819941747238345}
   m_Father: {fileID: 3261457281909928430}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &3707251357929549467
@@ -876,20 +947,17 @@ MonoBehaviour:
   Current: 99999999
   Max: 99999999
   DamageTextPoint: {fileID: 0}
-  InvincibilityDurationOnDamage: 0
-  Invulnerable: 0
-  Defensible: 0
-  TemporarilyInvulnerable: []
+  _invincibilityDurationOnDamage: 0.5
+  _invulnerable: 0
+  _defensible: 0
   PostDamageInvulnerable: 0
-  ImmuneToDamage: 0
-  DrawFlashLitOnDamage: 0
-  DestroyOnDeath: 1
-  DelayBeforeDestruction: 5
-  CollisionsOffOnDeath: 0
-  GravityOffOnDeath: 0
-  RespawnAtInitialLocation: 0
-  ShakeDuration: 0
-  ShakeStrength: 0
+  _immuneToDamage: 0
+  _drawFlashLitOnDamage: 0
+  _destroyOnDeath: 1
+  _delayBeforeDestruction: 5
+  _collisionsOffOnDeath: 0
+  _gravityOffOnDeath: 0
+  _respawnAtInitialLocation: 0
   HealFeedbacks: {fileID: 0}
   DamageFeedbacks: {fileID: 0}
   DamageZeroFeedbacks: {fileID: 0}
@@ -1069,7 +1137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972982ab6b04704429dfafacb0764020, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IgnoreFlipOnAttacking: 0
+  _ignoreFlipOnAttacking: 0
   _blockDamageAnimationWhileAttack: 1
 --- !u!114 &7312785035844742054
 MonoBehaviour:
