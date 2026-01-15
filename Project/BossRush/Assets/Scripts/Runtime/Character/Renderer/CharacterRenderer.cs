@@ -21,14 +21,14 @@ namespace TeamSuneat
         internal void ResetRenderer()
         {
             StopFlickerCoroutine();
-            DeactiveHitEffectAll();
+            DeactivateHitEffectAll();
         }
 
-        internal void StartFlickerCoroutine(RendererFlickerNames flikerName)
+        internal void StartFlickerCoroutine(RendererFlickerNames flickerName, float flickerDuration = 0)
         {
             if (!IsRendererValid()) { return; }
 
-            FlickerAsset flickerAsset = ScriptableDataManager.Instance.FindFlicker(flikerName);
+            FlickerAsset flickerAsset = ScriptableDataManager.Instance.FindFlicker(flickerName);
             if (flickerAsset == null) { return; }
 
             // 기존 깜빡임이 진행 중이면 강제로 멈추고 새로 시작
@@ -36,10 +36,19 @@ namespace TeamSuneat
 
             SetHitEffectColor(_renderer, flickerAsset.FlickerColor, flickerAsset.FlickerBlend);
 
-            _flickerCoroutine = StartCoroutine(FlickerHitEffect(_renderer, flickerAsset.FlickerSpeed, flickerAsset.FlickerDuration));
+            if (flickerDuration > 0)
+            {
+                _flickerCoroutine = StartCoroutine(FlickerHitEffect(_renderer, flickerAsset.FlickerSpeed, flickerDuration));
+            }
+            else
+            {
+                _flickerCoroutine = StartCoroutine(FlickerHitEffect(_renderer, flickerAsset.FlickerSpeed, flickerAsset.FlickerDuration));
+            }
+
+
         }
 
-        internal void DeactiveHitEffectAll()
+        internal void DeactivateHitEffectAll()
         {
             if (IsRendererValid())
             {

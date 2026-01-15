@@ -148,7 +148,7 @@ namespace TeamSuneat.Data
             }
             if (!ScriptableDataManager.Instance.CheckLoaded())
             {
-                ScriptableDataManager.Instance.LoadScriptableAssetsSyncByLabel(AddressableLabels.ScriptableSync);
+                ScriptableDataManager.Instance.LoadScriptableAssetsSyncByLabel(AddressableLabels.Default);
                 ScriptableDataManager.Instance.LoadScriptableAssetsSyncByLabel(AddressableLabels.Scriptable);
                 ScriptableDataManager.Instance.LoadScriptableAssetsSyncByLabel(string.Format(AddressableLabels.AreaFormat, 1));
             }

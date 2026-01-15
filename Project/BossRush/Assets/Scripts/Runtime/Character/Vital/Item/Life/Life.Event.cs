@@ -20,26 +20,34 @@ namespace TeamSuneat
 
         public delegate void OnKilledDelegate(Character attacker);
 
-        public OnDamageDelegate OnDamage;
-        public OnDamageZeroDelegate OnDamageZero;
-        public OnReviveDelegate OnRevive;
-        public OnDeathDelegate OnDeath;
-        public OnKilledDelegate OnKilled;
+        public event OnDamageDelegate OnDamage;
+        public event OnDamageZeroDelegate OnDamageZero;
+        public event OnReviveDelegate OnRevive;
+        public event OnDeathDelegate OnDeath;
+        public event OnKilledDelegate OnKilled;
 
         #endregion Delegate
 
         //─────────────────────────────────────────────────────────────────────────────────────────────────
 
+        private bool IsEventRegistered<T>(T eventDelegate, T action) where T : Delegate
+        {
+            if (eventDelegate != null)
+            {
+                Delegate[] delegateArray = eventDelegate.GetInvocationList();
+                return delegateArray.Contains(action);
+            }
+            return false;
+        }
+
+        //─────────────────────────────────────────────────────────────────────────────────────────────────
+
         public void RegisterOnDamageEvent(OnDamageDelegate action)
         {
-            if (OnDamage != null)
+            if (IsEventRegistered(OnDamage, action))
             {
-                System.Delegate[] delegateArray = OnDamage.GetInvocationList();
-                if (delegateArray.Contains(action))
-                {
-                    LogError("중복된 피격 이벤트는 등록할 수 없습니다. {0}", action.Method);
-                    return;
-                }
+                LogError("중복된 피격 이벤트는 등록할 수 없습니다. {0}", action.Method);
+                return;
             }
 
             OnDamage += action;
@@ -47,14 +55,10 @@ namespace TeamSuneat
 
         public void RegisterOnDamageZeroEvent(OnDamageZeroDelegate action)
         {
-            if (OnDamageZero != null)
+            if (IsEventRegistered(OnDamageZero, action))
             {
-                System.Delegate[] delegateArray = OnDamageZero.GetInvocationList();
-                if (delegateArray.Contains(action))
-                {
-                    LogError("중복된 피격 0 이벤트는 등록할 수 없습니다. {0}", action.Method);
-                    return;
-                }
+                LogError("중복된 피격 0 이벤트는 등록할 수 없습니다. {0}", action.Method);
+                return;
             }
 
             OnDamageZero += action;
@@ -62,14 +66,10 @@ namespace TeamSuneat
 
         public void RegisterOnReviveEvent(OnReviveDelegate action)
         {
-            if (OnRevive != null)
+            if (IsEventRegistered(OnRevive, action))
             {
-                System.Delegate[] delegateArray = OnRevive.GetInvocationList();
-                if (delegateArray.Contains(action))
-                {
-                    LogError("중복된 부활 이벤트는 등록할 수 없습니다. {0}", action.Method);
-                    return;
-                }
+                LogError("중복된 부활 이벤트는 등록할 수 없습니다. {0}", action.Method);
+                return;
             }
 
             OnRevive += action;
@@ -77,14 +77,10 @@ namespace TeamSuneat
 
         public void RegisterOnDeathEvent(OnDeathDelegate action)
         {
-            if (OnDeath != null)
+            if (IsEventRegistered(OnDeath, action))
             {
-                System.Delegate[] delegateArray = OnDeath.GetInvocationList();
-                if (delegateArray.Contains(action))
-                {
-                    LogError("중복된 사망 이벤트는 등록할 수 없습니다. {0}", action.Method);
-                    return;
-                }
+                LogError("중복된 사망 이벤트는 등록할 수 없습니다. {0}", action.Method);
+                return;
             }
 
             OnDeath += action;
@@ -92,14 +88,10 @@ namespace TeamSuneat
 
         public void RegisterOnKilledEvent(OnKilledDelegate action)
         {
-            if (OnKilled != null)
+            if (IsEventRegistered(OnKilled, action))
             {
-                System.Delegate[] delegateArray = OnKilled.GetInvocationList();
-                if (delegateArray.Contains(action))
-                {
-                    LogError("중복된 처치 이벤트는 등록할 수 없습니다. {0}", action.Method);
-                    return;
-                }
+                LogError("중복된 처치 이벤트는 등록할 수 없습니다. {0}", action.Method);
+                return;
             }
 
             OnKilled += action;
@@ -109,77 +101,62 @@ namespace TeamSuneat
 
         public void UnregisterOnDamageEvent(OnDamageDelegate action)
         {
-            if (OnDamage != null)
+            if (IsEventRegistered(OnDamage, action))
             {
-                System.Delegate[] delegateArray = OnDamage.GetInvocationList();
-                if (delegateArray.Contains(action))
-                {
-                    OnDamage -= action;
-                    return;
-                }
+                OnDamage -= action;
             }
-
-            LogWarning("해제하려는 피격 이벤트가 등록되어 있지 않습니다. {0}", action.Method);
+            else
+            {
+                LogWarning("해제하려는 피격 이벤트가 등록되어 있지 않습니다. {0}", action.Method);
+            }
         }
 
         public void UnregisterOnDamageZeroEvent(OnDamageZeroDelegate action)
         {
-            if (OnDamageZero != null)
+            if (IsEventRegistered(OnDamageZero, action))
             {
-                System.Delegate[] delegateArray = OnDamageZero.GetInvocationList();
-                if (delegateArray.Contains(action))
-                {
-                    OnDamageZero -= action;
-                    return;
-                }
+                OnDamageZero -= action;
             }
-
-            LogWarning("해제하려는 피격 0 이벤트가 등록되어 있지 않습니다. {0}", action.Method);
+            else
+            {
+                LogWarning("해제하려는 피격 0 이벤트가 등록되어 있지 않습니다. {0}", action.Method);
+            }
         }
 
         public void UnregisterOnReviveEvent(OnReviveDelegate action)
         {
-            if (OnRevive != null)
+            if (IsEventRegistered(OnRevive, action))
             {
-                System.Delegate[] delegateArray = OnRevive.GetInvocationList();
-                if (delegateArray.Contains(action))
-                {
-                    OnRevive -= action;
-                    return;
-                }
+                OnRevive -= action;
             }
-
-            LogWarning("해제하려는 부활 이벤트가 등록되어 있지 않습니다. {0}", action.Method);
+            else
+            {
+                LogWarning("해제하려는 부활 이벤트가 등록되어 있지 않습니다. {0}", action.Method);
+            }
         }
 
         public void UnregisterOnDeathEvent(OnDeathDelegate action)
         {
-            if (OnDeath != null)
+            if (IsEventRegistered(OnDeath, action))
             {
-                System.Delegate[] delegateArray = OnDeath.GetInvocationList();
-                if (delegateArray.Contains(action))
-                {
-                    OnDeath -= action;
-                    return;
-                }
+                OnDeath -= action;
             }
-
-            LogWarning("해제하려는 사망 이벤트가 등록되어 있지 않습니다. {0}", action.Method);
+            else
+            {
+                LogWarning("해제하려는 사망 이벤트가 등록되어 있지 않습니다. {0}", action.Method);
+            }
         }
 
         public void UnregisterOnKilledEvent(OnKilledDelegate action)
         {
-            if (OnKilled != null)
+            if (IsEventRegistered(OnKilled, action))
             {
-                System.Delegate[] delegateArray = OnKilled.GetInvocationList();
-                if (delegateArray.Contains(action))
-                {
-                    OnKilled -= action;
-                    return;
-                }
+                OnKilled -= action;
             }
-
-            LogWarning("해제하려는 처치 이벤트가 등록되어 있지 않습니다. {0}", action.Method);
+            else
+            {
+                LogWarning("해제하려는 처치 이벤트가 등록되어 있지 않습니다. {0}", action.Method);
+            }
         }
     }
 }

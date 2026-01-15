@@ -62,7 +62,7 @@ namespace TeamSuneat
         {
             if (Life.CheckInvulnerable())
             {
-                Life.UseZero();
+                Life.HandleDamageZero();
                 return true;
             }
 

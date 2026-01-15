@@ -1623,9 +1623,9 @@ RectTransform:
   - {fileID: 6495430966794098184}
   m_Father: {fileID: 1434393189}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 960, y: -388}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 256, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &1217757893072019458
@@ -2017,7 +2017,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!222 &3777752787458051734
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2307,7 +2307,7 @@ MonoBehaviour:
   SelectOrderIndex: 0
   SelectLeftIndex: 0
   SelectRightIndex: 0
-  SelectUpIndex: 1001
+  SelectUpIndex: 1002
   SelectDownIndex: 1001
   SelectFrameSizeDelta: {x: 256, y: 48}
   SelectFrameOffset: {x: 0, y: 0, z: 0}
@@ -2407,11 +2407,11 @@ MonoBehaviour:
   Clickable: {fileID: 8357366008998877531}
   Selectable: {fileID: 3889072364340530360}
   LockTrigger: 0
-  SelectIndex: 1001
+  SelectIndex: 1002
   SelectOrderIndex: 0
   SelectLeftIndex: 0
   SelectRightIndex: 0
-  SelectUpIndex: 1000
+  SelectUpIndex: 1001
   SelectDownIndex: 1000
   SelectFrameSizeDelta: {x: 256, y: 48}
   SelectFrameOffset: {x: 0, y: 0, z: 0}

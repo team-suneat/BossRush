@@ -42,12 +42,12 @@ namespace TeamSuneat
 
         private void PlayHealFeedbacks(float damageValue)
         {
-            HealFeedbacks?.PlayFeedbacks(position, 0);
+            HealFeedbacks?.PlayFeedbacks(this.position, 0);
         }
 
         private void PlayDamageFeedbacks(float damageValue)
         {
-            DamageFeedbacks?.PlayFeedbacks(position, 0);
+            DamageFeedbacks?.PlayFeedbacks(this.position, 0);
         }
 
         private void PlayDeathFeedback()

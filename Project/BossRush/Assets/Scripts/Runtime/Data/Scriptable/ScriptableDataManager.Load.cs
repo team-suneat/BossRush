@@ -260,7 +260,7 @@ namespace TeamSuneat.Data
             Clear();
 
             // 동기 로드: GameDefineAsset, LogSettingAsset, FontAsset
-            LoadScriptableAssetsSyncByLabel(AddressableLabels.ScriptableSync);
+            LoadScriptableAssetsSyncByLabel(AddressableLabels.Default);
 
             await LoadScriptableAssetsAsyncByLabel(AddressableLabels.Scriptable);
         }

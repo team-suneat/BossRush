@@ -39,6 +39,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - default
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7517224cbbcd5f542a9945d3b5c1cd57
+    m_Address: Assets/Addressables/Scriptable/LogSetting.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7e493870cf5dd9d4fb7ffc6b1671c7f2
     m_Address: Assets/Addressables/Scriptable/Font/Font_Korean.asset
     m_ReadOnly: 0
@@ -65,6 +71,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: eb8d74baaf4a0ab47a9bfda9ef9fdeb0
     m_Address: Assets/Addressables/Prefab/UI/Gauge/UIEnemyGauge.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f8e89ddd967dbd94386820034bee2ff4
+    m_Address: Assets/Addressables/Scriptable/GameDefine.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - default

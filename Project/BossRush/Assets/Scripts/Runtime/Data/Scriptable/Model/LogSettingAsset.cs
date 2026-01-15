@@ -80,6 +80,7 @@ namespace TeamSuneat
         #region Setting
 
         [FoldoutGroup("[게임 설정]")][SuffixLabel("설정")] public bool Setting;
+        [FoldoutGroup("[게임 설정]")][SuffixLabel("비디오")] public bool Video;
         [FoldoutGroup("[게임 설정]")][SuffixLabel("음향")] public bool Audio;
         [FoldoutGroup("[게임 설정]")][SuffixLabel("카메라")] public bool Camera;
         [FoldoutGroup("[게임 설정]")][SuffixLabel("글로벌 이벤트")] public bool Global;
@@ -131,8 +132,6 @@ namespace TeamSuneat
         #endregion UI
 
         #region Media
-
-        [FoldoutGroup("[미디어]")][SuffixLabel("비디오")] public bool Video;
 
         #endregion Media
 
@@ -193,6 +192,7 @@ namespace TeamSuneat
 
             Setting = true;
             Audio = true;
+            Video = true;
             Camera = true;
             Global = true;
             Input = true;
@@ -220,7 +220,6 @@ namespace TeamSuneat
             UI_Skill = true;
             UI_SelectEvent = true;
 
-            Video = true;
         }
 
         private void SwitchOffAll()
@@ -260,6 +259,7 @@ namespace TeamSuneat
 
             Setting = false;
             Audio = false;
+            Video = false;
             Camera = false;
             Global = false;
             Input = false;
@@ -287,7 +287,6 @@ namespace TeamSuneat
             UI_Skill = false;
             UI_SelectEvent = false;
 
-            Video = false;
         }
 
         public void OnLoadData()
@@ -336,6 +335,7 @@ namespace TeamSuneat
 
                 LogTags.Setting => Setting,
                 LogTags.Audio => Audio,
+                LogTags.Video => Video,
                 LogTags.Camera => Camera,
                 LogTags.Global => Global,
                 LogTags.Input => Input,
@@ -363,7 +363,6 @@ namespace TeamSuneat
                 LogTags.UI_Skill => UI_Skill,
                 LogTags.UI_SelectEvent => UI_SelectEvent,
 
-                LogTags.Video => Video,
 
                 _ => false,
             };
@@ -408,6 +407,7 @@ namespace TeamSuneat
 
                 case LogTags.Setting: { Setting = true; } break;
                 case LogTags.Audio: { Audio = true; } break;
+                case LogTags.Video: { Video = true; } break;
                 case LogTags.Camera: { Camera = true; } break;
                 case LogTags.Global: { Global = true; } break;
                 case LogTags.Input: { Input = true; } break;
@@ -435,7 +435,6 @@ namespace TeamSuneat
                 case LogTags.UI_Skill: { UI_Skill = true; } break;
                 case LogTags.UI_SelectEvent: { UI_SelectEvent = true; } break;
 
-                case LogTags.Video: { Video = true; } break;
             }
         }
 
@@ -478,6 +477,7 @@ namespace TeamSuneat
 
                 case LogTags.Setting: { Setting = false; } break;
                 case LogTags.Audio: { Audio = false; } break;
+                case LogTags.Video: { Video = false; } break;
                 case LogTags.Camera: { Camera = false; } break;
                 case LogTags.Global: { Global = false; } break;
                 case LogTags.Input: { Input = false; } break;
@@ -505,7 +505,6 @@ namespace TeamSuneat
                 case LogTags.UI_Skill: { UI_Skill = false; } break;
                 case LogTags.UI_SelectEvent: { UI_SelectEvent = false; } break;
 
-                case LogTags.Video: { Video = false; } break;
             }
         }
 

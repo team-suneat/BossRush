@@ -7,11 +7,9 @@ namespace TeamSuneat.Scenes
     {
         #region Private Fields
 
-        [SerializeField]
-        private StageLoader _stageLoader;
-
-        [SerializeField]
-        private PlayerCharacterSpawner _playerCharacterSpawner;
+        [SerializeField] private StageLoader _stageLoader;
+        [SerializeField] private MonsterCharacterSpawner _monsterCharacterSpawner;
+        [SerializeField] private PlayerCharacterSpawner _playerCharacterSpawner;
 
         #endregion Private Fields
 
@@ -24,7 +22,7 @@ namespace TeamSuneat.Scenes
 
         protected override void OnEnterScene()
         {
-            StartCoroutine(WaitForSceneChangeComplete());
+            _ = StartCoroutine(WaitForSceneChangeComplete());
         }
 
         protected override void OnExitScene()
@@ -86,6 +84,7 @@ namespace TeamSuneat.Scenes
             VitalManager.Instance.Clear();
             VFXManager.ClearNull();
             GameApp.Instance.SaveGameData();
+
             base.CleanupCurrentScene();
         }
 
@@ -93,16 +92,33 @@ namespace TeamSuneat.Scenes
 
         private IEnumerator WaitForSceneChangeComplete()
         {
-            // 씬 전환이 완료될 때까지 대기
-            while (IsChangeScene)
+            yield return new WaitUntil(() =>
             {
-                yield return null;
-            }
+                if (IsChangeScene)
+                {
+                    // 씬 전환이 끝날 때까지 대기
+                    return false;
+                }
+
+                if (!GameApp.Instance.IsInitialized)
+                {
+                    // 게임 초기화가 끝날 때까지 대기
+                    return false;
+                }
+
+                return true;
+            });
 
             if (_playerCharacterSpawner != null)
             {
                 _playerCharacterSpawner.Initialize(this);
                 _playerCharacterSpawner.SpawnPlayer();
+            }
+
+            if (_monsterCharacterSpawner != null)
+            {
+                _monsterCharacterSpawner.Initialize();
+                _monsterCharacterSpawner.SpawnMonster();
             }
 
             if (_stageLoader != null)

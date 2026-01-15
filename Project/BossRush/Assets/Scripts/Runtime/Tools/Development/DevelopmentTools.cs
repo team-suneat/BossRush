@@ -107,12 +107,6 @@ namespace TeamSuneat.Development
             GUILayout.Space(10);
 
             DrawGamePlaySection();
-            GUILayout.Space(10);
-
-            DrawCharacterInfoSection();
-            GUILayout.Space(10);
-
-            DrawSystemInfoSection();
 
             GUILayout.EndScrollView();
 
@@ -210,13 +204,13 @@ namespace TeamSuneat.Development
             {
                 logSetting.ExternSwitchOnAll();
                 logSetting.Refresh();
-            }, useWidth: false, useHeight: false);
+            }, useWidth: true, useHeight: false);
 
             _gui.DrawButton("All Off", () =>
             {
                 logSetting.ExternSwitchOffAll();
                 logSetting.Refresh();
-            }, useWidth: false, useHeight: false);
+            }, useWidth: true, useHeight: false);
             GUILayout.EndHorizontal();
 
             GUILayout.EndVertical();
@@ -348,56 +342,6 @@ namespace TeamSuneat.Development
             play.ShowMonsterLifeText = _gui.DrawToggleButton(play.ShowMonsterLifeText, useColor: true, useWidth: true, useHeight: true);
             _gui.DrawContentLabel("Show Monster Gauge Text", useWidth: false, useHeight: true);
             GUILayout.EndHorizontal();
-
-            GUILayout.EndVertical();
-        }
-
-        private void DrawCharacterInfoSection()
-        {
-            GUILayout.BeginVertical("box");
-            _gui.DrawTitleLabel("캐릭터 정보");
-
-            if (CharacterManager.Instance != null)
-            {
-                PlayerCharacter player = CharacterManager.Instance.Player;
-                if (player != null)
-                {
-                    _gui.DrawContentLabel($"플레이어: {player.Name}");
-
-                    if (player.MyVital != null)
-                    {
-                        if (player.MyVital.Life != null)
-                        {
-                            _gui.DrawContentLabel($"체력: {player.MyVital.Life.Current} / {player.MyVital.Life.Max}");
-                        }
-                        if (player.MyVital.Mana != null)
-                        {
-                            _gui.DrawContentLabel($"마나: {player.MyVital.Mana.Current} / {player.MyVital.Mana.Max}");
-                        }
-                    }
-                }
-                else
-                {
-                    _gui.DrawContentLabel("플레이어 없음");
-                }
-            }
-            else
-            {
-                _gui.DrawContentLabel("CharacterManager 없음");
-            }
-
-            GUILayout.EndVertical();
-        }
-
-        private void DrawSystemInfoSection()
-        {
-            GUILayout.BeginVertical("box");
-            _gui.DrawTitleLabel("시스템 정보");
-
-            _gui.DrawContentLabel($"FPS: {Mathf.RoundToInt(1.0f / Time.deltaTime)}");
-            _gui.DrawContentLabel($"해상도: {Screen.width} x {Screen.height}");
-            _gui.DrawContentLabel($"Unity 버전: {Application.unityVersion}");
-            _gui.DrawContentLabel($"플랫폼: {Application.platform}");
 
             GUILayout.EndVertical();
         }

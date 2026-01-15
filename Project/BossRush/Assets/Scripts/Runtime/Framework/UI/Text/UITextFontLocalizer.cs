@@ -56,7 +56,7 @@ namespace TeamSuneat.UserInterface
 
             if (!ScriptableDataManager.Instance.CheckLoadedSync())
             {
-                ScriptableDataManager.Instance.LoadScriptableAssetsSyncByLabel(AddressableLabels.ScriptableSync);
+                ScriptableDataManager.Instance.LoadScriptableAssetsSyncByLabel(AddressableLabels.Default);
             }
         }
 

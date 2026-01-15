@@ -1,5 +1,4 @@
-﻿using DG.Tweening;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using TeamSuneat.Setting;
 using TeamSuneat.UserInterface;
@@ -15,59 +14,61 @@ namespace TeamSuneat
         [Title("#Life")]
         [FoldoutGroup("#Toggle")]
         [SuffixLabel("피해를 입은 후 피해를 입지 않는 시간")]
-        public float InvincibilityDurationOnDamage = 0.5f;
+        [SerializeField] private float _invincibilityDurationOnDamage = 0.5f;
 
         [FoldoutGroup("#Toggle")]
         [SuffixLabel("피해를 입지 않음")]
-        public bool Invulnerable = false;
+        [SerializeField] private bool _invulnerable;
 
         [FoldoutGroup("#Toggle")]
         [SuffixLabel("방어할 수 있음")]
-        public bool Defensible = false;
+        [SerializeField] private bool _defensible;
 
         [ReadOnly]
         [FoldoutGroup("#Toggle")]
         [SuffixLabel("잠시 피해를 입지 않음")]
-        public List<Component> TemporarilyInvulnerable = new();
+        private List<Component> _temporarilyInvulnerable = new();
+
+        public System.Collections.Generic.IReadOnlyList<Component> TemporarilyInvulnerable => _temporarilyInvulnerable;
 
         [ReadOnly]
         [FoldoutGroup("#Toggle")]
         [SuffixLabel("피해 후 잠시 피해를 입지 않음")]
-        public bool PostDamageInvulnerable = false;
+        public bool PostDamageInvulnerable;
 
         [FoldoutGroup("#Toggle")]
         [SuffixLabel("영구 피해 면역")]
-        public bool ImmuneToDamage = false;
+        [SerializeField] private bool _immuneToDamage;
 
         [FoldoutGroup("#Toggle")]
         [Tooltip("이것이 사실이면 피해 시 Lit 타입의 매터리얼을 사용하여 히트이펙트를 보여지게합니다.")]
         [SuffixLabel("피해시 Lit 타입 매터리얼 히트이펙트")]
-        public bool DrawFlashLitOnDamage;
+        [SerializeField] private bool _drawFlashLitOnDamage;
 
         [FoldoutGroup("#Death")]
         [Tooltip("이것이 사실이 아니라면 객체는 죽은 후에도 그곳에 남아있을 것입니다")]
         [SuffixLabel("사망 후 개체 삭제")]
-        public bool DestroyOnDeath = true;
+        [SerializeField] private bool _destroyOnDeath = true;
 
         [FoldoutGroup("#Death")]
         [Tooltip("캐릭터가 파괴되거나 비활성화되기까지의 시간(초)")]
         [SuffixLabel("사망 후 개체 삭제 지연 시간")]
-        public float DelayBeforeDestruction = 5f;
+        [SerializeField] private float _delayBeforeDestruction = 5f;
 
         [FoldoutGroup("#Death")]
         [Tooltip("이것이 사실이면 캐릭터가 죽을 때 충돌이 꺼집니다")]
         [SuffixLabel("사망 후 충돌 무시")]
-        public bool CollisionsOffOnDeath = false;
+        [SerializeField] private bool _collisionsOffOnDeath;
 
         [FoldoutGroup("#Death")]
         [Tooltip("이것이 사실이라면 죽음에 중력이 꺼질 것입니다")]
         [SuffixLabel("사망 후 중력 무시")]
-        public bool GravityOffOnDeath = false;
+        [SerializeField] private bool _gravityOffOnDeath;
 
         [FoldoutGroup("#Death")]
         [Tooltip("false로 설정하면 캐릭터가 사망한 위치에서 부활하고, 그렇지 않으면 초기 위치(장면이 시작될 때)로 이동합니다")]
         [SuffixLabel("초기 위치 부활")]
-        public bool RespawnAtInitialLocation = false;
+        [SerializeField] private bool _respawnAtInitialLocation;
 
         #endregion Field
 
@@ -76,6 +77,17 @@ namespace TeamSuneat
         public override VitalResourceTypes Type => VitalResourceTypes.Life;
 
         public bool IsDamaged { get; set; }
+
+        public float InvincibilityDurationOnDamage => _invincibilityDurationOnDamage;
+        public bool Invulnerable => _invulnerable;
+        public bool Defensible => _defensible;
+        public bool ImmuneToDamage => _immuneToDamage;
+        public bool DrawFlashLitOnDamage => _drawFlashLitOnDamage;
+        public bool DestroyOnDeath => _destroyOnDeath;
+        public float DelayBeforeDestruction => _delayBeforeDestruction;
+        public bool CollisionsOffOnDeath => _collisionsOffOnDeath;
+        public bool GravityOffOnDeath => _gravityOffOnDeath;
+        public bool RespawnAtInitialLocation => _respawnAtInitialLocation;
 
         #endregion Parameter
 
@@ -140,7 +152,7 @@ namespace TeamSuneat
 
         public bool CheckInvulnerable()
         {
-            return TemporarilyInvulnerable.Count > 0 || Invulnerable || ImmuneToDamage || PostDamageInvulnerable;
+            return _temporarilyInvulnerable.Count > 0 || _invulnerable || _immuneToDamage || PostDamageInvulnerable;
         }
 
         protected override void OnAddCurrentValue(int value)
@@ -196,44 +208,74 @@ namespace TeamSuneat
 
         public override bool UseCurrentValue(int damageValue, DamageResult damageResult)
         {
-            if (Vital != null && Vital.Owner != null && Vital.Owner.IsPlayer)
+            if (ApplyCheatRule(damageValue, damageResult))
             {
-                if (Current <= damageValue)
-                {
-                    if (GameSetting.Instance.Cheat.IsNotDead)
-                    {
-                        LogInfo("죽지 않는 치트를 사용한다면 생명력을 1 남깁니다.");
-                        int value = Current - 1;
-                        Current = 1;
-                        OnUseCurrencyValue(value);
-                        return false;
-                    }
-                    else if (damageResult != null && damageResult.DamageType.IsDamageOverTime())
-                    {
-                        LogInfo("지속 피해에는 죽지 않고 생명력을 1 남깁니다.");
-                        int value = Current - 1;
-                        Current = 1;
-                        OnUseCurrencyValue(value);
-                        return false;
-                    }
-                }
+                return false;
             }
 
-            if (damageResult != null && Current == Max)
+            if (ApplyDotRule(damageValue, damageResult))
             {
-                GlobalEvent.Send(GlobalEventType.PLAYER_CHARACTER_ATTACK_MONSTER_FULL_LIFE_TARGET);
+                return false;
             }
+
+            SendFullLifeAttackEvent(damageResult);
 
             return base.UseCurrentValue(damageValue, damageResult);
         }
 
-        public void UseZero()
+        private bool ApplyCheatRule(int damageValue, DamageResult damageResult)
+        {
+            if (Vital == null || Vital.Owner == null || !Vital.Owner.IsPlayer)
+            {
+                return false;
+            }
+
+            if (Current <= damageValue && GameSetting.Instance.Cheat.IsNotDead)
+            {
+                LogInfo("죽지 않는 치트를 사용한다면 생명력을 1 남깁니다.");
+                int value = Current - 1;
+                Current = 1;
+                OnUseCurrencyValue(value);
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool ApplyDotRule(int damageValue, DamageResult damageResult)
+        {
+            if (Vital == null || Vital.Owner == null || !Vital.Owner.IsPlayer)
+            {
+                return false;
+            }
+
+            if (Current <= damageValue && damageResult != null && damageResult.DamageType.IsDamageOverTime())
+            {
+                LogInfo("지속 피해에는 죽지 않고 생명력을 1 남깁니다.");
+                int value = Current - 1;
+                Current = 1;
+                OnUseCurrencyValue(value);
+                return true;
+            }
+
+            return false;
+        }
+
+        private void SendFullLifeAttackEvent(DamageResult damageResult)
+        {
+            if (damageResult != null && Current == Max)
+            {
+                GlobalEvent.Send(GlobalEventType.PLAYER_CHARACTER_ATTACK_MONSTER_FULL_LIFE_TARGET);
+            }
+        }
+
+        public void HandleDamageZero()
         {
             OnDamageZero?.Invoke();
             DamageZeroFeedbacks?.PlayFeedbacks();
         }
 
-        public void OnBlockDamage(DamageResult damageResult)
+        public void OnDamageBlocked(DamageResult damageResult)
         {
             OnDamageZero?.Invoke();
             DamageZeroFeedbacks?.PlayFeedbacks();
@@ -246,6 +288,11 @@ namespace TeamSuneat
 
         public void Use(int damageValue, Character attacker, bool ignoreDeath)
         {
+            if (CheckInvulnerable())
+            {
+                return;
+            }
+
             if (!UseCurrentValue(damageValue))
             {
                 return;
@@ -258,22 +305,8 @@ namespace TeamSuneat
                 Current = 1;
             }
 
-            if (Current < 1)
-            {
-                if (Vital.Owner == attacker)
-                {
-                    Suicide();
-                }
-                else
-                {
-                    Killed(attacker);
-                }
-            }
-            else
-            {
-                SetTargetAttacker(attacker);
-                EnablePostDamageInvulnerability(InvincibilityDurationOnDamage);
-            }
+            bool isDead = Current < 1 && !ignoreDeath;
+            ProcessDamageResult(attacker, null, isDead);
 
             SpawnUseFloatyText(damageValue);
 
@@ -283,6 +316,11 @@ namespace TeamSuneat
 
         public void TakeDamage(DamageResult damageResult, Character attacker)
         {
+            if (CheckInvulnerable())
+            {
+                return;
+            }
+
             if (!UseCurrentValue(damageResult.DamageValueToInt, damageResult))
             {
                 return;
@@ -305,33 +343,17 @@ namespace TeamSuneat
             SpawnHitFX(damageResult, damageResult.DamagePosition);
             OnDamageFlicker(damageResult);
 
-            if (Current <= 0)
+            bool isDead = Current <= 0;
+            if (isDead)
             {
                 Current = 0;
+                // 죽음 관련 외부 이벤트 및 회복 처리
                 SendKillGlobalEvent(damageResult);
-
-                if (Vital.Owner == attacker)
-                {
-                    Suicide();
-                }
-                else
-                {
-                    Killed(damageResult);
-                }
-
                 RestoreOnKill(attacker);
             }
-            else
-            {
-                SetTargetAttacker(attacker);
 
-                if (Vital.Owner != null)
-                {
-                    TryPlayDamageAnimation(damageResult);
-                }
-
-                EnablePostDamageInvulnerability(InvincibilityDurationOnDamage);
-            }
+            // Life 내부 죽음 처리 (Suicide/Killed + 애니메이션/Despawn)
+            ProcessDamageResult(attacker, damageResult, isDead);
 
             if (damageResult.DamageType.IsInstantDamage())
             {
@@ -342,9 +364,39 @@ namespace TeamSuneat
             SpawnDamageFloatyText(damageResult, Type);
         }
 
-        public float ShakeDuration;
-        public float ShakeStrength;
-        private Tweener _tweener;
+        private void ProcessDamageResult(Character attacker, DamageResult damageResult, bool isDead)
+        {
+            if (isDead)
+            {
+                if (Vital.Owner == attacker)
+                {
+                    Suicide();
+                }
+                else
+                {
+                    if (damageResult != null)
+                    {
+                        Killed(damageResult);
+                    }
+                    else
+                    {
+                        Killed(attacker);
+                    }
+                }
+            }
+            else
+            {
+                SetTargetAttacker(attacker);
+
+                // damageResult가 null인 경우(Use 경로)에는 애니메이션을 재생하지 않음
+                if (Vital.Owner != null && damageResult != null)
+                {
+                    TryPlayDamageAnimation(damageResult);
+                }
+
+                EnablePostDamageInvulnerability(_invincibilityDurationOnDamage);
+            }
+        }
 
         private void SetTargetAttacker(Character attacker)
         {
@@ -378,12 +430,24 @@ namespace TeamSuneat
 
         private void OnDamageFlicker(DamageResult damageResult)
         {
-            if (Vital.Owner?.CharacterRenderer == null)
+            if (Vital.Owner == null)
             {
                 return;
             }
 
-            Vital.Owner.CharacterRenderer.StartFlickerCoroutine(RendererFlickerNames.Damage);
+            if (Vital.Owner.CharacterRenderer == null)
+            {
+                return;
+            }
+
+            if (Vital.Owner.IsPlayer)
+            {
+                Vital.Owner.CharacterRenderer.StartFlickerCoroutine(RendererFlickerNames.Damage, _invincibilityDurationOnDamage);
+            }
+            else
+            {
+                Vital.Owner.CharacterRenderer.StartFlickerCoroutine(RendererFlickerNames.Damage);
+            }
         }
 
         #region Floaty Text
@@ -421,6 +485,22 @@ namespace TeamSuneat
 
         public void Killed(Character attacker)
         {
+            DamageResult damageResult = new DamageResult()
+            {
+                Attacker = attacker,
+                TargetVital = Vital,
+            };
+            ProcessKilled(attacker, damageResult);
+        }
+
+        public void Killed(DamageResult damageResult)
+        {
+            Character attacker = damageResult?.Attacker;
+            ProcessKilled(attacker, damageResult);
+        }
+
+        private void ProcessKilled(Character attacker, DamageResult damageResult)
+        {
             Vital.Life.ResetTemporarilyInvulnerable(this);
 
             PlayDeathFeedback();
@@ -431,39 +511,6 @@ namespace TeamSuneat
                 LogInfo("캐릭터가 {0}에게 죽습니다.", attacker.Name.ToLogString());
             }
             OnKilled?.Invoke(attacker);
-
-            if (Vital.Owner != null)
-            {
-                OnDeath?.Invoke(new DamageResult()
-                {
-                    Attacker = attacker,
-                    TargetVital = Vital,
-                });
-            }
-
-            PlayDeathAnimation();
-
-            if (TryDespawn())
-            {
-                Despawn();
-            }
-        }
-
-        public void Killed(DamageResult damageResult)
-        {
-            Vital.Life.ResetTemporarilyInvulnerable(this);
-
-            PlayDeathFeedback();
-            PlayKilledFeedbacks();
-
-            if (damageResult != null)
-            {
-                if (damageResult.Attacker != null)
-                {
-                    LogInfo("캐릭터가 {0}에게 죽습니다.", damageResult.Attacker.Name.ToLogString());
-                }
-                OnKilled?.Invoke(damageResult.Attacker);
-            }
 
             if (Vital.Owner != null)
             {
@@ -508,7 +555,7 @@ namespace TeamSuneat
         {
             if (Vital.Owner != null)
             {
-                if (Vital.Owner.IsPlayer && DestroyOnDeath)
+                if (Vital.Owner.IsPlayer && _destroyOnDeath)
                 {
                     return true;
                 }
@@ -549,7 +596,7 @@ namespace TeamSuneat
         {
             if (Vital != null)
             {
-                _ = CoroutineNextTimer(DelayBeforeDestruction, Vital.Despawn);
+                _ = CoroutineNextTimer(_delayBeforeDestruction, Vital.Despawn);
             }
         }
 

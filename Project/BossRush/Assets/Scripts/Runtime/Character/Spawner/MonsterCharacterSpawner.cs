@@ -13,9 +13,6 @@ namespace TeamSuneat
         [SerializeField]
         private GameObject _monsterPrefab;
 
-        [SerializeField]
-        private bool _useSpawnOnStart;
-
         #endregion Private Fields
 
         #region Properties
@@ -44,15 +41,6 @@ namespace TeamSuneat
         }
 
         #endregion Properties
-
-        private void Start()
-        {
-            if (_useSpawnOnStart)
-            {
-                Initialize();
-                SpawnMonster();
-            }
-        }
 
         #region Public Methods
 
