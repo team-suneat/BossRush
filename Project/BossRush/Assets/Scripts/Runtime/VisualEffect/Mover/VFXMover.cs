@@ -12,10 +12,8 @@ namespace TeamSuneat
 
         [EnableIf("UseEaseBoth")]
         public Ease MoveEase;
-
         [DisableIf("UseEaseBoth")]
         public Ease MoveEaseX;
-
         [DisableIf("UseEaseBoth")]
         public Ease MoveEaseY;
 
@@ -54,47 +52,53 @@ namespace TeamSuneat
                     _tweener = transform.DOMove(_targetPosition, Duration).SetEase(MoveEase);
                     _tweener.onComplete += OnCompletedTweener;
                 }
+                return;
             }
-            else
+
+            if (_tweenerX == null)
             {
-                if (_tweenerX == null)
-                {
-                    _tweenerX = transform.DOMoveX(_targetPosition.x, Duration).SetEase(MoveEaseX);
-                    _tweenerX.onComplete += OnCompletedTweenerX;
-                }
-                if (_tweenerY == null)
-                {
-                    _tweenerY = transform.DOMoveY(_targetPosition.y, Duration).SetEase(MoveEaseY);
-                    _tweenerY.onComplete += OnCompletedTweenerY;
-                }
+                _tweenerX = transform.DOMoveX(_targetPosition.x, Duration).SetEase(MoveEaseX);
+                _tweenerX.onComplete += OnCompletedTweenerX;
+            }
+
+            if (_tweenerY == null)
+            {
+                _tweenerY = transform.DOMoveY(_targetPosition.y, Duration).SetEase(MoveEaseY);
+                _tweenerY.onComplete += OnCompletedTweenerY;
             }
         }
 
         private void OnCompletedTweener()
         {
-            if (_tweener != null)
+            if (_tweener == null)
             {
-                _tweener.Kill();
-                _tweener = null;
+                return;
             }
+
+            _tweener.Kill();
+            _tweener = null;
         }
 
         private void OnCompletedTweenerX()
         {
-            if (_tweenerX != null)
+            if (_tweenerX == null)
             {
-                _tweenerX.Kill();
-                _tweenerX = null;
+                return;
             }
+
+            _tweenerX.Kill();
+            _tweenerX = null;
         }
 
         private void OnCompletedTweenerY()
         {
-            if (_tweenerY != null)
+            if (_tweenerY == null)
             {
-                _tweenerY.Kill();
-                _tweenerY = null;
+                return;
             }
+
+            _tweenerY.Kill();
+            _tweenerY = null;
         }
     }
 }

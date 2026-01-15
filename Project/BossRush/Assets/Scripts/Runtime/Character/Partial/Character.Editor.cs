@@ -4,6 +4,16 @@ namespace TeamSuneat
 {
     public partial class Character
     {
+
+        public override void AutoGetComponents()
+        {
+            base.AutoGetComponents();
+
+            HeadPoint = this.FindTransform("Point/Point-Head");
+            BodyPoint = this.FindTransform("Point/Point-Body");
+            FootPoint = this.FindTransform("Point/Point-Foot");
+        }
+
         public override void AutoSetting()
         {
             base.AutoSetting();

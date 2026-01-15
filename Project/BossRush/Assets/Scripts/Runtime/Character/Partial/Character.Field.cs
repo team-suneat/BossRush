@@ -64,7 +64,15 @@ namespace TeamSuneat
 
         [FoldoutGroup("#Character/Target")]
         public LayerMask TargetMask;
+
         // ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+        [FoldoutGroup("#Character/Point")]
+        public Transform HeadPoint;
+        [FoldoutGroup("#Character/Point")]
+        public Transform BodyPoint;
+        [FoldoutGroup("#Character/Point")]
+        public Transform FootPoint;
 
         protected Vector3 _raycastOrigin;
         protected RaycastHit2D _raycastHit2D;

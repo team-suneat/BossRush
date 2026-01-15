@@ -24,6 +24,10 @@ namespace TeamSuneat
             BarrierPoint = this.FindTransform("Point-Barrier");
             WarningTextPoint = this.FindTransform("Point-WarningText");
             MinimapPoint = this.FindTransform("Point-Minimap");
+
+            HeadPoint ??= transform;
+            BodyPoint ??= transform;
+            FootPoint ??= transform;
         }
 
         protected override void OnRelease()
@@ -110,7 +114,7 @@ namespace TeamSuneat
             PlaySpawnAnimation();
 
             UnlockFlip();
-            
+
             Attack?.Initialize();
             CharacterRenderer?.ResetRenderer();
             StateMachine?.InitializeStates();
@@ -221,7 +225,7 @@ namespace TeamSuneat
             _command.UpdateBuffer();
             _command.ResetFrame();
         }
-        
+
         public virtual void PhysicsUpdate()
         {
             if (!ActiveSelf)
@@ -294,6 +298,11 @@ namespace TeamSuneat
             {
                 StateMachine.ChangeState(CharacterState.Idle);
             }
+        }
+
+        public void ApplyStun(float duration)
+        {
+            StateMachine?.ApplyStun(duration);
         }
 
         #endregion 상태 (State)

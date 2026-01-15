@@ -107,6 +107,9 @@ namespace TeamSuneat.Development
             GUILayout.Space(10);
 
             DrawGamePlaySection();
+            GUILayout.Space(10);
+
+            DrawCheatSection();
 
             GUILayout.EndScrollView();
 
@@ -341,6 +344,71 @@ namespace TeamSuneat.Development
             GUILayout.BeginHorizontal();
             play.ShowMonsterLifeText = _gui.DrawToggleButton(play.ShowMonsterLifeText, useColor: true, useWidth: true, useHeight: true);
             _gui.DrawContentLabel("Show Monster Gauge Text", useWidth: false, useHeight: true);
+            GUILayout.EndHorizontal();
+
+            GUILayout.EndVertical();
+        }
+
+        private void DrawCheatSection()
+        {
+            GUILayout.BeginVertical("box");
+            _gui.DrawTitleLabel("치트 설정", useWidth: true, useHeight: true);
+
+            if (GameSetting.Instance == null)
+            {
+                _gui.DrawContentLabel("GameSetting을 불러올 수 없습니다.");
+                GUILayout.EndVertical();
+                return;
+            }
+
+            GameCheat cheat = GameSetting.Instance.Cheat;
+
+            // 무한 데미지
+            GUILayout.BeginHorizontal();
+            cheat.IsInfinityDamage = _gui.DrawToggleButton(cheat.IsInfinityDamage, useColor: true, useWidth: true, useHeight: true);
+            _gui.DrawContentLabel("무한 데미지", useWidth: false, useHeight: true);
+            GUILayout.EndHorizontal();
+
+            // 퍼센트 데미지
+            GUILayout.BeginHorizontal();
+            cheat.IsPercentDamage = _gui.DrawToggleButton(cheat.IsPercentDamage, useColor: true, useWidth: true, useHeight: true);
+            _gui.DrawContentLabel("퍼센트 데미지", useWidth: false, useHeight: true);
+            GUILayout.EndHorizontal();
+
+            // 1 데미지 공격
+            GUILayout.BeginHorizontal();
+            cheat.IsOneDamageAttack = _gui.DrawToggleButton(cheat.IsOneDamageAttack, useColor: true, useWidth: true, useHeight: true);
+            _gui.DrawContentLabel("1 데미지 공격", useWidth: false, useHeight: true);
+            GUILayout.EndHorizontal();
+
+            // 쿨타임 없음
+            GUILayout.BeginHorizontal();
+            cheat.IsNoCooldownTime = _gui.DrawToggleButton(cheat.IsNoCooldownTime, useColor: true, useWidth: true, useHeight: true);
+            _gui.DrawContentLabel("쿨타임 없음", useWidth: false, useHeight: true);
+            GUILayout.EndHorizontal();
+
+            // 리소스 소비 없음
+            GUILayout.BeginHorizontal();
+            cheat.IsNotCostResource = _gui.DrawToggleButton(cheat.IsNotCostResource, useColor: true, useWidth: true, useHeight: true);
+            _gui.DrawContentLabel("리소스 소비 없음", useWidth: false, useHeight: true);
+            GUILayout.EndHorizontal();
+
+            // 받는 데미지 1만
+            GUILayout.BeginHorizontal();
+            cheat.IsReceiveDamageOnlyOne = _gui.DrawToggleButton(cheat.IsReceiveDamageOnlyOne, useColor: true, useWidth: true, useHeight: true);
+            _gui.DrawContentLabel("받는 데미지 1만", useWidth: false, useHeight: true);
+            GUILayout.EndHorizontal();
+
+            // 죽지 않음
+            GUILayout.BeginHorizontal();
+            cheat.IsNotDead = _gui.DrawToggleButton(cheat.IsNotDead, useColor: true, useWidth: true, useHeight: true);
+            _gui.DrawContentLabel("죽지 않음", useWidth: false, useHeight: true);
+            GUILayout.EndHorizontal();
+
+            // 군중 제어 없음
+            GUILayout.BeginHorizontal();
+            cheat.IsNotCrowdControl = _gui.DrawToggleButton(cheat.IsNotCrowdControl, useColor: true, useWidth: true, useHeight: true);
+            _gui.DrawContentLabel("군중 제어 없음", useWidth: false, useHeight: true);
             GUILayout.EndHorizontal();
 
             GUILayout.EndVertical();

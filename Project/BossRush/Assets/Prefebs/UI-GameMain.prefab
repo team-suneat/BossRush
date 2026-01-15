@@ -73,7 +73,6 @@ GameObject:
   - component: {fileID: 1964627626920269304}
   - component: {fileID: 6402444495137849376}
   - component: {fileID: 5119777504282454031}
-  - component: {fileID: 2878574643867803005}
   - component: {fileID: 925774058692893149}
   m_Layer: 5
   m_Name: 2. Canvas (IngameWorldSpace)
@@ -98,8 +97,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1080, y: 1920}
+  m_AnchoredPosition: {x: 960, y: 540}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &6402444495137849376
 Canvas:
@@ -118,8 +117,8 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 442848925
   m_SortingOrder: 0
@@ -139,7 +138,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1080, y: 1920}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -147,23 +146,6 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
---- !u!114 &2878574643867803005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2360525424039671357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 55
 --- !u!114 &925774058692893149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,11 +159,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OrderName: 2
-  Canvas: {fileID: 6402444495137849376}
-  CanvasGroup: {fileID: 0}
-  Raycaster: {fileID: 2878574643867803005}
-  IngameCanvasRect: []
-  Scaler: {fileID: 5119777504282454031}
 --- !u!1 &2737857067647100053
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,7 +170,6 @@ GameObject:
   - component: {fileID: 546983303203286443}
   - component: {fileID: 6826959294472826176}
   - component: {fileID: 469227990440525841}
-  - component: {fileID: 2858640107860473616}
   - component: {fileID: 6334892910575926573}
   - component: {fileID: 2425139656850570552}
   m_Layer: 5
@@ -241,8 +217,8 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 6
@@ -270,23 +246,6 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
---- !u!114 &2858640107860473616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2737857067647100053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 55
 --- !u!114 &6334892910575926573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,11 +259,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OrderName: 6
-  Canvas: {fileID: 6826959294472826176}
-  CanvasGroup: {fileID: 0}
-  Raycaster: {fileID: 2858640107860473616}
-  IngameCanvasRect: []
-  Scaler: {fileID: 469227990440525841}
 --- !u!114 &2425139656850570552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,6 +346,7 @@ MonoBehaviour:
   PopupManager: {fileID: 3423612066192819631}
   DetailsManager: {fileID: 1790933705530641941}
   NoticeManager: {fileID: 2425139656850570552}
+  SelectController: {fileID: 0}
   ScreenFader: {fileID: 5130785084323012034}
 --- !u!114 &1343265462619630778
 MonoBehaviour:
@@ -440,7 +395,6 @@ GameObject:
   - component: {fileID: 940979817767273039}
   - component: {fileID: 4075252185243174008}
   - component: {fileID: 2465378751852503066}
-  - component: {fileID: 7859842229576426243}
   - component: {fileID: 4675186089089324748}
   m_Layer: 5
   m_Name: 1. Canvas (Ingame)
@@ -485,8 +439,8 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 5
@@ -514,23 +468,6 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
---- !u!114 &7859842229576426243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3590902387909669671}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 55
 --- !u!114 &4675186089089324748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -544,11 +481,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OrderName: 1
-  Canvas: {fileID: 4075252185243174008}
-  CanvasGroup: {fileID: 0}
-  Raycaster: {fileID: 7859842229576426243}
-  IngameCanvasRect: []
-  Scaler: {fileID: 2465378751852503066}
 --- !u!1 &3735615779625005529
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,7 +571,6 @@ GameObject:
   - component: {fileID: 2733459048725625021}
   - component: {fileID: 3186314147125760858}
   - component: {fileID: 2205895763052044860}
-  - component: {fileID: 3777192178683784402}
   - component: {fileID: 6045409532172080114}
   m_Layer: 5
   m_Name: 9. Canvas (Effect)
@@ -685,8 +616,8 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 9
@@ -714,23 +645,6 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
---- !u!114 &3777192178683784402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5069827084198249708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 55
 --- !u!114 &6045409532172080114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -744,11 +658,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OrderName: 9
-  Canvas: {fileID: 3186314147125760858}
-  CanvasGroup: {fileID: 0}
-  Raycaster: {fileID: 3777192178683784402}
-  IngameCanvasRect: []
-  Scaler: {fileID: 2205895763052044860}
 --- !u!1 &5181794561788253958
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,8 +718,8 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 3
@@ -868,11 +777,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OrderName: 3
-  Canvas: {fileID: 7940471395541342926}
-  CanvasGroup: {fileID: 0}
-  Raycaster: {fileID: 7906260915062324026}
-  IngameCanvasRect: []
-  Scaler: {fileID: 7104409250493905894}
 --- !u!225 &6447459357558184926
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1118,8 +1022,8 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 4
@@ -1177,11 +1081,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OrderName: 4
-  Canvas: {fileID: 4045449545171212850}
-  CanvasGroup: {fileID: 0}
-  Raycaster: {fileID: 3916454101832037682}
-  IngameCanvasRect: []
-  Scaler: {fileID: 9203979336841135640}
 --- !u!114 &3423612066192819631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1206,7 +1105,6 @@ GameObject:
   - component: {fileID: 7025327996531088490}
   - component: {fileID: 5987493088099411903}
   - component: {fileID: 430477504545731867}
-  - component: {fileID: 1949307466685309009}
   - component: {fileID: 7680107033378475651}
   - component: {fileID: 1790933705530641941}
   m_Layer: 5
@@ -1252,8 +1150,8 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 5
@@ -1281,23 +1179,6 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
---- !u!114 &1949307466685309009
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8583148671818978822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 55
 --- !u!114 &7680107033378475651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1311,11 +1192,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OrderName: 5
-  Canvas: {fileID: 5987493088099411903}
-  CanvasGroup: {fileID: 0}
-  Raycaster: {fileID: 1949307466685309009}
-  IngameCanvasRect: []
-  Scaler: {fileID: 430477504545731867}
 --- !u!114 &1790933705530641941
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,7 +7,6 @@ namespace TeamSuneat
     {
         [SerializeField]
         private VFXObject _owner;
-
         [SerializeField]
         private Animator[] _animators;
 
@@ -22,7 +21,7 @@ namespace TeamSuneat
 
         private const string CYCLE_OFFSET_PARAMETER_NAME = "CycleOffset";
 
-        private const string RANDOM_PARAMTER_NAME = "Random";
+        private const string RANDOM_PARAMETER_NAME = "Random";
 
         private bool _isDespawning;
 
@@ -35,7 +34,7 @@ namespace TeamSuneat
             _animators = GetComponentsInChildren<Animator>();
         }
 
-        protected void Awake()
+        private void Awake()
         {
             if (_owner == null)
             {
@@ -50,25 +49,19 @@ namespace TeamSuneat
 
         public void Initialize()
         {
-            if (_animators != null)
+            if (_animators == null)
             {
-                for (int i = 0; i < _animators.Length; i++)
-                {
-                    _animators[i].UpdateAnimatorFloatIfExists(CYCLE_OFFSET_PARAMETER_NAME, RandomEx.GetFloatValue());
-
-                    if (UseRandomParameter)
-                    {
-                        _animators[i].UpdateAnimatorFloatIfExists(RANDOM_PARAMTER_NAME, RandomEx.Range(0, MaxRandomParameter));
-                    }
-                }
+                return;
             }
-        }
 
-        public void SetSpeed(float speed)
-        {
-            if (_animators != null)
+            for (int i = 0; i < _animators.Length; i++)
             {
-                _animators.SetAnimatorSpeed(speed);
+                _animators[i].UpdateAnimatorFloatIfExists(CYCLE_OFFSET_PARAMETER_NAME, RandomEx.GetFloatValue());
+
+                if (UseRandomParameter)
+                {
+                    _animators[i].UpdateAnimatorFloatIfExists(RANDOM_PARAMETER_NAME, RandomEx.Range(0, MaxRandomParameter));
+                }
             }
         }
 
@@ -126,6 +119,11 @@ namespace TeamSuneat
 
         public void UpdateAnimatorFloatIfExists(string parameterName, float value)
         {
+            if (_animators == null)
+            {
+                return;
+            }
+
             for (int i = 0; i < _animators.Length; i++)
             {
                 _animators[i].UpdateAnimatorFloatIfExists(parameterName, value);

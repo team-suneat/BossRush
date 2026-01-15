@@ -53,6 +53,7 @@ namespace TeamSuneat
             _animator.UpdateAnimatorBool(ANIMATOR_IS_SLIPPERY_PARAMETER_ID, false, AnimatorParameters);
             _animator.UpdateAnimatorBool(ANIMATOR_IS_PARRYING_PARAMETER_ID, false, AnimatorParameters);
             _animator.UpdateAnimatorBool(ANIMATOR_IS_PARRY_SUCCESS_PARAMETER_ID, false, AnimatorParameters);
+            _animator.UpdateAnimatorBool(ANIMATOR_IS_STUNNED_PARAMETER_ID, false, AnimatorParameters);
 
             Log.Info(LogTags.Animation, "등록된 애니메이터 파라메터: {0}, {1}", _animator.parameters.JoinToString(), this.GetHierarchyPath());
         }
@@ -206,7 +207,7 @@ namespace TeamSuneat
             }
             else if (CheckStateName(stateInfo, "Stun"))
             {
-                AnimatorLog.LogInfo("기절 상태의 애니메이션에 진입했습니다.");
+                OnAnimatorStunStateEnter();
             }
             else if (CheckStateNames(stateInfo, "Phase2", "Phase3", "Phase4"))
             {
@@ -253,6 +254,10 @@ namespace TeamSuneat
             else if (CheckStateNames(stateInfo, "Parry", "ParrySuccess"))
             {
                 OnAnimatorParryStateExit();
+            }
+            else if (CheckStateName(stateInfo, "Stun"))
+            {
+                OnAnimatorStunStateExit();
             }
 
             OnStateExit?.Invoke(animator, stateInfo, layerIndex);

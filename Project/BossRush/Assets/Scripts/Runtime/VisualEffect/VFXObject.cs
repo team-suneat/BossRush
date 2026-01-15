@@ -7,67 +7,50 @@ namespace TeamSuneat
 {
     public partial class VFXObject : XBehaviour, IPoolable
     {
-        [Title("VFXObject", "Component")]
-        public AutoDespawn Despawner;
-
-        public ParticleEffect2DGroup ParticleGroup;
-        public VFXMover Mover;
-
-        [Title("VFXObject", "Renderer")]
-        public VFXAnimator Animator;
-
-        public SpriteRenderer[] Renderers;
-
-        [Title("VFXObject", "Values")]
         public bool OnlyOne;
         public bool HaveParent;
-        [EnableIf("HaveParent")] public bool BreakParentPosition;
-        [EnableIf("BreakParentPosition")] public float BreakDelayTime;
 
-        [Title("VFXObject", "State Effect")]
-        [SuffixLabel("상태이상 이펙트 반복 생성 여부")]
-        public bool UseRepeatSpawnnOfStateEffect;
+        [InfoBox("일정 시간 뒤 부모 오브젝트와 분리됩니다.")]
+        [ShowIf("HaveParent")]
+        public float BreakDelayTime;
 
-        [EnableIf("UseRepeatSpawnnOfStateEffect")]
-        [SuffixLabel("상태이상 이펙트 생성 간격 시간")]
-        public float SpawnIntervalOfStateEffect;
+        private AutoDespawn _despawner;
+        private ParticleEffect2DGroup _particleGroup;
+        private VFXMover _mover;
+        private VFXAnimator _animator;
+        private SpriteRenderer[] _renderers;
 
-        public Character Owner { get; private set; }
-
-        public UnityEvent<VFXObject> _onDespawnCallback;
-
-        private Coroutine _coroutineDespawnCheck;
+        private UnityEvent<VFXObject> _onDespawnCallback;
         private Vector3 _defaultLocalScale;
+        private Coroutine _breakParentCoroutine;
 
         //───────────────────────────────────────────────────────────────────────────────────────────────────
 
         public override void AutoGetComponents()
         {
             base.AutoGetComponents();
-
-            Despawner = GetComponent<AutoDespawn>();
-            Mover = GetComponent<VFXMover>();
-
-            Animator = GetComponentInChildren<VFXAnimator>();
-            Renderers = GetComponentsInChildren<SpriteRenderer>();
-            ParticleGroup = GetComponent<ParticleEffect2DGroup>();
         }
 
         private void Awake()
         {
             _defaultLocalScale = transform.localScale;
+
+            _despawner = GetComponent<AutoDespawn>();
+            _mover = GetComponent<VFXMover>();
+            _animator = GetComponentInChildren<VFXAnimator>();
+            _renderers = GetComponentsInChildren<SpriteRenderer>();
+            _particleGroup = GetComponent<ParticleEffect2DGroup>();
         }
 
         public void OnSpawn()
         {
-            // VFXManager.Register(this);
+            VFXManager.Register(this);
         }
 
         public void OnDespawn()
         {
-            // VFXManager.Unregister(this);
-
-            _coroutineDespawnCheck = null;
+            VFXManager.Unregister(this);
+            StopBreakParentCoroutine();
         }
 
         public void ForceDespawn()
@@ -75,6 +58,7 @@ namespace TeamSuneat
             Log.Info(LogTags.Effect, "{0}, 이펙트를 강제 삭제합니다.", this.GetHierarchyName());
 
             StopDespawnTimer();
+            StopBreakParentCoroutine();
             ResetDespawningState();
             Despawn();
         }
@@ -83,56 +67,52 @@ namespace TeamSuneat
         {
             Log.Info(LogTags.Effect, "{0}, 이펙트를 즉시 삭제합니다.", this.GetHierarchyName());
 
-            Despawner?.Despawn();
+            _despawner?.Despawn();
         }
 
         private void Despawn()
         {
             Log.Info(LogTags.Effect, "{0}, 이펙트를 삭제합니다.", this.GetHierarchyName());
 
-            if (Animator != null)
+            if (_animator != null && _animator.PlayDespawnAnimation())
             {
-                if (Animator.PlayDespawnAnimation())
-                {
-                    return;
-                }
+                return;
             }
 
-            Despawner?.Despawn();
+            _despawner?.Despawn();
         }
 
         private void StopDespawnTimer()
         {
-            Despawner?.StopDespawnTimer();
+            _despawner?.StopDespawnTimer();
         }
 
         private void ResetDespawningState()
         {
-            if (Animator != null)
+            if (_animator != null && _animator.UseDespawnAnimation)
             {
-                if (Animator.UseDespawnAnimation)
-                {
-                    Animator.ResetDespawningState();
-                }
+                _animator.ResetDespawningState();
             }
         }
 
-        /// <summary> 삭제 시 콜백 함수를 등록합니다. </summary>
         public void RegisterDespawnEvent(UnityAction onDespawn)
         {
-            if (onDespawn != null)
+            if (onDespawn == null)
             {
-                Despawner?.OnDespawnEvent.AddListener(onDespawn);
+                return;
             }
+
+            _despawner?.OnDespawnEvent.AddListener(onDespawn);
         }
 
-        /// <summary> 삭제 시 콜백 함수를 등록합니다. </summary>
         public void RegisterDespawnEvent(UnityAction<VFXObject> onDespawn)
         {
-            if (onDespawn != null)
+            if (onDespawn == null)
             {
-                _onDespawnCallback.AddListener(onDespawn);
+                return;
             }
+
+            _onDespawnCallback.AddListener(onDespawn);
         }
 
         //───────────────────────────────────────────────────────────────────────────────────────────────────
@@ -141,43 +121,28 @@ namespace TeamSuneat
         {
             Log.Info(LogTags.Effect, "{0}, 이펙트를 초기화합니다.", this.GetHierarchyName());
 
-            Animator?.Initialize();
+            _animator?.Initialize();
 
-            if (BreakParentPosition)
+            if (BreakDelayTime > 0f)
             {
-                CoroutineNextTimer(BreakDelayTime, ResetParent);
+                _breakParentCoroutine = CoroutineNextTimer(BreakDelayTime, ResetParent);
             }
 
             RegisterDespawnEvent(CallDespawnCallback);
-        }
-
-        public void SetOwner(Character ownerCharacter)
-        {
-            Owner = ownerCharacter;
         }
 
         //───────────────────────────────────────────────────────────────────────────────────────────────────
 
         public void SetParent(Transform parent)
         {
-            if (HaveParent)
+            if (!HaveParent)
             {
-                transform.SetParent(parent, false);
-                localPosition = Vector3.zero;
-                localScale = _defaultLocalScale;
+                return;
             }
-        }
 
-        public void SetParent(Character character, Transform parent = null)
-        {
-            if (parent != null)
-            {
-                SetParent(parent);
-            }
-            else
-            {
-                SetParent(character.transform);
-            }
+            transform.SetParent(parent, false);
+            localPosition = Vector3.zero;
+            localScale = _defaultLocalScale;
         }
 
         //───────────────────────────────────────────────────────────────────────────────────────────────────
@@ -186,45 +151,76 @@ namespace TeamSuneat
         {
             SetFlip(isFacingRight);
 
-            if (ParticleGroup != null)
+            if (_particleGroup != null)
             {
-                ParticleGroup.SetDirection(isFacingRight);
+                _particleGroup.SetDirection(isFacingRight);
             }
         }
 
         //───────────────────────────────────────────────────────────────────────────────────────────────────
+
+        public void SetPosition(Transform parent)
+        {
+            if (!HaveParent)
+            {
+                position = parent.position;
+            }
+        }
 
         public void SetPosition(Vector3 spawnPosition, Vector3 offset)
         {
             position = spawnPosition + offset;
         }
 
+        public void StartMove(Vector3 originPosition, Vector3 targetPosition)
+        {
+            if (_mover == null)
+            {
+                return;
+            }
+
+            _mover.SetOriginPosition(originPosition);
+            _mover.SetTargetPosition(targetPosition);
+            _mover.StartMove();
+        }
+
         private void ResetParent()
         {
             transform.SetParent(null);
             transform.SetAsLastSibling();
+            _breakParentCoroutine = null;
+        }
+
+        private void StopBreakParentCoroutine()
+        {
+            if (_breakParentCoroutine != null)
+            {
+                StopXCoroutine(ref _breakParentCoroutine);
+            }
         }
 
         //───────────────────────────────────────────────────────────────────────────────────────────────────
 
         public void SetSortingName(SortingLayerNames sortingLayerName)
         {
-            if (Renderers != null)
+            if (_renderers == null)
             {
-                Renderers.SetSortingLayer(sortingLayerName);
-
-                Log.Info(LogTags.Effect, "이펙트의 랜더링 오더를 설정합니다. {0}, SortingLayer:{1}", this.GetHierarchyName(), sortingLayerName);
+                return;
             }
+
+            _renderers.SetSortingLayer(sortingLayerName);
+            Log.Info(LogTags.Effect, "이펙트의 랜더링 오더를 설정합니다. {0}, SortingLayer:{1}", this.GetHierarchyName(), sortingLayerName);
         }
 
         public void SetSortingOrder(int sortingOrder)
         {
-            if (Renderers != null)
+            if (_renderers == null)
             {
-                Renderers.SetSortingOrder(sortingOrder);
-
-                Log.Info(LogTags.Effect, "이펙트의 랜더링 오더를 설정합니다. {0}, SortingOrder:{1}", this.GetHierarchyName(), sortingOrder);
+                return;
             }
+
+            _renderers.SetSortingOrder(sortingOrder);
+            Log.Info(LogTags.Effect, "이펙트의 랜더링 오더를 설정합니다. {0}, SortingOrder:{1}", this.GetHierarchyName(), sortingOrder);
         }
 
         //───────────────────────────────────────────────────────────────────────────────────────────────────

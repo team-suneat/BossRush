@@ -21,7 +21,6 @@ namespace TeamSuneat
         //─────────────────────────────────────────────────────────────────────────────────
 
         public bool UseParent { get; set; }
-
         public bool UseOnlyOne { get; set; }
 
         //─────────────────────────────────────────────────────────────────────────────────
@@ -38,13 +37,19 @@ namespace TeamSuneat
 
         public void LoadToggleValues()
         {
-            if (Prefabs.IsValidArray())
+            if (!Prefabs.IsValidArray())
             {
-                VFXObject visualEffect = Prefabs[0].GetComponent<VFXObject>();
-
-                UseParent = visualEffect.HaveParent;
-                UseOnlyOne = visualEffect.OnlyOne;
+                return;
             }
+
+            VFXObject visualEffect = Prefabs[0].GetComponent<VFXObject>();
+            if (visualEffect == null)
+            {
+                return;
+            }
+
+            UseParent = visualEffect.HaveParent;
+            UseOnlyOne = visualEffect.OnlyOne;
         }
 
         public void SetOwner(Character ownerCharacter)
@@ -59,13 +64,18 @@ namespace TeamSuneat
 
         public void SetPosition(Vector3 position)
         {
-            if (UseParent) return;
+            if (UseParent)
+            {
+                return;
+            }
 
             if (IgnoreCharacterPosition)
             {
                 _spawnPosition = GetNotCharacterPosition(position);
+                return;
             }
-            else if (_ownerCharacter != null)
+
+            if (_ownerCharacter != null)
             {
                 _spawnPosition = _ownerCharacter.position;
             }
@@ -84,10 +94,8 @@ namespace TeamSuneat
             {
                 return SpawnPoint.position;
             }
-            else
-            {
-                return position;
-            }
+
+            return position;
         }
 
         private Vector3 GetRandomAreaPosition(Vector3 position)
@@ -103,16 +111,18 @@ namespace TeamSuneat
 
         private Vector3 GetOffsetPosition(Vector3 position)
         {
-            if (!SpawnOffset.IsZero())
+            if (SpawnOffset.IsZero())
             {
-                if (GetFacingRight())
-                {
-                    position += SpawnOffset;
-                }
-                else
-                {
-                    position += SpawnOffset.FlipX();
-                }
+                return position;
+            }
+
+            if (GetFacingRight())
+            {
+                position += SpawnOffset;
+            }
+            else
+            {
+                position += SpawnOffset.FlipX();
             }
 
             return position;
@@ -127,13 +137,15 @@ namespace TeamSuneat
                 return false;
             }
 
-            if (UseOnlyOne)
+            if (!UseOnlyOne)
             {
-                _visualEffects.RemoveNull();
-                if (_visualEffects != null && _visualEffects.Count > 0)
-                {
-                    return false;
-                }
+                return true;
+            }
+
+            _visualEffects.RemoveNull();
+            if (_visualEffects != null && _visualEffects.Count > 0)
+            {
+                return false;
             }
 
             return true;
@@ -150,6 +162,11 @@ namespace TeamSuneat
         public void SpawnVisualEffect(Transform parent, int index)
         {
             GameObject prefab = GetPrefab(index);
+            if (prefab == null)
+            {
+                return;
+            }
+
             bool isFacingRight = GetFacingRight();
 
             SetParent(parent);
@@ -159,15 +176,23 @@ namespace TeamSuneat
             VFXObject visualEffect = null;
             if (UseParent)
             {
-                var parentCharacter = parent.FindFirstParentComponent<Character>();
+                Character parentCharacter = parent.FindFirstParentComponent<Character>();
 
                 if (parentCharacter != null)
                 {
-                    visualEffect = VFXManager.Spawn(prefab, parentCharacter, _transform);
+                    visualEffect = VFXManager.Spawn(prefab, _transform ?? parentCharacter.transform, isFacingRight);
+                    if (visualEffect != null)
+                    {
+                        visualEffect.SetPosition(parentCharacter.transform.position, Vector2.zero);
+                    }
                 }
                 else if (_ownerCharacter != null)
                 {
-                    visualEffect = VFXManager.Spawn(prefab, _ownerCharacter, _transform);
+                    visualEffect = VFXManager.Spawn(prefab, _transform ?? _ownerCharacter.transform, isFacingRight);
+                    if (visualEffect != null)
+                    {
+                        visualEffect.SetPosition(_ownerCharacter.transform.position, Vector2.zero);
+                    }
                 }
                 else
                 {
@@ -185,6 +210,11 @@ namespace TeamSuneat
         public void SpawnVisualEffect(Vector3 spawnPosition, int index)
         {
             GameObject prefab = GetPrefab(index);
+            if (prefab == null)
+            {
+                return;
+            }
+
             bool isFacingRight = GetFacingRight();
 
             SetParent(null);
@@ -196,13 +226,20 @@ namespace TeamSuneat
             {
                 if (_ownerCharacter != null)
                 {
-                    visualEffect = VFXManager.Spawn(prefab, _ownerCharacter, _transform);
-                    visualEffect.position += _spawnOffset;
+                    visualEffect = VFXManager.Spawn(prefab, _transform ?? _ownerCharacter.transform, isFacingRight);
+                    if (visualEffect != null)
+                    {
+                        visualEffect.SetPosition(_ownerCharacter.transform.position, Vector2.zero);
+                        visualEffect.position += _spawnOffset;
+                    }
                 }
                 else
                 {
                     visualEffect = VFXManager.Spawn(prefab, _transform, isFacingRight);
-                    visualEffect.position += _spawnOffset;
+                    if (visualEffect != null)
+                    {
+                        visualEffect.position += _spawnOffset;
+                    }
                 }
             }
             else
@@ -215,50 +252,46 @@ namespace TeamSuneat
 
         private void OnSpawnVisualEffect(VFXObject visualEffect)
         {
-            if (visualEffect != null)
+            if (visualEffect == null)
             {
-                visualEffect.SetOwner(_ownerCharacter);
-                visualEffect.position = visualEffect.position + _spawnOffset;
-
-                SetupOnlyOne(visualEffect);
-
-                if (visualEffect.Mover != null)
-                {
-                    visualEffect.Mover.SetOriginPosition(visualEffect.position);
-                    visualEffect.Mover.SetTargetPosition(visualEffect.position - SpawnOffset);
-                    visualEffect.Mover.StartMove();
-                }
-
-                visualEffect.RegisterDespawnEvent(OnDespawnVisualEffect);
-
-                _visualEffects.Add(visualEffect);
+                return;
             }
+
+            visualEffect.position = visualEffect.position + _spawnOffset;
+
+            SetupOnlyOne(visualEffect);
+
+            visualEffect.StartMove(visualEffect.position, visualEffect.position - SpawnOffset);
+
+            visualEffect.RegisterDespawnEvent(OnDespawnVisualEffect);
+            _visualEffects.Add(visualEffect);
         }
 
         private void OnDespawnVisualEffect(VFXObject visualEffect)
         {
-            if (_visualEffects.Contains(visualEffect))
+            if (!_visualEffects.Contains(visualEffect))
             {
-                _visualEffects.Remove(visualEffect);
+                return;
             }
+
+            _visualEffects.Remove(visualEffect);
         }
 
         public void DespawnVisualEffect()
         {
-            if (_visualEffects != null && _visualEffects.Count > 0)
+            if (_visualEffects == null || _visualEffects.Count == 0)
             {
-                _visualEffects.RemoveNull();
+                return;
+            }
 
-                for (int i = 0; i < _visualEffects.Count; i++)
-                {
-                    Log.Info(LogTags.Effect, "강제로 모든 VisualEffect를 소멸시킵니다. {0}", _visualEffects[i].GetHierarchyName());
+            _visualEffects.RemoveNull();
 
-                    _visualEffects[i].ForceDespawn();
-                }
+            for (int i = 0; i < _visualEffects.Count; i++)
+            {
+                Log.Info(LogTags.Effect, "강제로 모든 VisualEffect를 소멸시킵니다. {0}", _visualEffects[i].GetHierarchyName());
+                _visualEffects[i].ForceDespawn();
             }
         }
-
-        //
 
         private GameObject GetPrefab(int index)
         {
@@ -268,20 +301,18 @@ namespace TeamSuneat
                 {
                     return Prefabs[_currentIndex++];
                 }
-                else
-                {
-                    _currentIndex = 0;
 
-                    return Prefabs[_currentIndex++];
-                }
+                _currentIndex = 0;
+                return Prefabs[_currentIndex++];
             }
-            else if (SpawnType == EffectSpawnTypes.Randomly)
+
+            if (SpawnType == EffectSpawnTypes.Randomly)
             {
                 int randomIndex = RandomEx.Range(0, Prefabs.Length);
-
                 return Prefabs[randomIndex];
             }
-            else if (SpawnType == EffectSpawnTypes.Designated)
+
+            if (SpawnType == EffectSpawnTypes.Designated)
             {
                 if (index >= 0 && Prefabs.Length > index)
                 {
@@ -298,7 +329,8 @@ namespace TeamSuneat
             {
                 return true;
             }
-            else if (FacingType == EffectFacingTypes.Random)
+
+            if (FacingType == EffectFacingTypes.Random)
             {
                 return RandomEx.GetBoolValue();
             }

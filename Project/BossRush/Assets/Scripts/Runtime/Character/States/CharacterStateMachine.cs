@@ -149,6 +149,27 @@ namespace TeamSuneat
                    state == CharacterState.ControlledMovement;
         }
 
+        public void ApplyStun(float duration)
+        {
+            if (_states.TryGetValue(CharacterState.Stunned, out ICharacterState stunnedState))
+            {
+                if (stunnedState is StunnedState stun)
+                {
+                    // 이미 기절 중이면 시간만 갱신
+                    if (CurrentState == CharacterState.Stunned)
+                    {
+                        stun.SetStunDuration(duration);
+                    }
+                    else
+                    {
+                        // 기절 상태로 전환
+                        ChangeState(CharacterState.Stunned);
+                        stun.SetStunDuration(duration);
+                    }
+                }
+            }
+        }
+
         protected void RequestJump()
         {
             // 점프 요청 처리 (상태별로 다르게 처리)

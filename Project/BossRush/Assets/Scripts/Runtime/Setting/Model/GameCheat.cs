@@ -1,7 +1,4 @@
-﻿using TeamSuneat;
-using TeamSuneat.Data.Game;
-
-namespace TeamSuneat.Setting
+﻿namespace TeamSuneat.Setting
 {
     public class GameCheat
     {
@@ -15,9 +12,6 @@ namespace TeamSuneat.Setting
         private bool _isReceiveDamageOnlyOne;
         private bool _isNotDead;
         private bool _isNotCrowdControl;
-
-        private bool _isUseItemOptionMaxStat;
-        private GradeNames _customRelicGrade;
 
         //
 
@@ -183,43 +177,6 @@ namespace TeamSuneat.Setting
             }
         }
 
-        public bool IsUseItemOptionMaxStat
-        {
-            get
-            {
-                if (!GameDefine.IS_EDITOR_OR_DEVELOPMENT_BUILD) { return false; }
-                if (!_isInitialized)
-                {
-                    Initialize();
-                }
-                return _isUseItemOptionMaxStat;
-            }
-            set
-            {
-                _isUseItemOptionMaxStat = value;
-                GamePrefs.SetBool(GamePrefTypes.GAME_CHEAT_ITEM_OPTION_MAX_STAT, value);
-            }
-        }
-
-        public GradeNames CustomRelicGrade
-        {
-            get
-            {
-                if (!GameDefine.IS_EDITOR_OR_DEVELOPMENT_BUILD) { return GradeNames.None; }
-                if (!_isInitialized)
-                {
-                    Initialize();
-                }
-
-                return _customRelicGrade;
-            }
-            set
-            {
-                _customRelicGrade = value;
-                GamePrefs.SetInt(GamePrefTypes.GAME_CHEAT_ITEM_OPTION_MAX_STAT, _customRelicGrade.ToInt());
-            }
-        }
-
         private void Initialize()
         {
             _isInfinityDamage = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_INFINITY_DAMAGE);
@@ -232,9 +189,6 @@ namespace TeamSuneat.Setting
             _isReceiveDamageOnlyOne = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_RECEIVE_DAMAGE_ONLY_ONE);
             _isNotDead = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_NOT_DEAD);
             _isNotCrowdControl = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_NOT_CROWD_CONTROL);
-
-            _isUseItemOptionMaxStat = GamePrefs.GetBool(GamePrefTypes.GAME_CHEAT_ITEM_OPTION_MAX_STAT);
-            _customRelicGrade = GamePrefs.GetInt(GamePrefTypes.GAME_CHEAT_CUSTOM_RELIC_GRADE).ToEnum<GradeNames>();
 
             _isInitialized = true;
         }

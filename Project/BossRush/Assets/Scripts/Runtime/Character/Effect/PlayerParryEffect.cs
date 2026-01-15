@@ -21,7 +21,7 @@ namespace TeamSuneat
         [Tooltip("패리 성공 시 넉백 타입")]
         private KnockbackType _knockbackType = KnockbackType.Both;
 
-        [FoldoutGroup("#PlayerParryEffect-Knockback")]
+        [FoldoutGroup("#PlayerParryEffect-SlowMotion")]
         [SerializeField]
         [Tooltip("슬로우 모션 지속 시간")]
         private float _slowMotionDuration = 0.05f;
@@ -31,7 +31,7 @@ namespace TeamSuneat
         [Tooltip("슬로우 모션 배율 (0.01 = 1% 속도)")]
         private float _slowMotionFactor = 0.01f;
 
-        [FoldoutGroup("#PlayerParryEffect-SlowMotion")]
+        [FoldoutGroup("#PlayerParryEffect-Vibration")]
         [SerializeField]
         [Tooltip("패리 성공 시 왼쪽 모터 진동 강도 (0.0 ~ 1.0)")]
         private float _vibrationLeftMotorIntensity = 0.6f;
@@ -67,6 +67,12 @@ namespace TeamSuneat
             if (_knockbackType != KnockbackType.None && attacker != null)
             {
                 ApplyKnockback(attacker);
+            }
+
+            // 공격자에게 1초 기절 적용
+            if (attacker != null)
+            {
+                attacker.ApplyStun(1f);
             }
 
             SpawnVFX(attackPosition);

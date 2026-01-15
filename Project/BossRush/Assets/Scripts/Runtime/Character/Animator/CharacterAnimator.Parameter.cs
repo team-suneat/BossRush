@@ -22,6 +22,7 @@ namespace TeamSuneat
         private const string ANIMATOR_IS_SLIPPERY_PARAMETER_NAME = "IsSlippery";
         private const string ANIMATOR_IS_PARRYING_PARAMETER_NAME = "IsParrying";
         private const string ANIMATOR_IS_PARRY_SUCCESS_PARAMETER_NAME = "IsParrySuccess";
+        private const string ANIMATOR_IS_STUNNED_PARAMETER_NAME = "IsStunned";
         private const string ANIMATOR_USE_WALL_SLIDING_PARAMETER_NAME = "UseWallSliding";
 
         // trigger parameter
@@ -30,6 +31,7 @@ namespace TeamSuneat
         private const string ANIMATOR_DASH_PARAMETER_NAME = "Dash";
         private const string ANIMATOR_INTERACT_PARAMETER_NAME = "Interact";
         private const string ANIMATOR_PARRY_PARAMETER_NAME = "Parry";
+        private const string ANIMATOR_STUN_PARAMETER_NAME = "Stun";
         protected const string ANIMATOR_DAMAGE_PARAMETER_NAME = "Damage";
         protected const string ANIMATOR_DEATH_PARAMETER_NAME = "Death";
         private const string ANIMATOR_DISABLE_PARAMETER_NAME = "Disable";
@@ -58,12 +60,14 @@ namespace TeamSuneat
         private int ANIMATOR_IS_SLIPPERY_PARAMETER_ID;
         private int ANIMATOR_IS_PARRYING_PARAMETER_ID;
         private int ANIMATOR_IS_PARRY_SUCCESS_PARAMETER_ID;
+        private int ANIMATOR_IS_STUNNED_PARAMETER_ID;
         private int ANIMATOR_USE_WALL_SLIDING_PARAMETER_ID;
 
         private int ANIMATOR_SPAWN_PARAMETER_ID;
         private int ANIMATOR_DASH_PARAMETER_ID;
         private int ANIMATOR_INTERACT_PARAMETER_ID;
         protected int ANIMATOR_PARRY_PARAMETER_ID;
+        protected int ANIMATOR_STUN_PARAMETER_ID;
         protected int ANIMATOR_DAMAGE_PARAMETER_ID;
         protected int ANIMATOR_DEATH_PARAMETER_ID;
         private int ANIMATOR_DISABLE_PARAMETER_ID;
@@ -95,6 +99,7 @@ namespace TeamSuneat
             _animator.AddAnimatorParameterIfExists(ANIMATOR_IS_SLIPPERY_PARAMETER_NAME, out ANIMATOR_IS_SLIPPERY_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_IS_PARRYING_PARAMETER_NAME, out ANIMATOR_IS_PARRYING_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_IS_PARRY_SUCCESS_PARAMETER_NAME, out ANIMATOR_IS_PARRY_SUCCESS_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);
+            _animator.AddAnimatorParameterIfExists(ANIMATOR_IS_STUNNED_PARAMETER_NAME, out ANIMATOR_IS_STUNNED_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_USE_WALL_SLIDING_PARAMETER_NAME, out ANIMATOR_USE_WALL_SLIDING_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_DISABLE_PARAMETER_NAME, out ANIMATOR_DISABLE_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);
 
@@ -102,6 +107,7 @@ namespace TeamSuneat
             _animator.AddAnimatorParameterIfExists(ANIMATOR_DASH_PARAMETER_NAME, out ANIMATOR_DASH_PARAMETER_ID, AnimatorControllerParameterType.Trigger, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_INTERACT_PARAMETER_NAME, out ANIMATOR_INTERACT_PARAMETER_ID, AnimatorControllerParameterType.Trigger, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_PARRY_PARAMETER_NAME, out ANIMATOR_PARRY_PARAMETER_ID, AnimatorControllerParameterType.Trigger, AnimatorParameters);
+            _animator.AddAnimatorParameterIfExists(ANIMATOR_STUN_PARAMETER_NAME, out ANIMATOR_STUN_PARAMETER_ID, AnimatorControllerParameterType.Trigger, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_DAMAGE_PARAMETER_NAME, out ANIMATOR_DAMAGE_PARAMETER_ID, AnimatorControllerParameterType.Trigger, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_DEATH_PARAMETER_NAME, out ANIMATOR_DEATH_PARAMETER_ID, AnimatorControllerParameterType.Trigger, AnimatorParameters);
 

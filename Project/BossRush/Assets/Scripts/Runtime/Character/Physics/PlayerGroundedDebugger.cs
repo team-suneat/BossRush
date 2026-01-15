@@ -1,5 +1,3 @@
-#if UNITY_EDITOR
-
 using UnityEngine;
 
 namespace TeamSuneat
@@ -20,12 +18,17 @@ namespace TeamSuneat
 
         private void Awake()
         {
-            _physics = GetComponent<CharacterPhysics>();
+            if (!GameDefine.IS_EDITOR_OR_DEVELOPMENT_BUILD)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
 
+            _physics = GetComponent<CharacterPhysics>();
             if (_physics == null)
             {
-                Debug.LogWarning("PlayerGroundedDebugger: CharacterPhysics를 찾을 수 없습니다.");
-                enabled = false;
+                Log.Warning("PlayerGroundedDebugger: CharacterPhysics를 찾을 수 없습니다.");
+                gameObject.SetActive(false);
                 return;
             }
 
@@ -35,27 +38,29 @@ namespace TeamSuneat
         private void SetupSpriteRenderer()
         {
             Transform modelChild = transform.Find(_modelChildName);
-
             if (modelChild != null)
             {
                 _spriteRenderer = modelChild.GetComponent<SpriteRenderer>();
 
                 if (_spriteRenderer == null)
                 {
-                    Debug.LogWarning($"PlayerGroundedDebugger: '{_modelChildName}'에 SpriteRenderer가 없습니다.");
+                    Log.Warning($"PlayerGroundedDebugger: '{_modelChildName}'에 SpriteRenderer가 없습니다.");
                     enabled = false;
                 }
             }
             else
             {
-                Debug.LogWarning($"PlayerGroundedDebugger: '{_modelChildName}' 자식 오브젝트를 찾을 수 없습니다.");
+                Log.Warning($"PlayerGroundedDebugger: '{_modelChildName}' 자식 오브젝트를 찾을 수 없습니다.");
                 enabled = false;
             }
         }
 
         private void Update()
         {
-            if (_spriteRenderer == null || _physics == null) return;
+            if (_spriteRenderer == null || _physics == null)
+            {
+                return;
+            }
 
             bool currentGrounded = _physics.IsGrounded;
 
@@ -68,4 +73,3 @@ namespace TeamSuneat
         }
     }
 }
-#endif

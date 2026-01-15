@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using TeamSuneat.CameraSystem.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,35 +11,14 @@ namespace TeamSuneat.UserInterface
         [FoldoutGroup("#CanvasOrder")]
         public CanvasOrderNames OrderName;
 
-        [FoldoutGroup("#CanvasOrder")]
-        public Canvas Canvas;
-
-        [FoldoutGroup("#CanvasOrder")]
-        public CanvasGroup CanvasGroup;
-
-        [FoldoutGroup("#CanvasOrder")]
-        public GraphicRaycaster Raycaster;
-
-        [FoldoutGroup("#CanvasOrder")]
-        public RectTransform[] IngameCanvasRect;
-
-        [FoldoutGroup("#CanvasOrder")]
-        public CanvasScaler Scaler;
+        private Canvas _canvas;
+        private GraphicRaycaster _raycaster;
 
         public int OrderTID => BitConvert.Enum32ToInt(OrderName);
-
-        public override void AutoGetComponents()
-        {
-            Canvas = GetComponent<Canvas>();
-            CanvasGroup = GetComponent<CanvasGroup>();
-            Raycaster = GetComponent<GraphicRaycaster>();
-            Scaler = GetComponent<CanvasScaler>();
-        }
 
         public override void AutoSetting()
         {
             base.AutoSetting();
-
             SetSortingOrder();
         }
 
@@ -50,51 +30,28 @@ namespace TeamSuneat.UserInterface
 
         protected void Awake()
         {
+            _canvas = GetComponent<Canvas>();
+            _raycaster = GetComponent<GraphicRaycaster>();
+
             if (OrderName == CanvasOrderNames.IngameWorldSpace)
             {
-                rectTransform.position = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f);
+                _canvas.worldCamera = CameraManager.Instance.MainCamera;
             }
-        }
-
-        public void Activate()
-        {
-            Canvas.enabled = true;
-        }
-
-        public void Deactivate()
-        {
-            Canvas.enabled = false;
         }
 
         public void SetSortingOrder()
         {
-            if (Canvas != null)
+            if (_canvas != null)
             {
-                Canvas.sortingOrder = OrderTID;
-            }
-        }
-
-        public void Show()
-        {
-            if (CanvasGroup != null)
-            {
-                CanvasGroup.alpha = 1;
-            }
-        }
-
-        public void Hide()
-        {
-            if (CanvasGroup != null)
-            {
-                CanvasGroup.alpha = 0;
+                _canvas.sortingOrder = OrderTID;
             }
         }
 
         public void SetEnabledRaycast(bool isEnabled)
         {
-            if (Raycaster != null)
+            if (_raycaster != null)
             {
-                Raycaster.enabled = isEnabled;
+                _raycaster.enabled = isEnabled;
             }
         }
     }

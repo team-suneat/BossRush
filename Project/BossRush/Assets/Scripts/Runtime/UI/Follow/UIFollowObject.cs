@@ -17,7 +17,9 @@ namespace TeamSuneat.UserInterface
 
         public Transform ClonePoint;
 
+        [ShowInInspector]
         public bool IsWorldSpaceCanvas { get; set; }
+
         public bool UseFollowPointClone;
 
         [Tooltip("반드시 캔버스 내부에 있습니다.")]
@@ -87,7 +89,7 @@ namespace TeamSuneat.UserInterface
 
         //
 
-        private void FixedUpdate()
+        private void LateUpdate()
         {
             UpdateResolutionRate();
             UpdatePosition();
@@ -95,8 +97,8 @@ namespace TeamSuneat.UserInterface
 
         private void UpdateResolutionRate()
         {
-            float rateX = 1080f.SafeDivide(Screen.width);
-            float rateY = 1920f.SafeDivide(Screen.height);
+            float rateX = GameDefine.DEFAULT_SCREEN_WIDTH.SafeDivide(Screen.width);
+            float rateY = GameDefine.DEFAULT_SCREEN_HEIGHT.SafeDivide(Screen.height);
             _resolutionRate = new Vector2(rateX, rateY);
         }
 
@@ -114,14 +116,10 @@ namespace TeamSuneat.UserInterface
             }
             else
             {
-                _worldPosition = FollowingPoint.position + WorldOffset;
-
-                _screenPosition = MainCamera.WorldToScreenPoint(_worldPosition);
+                _screenPosition = MainCamera.WorldToScreenPoint(FollowingPoint.position + WorldOffset);
                 _screenPosition /= _resolutionRate;
                 _screenPosition += ScreenOffset;
-                _screenPosition.z = 0f;
-
-                anchoredPosition3D = _screenPosition;
+                Rect.position = _screenPosition;
             }
         }
 

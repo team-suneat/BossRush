@@ -11,6 +11,7 @@ namespace TeamSuneat
             public bool IsDashing;
             public bool IsDamaging;
             public bool IsParrying;
+            public bool IsStunned;
             public bool IsBlockDeathAnimation;
 
             public void Reset()
@@ -19,6 +20,7 @@ namespace TeamSuneat
                 IsDashing = false;
                 IsDamaging = false;
                 IsParrying = false;
+                IsStunned = false;
                 IsBlockDeathAnimation = false;
             }
         }
@@ -30,6 +32,7 @@ namespace TeamSuneat
         public bool IsDashing => _stateFlags.IsDashing;
         public bool IsDamaging => _stateFlags.IsDamaging;
         public bool IsParrying => _stateFlags.IsParrying;
+        public bool IsStunned => _stateFlags.IsStunned;
         public bool IsBlockDeathAnimation => _stateFlags.IsBlockDeathAnimation;
 
         // 내부 상태 변경 메서드 (필요 시 부가 로직 추가 가능)
@@ -73,6 +76,18 @@ namespace TeamSuneat
                 if (_animator != null)
                 {
                     _animator.UpdateAnimatorBool(ANIMATOR_IS_PARRYING_PARAMETER_ID, value, AnimatorParameters);
+                }
+            }
+        }
+
+        public void SetStunned(bool value)
+        {
+            if (_stateFlags.IsStunned != value)
+            {
+                _stateFlags.IsStunned = value;
+                if (_animator != null)
+                {
+                    _animator.UpdateAnimatorBool(ANIMATOR_IS_STUNNED_PARAMETER_ID, value, AnimatorParameters);
                 }
             }
         }

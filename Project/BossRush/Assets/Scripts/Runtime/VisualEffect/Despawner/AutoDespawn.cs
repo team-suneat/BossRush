@@ -10,8 +10,7 @@ namespace TeamSuneat
         public float Duration;
         public UnityEvent OnDespawnEvent;
 
-        protected Coroutine _coroutine;
-
+        private Coroutine _coroutine;
         private bool _isDespawned;
 
         public void OnSpawn()
@@ -29,29 +28,22 @@ namespace TeamSuneat
 
         public void Despawn()
         {
-            if (this == null || gameObject == null)
+            if (this == null || gameObject == null || IsDestroyed)
             {
                 return;
             }
 
-            if (IsDestroyed)
+            if (_isDespawned)
             {
                 return;
             }
 
-            if (OnDespawnEvent != null)
-            {
-                OnDespawnEvent.Invoke();
-                OnDespawnEvent.RemoveAllListeners();
-            }
+            OnDespawnEvent?.Invoke();
+            OnDespawnEvent?.RemoveAllListeners();
 
-            if (!_isDespawned)
-            {
-                transform.SetParent(null);
-                ResourcesManager.Despawn(gameObject, Time.unscaledDeltaTime);
-
-                _isDespawned = true;
-            }
+            transform.SetParent(null);
+            ResourcesManager.Despawn(gameObject, Time.unscaledDeltaTime);
+            _isDespawned = true;
         }
 
         public void ForceDespawn()
@@ -62,6 +54,11 @@ namespace TeamSuneat
 
         public void RegisterDespawnEvent(UnityAction despawnEvent)
         {
+            if (despawnEvent == null)
+            {
+                return;
+            }
+
             OnDespawnEvent.AddListener(despawnEvent);
         }
 
