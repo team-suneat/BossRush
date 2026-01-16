@@ -1,4 +1,5 @@
 using TeamSuneat.Data;
+using TeamSuneat.UserInterface;
 using UnityEngine;
 
 namespace TeamSuneat
@@ -200,6 +201,27 @@ namespace TeamSuneat
             }
 
             return Pulse.UseCurrentValue();
+        }
+
+        public bool TryUsePulse()
+        {
+            if (Pulse == null)
+            {
+                return false;
+            }
+
+            if (Pulse.Current >= 1 && !Pulse.IsBurnout)
+            {
+                return true;
+            }
+
+            ShowPulseInsufficientToast();
+            return false;
+        }
+
+        private void ShowPulseInsufficientToast()
+        {
+            UIManager.Instance?.NoticeManager?.ShowToast("펄스가 부족합니다");
         }
 
         //

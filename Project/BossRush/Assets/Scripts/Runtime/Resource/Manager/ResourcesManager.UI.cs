@@ -200,6 +200,39 @@ namespace TeamSuneat
 
         #endregion Floaty Text
 
+        #region Toast Message
+
+        public static UIToastMessage SpawnToastMessage(Transform parent, string prefabName = "UIToastMessage")
+        {
+            if (GameSetting.Instance.Play.HideUserInterface)
+            {
+                return null;
+            }
+
+            if (parent == null)
+            {
+                return null;
+            }
+
+            GameObject prefab = SpawnPrefab(prefabName, parent);
+            if (prefab == null)
+            {
+                Log.Warning(LogTags.UI_Notice, "토스트 프리팹을 생성할 수 없습니다: {0}", prefabName);
+                return null;
+            }
+
+            UIToastMessage toast = prefab.GetComponent<UIToastMessage>();
+            if (toast == null)
+            {
+                Log.Warning(LogTags.UI_Notice, "토스트 프리팹에 UIToastMessage 컴포넌트가 없습니다: {0}", prefabName);
+                return null;
+            }
+
+            return toast;
+        }
+
+        #endregion Toast Message
+
         public static UIEnemyGauge SpawnEnemyGauge(Vital vital)
         {
             if (GameSetting.Instance.Play.HideUserInterface)

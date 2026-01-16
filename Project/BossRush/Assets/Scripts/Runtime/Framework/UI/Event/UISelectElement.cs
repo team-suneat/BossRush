@@ -1,5 +1,6 @@
 using DG.Tweening;
 using Sirenix.OdinInspector;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -80,23 +81,7 @@ namespace TeamSuneat.UserInterface
         private UnityAction _exitEventAction;
         private Tween _clickDelayTween;
 
-        protected virtual void Awake()
-        {
-            RegisterClickableEvents();
-            RegisterSelectableEvents();
-        }
-
-        protected override void OnDisabled()
-        {
-            base.OnDisabled();
-            KillClickDelayTween();
-        }
-
-        protected override void OnRelease()
-        {
-            base.OnRelease();
-            KillClickDelayTween();
-        }
+        #region Editor
 
         public override void AutoGetComponents()
         {
@@ -114,11 +99,44 @@ namespace TeamSuneat.UserInterface
             {
                 ClearSelectIndex();
             }
+        }
 
+        [FoldoutGroup("#Buttons", 999)]
+        [Button("Resize Frame", ButtonSizes.Medium)]
+        [Conditional("UNITY_EDITOR")]
+        private void ResizeFrame()
+        {
             if (SelectFrameSizeDelta.IsZero())
             {
-                SelectFrameSizeDelta = rectTransform.sizeDelta;
+                if (Selectable != null)
+                {
+                    SelectFrameSizeDelta = Selectable.sizeDelta;
+                }
+                else if (Clickable != null)
+                {
+                    SelectFrameSizeDelta = Clickable.sizeDelta;
+                }
             }
+        }
+
+        #endregion Editor
+
+        protected virtual void Awake()
+        {
+            RegisterClickableEvents();
+            RegisterSelectableEvents();
+        }
+
+        protected override void OnDisabled()
+        {
+            base.OnDisabled();
+            KillClickDelayTween();
+        }
+
+        protected override void OnRelease()
+        {
+            base.OnRelease();
+            KillClickDelayTween();
         }
 
         public void OnPointerClick()
@@ -212,7 +230,10 @@ namespace TeamSuneat.UserInterface
 
         private void RegisterClickableEvents()
         {
-            if (Clickable == null) return;
+            if (Clickable == null)
+            {
+                return;
+            }
 
             Clickable.RegisterPointerClickLeftEvent(_ => OnPointerClickLeft());
             Clickable.RegisterPointerClickRightEvent(_ => OnPointerClickRight());
@@ -222,7 +243,10 @@ namespace TeamSuneat.UserInterface
 
         private void RegisterSelectableEvents()
         {
-            if (Selectable == null) return;
+            if (Selectable == null)
+            {
+                return;
+            }
 
             Selectable.RegisterPointerEnterEvent(_ => OnPointerEnter());
             Selectable.RegisterPointerExitEvent(_ => OnPointerExit());

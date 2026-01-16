@@ -506,7 +506,7 @@ MonoBehaviour:
       m_Calls: []
   _button: {fileID: 8929511754271889652}
   _interactive: {fileID: 8376537148494322924}
-  _currentState: 1
+  _currentState: 3
   _buttonType: 1
   OnClickSuccess:
     m_PersistentCalls:
@@ -3571,7 +3571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.101960786, g: 0.101960786, b: 0.101960786, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -4069,7 +4069,7 @@ MonoBehaviour:
       m_Calls: []
   _button: {fileID: 2615452934990606254}
   _interactive: {fileID: 7096832508563813166}
-  _currentState: 1
+  _currentState: 3
   _buttonType: 1
   OnClickSuccess:
     m_PersistentCalls:

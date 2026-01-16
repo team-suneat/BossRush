@@ -81,12 +81,10 @@ namespace TeamSuneat
 
         public virtual void RequestParry()
         {
-            // 패링 가능 여부 검사 (온전한 한 칸이 있는지 확인)
-            if (_character != null && _character.MyVital != null && _character.MyVital.Pulse != null)
+            if (_character != null && _character.MyVital != null)
             {
-                if (!_character.MyVital.CanUsePulse)
+                if (!_character.MyVital.TryUsePulse())
                 {
-                    // 패링 게이지가 부족하여 상태 변경 불가
                     return;
                 }
             }

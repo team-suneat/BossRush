@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 8ae69caa87d75de4a951c5e9b4709838
   m_SerializeEntries:
+  - m_GUID: 01c15ea6f5c309044aed39f67d9a6dd4
+    m_Address: Assets/Addressables/Prefab/UI/Notice/UIToastMessage.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 27ca5778d3ca5414bbc5875553b0726f
     m_Address: Assets/Addressables/Prefab/AudioObject.prefab
     m_ReadOnly: 0

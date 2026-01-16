@@ -3,6 +3,7 @@ using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TeamSuneat;
 
 namespace TeamSuneat.UserInterface
 {
@@ -57,6 +58,7 @@ namespace TeamSuneat.UserInterface
         {
             base.OnStart();
             InitializeVisuals();
+            Log.Info(LogTags.UI_SelectEvent, "OnStart: {0} 초기화됨", gameObject.name);
         }
 
         protected virtual void InitializeVisuals()
@@ -76,6 +78,7 @@ namespace TeamSuneat.UserInterface
         {
             base.OnRelease();
             KillAllTweens();
+            Log.Info(LogTags.UI_SelectEvent, "OnRelease: {0} 해제됨", gameObject.name);
         }
 
         // 클릭 가능 여부 설정 시 비주얼도 함께 처리
@@ -94,11 +97,13 @@ namespace TeamSuneat.UserInterface
 
             _isClickable = clickable;
             UpdateClickableVisual(clickable);
+            Log.Info(LogTags.UI_SelectEvent, "클릭 가능 여부 설정: {0} -> {1}", gameObject.name, clickable);
         }
 
         public void SetLockedForced(bool locked)
         {
             _isLockedForced = locked;
+            Log.Info(LogTags.UI_SelectEvent, "강제 잠금 설정: {0} -> {1}", gameObject.name, locked);
             if (locked)
             {
                 SetClickable(false);
@@ -128,16 +133,20 @@ namespace TeamSuneat.UserInterface
         {
             if (!_isClickable)
             {
+                Log.Info(LogTags.UI_SelectEvent, "클릭 쿨다운 확인: {0} -> false (클릭 불가능)", gameObject.name);
                 return false;
             }
 
             float currentTime = Time.time;
             if (currentTime - _lastClickTime < DEFAULT_CLICK_COOLDOWN)
             {
+                float remainingTime = DEFAULT_CLICK_COOLDOWN - (currentTime - _lastClickTime);
+                Log.Info(LogTags.UI_SelectEvent, "클릭 쿨다운 확인: {0} -> false (쿨다운 남은 시간: {1:F2}초)", gameObject.name, remainingTime);
                 return false;
             }
 
             _lastClickTime = currentTime;
+            Log.Info(LogTags.UI_SelectEvent, "클릭 쿨다운 확인: {0} -> true", gameObject.name);
             return true;
         }
 
@@ -149,6 +158,7 @@ namespace TeamSuneat.UserInterface
             {
                 _scaleTween = transform.DOPunchScale(_punchScale, DEFAULT_PUNCH_SCALE_DURATION, PUNCH_SCALE_VIBRATO, PUNCH_SCALE_ELASTICITY)
                     .SetEase(Ease.OutQuad).OnComplete(OnCompletedPunchScale);
+                Log.Info(LogTags.UI_SelectEvent, "펀치 스케일 애니메이션 재생: {0}", gameObject.name);
             }
         }
 
@@ -176,6 +186,7 @@ namespace TeamSuneat.UserInterface
             if (_nameText != null)
             {
                 _nameText.text = content;
+                Log.Info(LogTags.UI_SelectEvent, "이름 설정: {0} -> {1}", gameObject.name, content);
             }
         }
 
@@ -275,6 +286,8 @@ namespace TeamSuneat.UserInterface
         {
             bool isClickable = state != ButtonState.Locked;
             SetClickable(isClickable);
+
+            Log.Info(LogTags.UI_SelectEvent, "상태별 비주얼 업데이트: {0} -> {1}", gameObject.name, state);
 
             if (state == ButtonState.UnlockedSelected)
             {

@@ -43,8 +43,6 @@ namespace TeamSuneat
 
         public bool IsBurnout => _isBurnout;
 
-        public bool CanUsePulse => Current >= 1 && !_isBurnout;
-
         #endregion Parameter
 
         public override void Initialize()

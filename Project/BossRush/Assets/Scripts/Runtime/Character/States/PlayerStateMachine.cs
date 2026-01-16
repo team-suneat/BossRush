@@ -120,7 +120,7 @@ namespace TeamSuneat
         {
             if (_character != null && _character.MyVital != null)
             {
-                if (!_character.MyVital.CanUsePulse)
+                if (!_character.MyVital.TryUsePulse())
                 {
                     return;
                 }
@@ -133,7 +133,7 @@ namespace TeamSuneat
         {
             if (_character != null && _character.MyVital != null)
             {
-                if (!_character.MyVital.CanUsePulse)
+                if (!_character.MyVital.TryUsePulse())
                 {
                     return;
                 }

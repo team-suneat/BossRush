@@ -17,7 +17,5 @@
         }
 
         //
-
-        public bool CanUsePulse => Pulse != null && Pulse.CanUsePulse;
     }
 }

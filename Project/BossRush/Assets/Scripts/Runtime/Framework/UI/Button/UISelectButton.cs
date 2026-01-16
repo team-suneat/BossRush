@@ -330,6 +330,8 @@ namespace TeamSuneat.UserInterface
 
             _currentState = newState;
 
+            Log.Info(LogTags.UI_Button, "버튼 상태 업데이트: {0} -> {1}", gameObject.name, newState);
+
             // Locked 상태일 때 강제 잠금 설정
             if (newState == ButtonState.Locked)
             {

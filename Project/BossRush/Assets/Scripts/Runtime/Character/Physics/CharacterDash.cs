@@ -132,7 +132,12 @@ namespace TeamSuneat
                 return false;
             }
 
-            return _vital.CanUsePulse;
+            if (_vital.Pulse == null)
+            {
+                return false;
+            }
+
+            return _vital.Pulse.Current >= 1 && !_vital.Pulse.IsBurnout;
         }
 
         private bool ConsumePulse()

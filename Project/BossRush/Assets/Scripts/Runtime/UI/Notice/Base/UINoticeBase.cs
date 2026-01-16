@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace TeamSuneat.UserInterface
 {
-    // Notice UI 기본 클래스 - 공통 기능 제공
     public abstract class UINoticeBase : XBehaviour, IPoolable
     {
         [SerializeField]
@@ -16,10 +15,12 @@ namespace TeamSuneat.UserInterface
         public event Action OnCompleted;
 
         public void OnSpawn()
-        { }
+        {
+        }
 
         public void OnDespawn()
-        { }
+        {
+        }
 
         public void Despawn()
         {
