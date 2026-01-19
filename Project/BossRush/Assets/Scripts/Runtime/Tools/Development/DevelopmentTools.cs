@@ -1,17 +1,30 @@
 using System;
 using System.Linq;
 using TeamSuneat.Data;
+using TeamSuneat.Data.Game;
 using TeamSuneat.Setting;
 using UnityEngine;
 
 namespace TeamSuneat.Development
 {
+    public enum DevelopmentToolTab
+    {
+        GameTime,
+        LogTag,
+        GamePlay,
+        Cheat,
+        Stat,
+
+        // Charm,
+    }
+
     public class DevelopmentTools : MonoBehaviour
     {
         private bool _isWindowOpen = false;
         private bool _isFirstOpen = true;
         private Rect _windowRect;
         private DevelopmentToolsGUI _gui;
+        private DevelopmentToolTab _selectedTab = DevelopmentToolTab.GameTime;
 
         private const KeyCode TOGGLE_KEY = KeyCode.F1;
 
@@ -100,20 +113,64 @@ namespace TeamSuneat.Development
             _gui.DrawTitleLabel("[인게임 개발 도구]");
             GUILayout.Space(10);
 
-            DrawGameTimeSection();
+            DrawTabButtons();
             GUILayout.Space(10);
 
-            DrawLogTagSection();
-            GUILayout.Space(10);
-
-            DrawGamePlaySection();
-            GUILayout.Space(10);
-
-            DrawCheatSection();
+            DrawSelectedTabContent();
 
             GUILayout.EndScrollView();
 
             GUI.DragWindow();
+        }
+
+        private void DrawTabButtons()
+        {
+            string[] tabNames = new string[]
+            {
+                "게임 타임",
+                "로그 태그",
+                "게임 플레이",
+                "치트",
+                // "부적",
+                "능력치"
+            };
+
+            int newSelectedTab = _gui.DrawSelectionGrid((int)_selectedTab, tabNames, tabNames.Length, useWidth: true, useHeight: false);
+
+            if (newSelectedTab != (int)_selectedTab)
+            {
+                _selectedTab = (DevelopmentToolTab)newSelectedTab;
+            }
+        }
+
+        private void DrawSelectedTabContent()
+        {
+            switch (_selectedTab)
+            {
+                case DevelopmentToolTab.GameTime:
+                    DrawGameTimeSection();
+                    break;
+
+                case DevelopmentToolTab.LogTag:
+                    DrawLogTagSection();
+                    break;
+
+                case DevelopmentToolTab.GamePlay:
+                    DrawGamePlaySection();
+                    break;
+
+                case DevelopmentToolTab.Cheat:
+                    DrawCheatSection();
+                    break;
+
+                // case DevelopmentToolTab.Charm:
+                // DrawCharmSection();
+                // break;
+
+                case DevelopmentToolTab.Stat:
+                    DrawStatSection();
+                    break;
+            }
         }
 
         private void DrawGameTimeSection()
@@ -122,11 +179,11 @@ namespace TeamSuneat.Development
             _gui.DrawTitleLabel("게임 타임 스케일");
 
             GUILayout.BeginHorizontal();
-            _gui.DrawButton("0.1x", () => GameTimeManager.Instance?.SetFactor(0.1f), useWidth: false, useHeight: false);
-            _gui.DrawButton("0.5x", () => GameTimeManager.Instance?.SetFactor(0.5f), useWidth: false, useHeight: false);
-            _gui.DrawButton("1.0x", () => GameTimeManager.Instance?.SetFactor(1.0f), useWidth: false, useHeight: false);
-            _gui.DrawButton("2.0x", () => GameTimeManager.Instance?.SetFactor(2.0f), useWidth: false, useHeight: false);
-            _gui.DrawButton("3.0x", () => GameTimeManager.Instance?.SetFactor(3.0f), useWidth: false, useHeight: false);
+            _gui.DrawButton("0.1x", () => GameTimeManager.Instance?.SetFactor(0.1f));
+            _gui.DrawButton("0.5x", () => GameTimeManager.Instance?.SetFactor(0.5f));
+            _gui.DrawButton("1.0x", () => GameTimeManager.Instance?.SetFactor(1.0f));
+            _gui.DrawButton("2.0x", () => GameTimeManager.Instance?.SetFactor(2.0f));
+            _gui.DrawButton("3.0x", () => GameTimeManager.Instance?.SetFactor(3.0f));
             GUILayout.EndHorizontal();
 
             _gui.DrawContentLabel($"현재 타임 스케일: {Time.timeScale:F1}x");
@@ -240,6 +297,7 @@ namespace TeamSuneat.Development
                 LogTags.UI_Details => "UI_Details",
                 LogTags.UI_Skill => "UI_Skill",
                 LogTags.UI_SelectEvent => "UI_Select",
+                LogTags.Charm => "Charm",
                 _ => tag.ToString()
             };
         }
@@ -264,76 +322,28 @@ namespace TeamSuneat.Development
             GamePlay play = GameSetting.Instance.Play;
 
             // 카메라 쉐이크
-            GUILayout.BeginHorizontal();
-            play.CameraShake = _gui.DrawToggleButton(play.CameraShake, useColor: true, useWidth: true, useHeight: true);
             string cameraShakeLabel = JsonDataManager.FindStringClone("Option_CameraShake");
             if (string.IsNullOrEmpty(cameraShakeLabel))
             {
                 cameraShakeLabel = "카메라 쉐이크";
             }
-            _gui.DrawContentLabel(cameraShakeLabel, useWidth: false, useHeight: true);
-            GUILayout.EndHorizontal();
+            play.CameraShake = _gui.DrawContentToggleButton(cameraShakeLabel, play.CameraShake, useWidth: true, useHeight: true);
 
             // 진동
-            GUILayout.BeginHorizontal();
-            play.Vibration = _gui.DrawToggleButton(play.Vibration, useColor: true, useWidth: true, useHeight: true);
             string vibrationLabel = JsonDataManager.FindStringClone("Option_Vibration");
             if (string.IsNullOrEmpty(vibrationLabel))
             {
                 vibrationLabel = "진동";
             }
-            _gui.DrawContentLabel(vibrationLabel, useWidth: false, useHeight: true);
-            GUILayout.EndHorizontal();
-
-            // 튜토리얼
-            GUILayout.BeginHorizontal();
-            play.UseTutorial = _gui.DrawToggleButton(play.UseTutorial, useColor: true, useWidth: true, useHeight: true);
-            string tutorialLabel = JsonDataManager.FindStringClone("Option_Tutorial");
-            if (string.IsNullOrEmpty(tutorialLabel))
-            {
-                tutorialLabel = "튜토리얼";
-            }
-            _gui.DrawContentLabel(tutorialLabel, useWidth: false, useHeight: true);
-            GUILayout.EndHorizontal();
+            play.Vibration = _gui.DrawContentToggleButton(vibrationLabel, play.Vibration, useWidth: true, useHeight: true);
 
             // 피해량 텍스트
-            GUILayout.BeginHorizontal();
-            play.UseDamageText = _gui.DrawToggleButton(play.UseDamageText, useColor: true, useWidth: true, useHeight: true);
             string damageTextLabel = JsonDataManager.FindStringClone("Option_DamageText");
             if (string.IsNullOrEmpty(damageTextLabel))
             {
                 damageTextLabel = "피해량 텍스트";
             }
-            _gui.DrawContentLabel(damageTextLabel, useWidth: false, useHeight: true);
-            GUILayout.EndHorizontal();
-
-            // 상태이상 텍스트
-            GUILayout.BeginHorizontal();
-            play.UseStateEffectText = _gui.DrawToggleButton(play.UseStateEffectText, useColor: true, useWidth: true, useHeight: true);
-            string stateEffectTextLabel = JsonDataManager.FindStringClone("Option_StateEffectText");
-            if (string.IsNullOrEmpty(stateEffectTextLabel))
-            {
-                stateEffectTextLabel = "상태이상 텍스트";
-            }
-            _gui.DrawContentLabel(stateEffectTextLabel, useWidth: false, useHeight: true);
-            GUILayout.EndHorizontal();
-
-            // 몬스터 게이지
-            GUILayout.BeginHorizontal();
-            play.UseMonsterGauge = _gui.DrawToggleButton(play.UseMonsterGauge, useColor: true, useWidth: true, useHeight: true);
-            string monsterGaugeLabel = JsonDataManager.FindStringClone("Option_MonsterGauge");
-            if (string.IsNullOrEmpty(monsterGaugeLabel))
-            {
-                monsterGaugeLabel = "몬스터 게이지";
-            }
-            _gui.DrawContentLabel(monsterGaugeLabel, useWidth: false, useHeight: true);
-            GUILayout.EndHorizontal();
-
-            // 몬스터 생명력 텍스트
-            GUILayout.BeginHorizontal();
-            play.ShowMonsterLifeText = _gui.DrawToggleButton(play.ShowMonsterLifeText, useColor: true, useWidth: true, useHeight: true);
-            _gui.DrawContentLabel("Show Monster Gauge Text", useWidth: false, useHeight: true);
-            GUILayout.EndHorizontal();
+            play.UseDamageText = _gui.DrawContentToggleButton(damageTextLabel, play.UseDamageText, useWidth: true, useHeight: true);
 
             GUILayout.EndVertical();
         }
@@ -353,18 +363,339 @@ namespace TeamSuneat.Development
             GameCheat cheat = GameSetting.Instance.Cheat;
 
             // 죽지 않음
-            GUILayout.BeginHorizontal();
-            cheat.IsNotDead = _gui.DrawToggleButton(cheat.IsNotDead, useColor: true, useWidth: true, useHeight: true);
-            _gui.DrawContentLabel("죽지 않음", useWidth: false, useHeight: true);
-            GUILayout.EndHorizontal();
+            cheat.IsNotDead = _gui.DrawContentToggleButton("죽지 않음", cheat.IsNotDead, useWidth: true, useHeight: true);
 
             // 펄스 비용 없음
-            GUILayout.BeginHorizontal();
-            cheat.IsNotCostPulse = _gui.DrawToggleButton(cheat.IsNotCostPulse, useColor: true, useWidth: true, useHeight: true);
-            _gui.DrawContentLabel("펄스 비용 없음", useWidth: false, useHeight: true);
-            GUILayout.EndHorizontal();
+            cheat.IsNotCostPulse = _gui.DrawContentToggleButton("펄스 비용 없음", cheat.IsNotCostPulse, useWidth: true, useHeight: true);
 
             GUILayout.EndVertical();
+        }
+
+        private void DrawCharmSection()
+        {
+            GUILayout.BeginVertical("box");
+            _gui.DrawTitleLabel("부적 관리", useWidth: true, useHeight: true);
+
+            VProfile profile = GameApp.GetSelectedProfile();
+            if (profile == null || profile.Charm == null)
+            {
+                _gui.DrawContentLabel("프로필 또는 부적 데이터를 불러올 수 없습니다.");
+                GUILayout.EndVertical();
+                return;
+            }
+
+            VCharacterCharm charmData = profile.Charm;
+
+            // 슬롯 정보 표시
+            GUILayout.BeginHorizontal();
+            _gui.DrawContentLabel($"슬롯: {charmData.SlotCharmNames.Count}/{charmData.UnlockedSlotCount}", useWidth: false, useHeight: true);
+            _gui.DrawButton("슬롯 해금", () =>
+            {
+                charmData.UnlockSlot(1);
+            });
+            _gui.DrawButton("슬롯 잠금", () =>
+            {
+                charmData.LockSlot(1);
+            });
+            GUILayout.EndHorizontal();
+            GUILayout.Space(5);
+
+            // 현재 장착된 부적 목록
+            GUILayout.BeginVertical("box");
+            _gui.DrawTitleLabel("장착된 부적", useWidth: false, useHeight: true);
+            if (charmData.SlotCharmNames.Count == 0)
+            {
+                _gui.DrawContentLabel("장착된 부적이 없습니다.");
+            }
+            else
+            {
+                for (int i = 0; i < charmData.SlotCharmNames.Count; i++)
+                {
+                    CharmName charmName = charmData.SlotCharmNames[i];
+                    GUILayout.BeginVertical("box");
+
+                    GUILayout.BeginHorizontal();
+                    _gui.DrawContentLabel($"{i + 1}. {charmName}");
+                    _gui.DrawButton("제거", () =>
+                    {
+                        charmData.RemoveCharm(charmName);
+                    });
+                    GUILayout.EndHorizontal();
+
+                    // 부적 효과 설명 표시
+                    CharmAssetData charmAssetData = ScriptableDataManager.Instance?.FindCharmClone(charmName);
+                    if (charmAssetData != null && !string.IsNullOrEmpty(charmAssetData.Description))
+                    {
+                        GUILayout.Space(3);
+                        _gui.DrawContentLabel(charmAssetData.Description, useWidth: true, useHeight: false);
+                    }
+
+                    GUILayout.EndVertical();
+                    GUILayout.Space(3);
+                }
+            }
+            GUILayout.EndVertical();
+
+            GUILayout.Space(5);
+
+            // 부적 추가 섹션
+            GUILayout.BeginVertical("box");
+            _gui.DrawTitleLabel("부적 추가", useWidth: false, useHeight: true);
+
+            CharmName[] allCharms = Enum.GetValues(typeof(CharmName))
+                .Cast<CharmName>()
+                .Where(charm => charm != CharmName.None)
+                .ToArray();
+
+            if (allCharms.Length == 0)
+            {
+                _gui.DrawContentLabel("사용 가능한 부적이 없습니다.");
+            }
+            else
+            {
+                // 카테고리별로 그룹화
+                var attackCharms = allCharms.Where(c => (int)c >= 100 && (int)c < 200).ToArray();
+                var skillCharms = allCharms.Where(c => (int)c >= 200 && (int)c < 300).ToArray();
+                var supportCharms = allCharms.Where(c => (int)c >= 300 && (int)c < 400).ToArray();
+                var counterCharms = allCharms.Where(c => (int)c >= 400 && (int)c < 500).ToArray();
+
+                // 공격 부적
+                if (attackCharms.Length > 0)
+                {
+                    DrawCharmCategory("공격", attackCharms, charmData);
+                }
+
+                // 기술 부적
+                if (skillCharms.Length > 0)
+                {
+                    DrawCharmCategory("기술", skillCharms, charmData);
+                }
+
+                // 보조 부적
+                if (supportCharms.Length > 0)
+                {
+                    DrawCharmCategory("보조", supportCharms, charmData);
+                }
+
+                // 반격 부적
+                if (counterCharms.Length > 0)
+                {
+                    DrawCharmCategory("반격", counterCharms, charmData);
+                }
+            }
+
+            GUILayout.EndVertical();
+
+            GUILayout.EndVertical();
+        }
+
+        private void DrawCharmCategory(string categoryName, CharmName[] charms, VCharacterCharm characterCharmInfo)
+        {
+            GUILayout.BeginVertical("box");
+            _gui.DrawTitleLabel(categoryName, useWidth: false, useHeight: true);
+
+            foreach (CharmName charmName in charms)
+            {
+                bool isUnlocked = characterCharmInfo.CheckUnlocked(charmName);
+                bool isEquipped = characterCharmInfo.SlotCharmNames.Contains(charmName);
+
+                GUILayout.BeginVertical("box");
+
+                GUILayout.BeginHorizontal();
+
+                // 부적 이름 표시
+                string displayName = charmName.ToString();
+                if (isEquipped)
+                {
+                    displayName = displayName.ToSelectString();
+                }
+                else if (!isUnlocked)
+                {
+                    displayName = displayName.ToDisableString();
+                }
+
+                _gui.DrawContentLabel(displayName);
+
+                // 해금 버튼
+                if (!isUnlocked)
+                {
+                    _gui.DrawButton("해금", () =>
+                    {
+                        characterCharmInfo.Unlock(charmName);
+                    }, useWidth: true, useHeight: false);
+                }
+
+                // 추가 버튼
+                if (!isEquipped)
+                {
+                    _gui.DrawButton("추가", () =>
+                    {
+                        if (!isUnlocked)
+                        {
+                            characterCharmInfo.Unlock(charmName);
+                        }
+                        characterCharmInfo.AddCharm(charmName);
+                    }, useWidth: true, useHeight: false);
+                }
+                else
+                {
+                    _gui.DrawContentLabel("(장착됨)");
+                }
+
+                GUILayout.EndHorizontal();
+
+                // 부적 효과 설명 표시
+                CharmAssetData charmAssetData = ScriptableDataManager.Instance?.FindCharmClone(charmName);
+                if (charmAssetData != null && !string.IsNullOrEmpty(charmAssetData.Description))
+                {
+                    GUILayout.Space(3);
+                    _gui.DrawContentLabel(charmAssetData.Description, useWidth: true, useHeight: false);
+                }
+
+                GUILayout.EndVertical();
+                GUILayout.Space(3);
+            }
+
+            GUILayout.EndVertical();
+            GUILayout.Space(5);
+        }
+
+        private void DrawStatSection()
+        {
+            GUILayout.BeginVertical("box");
+            _gui.DrawTitleLabel("플레이어 능력치", useWidth: true, useHeight: true);
+
+            PlayerCharacter player = CharacterManager.Instance?.Player;
+            if (player == null)
+            {
+                _gui.DrawContentLabel("플레이어 캐릭터를 찾을 수 없습니다.");
+                GUILayout.EndVertical();
+                return;
+            }
+
+            StatSystem statSystem = player.Stat;
+            if (statSystem == null)
+            {
+                _gui.DrawContentLabel("능력치 시스템을 찾을 수 없습니다.");
+                GUILayout.EndVertical();
+                return;
+            }
+
+            // 모든 능력치 이름 가져오기
+            StatNames[] allStatNames = Enum.GetValues(typeof(StatNames))
+                .Cast<StatNames>()
+                .Where(stat => stat != StatNames.None)
+                .ToArray();
+
+            if (allStatNames.Length == 0)
+            {
+                _gui.DrawContentLabel("표시할 능력치가 없습니다.");
+                GUILayout.EndVertical();
+                return;
+            }
+
+            // 능력치별로 표시
+            foreach (StatNames statName in allStatNames)
+            {
+                CharacterStat characterStat = statSystem.GetCharacterStat(statName);
+
+                GUILayout.BeginVertical("box");
+
+                if (characterStat != null)
+                {
+                    // 능력치 이름과 최종 값
+                    float baseValue = characterStat.BaseValue;
+                    int modifierCount = characterStat.ModifierCount;
+
+                    string statDisplayName = GetStatDisplayName(statName);
+                    string valueString = characterStat.ValueString;
+
+                    GUILayout.BeginHorizontal();
+                    _gui.DrawContentLabel($"{statDisplayName}: {valueString}");
+
+                    if (modifierCount > 0)
+                    {
+                        _gui.DrawContentLabel($"(기본: {baseValue:F2}, 모디파이어: {modifierCount}개)");
+                    }
+                    else
+                    {
+                        _gui.DrawContentLabel($"(기본: {baseValue:F2})");
+                    }
+                    GUILayout.EndHorizontal();
+
+                    // 모디파이어 상세 정보 표시
+                    if (modifierCount > 0)
+                    {
+                        GUILayout.Space(3);
+                        GUILayout.BeginVertical("box");
+                        _gui.DrawContentLabel("모디파이어:");
+
+                        foreach (var modifier in characterStat.StatModifiers)
+                        {
+                            string modifierValueString = modifier.GetValueString();
+                            string sourceString = modifier.GetSourceString();
+
+                            if (string.IsNullOrEmpty(sourceString))
+                            {
+                                sourceString = "알 수 없음";
+                            }
+                            else
+                            {
+                                // 마지막 쉼표 제거
+                                sourceString = sourceString.TrimEnd(',', ' ');
+                            }
+
+                            string modifierTypeString = GetModifierTypeString(modifier.Type);
+                            _gui.DrawContentLabel($"  • {modifierTypeString}: {modifierValueString} ({sourceString})");
+                        }
+
+                        GUILayout.EndVertical();
+                    }
+                }
+                else
+                {
+                    // 능력치가 등록되지 않은 경우 기본값 표시
+                    float defaultValue = statSystem.FindValueOrDefault(statName);
+                    string statDisplayName = GetStatDisplayName(statName);
+                    _gui.DrawContentLabel($"{statDisplayName}: {defaultValue:F2} (기본값)");
+                }
+
+                GUILayout.EndVertical();
+                GUILayout.Space(3);
+            }
+
+            GUILayout.EndVertical();
+        }
+
+        private string GetStatDisplayName(StatNames statName)
+        {
+            return statName switch
+            {
+                StatNames.Attack => "공격력",
+                StatNames.Life => "최대 체력",
+                StatNames.AttackSpeed => "공격 속도",
+                StatNames.AttackRange => "공격 범위",
+                StatNames.MoveSpeed => "이동 속도",
+                StatNames.MoveSpeedMulti => "이동 속도 배율",
+                StatNames.Mana => "마나",
+                StatNames.Pulse => "펄스",
+                StatNames.PulseRegen => "펄스 재생량",
+                StatNames.Barrier => "보호막",
+                StatNames.BarrierMulti => "보호막 배율",
+                _ => statName.ToString()
+            };
+        }
+
+        private string GetModifierTypeString(StatModType modType)
+        {
+            return modType switch
+            {
+                StatModType.Flat => "고정값",
+                StatModType.PercentAdd => "퍼센트 추가",
+                StatModType.PercentMulti => "퍼센트 배율",
+                StatModType.Use => "사용",
+                _ => modType.ToString()
+            };
         }
     }
 }

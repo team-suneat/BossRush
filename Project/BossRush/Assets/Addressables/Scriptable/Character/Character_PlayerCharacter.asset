@@ -17,7 +17,6 @@ MonoBehaviour:
     IsChangingAsset: 0
     Name: 1
     SuperArmor: 0
-    IsFlying: 0
     Stats:
     - Name: 1
       Value: 1
@@ -29,15 +28,20 @@ MonoBehaviour:
       Value: 1
       NameAsString: AttackSpeed
     - Name: 4
+      Value: 1
+      NameAsString: AttackRange
+    - Name: 5
       Value: 7
       NameAsString: MoveSpeed
-    - Name: 5
+    - Name: 6
+      Value: 1
+      NameAsString: MoveSpeedMulti
+    - Name: 7
       Value: 3
       NameAsString: Mana
-    - Name: 6
+    - Name: 8
       Value: 3
       NameAsString: Pulse
-    - Name: 7
+    - Name: 9
       Value: 0.2
       NameAsString: PulseRegen
-    NameAsString: PlayerCharacter

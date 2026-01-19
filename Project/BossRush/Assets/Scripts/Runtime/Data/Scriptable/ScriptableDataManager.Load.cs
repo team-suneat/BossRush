@@ -22,6 +22,7 @@ namespace TeamSuneat.Data
             else if (!_characterAssets.IsValid()) { return false; }
             else if (!_hitmarkAssets.IsValid()) { return false; }
             else if (!_buffAssets.IsValid()) { return false; }
+            else if (!_charmAssets.IsValid()) { return false; }
             else if (!_fontAssets.IsValid()) { return false; }
             else if (!_floatyAssets.IsValid()) { return false; }
             else if (!_flickerAssets.IsValid()) { return false; }
@@ -54,6 +55,12 @@ namespace TeamSuneat.Data
             foreach (BuffAsset buffAsset in _buffAssets.Values)
             {
                 buffAsset?.OnLoadData();
+            }
+
+            // 참 에셋 OnLoadData() 메서드 호출
+            foreach (CharmAsset charmAsset in _charmAssets.Values)
+            {
+                charmAsset?.OnLoadData();
             }
 
             // ForceVelocity 에셋 OnLoadData() 메서드 호출
@@ -95,6 +102,10 @@ namespace TeamSuneat.Data
                 {
                     count += 1;
                 }
+                else if (LoadCharmSync(path))
+                {
+                    count += 1;
+                }
                 else if (LoadFontSync(path))
                 {
                     count += 1;
@@ -127,6 +138,41 @@ namespace TeamSuneat.Data
         }
 
         //
+
+        private bool LoadCharmSync(string filePath)
+        {
+            if (!filePath.Contains("Charm_"))
+            {
+                return false;
+            }
+
+            CharmAsset asset = ResourcesManager.LoadResource<CharmAsset>(filePath);
+            if (asset != null)
+            {
+                if (asset.TID == 0)
+                {
+                    Log.Warning(LogTags.ScriptableData, "{0}, 참 아이디가 설정되어있지 않습니다. {1}", asset.name, filePath);
+                }
+                else if (_charmAssets.ContainsKey(asset.TID))
+                {
+                    Log.Warning(LogTags.ScriptableData, "같은 TID로 중복 Charm이 로드 되고 있습니다. TID: {0}, 기존: {1}, 새로운 이름: {2}",
+                         asset.TID, _charmAssets[asset.TID].name, asset.name);
+                }
+                else
+                {
+                    Log.Progress("스크립터블 데이터를 읽어왔습니다. Path: {0}", filePath);
+                    _charmAssets[asset.TID] = asset;
+                }
+
+                return true;
+            }
+            else
+            {
+                Log.Warning("스크립터블 데이터를 읽을 수 없습니다. Path: {0}", filePath);
+            }
+
+            return false;
+        }
 
         private bool LoadForceVelocitySync(string filePath)
         {
@@ -293,6 +339,14 @@ namespace TeamSuneat.Data
                         if (!_buffAssets.ContainsKey(buff.TID))
                         {
                             _buffAssets[buff.TID] = buff;
+                            count++;
+                        }
+                        break;
+
+                    case CharmAsset charm:
+                        if (!_charmAssets.ContainsKey(charm.TID))
+                        {
+                            _charmAssets[charm.TID] = charm;
                             count++;
                         }
                         break;

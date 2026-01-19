@@ -10,6 +10,7 @@ namespace TeamSuneat.Data
 
         private readonly Dictionary<int, HitmarkAsset> _hitmarkAssets = new();
         private readonly Dictionary<int, BuffAsset> _buffAssets = new();
+        private readonly Dictionary<int, CharmAsset> _charmAssets = new();
         private readonly Dictionary<int, CharacterAsset> _characterAssets = new();
         private readonly Dictionary<int, FontAsset> _fontAssets = new();
         private readonly Dictionary<int, FloatyAsset> _floatyAssets = new();
@@ -27,6 +28,7 @@ namespace TeamSuneat.Data
             _soundAssets.Clear();
             _hitmarkAssets.Clear();
             _buffAssets.Clear();
+            _charmAssets.Clear();
             _characterAssets.Clear();
             _fontAssets.Clear();
             _floatyAssets.Clear();
@@ -41,6 +43,7 @@ namespace TeamSuneat.Data
             RefreshAllCharacter();
             RefreshAllHitmark();
             RefreshAllBuff();
+            RefreshAllCharm();
             RefreshAllFonts();
             RefreshAllFlicker();
             RefreshAllFloaty();

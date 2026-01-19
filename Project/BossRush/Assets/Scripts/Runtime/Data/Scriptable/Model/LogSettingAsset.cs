@@ -39,6 +39,7 @@ namespace TeamSuneat
 
         [FoldoutGroup("[전투]")][SuffixLabel("공격")] public bool Attack;
         [FoldoutGroup("[전투]")][SuffixLabel("버프")] public bool Buff;
+        [FoldoutGroup("[전투]")][SuffixLabel("참")] public bool Charm;
         [FoldoutGroup("[전투]")][SuffixLabel("피해량 계산")] public bool Damage;
         [FoldoutGroup("[전투]")][SuffixLabel("이펙트")] public bool Effect;
         [FoldoutGroup("[전투]")][SuffixLabel("능력치")] public bool Stat;
@@ -176,6 +177,7 @@ namespace TeamSuneat
             Stat = true;
             Vital = true;
             Buff = true;
+            Charm = true;
 
             Skill = true;
 
@@ -244,6 +246,7 @@ namespace TeamSuneat
             Stat = false;
             Vital = false;
             Buff = false;
+            Charm = false;
 
             Skill = false;
 
@@ -321,6 +324,7 @@ namespace TeamSuneat
                 LogTags.Stat => Stat,
                 LogTags.Vital => Vital,
                 LogTags.Buff => Buff,
+                LogTags.Charm => Charm,
 
                 LogTags.Skill => Skill,
 
@@ -394,6 +398,7 @@ namespace TeamSuneat
                 case LogTags.Stat: { Stat = true; } break;
                 case LogTags.Vital: { Vital = true; } break;
                 case LogTags.Buff: { Buff = true; } break;
+                case LogTags.Charm: { Charm = true; } break;
 
                 case LogTags.Skill: { Skill = true; } break;
 
@@ -465,6 +470,7 @@ namespace TeamSuneat
                 case LogTags.Stat: { Stat = false; } break;
                 case LogTags.Vital: { Vital = false; } break;
                 case LogTags.Buff: { Buff = false; } break;
+                case LogTags.Charm: { Charm = false; } break;
 
                 case LogTags.Skill: { Skill = false; } break;
 

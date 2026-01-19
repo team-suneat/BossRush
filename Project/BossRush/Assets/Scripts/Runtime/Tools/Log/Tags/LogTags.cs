@@ -63,6 +63,9 @@
         /// <summary> 버프 </summary>
         Buff,
 
+        /// <summary> 참 </summary>
+        Charm,
+
         #endregion Character-Battle
 
         #region Skill

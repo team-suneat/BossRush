@@ -1,4 +1,5 @@
-﻿using TeamSuneat.CameraSystem.Core;
+﻿using System.Collections.Generic;
+using TeamSuneat.CameraSystem.Core;
 using TeamSuneat.Data;
 using TeamSuneat.Setting;
 using UnityEngine;
@@ -10,7 +11,15 @@ namespace TeamSuneat
         private PlayerInput _input;
         private Transform _modelTransform;
 
+        public CharmSystem Charm { get; set; }
+
         public override LogTags LogTag => LogTags.Player;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            Charm = GetComponentInChildren<CharmSystem>();
+        }
 
         public override void OnDespawn()
         {
@@ -56,6 +65,43 @@ namespace TeamSuneat
                 {
                     Log.Warning(LogTag, "플레이어 캐릭터의 모델 Transform을 찾을 수 없습니다: {0}", this.GetHierarchyName());
                 }
+            }
+        }
+
+        protected override void ApplyCharacterCharms()
+        {
+            // 게임 데이터에서 플레이어 부적 정보 가져오기
+            var profile = GameApp.GetSelectedProfile();
+            if (profile == null)
+            {
+                Log.Warning(LogTag, "플레이어 프로필을 찾을 수 없습니다.");
+                return;
+            }
+
+            var charmData = profile.Charm;
+            if (charmData == null)
+            {
+                Log.Warning(LogTag, "플레이어 부적 데이터를 찾을 수 없습니다.");
+                return;
+            }
+
+            var slotCharmNames = charmData.SlotCharmNames;
+            if (slotCharmNames == null || slotCharmNames.Count == 0)
+            {
+                LogInfo("적용할 플레이어 부적이 없습니다.");
+                return;
+            }
+
+            // 부적 효과 적용
+            if (Charm == null)
+            {
+                Log.Warning(LogTag, "부적 시스템을 찾을 수 없습니다.");
+                return;
+            }
+
+            foreach (CharmName charmName in slotCharmNames)
+            {
+                Charm.AddCharm(charmName);
             }
         }
 
@@ -233,6 +279,9 @@ namespace TeamSuneat
         protected override void OnDeath(DamageResult damageResult)
         {
             base.OnDeath(damageResult);
+
+            // 모든 부적 효과 해제
+            Charm?.ClearAll();
 
             CharacterManager.Instance.UnregisterPlayer(this);
 

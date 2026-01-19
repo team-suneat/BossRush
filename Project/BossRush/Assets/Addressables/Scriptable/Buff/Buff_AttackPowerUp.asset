@@ -19,7 +19,7 @@ MonoBehaviour:
     Type: 1
     Duration: 0
     Interval: 0
-    Value: 1
+    Value: 2
     Stat: 1
     State: 0
     TypeString: StatBuff

@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: Scriptable
   m_GUID: 9c8a3fb1d489a2043a3b1d63467b7d70
   m_SerializeEntries:
+  - m_GUID: 023dddf15c208d1439f9350ab3ed4870
+    m_Address: Assets/Addressables/Scriptable/Charm/1. Attack/Charm_TechEcho.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0390f628340b6c4489e2a969682e0417
     m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_ScarecrowAttack.asset
     m_ReadOnly: 0
@@ -27,14 +33,44 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 05bc0d255b0441448a72c4d4a533ae54
+    m_Address: Assets/Addressables/Scriptable/Charm/2. Skill/Charm_OverheadNova.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0be7a2a36d46276468501c149577905c
+    m_Address: Assets/Addressables/Scriptable/Charm/1. Attack/Charm_WideArcBlade.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0e22f513c1cdcd44ca1c97d76d342bba
+    m_Address: Assets/Addressables/Scriptable/Charm/2. Skill/Charm_LinearPulseShot.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 19b3808665fba644ab7daa451bf02afa
     m_Address: Assets/Addressables/Scriptable/Character/Character_PlayerCharacter.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 20d15d910b988b14c8fcd20c632a434d
+    m_Address: Assets/Addressables/Scriptable/Buff/Buff_StaminaBoost.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 24813a5af48c78c4a9556cefefba20ea
     m_Address: Assets/Addressables/Scriptable/Camera/CameraImpulse_Horizontal_Right.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 28e651b23279e0c4699bd24689eb5211
+    m_Address: Assets/Addressables/Scriptable/Charm/4. Counter/Charm_LastStandFury.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -47,6 +83,18 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 33da283afde72b148a0eddacaa59b029
     m_Address: Assets/Addressables/Scriptable/Floaty/Floaty_RestoreMana.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3bf22050929733947b975ce0ecc32566
+    m_Address: Assets/Addressables/Scriptable/Charm/3. Support/Charm_VelocitySurge.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4befd4946054ad94a9d051b3b8305115
+    m_Address: Assets/Addressables/Scriptable/Charm/4. Counter/Charm_ParryStrike.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -99,14 +147,26 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7b1487cc02c57e94faf7da716764cc14
-    m_Address: Assets/Addressables/Scriptable/Character/PlayerCharacterStatConfig.asset
+  - m_GUID: 7e82f9aef20f96e419ffc2220569864b
+    m_Address: Assets/Addressables/Scriptable/Floaty/Floaty_Damage.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7e82f9aef20f96e419ffc2220569864b
-    m_Address: Assets/Addressables/Scriptable/Floaty/Floaty_Damage.asset
+  - m_GUID: 7ea70bbad1d57e1409c198d373921b11
+    m_Address: Assets/Addressables/Scriptable/Buff/Buff_WideArcBlade.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 867ca3d404478c54c904f5f567fa3e6f
+    m_Address: Assets/Addressables/Scriptable/Charm/3. Support/Charm_ManaOvercharge.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 915e0ef297f6ada4bab01d086c302aa4
+    m_Address: Assets/Addressables/Scriptable/Charm/1. Attack/Charm_RiskReward.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -123,6 +183,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a3337cd6c382d2f49ab6bc813f4cede7
+    m_Address: Assets/Addressables/Scriptable/Charm/3. Support/Charm_StaminaBoost.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a63c9e25fb2b5724197ecb5144f56a9f
     m_Address: Assets/Addressables/Scriptable/Sound/Sound_Parry_Success.asset
     m_ReadOnly: 0
@@ -135,8 +201,38 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b495ec33dff16704282cdcd420fe3c8e
+    m_Address: Assets/Addressables/Scriptable/Buff/Buff_ManaOvercharge.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b7973225c8cc79b479eebd1b35531fc0
+    m_Address: Assets/Addressables/Scriptable/Charm/4. Counter/Charm_DamagePulse.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b86951e4b14356f4f8cd5154f6597b67
+    m_Address: Assets/Addressables/Scriptable/Charm/4. Counter/Charm_ReflectDrone.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c1fa8cce5a610cb46a1289d35432806a
     m_Address: Assets/Addressables/Scriptable/Flicker/Flicker_Damage.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c3e424525516a6e44aae8753d63e5509
+    m_Address: Assets/Addressables/Scriptable/Charm/4. Counter/Charm_NoKnockParry.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d07e493f8e2227c48b9b3e54457c29fc
+    m_Address: Assets/Addressables/Scriptable/Charm/4. Counter/Charm_AntiParryShield.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -161,6 +257,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e24924d54a3b46a4b8e78d587c2f56df
     m_Address: Assets/Addressables/Scriptable/Character/Character_Scarecrow.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e27ee2d0dca20d643bfd5ec5d8de9105
+    m_Address: Assets/Addressables/Scriptable/Charm/2. Skill/Charm_SlamDownStrike.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -195,8 +297,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fa3dbe923922ba14d8cbeb1dc0d49192
+    m_Address: Assets/Addressables/Scriptable/Charm/3. Support/Charm_ManaFeedback.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fc89c745a05479d4ea7398d84800a995
     m_Address: Assets/Addressables/Scriptable/Camera/CameraImpulse_Horizontal_Left.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fcf94e2554cc6cf43bbc67efa29d54c9
+    m_Address: Assets/Addressables/Scriptable/Charm/3. Support/Charm_FullHealthParry.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable

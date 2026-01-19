@@ -5,9 +5,7 @@ namespace TeamSuneat.Data.Game
     {
         /// <summary> 할당한 아이템의 고유 번호</summary>
         public int IssuedItemSID;
-        public VCharacterWeapon Weapon;
-        public VCharacterAccessory Accessory;
-        public VCharacterItem Item;
+        public VCharacterCharm Charm;
         public VCurrency Currency;
 
         public VCharacterStage Stage;
@@ -18,9 +16,7 @@ namespace TeamSuneat.Data.Game
         {
             CreateEmptyData();
 
-            Weapon.OnLoadGameData();
-            Accessory.OnLoadGameData();
-            Item.OnLoadGameData();
+            Charm.OnLoadGameData();
             Currency.OnLoadGameData();
 
             Stage.OnLoadGameData();
@@ -30,9 +26,7 @@ namespace TeamSuneat.Data.Game
 
         public void CreateEmptyData()
         {
-            Weapon ??= VCharacterWeapon.CreateDefault();
-            Accessory ??= VCharacterAccessory.CreateDefault();
-            Item ??= VCharacterItem.CreateDefault();
+            Charm ??= VCharacterCharm.CreateDefault();
             Currency ??= VCurrency.CreateDefault();
             Stage ??= VCharacterStage.CreateDefault();
             Slot ??= VCharacterSlot.CreateDefault();

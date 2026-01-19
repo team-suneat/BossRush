@@ -89,6 +89,11 @@ namespace TeamSuneat
             _core?.ResetVelocity();
         }
 
+        public void SetMoveSpeed(float moveSpeed)
+        {
+            _moveSpeed = moveSpeed;
+        }
+
         #endregion Core 메서드 위임
 
         #region Ability 메서드 위임

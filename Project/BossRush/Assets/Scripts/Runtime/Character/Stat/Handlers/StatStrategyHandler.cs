@@ -2,10 +2,6 @@ using System.Collections.Generic;
 
 namespace TeamSuneat
 {
-    /// <summary>
-    /// 능력치 전략 관리 핸들러
-    /// 전략 등록, 관리, 실행을 담당합니다.
-    /// </summary>
     public class StatStrategyHandler
     {
         #region Fields
@@ -18,11 +14,6 @@ namespace TeamSuneat
 
         #region Constructor
 
-        /// <summary>
-        /// StatStrategyHandler 생성자
-        /// </summary>
-        /// <param name="eventHandler">이벤트 핸들러</param>
-        /// <param name="logHandler">로깅 핸들러</param>
         public StatStrategyHandler(StatEventHandler eventHandler, StatLogHandler logHandler)
         {
             _eventHandler = eventHandler;
@@ -33,10 +24,6 @@ namespace TeamSuneat
 
         #region Strategy Management
 
-        /// <summary>
-        /// 모든 전략을 초기화합니다.
-        /// </summary>
-        /// <param name="system">StatSystem 인스턴스</param>
         public void InitializeStrategies(StatSystem system)
         {
             RegisterSystemStrategies();
@@ -50,36 +37,20 @@ namespace TeamSuneat
             }
         }
 
-        /// <summary>
-        /// 전략이 존재하는지 확인합니다.
-        /// </summary>
-        /// <param name="statName">능력치 이름</param>
-        /// <returns>전략 존재 여부</returns>
         public bool HasStrategy(StatNames statName)
         {
             return _strategies.ContainsKey(statName);
         }
 
-        /// <summary>
-        /// 전략을 조회합니다.
-        /// </summary>
-        /// <param name="statName">능력치 이름</param>
-        /// <returns>전략 인스턴스 (없으면 null)</returns>
-        public BaseStatUpdateStrategy GetStrategy(StatNames statName)
+        public bool TryGetStrategy(StatNames statName, out BaseStatUpdateStrategy strategy)
         {
-            return _strategies.TryGetValue(statName, out BaseStatUpdateStrategy strategy) ? strategy : null;
+            return _strategies.TryGetValue(statName, out strategy);
         }
 
         #endregion Strategy Management
 
         #region Strategy Execution
 
-        /// <summary>
-        /// 능력치 추가 처리를 실행합니다.
-        /// </summary>
-        /// <param name="system">StatSystem 인스턴스</param>
-        /// <param name="statName">능력치 이름</param>
-        /// <param name="value">추가될 값</param>
         public void ProcessAdd(StatNames statName, float value)
         {
             _eventHandler.CallRefreshEvent(statName, value);
@@ -92,12 +63,6 @@ namespace TeamSuneat
             _eventHandler.CallRefreshedEvent(statName, value);
         }
 
-        /// <summary>
-        /// 능력치 제거 처리를 실행합니다.
-        /// </summary>
-        /// <param name="system">StatSystem 인스턴스</param>
-        /// <param name="statName">능력치 이름</param>
-        /// <param name="value">제거될 값</param>
         public void ProcessRemove(StatNames statName, float value)
         {
             _eventHandler.CallRefreshEvent(statName, value * -1);
@@ -114,29 +79,24 @@ namespace TeamSuneat
 
         #region Strategy Registration
 
-        /// <summary>
-        /// 시스템 전략들을 등록합니다.
-        /// </summary>
         private void RegisterSystemStrategies()
         {
-            _strategies[StatNames.Attack] = new AttackUpdateStrategy();
-            _strategies[StatNames.AttackSpeed] = new AttackSpeedUpdateStrategy();
             _strategies[StatNames.Life] = new LifeUpdateStrategy();
             _strategies[StatNames.Mana] = new ManaUpdateStrategy();
             _strategies[StatNames.Pulse] = new PulseUpdateStrategy();
             _strategies[StatNames.PulseRegen] = new PulseRegenUpdateStrategy();
         }
 
-        /// <summary>
-        /// 전투 전략들을 등록합니다.
-        /// </summary>
         private void RegisterCombatStrategies()
         {
+            _strategies[StatNames.Attack] = new AttackUpdateStrategy();
+            _strategies[StatNames.AttackSpeed] = new AttackSpeedUpdateStrategy();
+            _strategies[StatNames.AttackRange] = new AttackRangeUpdateStrategy();
+
+            _strategies[StatNames.MoveSpeed] = new MoveSpeedUpdateStrategy();
+            _strategies[StatNames.MoveSpeedMulti] = new MoveSpeedUpdateStrategy();
         }
 
-        /// <summary>
-        /// 특수 전략들을 등록합니다.
-        /// </summary>
         private void RegisterSpecialStrategies()
         {
         }

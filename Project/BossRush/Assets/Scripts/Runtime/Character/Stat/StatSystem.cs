@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using TeamSuneat.Data;
-using TeamSuneat.Data.Game;
 using UnityEngine;
 
 namespace TeamSuneat

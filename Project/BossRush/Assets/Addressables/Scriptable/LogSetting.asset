@@ -22,9 +22,10 @@ MonoBehaviour:
   Animation: 0
   Attack: 0
   Buff: 1
+  Charm: 0
   Damage: 0
   Effect: 0
-  Stat: 0
+  Stat: 1
   Vital: 0
   BattleResource: 0
   Skill: 0

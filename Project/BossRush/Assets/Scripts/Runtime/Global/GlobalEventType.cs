@@ -173,6 +173,21 @@ namespace TeamSuneat
         /// <summary> 게임 데이터를 저장합니다. </summary>
         SAVE_GAME_DATA,
 
+        ///<summary> 부적을 해금합니다. </summary>
+        CHARM_UNLOCKED,
+
+        ///<summary> 부적을 슬롯에 추가합니다. </summary>
+        CHARM_ADDED,
+
+        ///<summary> 부적을 슬롯에서 제거합니다. </summary>
+        CHARM_REMOVED,
+
+        ///<summary> 부적 슬롯을 해금합니다. </summary>
+        CHARM_SLOT_UNLOCKED,
+
+        ///<summary> 부적 슬롯을 잠금합니다. </summary>
+        CHARM_SLOT_LOCKED,
+
 
         #endregion 게임 데이터 GAME DATA
 

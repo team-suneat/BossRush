@@ -114,6 +114,10 @@ namespace TeamSuneat
         private float _activeDuration; // 충돌체 활성화 지속 시간
         private Coroutine _timerCoroutine; // 지속 타이머
         private int _hitCountAtTime; // 활성화시 1회에 공격한 횟수
+        private Vector2 _originalBoxSize; // 원본 박스 크기
+        private float _originalCircleRadius; // 원본 원형 반지름
+        private bool _isOriginalSizeStored; // 원본 크기 저장 여부
+        private bool _isStatRefreshRegistered; // Stat 이벤트 등록 여부
 
         //
 
@@ -123,6 +127,7 @@ namespace TeamSuneat
             if (_attackCollider != null)
             {
                 if (!_attackCollider.isTrigger) { _attackCollider.isTrigger = true; }
+                StoreOriginalSize();
             }
         }
 
@@ -131,12 +136,20 @@ namespace TeamSuneat
             base.OnEnabled();
 
             DeactivateCollider();
-            RefreshArea();
-            RefreshDuration();
 
-            if (StatNameOfSize != StatNames.None || StatNameOfActiveDuration != StatNames.None)
+            // 원본 크기 저장 보장 (RefreshArea 전에 실행)
+            // Awake에서 이미 저장했을 수 있지만, 안전을 위해 다시 확인
+            StoreOriginalSize();
+
+            // Owner가 설정되어 있을 때만 영역 및 이벤트 등록
+            if (Owner != null)
             {
-                Owner.Stat.RegisterOnRefresh(OnRefreshStat);
+                RefreshArea();
+                RefreshDuration();
+
+                // AttackRange는 항상 적용되므로 이벤트 등록 필요
+                // StatNameOfSize나 StatNameOfActiveDuration 변경도 감지해야 함
+                RegisterStatRefresh();
             }
         }
 
@@ -146,10 +159,9 @@ namespace TeamSuneat
 
             _timerCoroutine = null;
             ClearTargetsOfChainLightning();
-            if (StatNameOfSize != StatNames.None || StatNameOfActiveDuration != StatNames.None)
-            {
-                Owner.Stat.UnregisterOnRefresh(OnRefreshStat);
-            }
+
+            // 이벤트 해제
+            UnregisterStatRefresh();
         }
 
         public override void Initialization()
@@ -221,6 +233,16 @@ namespace TeamSuneat
             base.SetOwner(ownerCharacter);
 
             _damageCalculator?.SetAttacker(ownerCharacter);
+
+            // SetOwner가 OnEnabled 이후에 호출될 수 있으므로, 영역 갱신 및 이벤트 등록
+            if (ownerCharacter != null && enabled)
+            {
+                RefreshArea();
+                RefreshDuration();
+
+                // 이벤트 등록 (중복 등록 방지)
+                RegisterStatRefresh();
+            }
         }
 
         public override void SetTarget(Vital targetVital)
@@ -644,9 +666,27 @@ namespace TeamSuneat
 
         #region Stat
 
+        private void RegisterStatRefresh()
+        {
+            if (!_isStatRefreshRegistered && Owner != null)
+            {
+                Owner.Stat.RegisterOnRefresh(OnRefreshStat);
+                _isStatRefreshRegistered = true;
+            }
+        }
+
+        private void UnregisterStatRefresh()
+        {
+            if (_isStatRefreshRegistered && Owner != null)
+            {
+                Owner.Stat.UnregisterOnRefresh(OnRefreshStat);
+                _isStatRefreshRegistered = false;
+            }
+        }
+
         private void OnRefreshStat(StatNames statName, float changedValue)
         {
-            if (StatNameOfSize == statName)
+            if (StatNameOfSize == statName || statName == StatNames.AttackRange)
             {
                 RefreshArea();
             }
@@ -656,22 +696,59 @@ namespace TeamSuneat
             }
         }
 
+        private void StoreOriginalSize()
+        {
+            if (_isOriginalSizeStored || _attackCollider == null)
+            {
+                return;
+            }
+
+            if (_attackCollider is BoxCollider2D boxCollider)
+            {
+                _originalBoxSize = boxCollider.size;
+                _isOriginalSizeStored = true;
+            }
+            else if (_attackCollider is CircleCollider2D circleCollider)
+            {
+                _originalCircleRadius = circleCollider.radius;
+                _isOriginalSizeStored = true;
+            }
+        }
+
+
         private void RefreshArea()
         {
-            if (Owner != null)
+            if (Owner == null || _attackCollider == null)
             {
-                float areaMultiplier = 1 + Owner.Stat.FindValueOrDefault(StatNameOfSize);
+                return;
+            }
 
-                if (_attackCollider is BoxCollider2D)
-                {
-                    BoxCollider2D boxCollider = _attackCollider as BoxCollider2D;
-                    boxCollider.size *= areaMultiplier;
-                }
-                else if (_attackCollider is CircleCollider2D)
-                {
-                    CircleCollider2D circleCollider = _attackCollider as CircleCollider2D;
-                    circleCollider.radius *= areaMultiplier;
-                }
+            // 원본 크기가 저장되지 않았다면 저장 (안전장치)
+            if (!_isOriginalSizeStored)
+            {
+                StoreOriginalSize();
+            }
+
+            float attackRangeMultiplier = Owner.Stat.FindValueOrDefault(StatNames.AttackRange);
+            float additionalMultiplier = 1f;
+            if (StatNameOfSize != StatNames.None)
+            {
+                additionalMultiplier = 1 + Owner.Stat.FindValueOrDefault(StatNameOfSize);
+            }
+
+            // 두 배율을 곱하여 최종 배율 계산
+            float totalMultiplier = attackRangeMultiplier * additionalMultiplier;
+
+            Log.Info("영역 공격의 크기 최종 배율: {0}", ValueStringEx.GetPercentString(totalMultiplier));
+
+            // 원본 크기에 최종 배율을 적용
+            if (_attackCollider is BoxCollider2D boxCollider)
+            {
+                boxCollider.size = _originalBoxSize * totalMultiplier;
+            }
+            else if (_attackCollider is CircleCollider2D circleCollider)
+            {
+                circleCollider.radius = _originalCircleRadius * totalMultiplier;
             }
         }
 

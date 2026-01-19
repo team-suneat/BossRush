@@ -352,6 +352,29 @@ namespace TeamSuneat.Development
             return value;
         }
 
+        // 내용 텍스트를 표시하는 토글 버튼을 그립니다 (활성화 여부에 따라 색상만 변경)
+        public bool DrawContentToggleButton(string text, bool value, bool useWidth = true, bool useHeight = true)
+        {
+            string buttonText = text;
+
+            if (value)
+            {
+                buttonText = buttonText.ToSelectString();
+            }
+            else
+            {
+                buttonText = buttonText.ToDisableString();
+            }
+
+            GUILayoutOption[] options = GetLayoutOptions(useWidth, useHeight);
+            if (GUILayout.Button(buttonText, options))
+            {
+                return !value;
+            }
+
+            return value;
+        }
+
         // SelectionGrid를 그립니다
         public int DrawSelectionGrid(int index, string[] contents, int count, bool useWidth = true, bool useHeight = true)
         {

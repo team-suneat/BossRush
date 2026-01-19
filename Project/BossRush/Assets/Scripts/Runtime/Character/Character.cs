@@ -1,4 +1,5 @@
 using Lean.Pool;
+using System.Collections.Generic;
 using TeamSuneat.Data;
 using UnityEngine;
 
@@ -107,6 +108,8 @@ namespace TeamSuneat
 
             AddDefaultStats();
             AddCharacterStats();
+            ApplyCharacterCharms();
+            UpdateMoveSpeed();
             InitializeStateMachines();
 
             AssignAnimator();
@@ -148,6 +151,7 @@ namespace TeamSuneat
         }
 
         #endregion Initialization
+
 
         protected virtual void OnDamage(DamageResult damageResult)
         {
@@ -284,6 +288,11 @@ namespace TeamSuneat
             }
         }
 
+        protected virtual void ApplyCharacterCharms()
+        {
+            // 기본적으로는 아무것도 하지 않음. 플레이어 캐릭터에서 오버라이드하여 사용
+        }
+
         private void AddDefaultStats()
         {
             StatNames[] statNames = EnumEx.GetValues<StatNames>();
@@ -295,6 +304,26 @@ namespace TeamSuneat
 
                 Stat.AddWithSourceInfo(statNames[i], 0, this, NameString, "Character");
             }
+        }
+
+        private void UpdateMoveSpeed()
+        {
+            if (Stat == null || Physics == null)
+            {
+                return;
+            }
+
+            float moveSpeed = Stat.FindValueOrDefault(StatNames.MoveSpeed);
+            float moveSpeedMulti = Stat.FindValueOrDefault(StatNames.MoveSpeedMulti);
+
+            // MoveSpeedMulti가 0이거나 없는 경우 기본 MoveSpeed 값 사용
+            if (moveSpeedMulti <= 0f)
+            {
+                moveSpeedMulti = 1f;
+            }
+
+            float finalMoveSpeed = moveSpeed * moveSpeedMulti;
+            Physics.SetMoveSpeed(finalMoveSpeed);
         }
 
         #region 상태 (State)
