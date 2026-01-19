@@ -3,7 +3,6 @@ using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TeamSuneat;
 
 namespace TeamSuneat.UserInterface
 {
@@ -54,13 +53,6 @@ namespace TeamSuneat.UserInterface
             _originalScale = transform.localScale;
         }
 
-        protected override void OnStart()
-        {
-            base.OnStart();
-            InitializeVisuals();
-            Log.Info(LogTags.UI_SelectEvent, "OnStart: {0} 초기화됨", gameObject.name);
-        }
-
         protected virtual void InitializeVisuals()
         {
             if (_frameImage != null)
@@ -74,6 +66,13 @@ namespace TeamSuneat.UserInterface
             }
         }
 
+        protected override void OnStart()
+        {
+            base.OnStart();
+            InitializeVisuals();
+            Log.Info(LogTags.UI_SelectEvent, "OnStart: {0} 초기화됨", gameObject.name);
+        }
+
         protected override void OnRelease()
         {
             base.OnRelease();
@@ -81,10 +80,8 @@ namespace TeamSuneat.UserInterface
             Log.Info(LogTags.UI_SelectEvent, "OnRelease: {0} 해제됨", gameObject.name);
         }
 
-        // 클릭 가능 여부 설정 시 비주얼도 함께 처리
         public virtual void SetClickable(bool clickable)
         {
-            // Locked 상태일 때는 강제로 false 유지
             if (_isLockedForced)
             {
                 clickable = false;
@@ -281,7 +278,6 @@ namespace TeamSuneat.UserInterface
             }
         }
 
-        // 상태별 비주얼 업데이트 (UISelectButton에서 호출)
         public virtual void UpdateStateVisual(ButtonState state)
         {
             bool isClickable = state != ButtonState.Locked;
@@ -309,7 +305,6 @@ namespace TeamSuneat.UserInterface
             }
         }
 
-        // 선택 상태 비주얼 업데이트
         protected virtual void UpdateSelectedVisual(bool isSelected)
         {
             if (_selectedImage != null)

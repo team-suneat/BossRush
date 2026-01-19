@@ -6,12 +6,25 @@ using UnityEngine.Events;
 
 namespace TeamSuneat.UserInterface
 {
-    public class UISelectElement : XBehaviour
+    public interface ISelectableWidget
+    {
+        void OnSelect();
+
+        void OnDeselect();
+
+        void OnSubmitDown();
+
+        void OnSubmit();
+
+        void OnSubmitUp();
+    }
+
+    public class UISelectElement : XBehaviour, ISelectableWidget
     {
         public enum PadClickTypes
         {
-            Right,
             Left,
+            Right,
         }
 
         private const int DEFAULT_SELECT_INDEX = 0;
@@ -110,12 +123,24 @@ namespace TeamSuneat.UserInterface
             {
                 if (Selectable != null)
                 {
-                    SelectFrameSizeDelta = Selectable.sizeDelta;
+                    var rect = Selectable.rectTransform.rect;
+                    SelectFrameSizeDelta = rect.size;
+                    Log.Info($"ResizeFrame: Selectable에서 크기 설정 - {rect.size}");
                 }
                 else if (Clickable != null)
                 {
-                    SelectFrameSizeDelta = Clickable.sizeDelta;
+                    var rect = Clickable.rectTransform.rect;
+                    SelectFrameSizeDelta = rect.size;
+                    Log.Info($"ResizeFrame: Clickable에서 크기 설정 - {rect.size}");
                 }
+                else
+                {
+                    Log.Warning("ResizeFrame: Selectable 또는 Clickable이 없어 크기를 설정할 수 없습니다.");
+                }
+            }
+            else
+            {
+                Log.Info($"ResizeFrame: SelectFrameSizeDelta가 이미 설정되어 있습니다 - {SelectFrameSizeDelta}");
             }
         }
 
@@ -137,6 +162,33 @@ namespace TeamSuneat.UserInterface
         {
             base.OnRelease();
             KillClickDelayTween();
+        }
+
+        private void OnDrawGizmos()
+        {
+            float offset = 24;
+            int fontSize = 10;
+
+            if (SelectLeftIndex > 0)
+            {
+                GizmoEx.DrawText(SelectLeftIndex.ToColorString(GameColors.WhiteSmoke), position + (Vector3.left * offset), fontSize);
+            }
+            if (SelectRightIndex > 0)
+            {
+                GizmoEx.DrawText(SelectRightIndex.ToColorString(GameColors.AntiqueWhite), position + (Vector3.right * offset), fontSize);
+            }
+            if (SelectUpIndex > 0)
+            {
+                GizmoEx.DrawText(SelectUpIndex.ToColorString(GameColors.FloralWhite), position + (Vector3.up * offset), fontSize);
+            }
+            if (SelectDownIndex > 0)
+            {
+                GizmoEx.DrawText(SelectDownIndex.ToColorString(GameColors.GhostWhite), position + (Vector3.down * offset), fontSize);
+            }
+            if (SelectIndex > 0)
+            {
+                GizmoEx.DrawText(SelectIndex.ToColorString(GameColors.LimeGreen), position);
+            }
         }
 
         public void OnPointerClick()
@@ -188,12 +240,7 @@ namespace TeamSuneat.UserInterface
             _enterEventAction?.Invoke();
             IsEnterPointer = true;
 
-            UIManager.Instance.SelectController
-                .ShowSelectFrame(UISelectFrameTypes.Normal,
-                                 SelectFrameSizeDelta,
-                                 SelectFrameOffset,
-                                 transform,
-                                 transform);
+            // 프레임 처리는 OnSelect()에서 통합 처리
         }
 
         public virtual void OnPointerExit()
@@ -202,6 +249,32 @@ namespace TeamSuneat.UserInterface
             IsEnterPointer = false;
 
             UIManager.Instance.SelectController.HideSelectFrame();
+        }
+
+        // ISelectableWidget 인터페이스 구현
+        public virtual void OnSelect()
+        {
+            OnPointerEnter();
+            
+            // 모든 입력 타입에서 프레임 처리
+            UIManager.Instance.SelectController
+                .ShowSelectFrame(UISelectFrameTypes.Normal,
+                               SelectFrameSizeDelta,
+                               SelectFrameOffset,
+                               transform,
+                               transform);
+        }
+
+        public virtual void OnDeselect() => OnPointerExit();
+
+        public virtual void OnSubmitDown() => OnPointerClick();
+
+        public virtual void OnSubmit() => OnPointerPressLeft();
+
+        public virtual void OnSubmitUp()
+        {
+            if (PadClickType == PadClickTypes.Left)
+                OnPointerUpLeft();
         }
 
         public virtual void RegisterOnPointEnter(UnityAction unityAction)
@@ -266,33 +339,6 @@ namespace TeamSuneat.UserInterface
         {
             _clickDelayTween?.Kill();
             _clickDelayTween = null;
-        }
-
-        private void OnDrawGizmos()
-        {
-            float offset = 24;
-            int fontSize = 10;
-
-            if (SelectLeftIndex > 0)
-            {
-                GizmoEx.DrawText(SelectLeftIndex.ToColorString(GameColors.WhiteSmoke), position + (Vector3.left * offset), fontSize);
-            }
-            if (SelectRightIndex > 0)
-            {
-                GizmoEx.DrawText(SelectRightIndex.ToColorString(GameColors.AntiqueWhite), position + (Vector3.right * offset), fontSize);
-            }
-            if (SelectUpIndex > 0)
-            {
-                GizmoEx.DrawText(SelectUpIndex.ToColorString(GameColors.FloralWhite), position + (Vector3.up * offset), fontSize);
-            }
-            if (SelectDownIndex > 0)
-            {
-                GizmoEx.DrawText(SelectDownIndex.ToColorString(GameColors.GhostWhite), position + (Vector3.down * offset), fontSize);
-            }
-            if (SelectIndex > 0)
-            {
-                GizmoEx.DrawText(SelectIndex.ToColorString(GameColors.LimeGreen), position);
-            }
         }
     }
 }

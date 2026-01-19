@@ -8,8 +8,7 @@ using UnityEngine.EventSystems;
 
 namespace TeamSuneat.UserInterface
 {
-    [System.Obsolete("UISelectButton은 deprecated되었습니다. UIImmediateButton 또는 UIToggleButton을 사용하세요.", false)]
-    public class UISelectButton : UISelectElement, IPointerDownHandler, IPointerUpHandler
+    public abstract class UISelectButtonBase : UISelectElement, IPointerDownHandler, IPointerUpHandler
     {
         private const float ALPHA_TRANSPARENT = 0f;
         private const float ALPHA_SEMI_TRANSPARENT = 0.5f;
@@ -18,17 +17,14 @@ namespace TeamSuneat.UserInterface
         private const float DEFAULT_HOLD_DELAY = 0.3f;
         private const float DEFAULT_BUTTON_IMAGE_ALPHA_DURATION = 0.15f;
 
-        [FoldoutGroup("#UISelectButton")]
-        [SerializeField] private Button _button;
+        [FoldoutGroup("#UISelectButtonBase")]
+        [SerializeField] protected Button _button;
 
-        [FoldoutGroup("#UISelectButton")]
+        [FoldoutGroup("#UISelectButtonBase")]
         [SerializeField] protected UIInteractiveElement _interactive;
 
-        [FoldoutGroup("#UISelectButton/State")]
-        [SerializeField] private ButtonState _currentState = ButtonState.UnlockedUnselected;
-
-        [FoldoutGroup("#UISelectButton/State")]
-        [SerializeField] private ButtonType _buttonType = ButtonType.Immediate;
+        [FoldoutGroup("#UISelectButtonBase/State")]
+        [SerializeField] protected ButtonState _currentState = ButtonState.UnlockedUnselected;
 
         [FoldoutGroup("#Event")]
         public UnityEvent OnClickSuccess;
@@ -39,19 +35,12 @@ namespace TeamSuneat.UserInterface
         [FoldoutGroup("#Event")]
         public UnityEvent<ButtonState> OnStateChanged;
 
-        [FoldoutGroup("#Event")]
-        public UnityEvent OnImmediateClick;
-
-        [FoldoutGroup("#Event")]
-        public UnityEvent<bool> OnToggleChanged;
-
         private Tween _alphaTween;
         private Coroutine _holdCoroutine;
         private bool _isHolding;
 
         public Button Button => _button;
         public ButtonState CurrentState => _currentState;
-        public ButtonType ButtonType => _buttonType;
 
         public override void AutoGetComponents()
         {
@@ -116,7 +105,6 @@ namespace TeamSuneat.UserInterface
             PlayClickVisual();
         }
 
-        // 실제 클릭 처리
         protected virtual void OnButtonClick()
         {
             if (!TryHandleClick())
@@ -139,6 +127,52 @@ namespace TeamSuneat.UserInterface
             OnHoldSucceeded();
         }
 
+        public override void OnSubmitDown()
+        {
+            // ButtonDown은 쿨다운과 딜레이 없이 즉시 처리
+            // TryHandleClick()을 직접 호출하되, 쿨다운 체크를 우회
+            if (!CheckClickableWithoutCooldown())
+            {
+                OnClickFailed();
+                return;
+            }
+
+            // TryHandleClick()을 직접 호출하여 딜레이와 쿨다운을 우회
+            if (!TryHandleClick())
+            {
+                OnClickFailed();
+                return;
+            }
+
+            OnClickSucceeded();
+        }
+
+        public override void OnSubmit()
+        {
+            // ButtonPressed는 쿨다운 체크 후 처리
+            // UISelectController에서 시간 간격으로 호출되므로
+            // 여기서는 일반적인 클릭 처리와 동일하게 처리
+            if (!CheckClickable())
+            {
+                OnClickFailed();
+                return;
+            }
+
+            if (!TryHandleClick())
+            {
+                OnClickFailed();
+                return;
+            }
+
+            OnClickSucceeded();
+        }
+
+        public override void OnSubmitUp()
+        {
+            // ButtonUp은 쿨다운 없이 즉시 처리
+            base.OnSubmitUp();
+        }
+
         protected virtual bool CheckClickable()
         {
             if (_currentState == ButtonState.Locked)
@@ -154,6 +188,24 @@ namespace TeamSuneat.UserInterface
             }
 
             return _interactive.IsClickable && _interactive.CheckClickCooldown();
+        }
+
+        private bool CheckClickableWithoutCooldown()
+        {
+            if (_currentState == ButtonState.Locked)
+            {
+                Log.Warning(LogTags.UI_Button, "버튼이 잠금 상태입니다. 클릭할 수 없습니다.");
+                return false;
+            }
+
+            if (_interactive == null)
+            {
+                Log.Warning(LogTags.UI_Button, "UIInteractiveElement 컴포넌트가 비어있습니다. 클릭할 수 있습니다.");
+                return true;
+            }
+
+            // 쿨다운 체크 없이 클릭 가능 여부만 확인
+            return _interactive.IsClickable;
         }
 
         private void PlayClickVisual()
@@ -364,56 +416,12 @@ namespace TeamSuneat.UserInterface
             }
         }
 
-        public void ToggleSelection()
-        {
-            if (_buttonType != ButtonType.Toggle)
-            {
-                return;
-            }
-
-            if (_currentState == ButtonState.UnlockedSelected)
-            {
-                SetState(ButtonState.UnlockedUnselected);
-                OnToggleChanged?.Invoke(false);
-            }
-            else if (_currentState == ButtonState.UnlockedUnselected)
-            {
-                SetState(ButtonState.UnlockedSelected);
-                OnToggleChanged?.Invoke(true);
-            }
-        }
-
         public void UpdateVisualByState()
         {
             _interactive?.UpdateStateVisual(_currentState);
         }
 
-        public bool TryHandleClick()
-        {
-            if (!CheckClickable())
-            {
-                return false;
-            }
-
-            if (_currentState == ButtonState.Locked)
-            {
-                return false;
-            }
-
-            if (_buttonType == ButtonType.Immediate)
-            {
-                OnImmediateClick?.Invoke();
-                return true;
-            }
-
-            if (_buttonType == ButtonType.Toggle)
-            {
-                ToggleSelection();
-                return true;
-            }
-
-            return false;
-        }
+        protected abstract bool TryHandleClick();
 
         #endregion State Management
     }

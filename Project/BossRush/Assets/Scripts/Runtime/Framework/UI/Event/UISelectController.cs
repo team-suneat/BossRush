@@ -9,6 +9,7 @@ namespace TeamSuneat.UserInterface
     {
         private enum Direction
         {
+            None,
             Left,
             Right,
             Up,
@@ -18,18 +19,19 @@ namespace TeamSuneat.UserInterface
         private const int MAX_RECURSION_COUNT = 3;
         private const float DEFAULT_WAIT_MOVE_TIME = 0.2f;
         private const float DETAIL_WAIT_MOVE_TIME = 0.12f;
-        private const float JOYSTICK_INPUT_THRESHOLD = 0.5f;
+        private const float DEFAULT_WAIT_PRESSED_TIME = 0.2f;
 
         public int CurrentIndex;
         public UISelectFrame SelectFrame;
         public Dictionary<int, UISelectElement> SelectedEventSlots = new();
 
+        public int LastIndex { get; set; }
+
         private bool _isStart;
         private float _waitMoveTime = DEFAULT_WAIT_MOVE_TIME;
         private float _currentWaitMoveTime;
+        private float _currentWaitPressedTime;
         private Coroutine _showSelectFrameCoroutine;
-
-        public int LastIndex { get; set; }
 
         public override void AutoGetComponents()
         {
@@ -300,9 +302,15 @@ namespace TeamSuneat.UserInterface
             for (int i = 0; i < events.Length; i++)
             {
                 UISelectElement pointerEvent = events[i];
-                if (pointerEvent == null) { continue; }
+                if (pointerEvent == null)
+                {
+                    continue;
+                }
 
-                if (!SelectedEventSlots.ContainsKey(pointerEvent.SelectIndex)) { continue; }
+                if (!SelectedEventSlots.ContainsKey(pointerEvent.SelectIndex))
+                {
+                    continue;
+                }
 
                 _ = SelectedEventSlots.Remove(pointerEvent.SelectIndex);
 
@@ -314,139 +322,78 @@ namespace TeamSuneat.UserInterface
 
         public void UpdateMoveInput()
         {
-            if (SelectedEventSlots.Count > 0)
-            {
-                if (TSInputManager.Instance.CurrentControllerType == ControllerType.Joystick)
-                {
-                    if (!TryMoveByJoystickDirection())
-                    {
-                        MoveByDirection();
-                    }
-
-                    TryCallButtonEvent();
-                }
-                else if (TSInputManager.Instance.CurrentControllerType == ControllerType.Keyboard)
-                {
-                    MoveByDirection();
-
-                    TryCallButtonEvent();
-                }
-            }
-        }
-
-        private bool TryMoveByJoystickDirection()
-        {
-            _currentWaitMoveTime -= Time.unscaledDeltaTime;
-            if (_currentWaitMoveTime >= 0)
-            {
-                return false;
-            }
-
-            var horizontalMovement = TSInputManager.Instance.InputPlayer.GetAxisRaw("UICursorHorizontal");
-            var verticalMovement = TSInputManager.Instance.InputPlayer.GetAxisRaw("UICursorVertical");
-
-            var uiMovement = new Vector2(horizontalMovement, verticalMovement);
-            if (Mathf.Abs(uiMovement.x) > JOYSTICK_INPUT_THRESHOLD || Mathf.Abs(uiMovement.y) > JOYSTICK_INPUT_THRESHOLD)
-            {
-                int newIndex = GetDirectionalIndexFromMovement(CurrentIndex, uiMovement);
-                if (newIndex != 0)
-                {
-                    Select(newIndex);
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private int GetDirectionalIndexFromMovement(int currentIndex, Vector2 movement)
-        {
-            if (movement.x < -JOYSTICK_INPUT_THRESHOLD)
-            {
-                return GetDirectionalIndex(currentIndex, Direction.Left);
-            }
-
-            if (movement.x > JOYSTICK_INPUT_THRESHOLD)
-            {
-                return GetDirectionalIndex(currentIndex, Direction.Right);
-            }
-
-            if (movement.y > JOYSTICK_INPUT_THRESHOLD)
-            {
-                return GetDirectionalIndex(currentIndex, Direction.Up);
-            }
-
-            return movement.y < -JOYSTICK_INPUT_THRESHOLD ? GetDirectionalIndex(currentIndex, Direction.Down) : 0;
-        }
-
-        private void MoveByDirection()
-        {
-            if (TSInputManager.Instance.CheckButtonState(ActionNames.UIMoveLeft, ButtonStates.ButtonDown))
-            {
-                Select(GetDirectionalIndex(CurrentIndex, Direction.Left));
-            }
-            else if (TSInputManager.Instance.CheckButtonState(ActionNames.UIMoveRight, ButtonStates.ButtonDown))
-            {
-                Select(GetDirectionalIndex(CurrentIndex, Direction.Right));
-            }
-            else if (TSInputManager.Instance.CheckButtonState(ActionNames.UIMoveUp, ButtonStates.ButtonDown))
-            {
-                Select(GetDirectionalIndex(CurrentIndex, Direction.Up));
-            }
-            else if (TSInputManager.Instance.CheckButtonState(ActionNames.UIMoveDown, ButtonStates.ButtonDown))
-            {
-                Select(GetDirectionalIndex(CurrentIndex, Direction.Down));
-            }
-        }
-
-        private void TryCallButtonEvent()
-        {
-            bool isKeyboard = TSInputManager.Instance.CurrentControllerType == ControllerType.Keyboard;
-            ButtonStates buttonState = GetButtonState(isKeyboard);
-
-            if (buttonState == ButtonStates.Off)
+            if (SelectedEventSlots.Count == 0)
             {
                 return;
             }
 
-            switch (buttonState)
+            TSInputManager.UIInputSnapshot uiInput = TSInputManager.Instance.GetUIInput();
+
+            // 이동 (X 우선 → Y 우선, 기존 동작 유지)
+            if (uiInput.MoveX != 0 || uiInput.MoveY != 0)
             {
-                case ButtonStates.ButtonDown:
-                    CallButtonDownEvent(CurrentIndex);
-                    break;
-
-                case ButtonStates.ButtonPressed:
-                    CallPressedEvent(CurrentIndex);
-                    break;
-
-                case ButtonStates.ButtonUp:
-                    CallButtonUpEvent(CurrentIndex);
-                    break;
-            }
-        }
-
-        private ButtonStates GetButtonState(bool isKeyboard)
-        {
-            if (isKeyboard)
-            {
-                if (TSInputManager.Instance.CheckButtonState(ActionNames.UISubmit, ActionNames.UISubmit2, ButtonStates.ButtonDown))
-                    return ButtonStates.ButtonDown;
-                if (TSInputManager.Instance.CheckButtonState(ActionNames.UISubmit, ActionNames.UISubmit2, ButtonStates.ButtonPressed))
-                    return ButtonStates.ButtonPressed;
-                if (TSInputManager.Instance.CheckButtonState(ActionNames.UISubmit, ActionNames.UISubmit2, ButtonStates.ButtonUp))
-                    return ButtonStates.ButtonUp;
+                _currentWaitMoveTime -= Time.unscaledDeltaTime;
+                if (_currentWaitMoveTime <= 0)
+                {
+                    if (uiInput.MoveX < 0)
+                    {
+                        Select(GetDirectionalIndex(CurrentIndex, Direction.Left));
+                    }
+                    else if (uiInput.MoveX > 0)
+                    {
+                        Select(GetDirectionalIndex(CurrentIndex, Direction.Right));
+                    }
+                    else if (uiInput.MoveY > 0)
+                    {
+                        Select(GetDirectionalIndex(CurrentIndex, Direction.Down));
+                    }
+                    else if (uiInput.MoveY < 0)
+                    {
+                        Select(GetDirectionalIndex(CurrentIndex, Direction.Up));
+                    }
+                }
             }
             else
             {
-                if (TSInputManager.Instance.CheckButtonState(ActionNames.UISubmit, ButtonStates.ButtonDown))
-                    return ButtonStates.ButtonDown;
-                if (TSInputManager.Instance.CheckButtonState(ActionNames.UISubmit, ButtonStates.ButtonPressed))
-                    return ButtonStates.ButtonPressed;
-                if (TSInputManager.Instance.CheckButtonState(ActionNames.UISubmit, ButtonStates.ButtonUp))
-                    return ButtonStates.ButtonUp;
+                // 이동 입력이 없으면 대기 시간 초기화
+                _currentWaitMoveTime = 0;
             }
 
-            return ButtonStates.Off;
+            // Submit
+            TryCallButtonEventFromSnapshot(uiInput.Submit);
+        }
+
+        private void TryCallButtonEventFromSnapshot(ButtonStates submitState)
+        {
+            if (submitState == ButtonStates.Off || CurrentIndex == 0)
+            {
+                return;
+            }
+
+            switch (submitState)
+            {
+                case ButtonStates.ButtonDown:
+                    // ButtonDown은 즉시 처리 (쿨다운 없음)
+                    CallButtonDownEvent(CurrentIndex);
+                    _currentWaitPressedTime = 0; // Pressed 대기 시간 초기화
+                    break;
+
+                case ButtonStates.ButtonPressed:
+                    // ButtonPressed는 일정 시간 간격으로만 처리
+                    _currentWaitPressedTime -= Time.unscaledDeltaTime;
+                    if (_currentWaitPressedTime <= 0)
+                    {
+                        CallPressedEvent(CurrentIndex);
+                        _currentWaitPressedTime = DEFAULT_WAIT_PRESSED_TIME;
+                    }
+                    break;
+
+                case ButtonStates.ButtonUp:
+                    // ButtonUp은 즉시 처리 (쿨다운 없음)
+                    CallButtonUpEvent(CurrentIndex);
+                    _currentWaitPressedTime = 0; // Pressed 대기 시간 초기화
+                    break;
+            }
         }
 
         private int GetDirectionalIndex(int currentIndex, Direction direction, int recursionCount = 0)
@@ -522,24 +469,25 @@ namespace TeamSuneat.UserInterface
             LastIndex = CurrentIndex;
             Deselect(CurrentIndex);
 
-            if (SelectedEventSlots.TryGetValue(index, out UISelectElement element))
-            {
-                CurrentIndex = index;
-                if (!isMouseInput)
-                {
-                    element.OnPointerEnter();
-                    ChangeDownUpMoveSpeed(index);
-                    _currentWaitMoveTime = _waitMoveTime;
-                }
-
-                Log.Info(LogTags.UI_SelectEvent, "(Controller) 선택 가능한 이벤트를 선택합니다. Select Index: {0}", index);
-                return true;
-            }
-            else
+            if (!SelectedEventSlots.TryGetValue(index, out UISelectElement element))
             {
                 Log.Warning(LogTags.UI_SelectEvent, "(Controller) 선택할 수 없습니다. 선택 가능한 이벤트를 찾을 수 없습니다. Index: {0}", index);
                 return false;
             }
+
+            CurrentIndex = index;
+
+            // 이벤트 호출 (프레임은 OnSelect()에서 처리)
+            element.OnSelect();
+
+            if (!isMouseInput)
+            {
+                ChangeDownUpMoveSpeed(index);
+                _currentWaitMoveTime = _waitMoveTime;
+            }
+
+            Log.Info(LogTags.UI_SelectEvent, "(Controller) 선택 가능한 이벤트를 선택합니다. Select Index: {0}", index);
+            return true;
         }
 
         private void ChangeDownUpMoveSpeed(int index)
@@ -569,14 +517,13 @@ namespace TeamSuneat.UserInterface
                 return;
             }
 
-            if (SelectedEventSlots.TryGetValue(index, out UISelectElement element))
-            {
-                element.OnPointerExit();
-            }
-            else
+            if (!SelectedEventSlots.TryGetValue(index, out UISelectElement element))
             {
                 Log.Warning(LogTags.UI_SelectEvent, "(Controller) 선택 해제할 수 없습니다. 선택 가능한 이벤트를 찾을 수 없습니다. SelectIndex: {0}", index);
+                return;
             }
+
+            element.OnDeselect();
         }
 
         #region Click Event
@@ -588,14 +535,13 @@ namespace TeamSuneat.UserInterface
                 return;
             }
 
-            if (SelectedEventSlots.TryGetValue(currentIndex, out UISelectElement pointerEvent))
-            {
-                pointerEvent.OnPointerPressLeft();
-            }
-            else
+            if (!SelectedEventSlots.TryGetValue(currentIndex, out UISelectElement pointerEvent))
             {
                 Log.Warning(LogTags.UI_SelectEvent, "(Controller) 키가 존재하지 않아 PRESSED 이벤트를 하지 않습니다.  Index:{0}", currentIndex);
+                return;
             }
+
+            pointerEvent.OnSubmit();
         }
 
         public void CallButtonDownEvent(int currentIndex)
@@ -605,14 +551,13 @@ namespace TeamSuneat.UserInterface
                 return;
             }
 
-            if (SelectedEventSlots.TryGetValue(currentIndex, out UISelectElement pointerEvent))
-            {
-                pointerEvent.OnPointerClick();
-            }
-            else
+            if (!SelectedEventSlots.TryGetValue(currentIndex, out UISelectElement pointerEvent))
             {
                 Log.Warning(LogTags.UI_SelectEvent, "(Controller) 키가 존재하지 않아 BUTTON DOWN 이벤트를 하지 않습니다.  Index:{0}", currentIndex);
+                return;
             }
+
+            pointerEvent.OnSubmitDown();
         }
 
         public void CallButtonUpEvent(int currentIndex)
@@ -622,17 +567,13 @@ namespace TeamSuneat.UserInterface
                 return;
             }
 
-            if (SelectedEventSlots.TryGetValue(currentIndex, out UISelectElement pointerEvent))
-            {
-                if (pointerEvent.PadClickType == UISelectElement.PadClickTypes.Left)
-                {
-                    pointerEvent.OnPointerUpLeft();
-                }
-            }
-            else
+            if (!SelectedEventSlots.TryGetValue(currentIndex, out UISelectElement pointerEvent))
             {
                 Log.Warning(LogTags.UI_SelectEvent, "(Controller) 키가 존재하지 않아 BUTTON UP 이벤트를 하지 않습니다.  Index:{0}", currentIndex);
+                return;
             }
+
+            pointerEvent.OnSubmitUp();
         }
 
         #endregion Click Event

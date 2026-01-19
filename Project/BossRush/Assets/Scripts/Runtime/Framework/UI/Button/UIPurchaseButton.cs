@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace TeamSuneat.UserInterface
 {
     // 구매 버튼 컴포넌트
-    public class UIPurchaseButton : UISelectButton
+    public class UIPurchaseButton : UIImmediateButton
     {
         [FoldoutGroup("#UIButton-Purchase"), SerializeField]
         private Image _currencyIconImage;

@@ -11,7 +11,7 @@ namespace TeamSuneat
         Xbox,
         PlayStation,
         PlayStation5,
-        Nintendo,
+        Nintendo
     }
 
     public partial class TSInputManager : Singleton<TSInputManager>
@@ -319,7 +319,11 @@ namespace TeamSuneat
             for (int i = 0; i < _buttonList.Count; i++)
             {
                 TSInputButton button = _buttonList[i];
-                if (button == null) { continue; }
+                if (button == null)
+                {
+                    continue;
+                }
+
                 if (CurrentControllerType == ControllerType.Mouse)
                 {
                     if (!button.IsValidKey(ControllerType.Keyboard))
@@ -353,18 +357,19 @@ namespace TeamSuneat
 
             if (_buttonList != null)
             {
-                for (int i = 0; i < _buttonList.Count; i++)
+            for (int i = 0; i < _buttonList.Count; i++)
+            {
+                TSInputButton button = _buttonList[i];
+                if (button == null)
                 {
-                    TSInputButton button = _buttonList[i];
-                    if (button == null)
-                    {
-                        continue;
-                    }
-                    if (button.CheckState(ButtonStates.ButtonDown))
-                    {
-                        return button;
-                    }
+                    continue;
                 }
+
+                if (button.CheckState(ButtonStates.ButtonDown))
+                {
+                    return button;
+                }
+            }
             }
 
             return null;
@@ -593,6 +598,117 @@ namespace TeamSuneat
             }
 
             return false;
+        }
+
+        public struct UIInputSnapshot
+        {
+            public int MoveX;  // -1, 0, 1
+            public int MoveY;  // -1, 0, 1
+            public ButtonStates Submit;
+        }
+
+        private int GetAxisInput(
+            ActionNames negativeAction,
+            ActionNames positiveAction,
+            string axisName,
+            float primaryAxis,
+            float rightPadAxis,
+            float threshold)
+        {
+            // 버튼 체크 (우선)
+            if (CheckButtonState(negativeAction, ButtonStates.ButtonDown) ||
+                CheckButtonState(negativeAction, ButtonStates.ButtonPressed))
+            {
+                return -1;
+            }
+
+            if (CheckButtonState(positiveAction, ButtonStates.ButtonDown) ||
+                CheckButtonState(positiveAction, ButtonStates.ButtonPressed))
+            {
+                return 1;
+            }
+
+            // 축 체크: UICursor > Primary > RightPad (우선순위)
+            if (InputPlayer != null)
+            {
+                float axis = InputPlayer.GetAxisRaw(axisName);
+                if (Mathf.Abs(axis) > threshold)
+                {
+                    return axis > 0 ? 1 : -1;
+                }
+            }
+
+            // Primary 체크
+            if (Mathf.Abs(primaryAxis) > threshold)
+            {
+                return primaryAxis > 0 ? 1 : -1;
+            }
+
+            // RightPad 체크
+            if (Mathf.Abs(rightPadAxis) > threshold)
+            {
+                return rightPadAxis > 0 ? 1 : -1;
+            }
+
+            return 0;
+        }
+
+        public UIInputSnapshot GetUIInput()
+        {
+            UIInputSnapshot result = new UIInputSnapshot();
+
+            // X축 처리
+            result.MoveX = GetAxisInput(
+                ActionNames.UIMoveLeft,
+                ActionNames.UIMoveRight,
+                "UICursorHorizontal",
+                PrimaryMovement.x,
+                RightPadMovement.x,
+                ThresholdUI.x);
+
+            // Y축 처리
+            result.MoveY = GetAxisInput(
+                ActionNames.UIMoveUp,
+                ActionNames.UIMoveDown,
+                "UICursorVertical",
+                PrimaryMovement.y,
+                RightPadMovement.y,
+                ThresholdUI.y);
+
+            // Submit 처리
+            bool isKeyboard = CurrentControllerType == ControllerType.Keyboard;
+            if (isKeyboard)
+            {
+                if (CheckButtonState(ActionNames.UISubmit, ActionNames.UISubmit2, ButtonStates.ButtonDown))
+                {
+                    result.Submit = ButtonStates.ButtonDown;
+                }
+                else if (CheckButtonState(ActionNames.UISubmit, ActionNames.UISubmit2, ButtonStates.ButtonPressed))
+                {
+                    result.Submit = ButtonStates.ButtonPressed;
+                }
+                else if (CheckButtonState(ActionNames.UISubmit, ActionNames.UISubmit2, ButtonStates.ButtonUp))
+                {
+                    result.Submit = ButtonStates.ButtonUp;
+                }
+            }
+            else
+            {
+                if (CheckButtonState(ActionNames.UISubmit, ButtonStates.ButtonDown))
+                {
+                    result.Submit = ButtonStates.ButtonDown;
+                }
+                else if (CheckButtonState(ActionNames.UISubmit, ButtonStates.ButtonPressed))
+                {
+                    result.Submit = ButtonStates.ButtonPressed;
+                }
+                else if (CheckButtonState(ActionNames.UISubmit, ButtonStates.ButtonUp))
+                {
+                    result.Submit = ButtonStates.ButtonUp;
+                }
+            }
+
+            return result;
         }
     }
 }

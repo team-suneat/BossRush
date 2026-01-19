@@ -58,7 +58,7 @@ namespace TeamSuneat
                 Level.Warning => GameColors.ActivateYellow,
                 Level.Error => GameColors.CherryRed,
                 Level.Except => GameColors.RoyalBlue,
-                _ => null,
+                _ => null
             };
         }
 
@@ -75,10 +75,12 @@ namespace TeamSuneat
         private static bool IsLogLevelEnabled(Level level)
         {
 #if UNITY_EDITOR
-            return LevelChecks.TryGetValue(level, out var check) && check();
-#else
-            return false;
+            if (LevelChecks.TryGetValue(level, out Func<bool> check))
+            {
+                return check();
+            }
 #endif
+            return false;
         }
 
         // 매개변수 검증
@@ -127,7 +129,10 @@ namespace TeamSuneat
         // 로그 메시지 처리 함수
         private static void LogMessage(string tag, string format, Level level, params object[] args)
         {
-            if (false == IsLogLevelEnabled(level)) return; // 레벨 체크 후 조기 반환
+            if (!IsLogLevelEnabled(level))
+            {
+                return;
+            }
 
             ValidateArgs(format, args);
             string content = FormatMessage(format, args);
@@ -138,9 +143,15 @@ namespace TeamSuneat
         // 태그를 포함한 로그 메시지 처리
         private static void LogWithTag(LogTags tag, string format, Level level, params object[] args)
         {
-            // 레벨 체크 후 조기 반환
-            if (false == IsLogLevelEnabled(level)) return;
-            if (false == ScriptableDataManager.Instance.FindLog(tag)) return;
+            if (!IsLogLevelEnabled(level))
+            {
+                return;
+            }
+
+            if (!ScriptableDataManager.Instance.FindLog(tag))
+            {
+                return;
+            }
 
             ValidateArgs(format, args);
             string content = FormatMessage(format, args);
@@ -152,7 +163,10 @@ namespace TeamSuneat
 
         public static void Progress(string content)
         {
-            if (false == IsLogLevelEnabled(Level.Progress)) return;
+            if (!IsLogLevelEnabled(Level.Progress))
+            {
+                return;
+            }
 
             SafeLog(LogLevels.Progress, content, color: GetColor(Level.Progress));
         }
@@ -164,9 +178,15 @@ namespace TeamSuneat
 
         public static void Progress(LogTags tag, string content)
         {
-            // 레벨 체크 후 조기 반환
-            if (false == IsLogLevelEnabled(Level.Progress)) return;
-            if (false == ScriptableDataManager.Instance.FindLog(tag)) return;
+            if (!IsLogLevelEnabled(Level.Progress))
+            {
+                return;
+            }
+
+            if (!ScriptableDataManager.Instance.FindLog(tag))
+            {
+                return;
+            }
 
             SafeLog(tag.ToString(), content, color: GetColor(Level.Progress));
         }
@@ -178,7 +198,10 @@ namespace TeamSuneat
 
         public static void Info(string content)
         {
-            if (false == IsLogLevelEnabled(Level.Info)) return;
+            if (!IsLogLevelEnabled(Level.Info))
+            {
+                return;
+            }
 
             SafeLog(LogLevels.Info, content, color: GetColor(Level.Info));
         }
@@ -190,9 +213,15 @@ namespace TeamSuneat
 
         public static void Info(LogTags tag, string content)
         {
-            // 레벨 체크 후 조기 반환
-            if (false == IsLogLevelEnabled(Level.Info)) return;
-            if (false == ScriptableDataManager.Instance.FindLog(tag)) return;
+            if (!IsLogLevelEnabled(Level.Info))
+            {
+                return;
+            }
+
+            if (!ScriptableDataManager.Instance.FindLog(tag))
+            {
+                return;
+            }
 
             SafeLog(tag.ToString(), content, color: GetColor(Level.Info));
         }
@@ -204,7 +233,10 @@ namespace TeamSuneat
 
         public static void Warning(string content)
         {
-            if (false == IsLogLevelEnabled(Level.Warning)) return;
+            if (!IsLogLevelEnabled(Level.Warning))
+            {
+                return;
+            }
 
             SafeLog(LogLevels.Warning, content, color: GetColor(Level.Warning));
 
@@ -220,9 +252,15 @@ namespace TeamSuneat
 
         public static void Warning(LogTags tag, string content)
         {
-            // 레벨 체크 후 조기 반환
-            if (false == IsLogLevelEnabled(Level.Warning)) return;
-            if (false == ScriptableDataManager.Instance.FindLog(tag)) return;
+            if (!IsLogLevelEnabled(Level.Warning))
+            {
+                return;
+            }
+
+            if (!ScriptableDataManager.Instance.FindLog(tag))
+            {
+                return;
+            }
 
             SafeLog(tag.ToString(), content, color: GetColor(Level.Warning));
 
@@ -238,7 +276,10 @@ namespace TeamSuneat
 
         public static void Error(string content)
         {
-            if (false == IsLogLevelEnabled(Level.Error)) return;
+            if (!IsLogLevelEnabled(Level.Error))
+            {
+                return;
+            }
 
             SafeLog(LogLevels.Error, content, color: GetColor(Level.Error));
 
@@ -254,9 +295,15 @@ namespace TeamSuneat
 
         public static void Error(LogTags tag, string content)
         {
-            // 레벨 체크 후 조기 반환
-            if (false == IsLogLevelEnabled(Level.Error)) return;
-            if (false == ScriptableDataManager.Instance.FindLog(tag)) return;
+            if (!IsLogLevelEnabled(Level.Error))
+            {
+                return;
+            }
+
+            if (!ScriptableDataManager.Instance.FindLog(tag))
+            {
+                return;
+            }
 
             SafeLog(tag.ToString(), content, color: GetColor(Level.Error));
 
@@ -272,7 +319,10 @@ namespace TeamSuneat
 
         public static void Except(string content)
         {
-            if (false == IsLogLevelEnabled(Level.Except)) return;
+            if (!IsLogLevelEnabled(Level.Except))
+            {
+                return;
+            }
 
             SafeLog(LogLevels.Except, content, color: GetColor(Level.Except));
         }
