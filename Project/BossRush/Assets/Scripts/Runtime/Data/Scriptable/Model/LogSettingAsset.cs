@@ -38,11 +38,12 @@ namespace TeamSuneat
         #region Character-Battle
 
         [FoldoutGroup("[전투]")][SuffixLabel("공격")] public bool Attack;
-        [FoldoutGroup("[전투]")][SuffixLabel("전투 자원")] public bool BattleResource;
+        [FoldoutGroup("[전투]")][SuffixLabel("버프")] public bool Buff;
         [FoldoutGroup("[전투]")][SuffixLabel("피해량 계산")] public bool Damage;
         [FoldoutGroup("[전투]")][SuffixLabel("이펙트")] public bool Effect;
         [FoldoutGroup("[전투]")][SuffixLabel("능력치")] public bool Stat;
-        [FoldoutGroup("[전투]")][SuffixLabel("캐릭터 전투 자원")] public bool Vital;
+        [FoldoutGroup("[전투]")][SuffixLabel("전투 자원 관리")] public bool Vital;
+        [FoldoutGroup("[전투]")][SuffixLabel("전투 자원")] public bool BattleResource;
 
         #endregion Character-Battle
 
@@ -174,6 +175,7 @@ namespace TeamSuneat
             Effect = true;
             Stat = true;
             Vital = true;
+            Buff = true;
 
             Skill = true;
 
@@ -241,6 +243,7 @@ namespace TeamSuneat
             Effect = false;
             Stat = false;
             Vital = false;
+            Buff = false;
 
             Skill = false;
 
@@ -317,6 +320,7 @@ namespace TeamSuneat
                 LogTags.Effect => Effect,
                 LogTags.Stat => Stat,
                 LogTags.Vital => Vital,
+                LogTags.Buff => Buff,
 
                 LogTags.Skill => Skill,
 
@@ -389,6 +393,7 @@ namespace TeamSuneat
                 case LogTags.Effect: { Effect = true; } break;
                 case LogTags.Stat: { Stat = true; } break;
                 case LogTags.Vital: { Vital = true; } break;
+                case LogTags.Buff: { Buff = true; } break;
 
                 case LogTags.Skill: { Skill = true; } break;
 
@@ -459,6 +464,7 @@ namespace TeamSuneat
                 case LogTags.Effect: { Effect = false; } break;
                 case LogTags.Stat: { Stat = false; } break;
                 case LogTags.Vital: { Vital = false; } break;
+                case LogTags.Buff: { Buff = false; } break;
 
                 case LogTags.Skill: { Skill = false; } break;
 

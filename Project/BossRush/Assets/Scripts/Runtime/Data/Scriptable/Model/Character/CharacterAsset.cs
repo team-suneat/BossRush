@@ -55,7 +55,7 @@ namespace TeamSuneat.Data
 
             if (!Data.IsChangingAsset)
             {
-                _ = EnumEx.ConvertTo(ref Data.Name, NameString);
+                EnumEx.ConvertTo(ref Data.Name, NameString);
             }
 
             Data.Validate();
@@ -79,7 +79,7 @@ namespace TeamSuneat.Data
                 _hasChangedWhiteRefreshAll = true;
             }
 
-            _ = base.RefreshWithoutSave();
+            base.RefreshWithoutSave();
 
             return _hasChangedWhiteRefreshAll;
         }

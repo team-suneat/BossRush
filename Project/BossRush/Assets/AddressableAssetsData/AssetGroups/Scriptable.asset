@@ -21,6 +21,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 043a447783968524397f801dcf0e76f1
+    m_Address: Assets/Addressables/Scriptable/Buff/Buff_MoveSpeedUp.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 19b3808665fba644ab7daa451bf02afa
     m_Address: Assets/Addressables/Scriptable/Character/Character_PlayerCharacter.asset
     m_ReadOnly: 0
@@ -87,6 +93,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7a8f3c2d1e4b5a6f9c8d7e2b3a4f5c6d
+    m_Address: Assets/Addressables/Scriptable/Buff/Buff_ParryStun.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7b1487cc02c57e94faf7da716764cc14
     m_Address: Assets/Addressables/Scriptable/Character/PlayerCharacterStatConfig.asset
     m_ReadOnly: 0
@@ -135,8 +147,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d4ceab8251ba18247bb79017d643f57b
+    m_Address: Assets/Addressables/Scriptable/Buff/Buff_AttackPowerUp.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dbc2a86de7829c04892900c58161dfb4
     m_Address: Assets/Addressables/Scriptable/Sound/Sound_Movement_Landing.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e24924d54a3b46a4b8e78d587c2f56df
+    m_Address: Assets/Addressables/Scriptable/Character/Character_Scarecrow.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable

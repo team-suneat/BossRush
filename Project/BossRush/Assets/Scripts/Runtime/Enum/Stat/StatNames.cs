@@ -8,6 +8,7 @@ namespace TeamSuneat
         Attack,                  // 공격력
         Life,                    // 최대 체력
         AttackSpeed,             // 공격 속도(%)
+        MoveSpeed,               // 이동 속도(%)
         Mana,                    // 마나
         Pulse,                   // 펄스
         PulseRegen,              // 펄스 재생량

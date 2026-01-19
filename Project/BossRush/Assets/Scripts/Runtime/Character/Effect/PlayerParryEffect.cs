@@ -57,7 +57,7 @@ namespace TeamSuneat
             _vital = _character?.MyVital;
         }
 
-        public void OnParrySuccess(Character attacker, Character targetCharacter, Vector3 attackPosition, bool applyStun = true)
+        public void OnParrySuccess(Character attacker, Character targetCharacter, Vector3 attackPosition, ParryTypes parryType)
         {
             if (_character == null)
             {
@@ -69,20 +69,27 @@ namespace TeamSuneat
                 ApplyKnockback(attacker);
             }
 
-            // 공격자에게 1초 기절 적용 (패링 타입에 따라 결정)
-            if (applyStun && attacker != null)
-            {
-                attacker.ApplyStun(1f);
-            }
-
             SpawnVFX(attackPosition);
 
+            ApplyParry(attacker, parryType);
             ApplyPulseReward();
             ApplySound();
             ApplySlowMotion();
             ApplyVibration();
             ApplyParryRendererEffect(targetCharacter);
             ApplyCameraShake(attackPosition);
+        }
+
+        private void ApplyParry(Character attacker, ParryTypes parryType)
+        {
+            if (parryType == ParryTypes.ParryableWithStun)
+            {
+                if (attacker != null && attacker.Buff != null)
+                {
+                    // 공격자에게 1초 기절 적용 (패링 타입에 따라 결정)
+                    attacker.Buff.Add(BuffName.ParryStun, 1, _character);
+                }
+            }
         }
 
         private void ApplyPulseReward()

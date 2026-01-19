@@ -1,4 +1,6 @@
-﻿namespace TeamSuneat
+﻿using TeamSuneat.Data;
+
+namespace TeamSuneat
 {
     public class MonsterCharacter : Character
     {
@@ -91,11 +93,6 @@
             }
         }
 
-        public override void AddCharacterStats()
-        {
-            Stat.AddWithSourceInfo(StatNames.Attack, 1, this, NameString, "CharacterBase");
-            Stat.AddWithSourceInfo(StatNames.AttackSpeed, 1f, this, NameString, "CharacterBase");
-        }
 
         protected override void OnDeath(DamageResult damageResult)
         {

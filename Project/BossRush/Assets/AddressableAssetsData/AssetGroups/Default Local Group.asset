@@ -87,6 +87,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - default
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e446b0a2a2b660d45bcbc71913a809ef
+    m_Address: Assets/Addressables/Prefab/BuffEntity.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: eb8d74baaf4a0ab47a9bfda9ef9fdeb0
     m_Address: Assets/Addressables/Prefab/UI/Gauge/UIEnemyGauge.prefab
     m_ReadOnly: 0

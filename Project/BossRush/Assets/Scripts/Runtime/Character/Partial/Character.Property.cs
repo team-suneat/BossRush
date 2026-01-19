@@ -15,6 +15,7 @@ namespace TeamSuneat
         public CharacterPhysics Physics { get; set; }
         public AttackSystem Attack { get; set; }
         public StatSystem Stat { get; set; }
+        public BuffSystem Buff { get; set; }
         public Vital MyVital { get; set; }
         public CharacterStateMachine StateMachine { get; set; }
 

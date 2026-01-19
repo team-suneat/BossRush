@@ -8,8 +8,8 @@ namespace TeamSuneat.Data
         private GameDefineAsset _gameDefine;
         private LogSettingAsset _logSetting;
 
-        private PlayerCharacterStatConfigAsset _playerCharacterStatAsset; // 플레이어 캐릭터 능력치
         private readonly Dictionary<int, HitmarkAsset> _hitmarkAssets = new();
+        private readonly Dictionary<int, BuffAsset> _buffAssets = new();
         private readonly Dictionary<int, CharacterAsset> _characterAssets = new();
         private readonly Dictionary<int, FontAsset> _fontAssets = new();
         private readonly Dictionary<int, FloatyAsset> _floatyAssets = new();
@@ -26,6 +26,7 @@ namespace TeamSuneat.Data
 
             _soundAssets.Clear();
             _hitmarkAssets.Clear();
+            _buffAssets.Clear();
             _characterAssets.Clear();
             _fontAssets.Clear();
             _floatyAssets.Clear();
@@ -33,13 +34,13 @@ namespace TeamSuneat.Data
             _stageAssets.Clear();
             _forceVelocityAssets.Clear();
             _cameraImpulseAssets.Clear();
-            _playerCharacterStatAsset = null;
         }
 
         public void RefreshAll()
         {
             RefreshAllCharacter();
             RefreshAllHitmark();
+            RefreshAllBuff();
             RefreshAllFonts();
             RefreshAllFlicker();
             RefreshAllFloaty();

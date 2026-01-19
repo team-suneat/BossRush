@@ -21,11 +21,12 @@ MonoBehaviour:
   CharacterState: 0
   Animation: 0
   Attack: 0
-  BattleResource: 0
+  Buff: 1
   Damage: 0
   Effect: 0
   Stat: 0
   Vital: 0
+  BattleResource: 0
   Skill: 0
   Currency: 0
   GameData: 0

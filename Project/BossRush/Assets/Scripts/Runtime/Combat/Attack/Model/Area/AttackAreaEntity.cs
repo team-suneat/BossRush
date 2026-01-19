@@ -432,14 +432,11 @@ namespace TeamSuneat
                 TriggerAttackOnParryFeedback(_collidingCollider.transform.position);
             }
 
-            // 패링 타입에 따라 스턴 적용 여부 결정
-            bool applyStun = parryType == ParryTypes.ParryableWithStun;
-
             // PlayerParryEffect를 통한 패리 성공 처리
             PlayerParryEffect parryEffect = targetCharacter.GetComponentNoAlloc<PlayerParryEffect>();
             if (parryEffect != null)
             {
-                parryEffect.OnParrySuccess(Owner, targetCharacter, attackPosition, applyStun);
+                parryEffect.OnParrySuccess(Owner, targetCharacter, attackPosition, parryType);
             }
 
             return true;

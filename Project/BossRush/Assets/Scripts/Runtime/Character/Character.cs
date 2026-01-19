@@ -17,6 +17,7 @@ namespace TeamSuneat
 
             Attack = GetComponentInChildren<AttackSystem>();
             Stat = GetComponentInChildren<StatSystem>();
+            Buff = GetComponentInChildren<BuffSystem>();
             MyVital = GetComponentInChildren<Vital>();
 
             StateMachine = GetComponent<CharacterStateMachine>();
@@ -218,6 +219,7 @@ namespace TeamSuneat
         public virtual void LogicUpdate()
         {
             UpdateAnimators();
+            Buff?.LogicUpdate();
         }
         public virtual void LateLogicUpdate()
         {
@@ -246,7 +248,41 @@ namespace TeamSuneat
         }
 
         public virtual void AddCharacterStats()
-        { }
+        {
+            if (AssetData == null || !AssetData.IsValid())
+            {
+                Log.Error("캐릭터 데이터를 찾을 수 없습니다. 캐릭터: {0}", Name);
+                return;
+            }
+
+            if (AssetData.Stats == null || AssetData.Stats.Count == 0)
+            {
+                Log.Warning(LogTag, "캐릭터의 능력치 데이터가 비어있습니다. 캐릭터: {0}", Name);
+                return;
+            }
+
+            ApplyBaseStats(AssetData);
+            LogInfo("캐릭터 스탯이 캐릭터 에셋 데이터에서 적용되었습니다. 캐릭터: {0}", Name);
+        }
+
+        protected virtual void ApplyBaseStats(CharacterAssetData assetData)
+        {
+            if (assetData.Stats == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < assetData.Stats.Count; i++)
+            {
+                CharacterStatEntry statEntry = assetData.Stats[i];
+                if (statEntry.Name == StatNames.None)
+                {
+                    continue;
+                }
+
+                Stat.AddWithSourceInfo(statEntry.Name, statEntry.Value, this, NameString, "CharacterBase");
+            }
+        }
 
         private void AddDefaultStats()
         {

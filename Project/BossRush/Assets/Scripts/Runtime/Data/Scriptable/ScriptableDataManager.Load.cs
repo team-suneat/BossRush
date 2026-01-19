@@ -21,13 +21,13 @@ namespace TeamSuneat.Data
             else if (_gameDefine == default) { return false; }
             else if (!_characterAssets.IsValid()) { return false; }
             else if (!_hitmarkAssets.IsValid()) { return false; }
+            else if (!_buffAssets.IsValid()) { return false; }
             else if (!_fontAssets.IsValid()) { return false; }
             else if (!_floatyAssets.IsValid()) { return false; }
             else if (!_flickerAssets.IsValid()) { return false; }
             else if (!_soundAssets.IsValid()) { return false; }
             // else if (!_stageAssets.IsValid()) { return false; }
             // else if (!_forceVelocityAssets.IsValid()) { return false; }
-            else if (_playerCharacterStatAsset == null) { return false; }
             else if (_cameraImpulseAssets.IsValid()) { return false; }
 
             return true;
@@ -39,19 +39,25 @@ namespace TeamSuneat.Data
             _logSetting?.OnLoadData();
 
             // 스테이지 에셋 OnLoadData() 메서드 호출
-            foreach (var stageAsset in _stageAssets.Values)
+            foreach (StageAsset stageAsset in _stageAssets.Values)
             {
                 stageAsset?.OnLoadData();
             }
 
             // 캐릭터 에셋 OnLoadData() 메서드 호출
-            foreach (var characterAsset in _characterAssets.Values)
+            foreach (CharacterAsset characterAsset in _characterAssets.Values)
             {
                 characterAsset?.OnLoadData();
             }
 
+            // 버프 에셋 OnLoadData() 메서드 호출
+            foreach (BuffAsset buffAsset in _buffAssets.Values)
+            {
+                buffAsset?.OnLoadData();
+            }
+
             // ForceVelocity 에셋 OnLoadData() 메서드 호출
-            foreach (var forceVelocityAsset in _forceVelocityAssets.Values)
+            foreach (ForceVelocityAsset forceVelocityAsset in _forceVelocityAssets.Values)
             {
                 forceVelocityAsset?.OnLoadData();
             }
@@ -85,6 +91,10 @@ namespace TeamSuneat.Data
                 {
                     count += 1;
                 }
+                else if (LoadBuffSync(path))
+                {
+                    count += 1;
+                }
                 else if (LoadFontSync(path))
                 {
                     count += 1;
@@ -109,10 +119,6 @@ namespace TeamSuneat.Data
                 {
                     count += 1;
                 }
-                else if (LoadPlayerCharacterStatSync(path))
-                {
-                    count += 1;
-                }
             }
 
             Log.Info("파일을 읽어왔습니다. Count: {0}", count.ToString());
@@ -121,37 +127,6 @@ namespace TeamSuneat.Data
         }
 
         //
-
-        private bool LoadPlayerCharacterStatSync(string filePath)
-        {
-            if (!filePath.Contains("PlayerCharacterStat"))
-            {
-                return false;
-            }
-
-            PlayerCharacterStatConfigAsset asset = ResourcesManager.LoadResource<PlayerCharacterStatConfigAsset>(filePath);
-            if (asset != null)
-            {
-                if (_playerCharacterStatAsset != null)
-                {
-                    Log.Warning(LogTags.ScriptableData, "플레이어 캐릭터 능력치 에셋이 중복으로 로드 되고 있습니다. 기존: {0}, 새로운: {1}",
-                        _playerCharacterStatAsset.name, asset.name);
-                }
-                else
-                {
-                    Log.Progress("스크립터블 데이터를 읽어왔습니다. Path: {0}", filePath);
-                    _playerCharacterStatAsset = asset;
-                }
-
-                return true;
-            }
-            else
-            {
-                Log.Warning("스크립터블 데이터를 읽을 수 없습니다. Path: {0}", filePath);
-            }
-
-            return false;
-        }
 
         private bool LoadForceVelocitySync(string filePath)
         {
@@ -314,6 +289,14 @@ namespace TeamSuneat.Data
                         }
                         break;
 
+                    case BuffAsset buff:
+                        if (!_buffAssets.ContainsKey(buff.TID))
+                        {
+                            _buffAssets[buff.TID] = buff;
+                            count++;
+                        }
+                        break;
+
                     case FontAsset font:
                         // 이미 동기 로드되었으면 건너뛰기
                         if (!_fontAssets.ContainsKey(font.TID))
@@ -372,18 +355,6 @@ namespace TeamSuneat.Data
                         }
                         break;
 
-                    case PlayerCharacterStatConfigAsset playerCharacterStat:
-                        if (_playerCharacterStatAsset == null)
-                        {
-                            _playerCharacterStatAsset = playerCharacterStat;
-                            count++;
-                        }
-                        else
-                        {
-                            Log.Warning(LogTags.ScriptableData, "플레이어 캐릭터 능력치 에셋이 중복으로 로드 되고 있습니다. 기존: {0}, 새로운: {1}",
-                                _playerCharacterStatAsset.name, playerCharacterStat.name);
-                        }
-                        break;
                 }
             }
 

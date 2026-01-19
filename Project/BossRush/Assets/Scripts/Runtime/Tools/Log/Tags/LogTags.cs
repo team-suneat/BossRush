@@ -60,6 +60,9 @@
         /// <summary> 캐릭터 전투 자원 </summary>
         Vital,
 
+        /// <summary> 버프 </summary>
+        Buff,
+
         #endregion Character-Battle
 
         #region Skill
