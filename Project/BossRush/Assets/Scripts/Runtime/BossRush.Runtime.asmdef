@@ -6,6 +6,8 @@
         "LeanCommon",
         "DOTween.Modules",
         "SpriteTrail",
+        "ParadoxNotion",
+        "NodeCanvas",
         "Unity.Cinemachine",
         "Unity.TextMeshPro",
         "Unity.RenderPipelines.Universal.2D.Runtime",
@@ -13,8 +15,7 @@
         "Unity.InputSystem",
         "Unity.Addressables",
         "Unity.ResourceManager",
-        "ParadoxNotion",
-        "NodeCanvas"
+        "Unity.Timeline"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

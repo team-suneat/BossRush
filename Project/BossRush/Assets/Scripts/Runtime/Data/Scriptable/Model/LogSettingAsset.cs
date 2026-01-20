@@ -133,9 +133,11 @@ namespace TeamSuneat
 
         #endregion UI
 
-        #region Media
+        #region Timeline
 
-        #endregion Media
+        [FoldoutGroup("[타임라인]")][SuffixLabel("타임라인")] public bool Timeline;
+
+        #endregion Timeline
 
         public bool LoadString;
 
@@ -345,6 +347,7 @@ namespace TeamSuneat
                 LogTags.Audio => Audio,
                 LogTags.Video => Video,
                 LogTags.Camera => Camera,
+                LogTags.Timeline => Timeline,
                 LogTags.Global => Global,
                 LogTags.Input => Input,
                 LogTags.Input_ButtonState => Input_ButtonState,
@@ -419,6 +422,7 @@ namespace TeamSuneat
                 case LogTags.Audio: { Audio = true; } break;
                 case LogTags.Video: { Video = true; } break;
                 case LogTags.Camera: { Camera = true; } break;
+                case LogTags.Timeline: { Timeline = true; } break;
                 case LogTags.Global: { Global = true; } break;
                 case LogTags.Input: { Input = true; } break;
                 case LogTags.Input_ButtonState: { Input_ButtonState = true; } break;
@@ -491,6 +495,7 @@ namespace TeamSuneat
                 case LogTags.Audio: { Audio = false; } break;
                 case LogTags.Video: { Video = false; } break;
                 case LogTags.Camera: { Camera = false; } break;
+                case LogTags.Timeline: { Timeline = false; } break;
                 case LogTags.Global: { Global = false; } break;
                 case LogTags.Input: { Input = false; } break;
                 case LogTags.Input_ButtonState: { Input_ButtonState = false; } break;

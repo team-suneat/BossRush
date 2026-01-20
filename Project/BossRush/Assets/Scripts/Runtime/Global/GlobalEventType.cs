@@ -283,9 +283,6 @@ namespace TeamSuneat
         ///<summary> 엔딩으로 이동합니다. </summary>
         MOVE_TO_ENDING,
 
-        ///<summary> 게임을 포기합니다. </summary>
-        GIVE_UP_GAME,
-
         ///<summary> 게임을 클리어합니다. </summary>
         CLEAR_GAME,
 
@@ -318,9 +315,6 @@ namespace TeamSuneat
         ///<summary> 게임 필터를 새로고침합니다. </summary>
         GAME_FILTER_REFRESH,
 
-        ///<summary> 게임 팝업 월드맵 버튼을 클릭합니다. </summary>
-        GAME_POPUP_WORLDMAP_BUTTON_CLICK,
-
         #endregion UI
 
         #region 대화 DIALOGUE
@@ -330,23 +324,5 @@ namespace TeamSuneat
 
         #endregion 대화 DIALOGUE
 
-        #region NPC
-
-        ///<summary> NPC와의 상호작용으로 판매 음식을 갱신합니다. </summary>
-        NPC_INTERACTION_FOOD_REROLL,
-
-        ///<summary> NPC와의 상호작용으로 판매 유물 후보를 갱신합니다. </summary>
-        NPC_INTERACTION_RELIC_REROLL,
-
-        ///<summary> NPC와의 상호작용으로 판매 비약 후보를 갱신합니다. </summary>
-        NPC_INTERACTION_ELIXIR_REROLL,
-
-        ///<summary> NPC와의 상호작용으로 유물 조화 기도 후보를 갱신합니다. </summary>
-        NPC_INTERACTION_PRAYER_REROLL,
-
-        ///<summary> NPC와의 상호작용으로 정수 후보를 갱신합니다. </summary>
-        NPC_INTERACTION_ESSENCE_REROLL,
-
-        #endregion NPC
     }
 }

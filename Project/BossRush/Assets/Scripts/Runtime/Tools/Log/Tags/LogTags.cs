@@ -216,5 +216,12 @@
         Video,
 
         #endregion Media
+
+        #region Timeline
+
+        /// <summary> 타임라인 </summary>
+        Timeline,
+
+        #endregion Timeline
     }
 }
