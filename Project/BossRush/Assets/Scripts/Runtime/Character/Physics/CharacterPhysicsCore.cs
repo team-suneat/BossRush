@@ -20,6 +20,7 @@ namespace TeamSuneat
         protected Rigidbody2D _rb;
         protected BoxCollider2D _boxCollider;
         private CharacterKnockback _knockback;
+        private Character _character;
 
         public bool IsGrounded { get; private set; }
         public bool IsOnOneWayPlatform { get; private set; }
@@ -34,7 +35,9 @@ namespace TeamSuneat
 
         public Vector2 RigidbodyVelocity => _rb != null ? _rb.linearVelocity : Vector2.zero;
         public Rigidbody2D Rigidbody => _rb;
-        public int FacingDirection { get; private set; } = 1;
+        
+        // Character의 FacingDirection을 참조 (단일 소스)
+        public int FacingDirection => _character != null ? _character.FacingDirection : 1;
 
         public float CoyoteTimeRemaining => _coyoteTimeCounter;
         public bool IsIgnoringPlatforms { get; private set; }
@@ -59,6 +62,7 @@ namespace TeamSuneat
 
             InitializeCollisionSystem();
             _knockback = GetComponent<CharacterKnockback>();
+            _character = GetComponent<Character>();
         }
 
         private void SetupRigidbody2D()
@@ -97,12 +101,10 @@ namespace TeamSuneat
         public void ApplyHorizontalInput(float axis)
         {
             if (_rb == null) return;
-            if (IsKnockback) return;
+            if (_knockback != null && _knockback.IsKnockback) return;
 
-            if (Mathf.Abs(axis) > 0.01f)
-            {
-                FacingDirection = axis > 0 ? 1 : -1;
-            }
+            // FacingDirection 업데이트는 UpdateModelDirection()에서 처리
+            // 여기서는 물리 속도만 적용
 
             _rb.linearVelocity = new Vector2(axis, _rb.linearVelocity.y);
         }
@@ -156,6 +158,15 @@ namespace TeamSuneat
         public void SetIgnoringPlatforms(bool value)
         {
             IsIgnoringPlatforms = value;
+        }
+
+        public void SetFacingDirection(int direction)
+        {
+            // Character의 FacingDirection 업데이트 (단일 소스)
+            if (_character != null)
+            {
+                _character.SetFacingDirection(direction);
+            }
         }
 
         public void ResetCoyoteTime()
@@ -507,7 +518,7 @@ namespace TeamSuneat
                         _collisionInfo.right = true;
                     }
 
-                    if (IsKnockback && _knockback != null)
+                    if (_knockback != null && _knockback.IsKnockback)
                     {
                         _knockback.OnWallCollision();
                     }

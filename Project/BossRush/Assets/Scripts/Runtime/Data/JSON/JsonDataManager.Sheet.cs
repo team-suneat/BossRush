@@ -8,6 +8,7 @@ namespace TeamSuneat.Data
         {
             String,
             Stat,
+            StringDialogue,
         }
     }
 }

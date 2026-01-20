@@ -33,12 +33,6 @@ MonoBehaviour:
     LinkedHitmarkMagnification: 0
     LinkedValueMagnificationByLevel: 0
     LinkedValueMagnificationByStack: 0
-    DamageTypeString: Normal
-    ParryTypeString: Unparryable
-    LinkedDamageTypeString: None
-    LinkedStateEffectString: None
-    NameOnHitString: 
-    DiminishingTypeString: None
     StopAttackAnimationOnResourceLack: 0
     UseResourceOnActivate: 0
     UseResourceOnApply: 0
@@ -52,6 +46,15 @@ MonoBehaviour:
     ForceResourceConsume: 0
     IgnoreDeathByConsume: 0
     ConsumeDelayTime: 0
-    HitFXPrefab: {fileID: 568059700334458846, guid: c94febebf2e71fb439bec4ec19a4e4e7, type: 3}
+    ApplyForceVelocityOnActivate: 0
+    ForceVelocityName: 0
+    HitFXPrefabName: fx_player_attack_success
+    DamageTypeString: Normal
+    ParryTypeString: Unparryable
+    LinkedDamageTypeString: None
+    LinkedStateEffectString: None
+    NameOnHitString: None
+    DiminishingTypeString: None
     AttackTargetTypeString: TargetOfOwner
     ResourceConsumeTypeString: FixedResourceAndPulse
+    ForceVelocityNameString: None

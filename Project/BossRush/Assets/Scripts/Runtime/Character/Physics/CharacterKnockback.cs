@@ -1,3 +1,5 @@
+using Sirenix.OdinInspector;
+using TeamSuneat.Data;
 using UnityEngine;
 
 namespace TeamSuneat
@@ -5,28 +7,31 @@ namespace TeamSuneat
     [RequireComponent(typeof(CharacterPhysicsCore))]
     public class CharacterKnockback : MonoBehaviour
     {
-        [Header("Knockback")]
-        [SerializeField] private float _knockbackForce = 10f;
-        [SerializeField] private float _knockbackDuration = 0.3f;
+        [Title("Knockback")]
         [SerializeField][Range(0f, 1f)] private float _bounceMultiplier = 0.5f;
         [SerializeField][Range(0f, 1f)] private float _verticalRatio = 0.3f;
+        [SerializeField] private float _minReflectedForce = 1f;
 
         private CharacterPhysicsCore _physics;
-        private float _knockbackTimer;
-        private Vector2 _knockbackDirection;
-        private float _currentHorizontalForce;
-        private float _currentVerticalForce;
+        private CharacterForceVelocity _forceVelocity;
+        private Vector2 _lastKnockbackDirection;
+        private float _lastKnockbackForce;
+        private float _lastVerticalRatio;
 
-        public bool IsKnockback => _physics != null && _physics.IsKnockback;
+        public bool IsKnockback => _forceVelocity != null && _forceVelocity.IsProcessingForName(FVNames.PlayerKnockback);
 
         private void Awake()
         {
             _physics = GetComponent<CharacterPhysicsCore>();
+            _forceVelocity = GetComponent<CharacterForceVelocity>();
         }
 
         public void ApplyKnockback(Vector2 direction)
         {
-            if (_physics == null) return;
+            if (_physics == null || _forceVelocity == null)
+            {
+                return;
+            }
 
             if (direction.magnitude < 0.01f)
             {
@@ -37,60 +42,90 @@ namespace TeamSuneat
                 direction.Normalize();
             }
 
-            _knockbackDirection = direction;
-            _knockbackTimer = _knockbackDuration;
+            // ForceVelocityAsset 데이터 가져오기
+            ForceVelocityAssetData knockbackAssetData = ScriptableDataManager.Instance?.FindForceVelocityClone(FVNames.PlayerKnockback);
+            if (knockbackAssetData == null)
+            {
+                Log.Warning(LogTags.Physics, "PlayerKnockback ForceVelocity 데이터를 찾을 수 없습니다. {0}", this.GetHierarchyPath());
+                return;
+            }
 
-            _currentHorizontalForce = _knockbackForce;
-            _currentVerticalForce = _knockbackForce * _verticalRatio;
+            // 방향에 맞게 ForceVelocity 설정
+            // direction이 왼쪽(-1)이면 isFacingRight = false, 오른쪽(1)이면 isFacingRight = true
+            bool isFacingRight = direction.x > 0f;
 
-            Vector2 knockbackVelocity = new Vector2(
-                _knockbackDirection.x * _currentHorizontalForce,
-                _knockbackDirection.y * _currentVerticalForce
+            // 방향과 힘을 저장 (벽 충돌 반사용)
+            _lastKnockbackDirection = direction;
+            float baseForce = Mathf.Abs(knockbackAssetData.ForceVelocity.x);
+            _lastKnockbackForce = baseForce;
+            _lastVerticalRatio = _verticalRatio;
+
+            // ForceVelocity의 ForceVelocity 벡터를 방향에 맞게 조정
+            // 수평 힘은 direction.x 방향으로, 수직 힘은 verticalRatio를 적용하여 direction.y 방향으로
+            ForceVelocityAssetData clonedData = knockbackAssetData.Clone();
+            clonedData.ForceVelocity = new Vector2(
+                baseForce * direction.x,
+                baseForce * _verticalRatio * direction.y
             );
 
-            _physics.ApplyVelocity(knockbackVelocity);
-            _physics.SetKnockback(true);
+            // ForceVelocity 시작
+            _forceVelocity.StartForceVelocity(clonedData, isFacingRight, this);
         }
 
         public void OnWallCollision()
         {
-            if (!IsKnockback) return;
+            if (!IsKnockback || _forceVelocity == null)
+            {
+                return;
+            }
 
-            _knockbackDirection.x *= -1f;
-            _currentHorizontalForce *= _bounceMultiplier;
-            _currentVerticalForce *= _bounceMultiplier;
+            // 반사된 힘 계산
+            float reflectedForce = _lastKnockbackForce * _bounceMultiplier;
 
-            Vector2 knockbackVelocity = new Vector2(
-                _knockbackDirection.x * _currentHorizontalForce,
-                _knockbackDirection.y * _currentVerticalForce
+            // 최소 반사 힘 체크 - 너무 작으면 반사하지 않음
+            if (reflectedForce < _minReflectedForce)
+            {
+                Log.Info(LogTags.Physics, "반사 힘이 최소값보다 작아 반사를 중지합니다. {0}, 반사 힘: {1}, 최소값: {2}", this.GetHierarchyPath(), reflectedForce, _minReflectedForce);
+                _forceVelocity.StopForceVelocity(this, FVNames.PlayerKnockback);
+                return;
+            }
+
+            // 현재 ForceVelocity 중지
+            _forceVelocity.StopForceVelocity(this, FVNames.PlayerKnockback);
+
+            // 반사된 방향 계산
+            Vector2 reflectedDirection = new Vector2(-_lastKnockbackDirection.x, _lastKnockbackDirection.y);
+            reflectedDirection.Normalize();
+
+            // ForceVelocityAsset 데이터 가져오기
+            ForceVelocityAssetData knockbackAssetData = ScriptableDataManager.Instance?.FindForceVelocityClone(FVNames.PlayerKnockback);
+            if (knockbackAssetData == null)
+            {
+                Log.Warning(LogTags.Physics, "PlayerKnockback ForceVelocity 데이터를 찾을 수 없습니다. {0}", this.GetHierarchyPath());
+                return;
+            }
+
+            // 반사된 방향과 힘으로 새로운 ForceVelocity 설정
+            bool isFacingRight = reflectedDirection.x > 0f;
+
+            ForceVelocityAssetData clonedData = knockbackAssetData.Clone();
+            clonedData.ForceVelocity = new Vector2(
+                reflectedForce * reflectedDirection.x,
+                reflectedForce * _lastVerticalRatio * reflectedDirection.y
             );
 
-            _physics.ApplyVelocity(knockbackVelocity);
+            // 저장된 값 업데이트
+            _lastKnockbackDirection = reflectedDirection;
+            _lastKnockbackForce = reflectedForce;
+
+            // 반사된 ForceVelocity 시작
+            _forceVelocity.StartForceVelocity(clonedData, isFacingRight, this);
         }
 
         public void AbilityTick()
         {
-            if (_physics == null) return;
-
-            if (_physics.IsKnockback)
-            {
-                _knockbackTimer -= Time.fixedDeltaTime;
-
-                Vector2 knockbackVelocity = new Vector2(
-                    _knockbackDirection.x * _currentHorizontalForce,
-                    _knockbackDirection.y * _currentVerticalForce
-                );
-
-                _physics.ApplyVelocity(knockbackVelocity);
-
-                if (_knockbackTimer <= 0f)
-                {
-                    _physics.SetKnockback(false);
-                    _knockbackDirection = Vector2.zero;
-                    _currentHorizontalForce = 0f;
-                    _currentVerticalForce = 0f;
-                }
-            }
+            // 실제 Knockback 처리는 ForceVelocity가 처리
+            // 여기서는 특별한 처리가 필요 없음
         }
     }
 }

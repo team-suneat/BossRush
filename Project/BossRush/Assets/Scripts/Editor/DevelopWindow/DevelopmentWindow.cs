@@ -95,27 +95,30 @@ namespace TeamSuneat.Development
 
         private void DrawGoogleSheetsSection()
         {
-            _ = EditorGUILayout.BeginVertical("box");
-            _gui.DrawTitleLabel("Google Sheets");
-
-            if (GUILayout.Button("모든 시트 불러오기 (GID 목록)", GUILayout.Width(250)))
+            EditorGUILayout.BeginVertical("box");
             {
-                GoogleSheetsMenu.LoadMultipleSheetsByGIDs();
-            }
+                _gui.DrawTitleLabel("Google Sheets");
 
-            if (GUILayout.Button("JSON 변환 - 전체", GUILayout.Width(250)))
-            {
-                GoogleSheetsMenu.ConvertAllToJson();
-            }
-
-            if (GUILayout.Button("JSON 변환 - Stat", GUILayout.Width(250)))
-            {
-                GoogleSheetsMenu.ConvertStatToJson();
-            }
-
-            if (GUILayout.Button("JSON 변환 - String", GUILayout.Width(250)))
-            {
-                GoogleSheetsMenu.ConvertStringToJson();
+                if (GUILayout.Button("모든 시트 불러오기 (GID 목록)", GUILayout.Width(250)))
+                {
+                    GoogleSheetsMenu.LoadMultipleSheetsByGIDs();
+                }
+                if (GUILayout.Button("JSON 변환 - 전체", GUILayout.Width(250)))
+                {
+                    GoogleSheetsMenu.ConvertAllToJson();
+                }
+                if (GUILayout.Button("JSON 변환 - Stat", GUILayout.Width(250)))
+                {
+                    GoogleSheetsMenu.ConvertStatToJson();
+                }
+                if (GUILayout.Button("JSON 변환 - String", GUILayout.Width(250)))
+                {
+                    GoogleSheetsMenu.ConvertStringToJson();
+                }
+                if (GUILayout.Button("JSON 변환 - StringDialogue", GUILayout.Width(250)))
+                {
+                    GoogleSheetsMenu.ConvertStringDialogueToJson();
+                }
             }
             EditorGUILayout.EndVertical();
         }

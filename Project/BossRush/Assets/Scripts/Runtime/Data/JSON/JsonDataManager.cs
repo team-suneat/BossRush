@@ -16,6 +16,7 @@ namespace TeamSuneat.Data
 
         private static readonly Dictionary<string, StringData> _stringSheetData = new();
         private static readonly Dictionary<int, StatData> _statSheetData = new();
+        private static readonly Dictionary<string, StringDialogueData> _stringDialogueSheetData = new();
 
         #endregion Field
 
@@ -23,6 +24,7 @@ namespace TeamSuneat.Data
         {
             _stringSheetData.Clear();
             _statSheetData.Clear();
+            _stringDialogueSheetData.Clear();
         }
 
         public static bool CheckLoaded()
@@ -77,6 +79,31 @@ namespace TeamSuneat.Data
                     continue;
                 }
                 _statSheetData.Add(key, item);
+            }
+        }
+
+        public static void SetStringDialogueData(IEnumerable<StringDialogueData> list)
+        {
+            _stringDialogueSheetData.Clear();
+            if (list == null)
+            {
+                return;
+            }
+
+            foreach (StringDialogueData item in list)
+            {
+                if (item == null)
+                {
+                    continue;
+                }
+
+                string key = item.GetKey();
+                if (_stringDialogueSheetData.ContainsKey(key))
+                {
+                    LogWarning("StringDialogueData 키 중복: {0}", key);
+                    continue;
+                }
+                _stringDialogueSheetData.Add(key, item);
             }
         }
     }

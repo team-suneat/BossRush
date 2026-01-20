@@ -116,15 +116,6 @@ namespace TeamSuneat.Data
         [SuffixLabel("연결된 값 배율(%) (스택별)")]
         public float LinkedValueMagnificationByStack;
 
-        // 스트링
-
-        [FoldoutGroup("#String")] public string DamageTypeString;
-        [FoldoutGroup("#String")] public string ParryTypeString;
-        [FoldoutGroup("#String")] public string LinkedDamageTypeString;
-        [FoldoutGroup("#String")] public string LinkedStateEffectString;
-        [FoldoutGroup("#String")] public string NameOnHitString;
-        [FoldoutGroup("#String")] public string DiminishingTypeString;
-
         #endregion 피해 정보 (Damage Information)
 
         #region 자원 (Resource)
@@ -188,18 +179,40 @@ namespace TeamSuneat.Data
 
         #endregion 자원 (Resource)
 
+        #region 공격 이동 (Attack Movement)
+
+        [FoldoutGroup("#공격 이동 (Attack Movement)")]
+        [GUIColor("GetBoolColor")]
+        [SuffixLabel("공격 활성화 시 ForceVelocity 적용")]
+        public bool ApplyForceVelocityOnActivate;
+
+        [FoldoutGroup("#공격 이동 (Attack Movement)")]
+        [EnableIf("ApplyForceVelocityOnActivate")]
+        [GUIColor("GetForceVelocityNameColor")]
+        [SuffixLabel("ForceVelocity 이름")]
+        public FVNames ForceVelocityName;
+
+        #endregion 공격 이동 (Attack Movement)
+
         #region Effect
 
         [FoldoutGroup("#Effect")]
-        [SuffixLabel("피격 시 FX 프리팹")]
-        public GameObject HitFXPrefab;
+        [SuffixLabel("피격 시 FX 프리팹 이름")]
+        public string HitFXPrefabName;
 
         #endregion Effect
 
         #region 스트링 (String)
 
+        [FoldoutGroup("#String")] public string DamageTypeString;
+        [FoldoutGroup("#String")] public string ParryTypeString;
+        [FoldoutGroup("#String")] public string LinkedDamageTypeString;
+        [FoldoutGroup("#String")] public string LinkedStateEffectString;
+        [FoldoutGroup("#String")] public string NameOnHitString;
+        [FoldoutGroup("#String")] public string DiminishingTypeString;
         [FoldoutGroup("#String")] public string AttackTargetTypeString;
         [FoldoutGroup("#String")] public string ResourceConsumeTypeString;
+        [FoldoutGroup("#String")] public string ForceVelocityNameString;
 
         #endregion 스트링 (String)
 
@@ -235,6 +248,10 @@ namespace TeamSuneat.Data
                 if (!EnumEx.ConvertTo(ref LinkedStateEffect, LinkedStateEffectString))
                 {
                     Log.Error("HitmarkAssetData의 LinkedStateEffect을 변환하지 못합니다. Name:{0}, {1}", Name, LinkedStateEffectString);
+                }
+                if (!EnumEx.ConvertTo(ref ForceVelocityName, ForceVelocityNameString))
+                {
+                    Log.Error("HitmarkAssetData의 ForceVelocityName을 변환하지 못합니다. Name:{0}, {1}", Name, ForceVelocityNameString);
                 }
             }
         }
@@ -302,7 +319,10 @@ namespace TeamSuneat.Data
                 LinkedValueMagnificationByLevel = LinkedValueMagnificationByLevel,
                 LinkedValueMagnificationByStack = LinkedValueMagnificationByStack,
 
-                HitFXPrefab = HitFXPrefab,
+                HitFXPrefabName = HitFXPrefabName,
+
+                ApplyForceVelocityOnActivate = ApplyForceVelocityOnActivate,
+                ForceVelocityName = ForceVelocityName,
             };
 
             return clone;
@@ -316,6 +336,7 @@ namespace TeamSuneat.Data
             ParryTypeString = ParryType.ToString();
             LinkedDamageTypeString = LinkedDamageType.ToString();
             LinkedStateEffectString = LinkedStateEffect.ToString();
+            ForceVelocityNameString = ForceVelocityName.ToString();
         }
 
         private void DamageTypeLog()
@@ -373,6 +394,8 @@ namespace TeamSuneat.Data
             if (LinkedHitmarkMagnification != another.LinkedHitmarkMagnification) { return false; }
             if (LinkedValueMagnificationByLevel != another.LinkedValueMagnificationByLevel) { return false; }
             if (LinkedValueMagnificationByStack != another.LinkedValueMagnificationByStack) { return false; }
+            if (ApplyForceVelocityOnActivate != another.ApplyForceVelocityOnActivate) { return false; }
+            if (ForceVelocityName != another.ForceVelocityName) { return false; }
 
             return true;
         }
@@ -390,6 +413,7 @@ namespace TeamSuneat.Data
             UpdateIfChanged(ref ParryTypeString, ParryType);
             UpdateIfChanged(ref LinkedDamageTypeString, LinkedDamageType);
             UpdateIfChanged(ref LinkedStateEffectString, LinkedStateEffect);
+            UpdateIfChanged(ref ForceVelocityNameString, ForceVelocityName);
 
             return _hasChangedWhiteRefreshAll;
         }

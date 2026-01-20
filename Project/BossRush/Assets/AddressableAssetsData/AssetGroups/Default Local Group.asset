@@ -57,6 +57,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - default
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8f2c1d117fb190d489553b521343800e
+    m_Address: Assets/Addressables/Prefab/VFX/fx_scarecrow_attack_success.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9b327578e2bfff645ab591cdd0c24dea
     m_Address: Assets/Addressables/Atlas/atlas_item.spriteatlasv2
     m_ReadOnly: 0
@@ -71,6 +77,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c7125cbb71e3107449098bdcc3818625
     m_Address: Assets/Addressables/Prefab/UI/Follow/UIFloatyText.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c94febebf2e71fb439bec4ec19a4e4e7
+    m_Address: Assets/Addressables/Prefab/VFX/fx_player_attack_success.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - default

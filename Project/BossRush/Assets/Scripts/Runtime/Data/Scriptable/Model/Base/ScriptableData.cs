@@ -22,7 +22,6 @@ namespace TeamSuneat.Data
 
         #region Inspector
 
-
         protected Color GetCharacterNameColor(CharacterNames key)
         {
             return GetFieldColor(key);
@@ -66,6 +65,11 @@ namespace TeamSuneat.Data
         }
 
         protected Color GetCurrencyNameColor(CurrencyNames key)
+        {
+            return GetFieldColor(key);
+        }
+
+        protected Color GetForceVelocityNameColor(FVNames key)
         {
             return GetFieldColor(key);
         }

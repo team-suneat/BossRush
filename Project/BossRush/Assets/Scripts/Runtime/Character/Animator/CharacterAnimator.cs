@@ -138,6 +138,16 @@ namespace TeamSuneat
             _animator.UpdateAnimatorFloat(ANIMATOR_SPEED_Y_PARAMETER_ID, speedY, AnimatorParameters);
         }
 
+        public void SetForceSpeedX(float forceSpeedX)
+        {
+            _animator.UpdateAnimatorFloat(ANIMATOR_FORCE_SPEED_X_PARAMETER_ID, forceSpeedX, AnimatorParameters);
+        }
+
+        public void SetForceSpeedY(float forceSpeedY)
+        {
+            _animator.UpdateAnimatorFloat(ANIMATOR_FORCE_SPEED_Y_PARAMETER_ID, forceSpeedY, AnimatorParameters);
+        }
+
         #endregion Parameter
 
         #region Play

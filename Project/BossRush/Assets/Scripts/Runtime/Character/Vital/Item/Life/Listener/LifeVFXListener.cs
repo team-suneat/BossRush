@@ -99,30 +99,7 @@ namespace TeamSuneat
                 return;
             }
 
-            switch (damageResult.InstantVFXDamageType)
-            {
-                case VFXInstantDamageType.Sharp:
-                    if (_life.Vital.Owner != null && _life.Vital.Owner.IsPlayer)
-                    {
-                        _ = VFXManager.Spawn("fx_player_damage_sharp", damagePosition, true);
-                    }
-                    else
-                    {
-                        _ = VFXManager.Spawn("fx_monster_damage_sharp", damagePosition, true);
-                    }
-                    break;
-
-                case VFXInstantDamageType.Blunt:
-                    if (_life.Vital.Owner != null && _life.Vital.Owner.IsPlayer)
-                    {
-                        _ = VFXManager.Spawn("fx_player_damage_blunt", damagePosition, true);
-                    }
-                    else
-                    {
-                        _ = VFXManager.Spawn("fx_monster_damage_blunt", damagePosition, true);
-                    }
-                    break;
-            }
+            // Todo: 예리함/둔기류 피격 이펙트 추가
         }
 
         private void SpawnHitFX(DamageResult damageResult, Vector3 damagePosition)
@@ -137,9 +114,9 @@ namespace TeamSuneat
                 return;
             }
 
-            GameObject prefab = damageResult.Asset.HitFXPrefab;
+            string prefabName = damageResult.Asset.HitFXPrefabName;
 
-            if (prefab == null)
+            if (string.IsNullOrEmpty(prefabName))
             {
                 return;
             }
@@ -150,7 +127,7 @@ namespace TeamSuneat
                 isFacingRight = damageResult.TargetCharacter.IsFacingRight;
             }
 
-            _ = VFXManager.Spawn(prefab, damagePosition, isFacingRight);
+            _ = VFXManager.Spawn(prefabName, damagePosition, isFacingRight);
         }
     }
 }

@@ -18,3 +18,4 @@ namespace TeamSuneat
         BarrierMulti,            // 보호막 배율
     }
 }
+

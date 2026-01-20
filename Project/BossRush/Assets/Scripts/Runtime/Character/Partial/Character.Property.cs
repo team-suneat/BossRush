@@ -74,6 +74,22 @@ namespace TeamSuneat
 
         public HashSet<int> AnimatorParameters { get; set; } = new HashSet<int>();
 
+        // 방향 정보 단일 소스 (1 = 오른쪽, -1 = 왼쪽)
+        private int _facingDirection = 1;
+
+        public int FacingDirection
+        {
+            get => _facingDirection;
+            private set
+            {
+                if (_facingDirection != value)
+                {
+                    _facingDirection = value;
+                }
+            }
+        }
+
+        // 모델의 실제 방향을 반환 (CharacterModel의 localScale.x 기반)
         public bool IsFacingRight
         {
             get
@@ -85,6 +101,11 @@ namespace TeamSuneat
 
                 return localScale.x > 0;
             }
+        }
+
+        public void SetFacingDirection(int direction)
+        {
+            FacingDirection = direction;
         }
 
         private bool _canFlip;

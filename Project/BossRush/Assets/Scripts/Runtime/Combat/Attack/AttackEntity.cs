@@ -170,6 +170,43 @@ namespace TeamSuneat
             }
         }
 
+        private void ApplyForceVelocity()
+        {
+            if (Owner == null || Owner.Physics == null)
+            {
+                Log.Warning(LogTags.Physics, "ForceVelocity를 적용할 수 없습니다. Owner 또는 Physics가 null입니다. {0}, {1}", Owner?.Name.ToLogString() ?? "null", Name.ToLogString());
+                return;
+            }
+
+            if (AssetData == null)
+            {
+                Log.Warning(LogTags.Physics, "ForceVelocity를 적용할 수 없습니다. AssetData가 null입니다. {0}, {1}", Owner.Name.ToLogString(), Name.ToLogString());
+                return;
+            }
+
+            if (AssetData.ForceVelocityName == FVNames.None)
+            {
+                Log.Warning(LogTags.Physics, "ForceVelocity 이름이 설정되지 않았습니다. {0}, {1}", Owner.Name.ToLogString(), Name.ToLogString());
+                return;
+            }
+
+            // ForceVelocity 데이터 가져오기
+            ForceVelocityAssetData forceVelocityData = ScriptableDataManager.Instance.FindForceVelocityClone(AssetData.ForceVelocityName);
+            if (forceVelocityData == null)
+            {
+                Log.Warning(LogTags.Physics, "ForceVelocity 데이터를 찾을 수 없습니다. {0}, {1}, {2}", Owner.Name.ToLogString(), Name.ToLogString(), AssetData.ForceVelocityName.ToLogString());
+                return;
+            }
+
+            // 캐릭터가 바라보는 방향 확인
+            bool isFacingRight = Owner.Physics != null && Owner.Physics.FacingDirection > 0;
+
+            Log.Info(LogTags.Physics, "공격에서 ForceVelocity를 적용합니다. {0}, {1}, {2}, 방향: {3}", Owner.Name.ToLogString(), Name.ToLogString(), forceVelocityData.Name.ToLogString(), isFacingRight ? "Right" : "Left");
+
+            // ForceVelocity 적용
+            Owner.Physics.StartForceVelocity(forceVelocityData, isFacingRight, this);
+        }
+
         //----------------------------------------------------------------------------------------
 
         public virtual bool DetermineActivate()
@@ -184,6 +221,12 @@ namespace TeamSuneat
 
             AutoSetTarget();
             TriggerAttackStartFeedback();
+
+            // 공격 활성화 시 ForceVelocity 적용
+            if (AssetData != null && AssetData.ApplyForceVelocityOnActivate)
+            {
+                ApplyForceVelocity();
+            }
 
             IsActive = true;
         }
@@ -204,6 +247,12 @@ namespace TeamSuneat
         public virtual void Deactivate()
         {
             LogInfo("공격 독립체를 비활성화합니다.");
+
+            // ForceVelocity 중지 (source 기반)
+            if (Owner != null && Owner.Physics != null)
+            {
+                Owner.Physics.StopForceVelocity(this);
+            }
 
             if (IsActive)
             {
@@ -259,6 +308,11 @@ namespace TeamSuneat
         /// <summary> 소유자가 사망했을 시 </summary>
         public virtual void OnOwnerDeath()
         {
+            // ForceVelocity 중지
+            if (Owner != null && Owner.Physics != null)
+            {
+                Owner.Physics.StopForceVelocity();
+            }
         }
     }
 }

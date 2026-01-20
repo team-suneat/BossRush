@@ -16,8 +16,9 @@ namespace TeamSuneat
             // 중앙집중식 GID 상수 사용
             string[] GIDs = new string[]
             {
-                GoogleSheetDatasetGIDs.Stat,
+                GoogleSheetDatasetGIDs.StringDialogue,
                 GoogleSheetDatasetGIDs.String,
+                GoogleSheetDatasetGIDs.Stat,
             };
 
             for (int idx = 0; idx < GIDs.Length; idx++)
@@ -46,18 +47,24 @@ namespace TeamSuneat
 
         public static void ConvertAllToJson()
         {
-            ConvertStatToJson();
             ConvertStringToJson();
+            ConvertStringDialogueToJson();
+            ConvertStatToJson();
         }
 
-        public static void ConvertStatToJson()
+        public static void ConvertStringDialogueToJson()
         {
-            ConvertCacheToJson<StatData>("Stat", GoogleSheetDatasetGIDs.Stat);
+            ConvertCacheToJson<StringDialogueData>("StringDialogue", GoogleSheetDatasetGIDs.StringDialogue);
         }
 
         public static void ConvertStringToJson()
         {
             ConvertCacheToJson<StringData>("String", GoogleSheetDatasetGIDs.String);
+        }
+
+        public static void ConvertStatToJson()
+        {
+            ConvertCacheToJson<StatData>("Stat", GoogleSheetDatasetGIDs.Stat);
         }
 
         private static async void ConvertCacheToJson<IData>(string key, string gid)

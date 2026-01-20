@@ -20,7 +20,7 @@ namespace TeamSuneat
     public static class GameGoogleSheetLoader
     {
         // 고정 공개 TSV URL 상수
-        private const string DEFAULT_TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQvl-vArisb1itvV7oFmSwnU5_V3DHHO58LiAs9btdlc6xN2eZmRb4ETTmMucDKzyWcZPGy6GcHxbf-/pub?output=tsv";
+        private const string DEFAULT_TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRMLEXAs_KgiugfInYAgZNb16E3jsbJjrM47JGdvBcALoW3GgkL-5v-mcq9_d_rUDRwp8UqyQgqWPqE/pub?output=tsv";
 
         /// <summary>
         /// 게시된 TSV 기본 URL(…/pub) 반환. (gid/query 미포함)

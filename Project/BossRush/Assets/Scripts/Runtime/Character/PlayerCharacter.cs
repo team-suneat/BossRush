@@ -176,7 +176,8 @@ namespace TeamSuneat
             // 2. 이동 속도 적용 (대시 중일 때는 일반 이동 입력 무시)
             if (Physics != null)
             {
-                if (!Physics.IsDashing)
+                // ForceVelocity가 적용 중일 때는 입력 무시
+                if (!Physics.IsDashing && !Physics.IsForceVelocity)
                 {
                     // 공격 중 이동 잠금 확인
                     bool isMovementLocked = CharacterAnimator != null && CharacterAnimator.IsMovementLocked;
@@ -206,14 +207,27 @@ namespace TeamSuneat
                 return;
             }
 
-            // 입력값이 0이 아니면 방향 변경, 0이면 이전 방향 유지
-            if (Mathf.Abs(Command.HorizontalInput) > 0.01f)
+            // ForceVelocity가 적용 중일 때는 방향 전환 차단
+            if (Physics != null && Physics.IsForceVelocity)
             {
-                FacingDirections targetDirection = Command.HorizontalInput > 0
+                return;
+            }
+
+            // 입력값이 0이 아니면 방향 변경, 0이면 이전 방향 유지
+            // (입력 레벨에서 이미 threshold 필터링이 적용됨)
+            if (Mathf.Abs(Command.HorizontalInput) > 0f)
+            {
+                // 모델 방향을 먼저 업데이트
+                FacingDirections facingDirection = Command.HorizontalInput > 0
                     ? FacingDirections.Right
                     : FacingDirections.Left;
 
-                Face(targetDirection);
+                Face(facingDirection);
+                
+                // Face() 호출 후 FacingDirection을 입력 방향과 동기화
+                // (Face()는 모델의 실제 방향을 기준으로 Flip하므로, FacingDirection도 업데이트 필요)
+                int targetDirection = Command.HorizontalInput > 0 ? 1 : -1;
+                SetFacingDirection(targetDirection);
             }
         }
 

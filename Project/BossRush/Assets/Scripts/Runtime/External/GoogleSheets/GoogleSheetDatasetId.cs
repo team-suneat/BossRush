@@ -10,6 +10,7 @@ namespace TeamSuneat
     {
         None = 0,
         String,
+        StringDialogue,
         Stat,
     }
 
@@ -21,13 +22,15 @@ namespace TeamSuneat
     public static class GoogleSheetDatasetGIDs
     {
         // 고정 GID 상수
-        public const string String = "0";
-        public const string Stat = "1316031185";
+        public const string String = "1823539226";
+        public const string StringDialogue = "1581739523";
+        public const string Stat = "1091941191";
 
         private static readonly Dictionary<GoogleSheetDatasetId, string> DatasetIdToGid = new()
         {
             { GoogleSheetDatasetId.String, String },
-            { GoogleSheetDatasetId.Stat, Stat},
+            { GoogleSheetDatasetId.StringDialogue, StringDialogue},
+            { GoogleSheetDatasetId.Stat, Stat },
         };
 
         public static string GetGid(GoogleSheetDatasetId datasetId)

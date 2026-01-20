@@ -76,7 +76,7 @@ namespace TeamSuneat
                 case GoogleSheetDatasetId.String:
                     return ProcessDatasetInternal<StringData>(datasetId, gid, rows, datasetName, JsonDataManager.SetStringData);
 
-                case GoogleSheetDatasetId.Stat:
+                case GoogleSheetDatasetId.StringDialogue:
                     return ProcessDatasetInternal<StatData>(datasetId, gid, rows, datasetName, JsonDataManager.SetStatData);
 
                 default:

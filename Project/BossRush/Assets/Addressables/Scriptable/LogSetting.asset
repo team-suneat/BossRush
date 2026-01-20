@@ -13,19 +13,19 @@ MonoBehaviour:
   m_Name: LogSetting
   m_EditorClassIdentifier: 
   Detect: 0
-  Physics: 0
-  Character: 0
-  Player: 0
+  Physics: 1
+  Character: 1
+  Player: 1
   Monster: 0
   CharacterSpawn: 0
   CharacterState: 0
   Animation: 0
   Attack: 0
-  Buff: 1
+  Buff: 0
   Charm: 0
   Damage: 0
   Effect: 0
-  Stat: 1
+  Stat: 0
   Vital: 0
   BattleResource: 0
   Skill: 0
@@ -63,4 +63,5 @@ MonoBehaviour:
   UI_Details: 0
   UI_Skill: 0
   UI_SelectEvent: 0
+  Timeline: 0
   LoadString: 1

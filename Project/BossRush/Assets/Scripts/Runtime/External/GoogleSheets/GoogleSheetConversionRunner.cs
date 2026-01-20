@@ -11,6 +11,7 @@ namespace TeamSuneat
         private static readonly Dictionary<string, object> gidToConverter = new()
         {
             { GoogleSheetDatasetGIDs.String, new StringRowConverter() },
+            { GoogleSheetDatasetGIDs.StringDialogue, new StringDialogueRowConverter() },
             { GoogleSheetDatasetGIDs.Stat, new StatRowConverter() },
         };
 

@@ -33,12 +33,6 @@ MonoBehaviour:
     LinkedHitmarkMagnification: 0
     LinkedValueMagnificationByLevel: 0
     LinkedValueMagnificationByStack: 0
-    DamageTypeString: Normal
-    ParryTypeString: ParryableWithStun
-    LinkedDamageTypeString: None
-    LinkedStateEffectString: None
-    NameOnHitString: 
-    DiminishingTypeString: None
     StopAttackAnimationOnResourceLack: 0
     UseResourceOnActivate: 0
     UseResourceOnApply: 0
@@ -52,6 +46,15 @@ MonoBehaviour:
     ForceResourceConsume: 0
     IgnoreDeathByConsume: 0
     ConsumeDelayTime: 0
-    HitFXPrefab: {fileID: 566794294309531314, guid: 8f2c1d117fb190d489553b521343800e, type: 3}
+    ApplyForceVelocityOnActivate: 0
+    ForceVelocityName: 0
+    HitFXPrefabName: fx_scarecrow_attack_success
+    DamageTypeString: Normal
+    ParryTypeString: ParryableWithStun
+    LinkedDamageTypeString: None
+    LinkedStateEffectString: None
+    NameOnHitString: None
+    DiminishingTypeString: None
     AttackTargetTypeString: TargetOfOwner
     ResourceConsumeTypeString: None
+    ForceVelocityNameString: None

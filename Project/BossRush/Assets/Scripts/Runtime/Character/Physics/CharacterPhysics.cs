@@ -12,6 +12,7 @@ namespace TeamSuneat
         private CharacterDash _dash;
         private CharacterDownJump _downJump;
         private CharacterKnockback _knockback;
+        private CharacterForceVelocity _forceVelocity;
 
         private void Awake()
         {
@@ -20,6 +21,7 @@ namespace TeamSuneat
             _dash = GetComponent<CharacterDash>();
             _downJump = GetComponent<CharacterDownJump>();
             _knockback = GetComponent<CharacterKnockback>();
+            _forceVelocity = GetComponent<CharacterForceVelocity>();
         }
 
         #region Core 프로퍼티 위임
@@ -47,6 +49,7 @@ namespace TeamSuneat
         public int ExtraJumps => _jump != null ? _jump.ExtraJumps : 0;
         public bool HasBufferedJump => _jump != null && _jump.HasBufferedJump;
         public bool IsKnockback => _knockback != null && _knockback.IsKnockback;
+        public bool IsForceVelocity => _forceVelocity != null && _forceVelocity.IsProcessing;
 
         #endregion Ability 프로퍼티 위임
 
@@ -54,6 +57,12 @@ namespace TeamSuneat
 
         public void ApplyHorizontalInput(float axis)
         {
+            // ForceVelocity가 적용 중일 때는 입력 무시
+            if (IsForceVelocity)
+            {
+                return;
+            }
+            
             if (_core != null)
             {
                 _core.ApplyHorizontalInput(axis);
@@ -92,6 +101,14 @@ namespace TeamSuneat
         public void SetMoveSpeed(float moveSpeed)
         {
             _moveSpeed = moveSpeed;
+        }
+
+        public void SetFacingDirection(int direction)
+        {
+            if (_core != null)
+            {
+                _core.SetFacingDirection(direction);
+            }
         }
 
         #endregion Core 메서드 위임
@@ -148,6 +165,26 @@ namespace TeamSuneat
             _knockback?.ApplyKnockback(direction);
         }
 
+        public void StartForceVelocity(TeamSuneat.Data.ForceVelocityAssetData assetData, bool isFacingRight, object source = null)
+        {
+            _forceVelocity?.StartForceVelocity(assetData, isFacingRight, source);
+        }
+
+        public void StopForceVelocity()
+        {
+            _forceVelocity?.StopForceVelocity();
+        }
+
+        public void StopForceVelocity(object source)
+        {
+            _forceVelocity?.StopForceVelocity(source, (FVNames?)null);
+        }
+
+        public void StopForceVelocity(object source, FVNames? name)
+        {
+            _forceVelocity?.StopForceVelocity(source, name);
+        }
+
         #endregion Ability 메서드 위임
 
         #region 통합 업데이트
@@ -159,6 +196,7 @@ namespace TeamSuneat
             _dash?.AbilityTick();
             _downJump?.AbilityTick();
             _knockback?.AbilityTick();
+            _forceVelocity?.AbilityTick();
         }
 
         #endregion 통합 업데이트

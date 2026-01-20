@@ -73,6 +73,11 @@ namespace TeamSuneat.Data
                         ParseStatJsonData(sheet, jsonData);
                     }
                     break;
+                case _Sheet.StringDialogue:
+                    {
+                        ParseStringDialogueJsonData(sheet, jsonData);
+                    }
+                    break;
             }
         }
 
@@ -108,6 +113,32 @@ namespace TeamSuneat.Data
                 if (!_statSheetData.ContainsKey(dataList[i].GetKey()))
                 {
                     _statSheetData.Add(dataList[i].GetKey(), dataList[i]);
+                }
+                else
+                {
+                    LogSameKeyAlreadyExists(dataList[i].GetKey().ToString(), sheet.ToString());
+                }
+            }
+
+            Log.Progress(LogTags.JsonData, $"({sheet.ToSelectString()}) Json 데이터를 읽어옵니다. 불러온 데이터의 수: {dataList.Count.ToSelectString()})");
+        }
+
+        private static void ParseStringDialogueJsonData(_Sheet sheet, string jsonData)
+        {
+            List<StringDialogueData> dataList = DeserializeJsonData<StringDialogueData>(jsonData);
+
+            if (dataList == null || dataList.Count == 0)
+            {
+                return;
+            }
+
+            for (int i = 0; i < dataList.Count; i++)
+            {
+                dataList[i].Refresh();
+
+                if (!_stringDialogueSheetData.ContainsKey(dataList[i].GetKey()))
+                {
+                    _stringDialogueSheetData.Add(dataList[i].GetKey(), dataList[i]);
                 }
                 else
                 {

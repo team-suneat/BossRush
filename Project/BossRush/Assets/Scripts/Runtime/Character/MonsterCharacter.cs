@@ -72,7 +72,8 @@ namespace TeamSuneat
             // 2. 이동 속도 적용 (대시 중일 때는 일반 이동 입력 무시)
             if (Physics != null)
             {
-                if (!Physics.IsDashing)
+                // ForceVelocity가 적용 중일 때는 입력 무시
+                if (!Physics.IsDashing && !Physics.IsForceVelocity)
                 {
                     // 공격 중 이동 잠금 확인
                     bool isMovementLocked = CharacterAnimator != null && CharacterAnimator.IsMovementLocked;

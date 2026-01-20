@@ -1,3 +1,5 @@
+using Sirenix.OdinInspector;
+using TeamSuneat.Data;
 using UnityEngine;
 
 namespace TeamSuneat
@@ -5,22 +7,16 @@ namespace TeamSuneat
     [RequireComponent(typeof(CharacterPhysicsCore))]
     public class CharacterDash : MonoBehaviour
     {
-        private const float DASH_VELOCITY_Y = 0f;
-
-        [Header("Dash")]
-        [SerializeField] private float _dashDistance = 2f;
-        [SerializeField] private float _dashDuration = 0.2f;
+        [Title("Dash")]
         [SerializeField] private float _dashCooldown = 0.5f;
         [SerializeField] private bool _airDashEnabled = true;
 
         private CharacterPhysicsCore _physics;
+        private CharacterForceVelocity _forceVelocity;
         private Vital _vital;
-        private float _dashDurationCounter;
         private float _dashCooldownRemaining;
-        private Vector2 _dashDirection;
-        private float? _originalGravityScale;
 
-        public bool IsDashing => _physics != null && _physics.IsDashing;
+        public bool IsDashing => _forceVelocity != null && _forceVelocity.IsProcessing;
         public bool CanDash => _dashCooldownRemaining <= 0f && !IsDashing && HasPulse();
         public bool IsAirDashEnabled => _airDashEnabled;
         public float DashCooldownRemaining => _dashCooldownRemaining;
@@ -28,6 +24,7 @@ namespace TeamSuneat
         private void Awake()
         {
             _physics = GetComponent<CharacterPhysicsCore>();
+            _forceVelocity = GetComponent<CharacterForceVelocity>();
             _vital = GetComponentInChildren<Vital>();
         }
 
@@ -49,6 +46,11 @@ namespace TeamSuneat
 
         private void ExecuteDash(Vector2 direction)
         {
+            if (_physics == null || _forceVelocity == null)
+            {
+                return;
+            }
+
             if (direction.magnitude < 0.01f)
             {
                 direction = new Vector2(_physics.FacingDirection, 0f);
@@ -64,21 +66,20 @@ namespace TeamSuneat
                 return;
             }
 
-            float dashSpeed = _dashDistance.SafeDivide(_dashDuration);
-            _dashDirection = direction;
-
-            Vector2 dashVelocity = new Vector2(_dashDirection.x * dashSpeed, DASH_VELOCITY_Y);
-            _physics.ApplyVelocity(dashVelocity);
-
-            // 대시 중 중력 비활성화
-            if (_physics.Rigidbody != null)
+            // ForceVelocityAsset 데이터 가져오기
+            ForceVelocityAssetData dashAssetData = ScriptableDataManager.Instance?.FindForceVelocityClone(FVNames.PlayerDash);
+            if (dashAssetData == null)
             {
-                _originalGravityScale = _physics.Rigidbody.gravityScale;
-                _physics.Rigidbody.gravityScale = 0f;
+                Log.Warning(LogTags.Physics, "PlayerDash ForceVelocity 데이터를 찾을 수 없습니다. {0}", this.GetHierarchyPath());
+                return;
             }
 
-            _physics.SetDashing(true);
-            _dashDurationCounter = _dashDuration;
+            // 캐릭터가 바라보는 방향 확인
+            bool isFacingRight = _physics.FacingDirection > 0;
+
+            // ForceVelocity 시작
+            _forceVelocity.StartForceVelocity(dashAssetData, isFacingRight, this);
+
             _dashCooldownRemaining = _dashCooldown;
         }
 
@@ -89,36 +90,17 @@ namespace TeamSuneat
 
         public void AbilityTick()
         {
-            if (_physics == null) return;
-
-            // 캐릭터가 살아있지 않으면 업데이트 스킵
+            // 캐릭터가 살아있지 않으면 ForceVelocity 중지
             if (_vital != null && !_vital.IsAlive)
             {
-                if (_physics.IsDashing)
+                if (IsDashing && _forceVelocity != null)
                 {
-                    RestoreGravity();
-                    _physics.SetDashing(false);
-                    _dashDirection = Vector2.zero;
-                    _dashDurationCounter = 0f;
+                    _forceVelocity.StopForceVelocity(this, FVNames.PlayerDash);
                 }
                 return;
             }
 
-            if (_physics.IsDashing)
-            {
-                _dashDurationCounter -= Time.fixedDeltaTime;
-
-                float dashSpeed = _dashDistance / _dashDuration;
-                _physics.ApplyVelocity(new Vector2(_dashDirection.x * dashSpeed, DASH_VELOCITY_Y));
-
-                if (_dashDurationCounter <= 0f)
-                {
-                    RestoreGravity();
-                    _physics.SetDashing(false);
-                    _dashDirection = Vector2.zero;
-                }
-            }
-
+            // 쿨다운만 관리 (실제 대시는 ForceVelocity가 처리)
             if (_dashCooldownRemaining > 0f)
             {
                 _dashCooldownRemaining -= Time.fixedDeltaTime;
@@ -147,15 +129,6 @@ namespace TeamSuneat
                 return false;
             }
             return _vital.UseDash();
-        }
-
-        private void RestoreGravity()
-        {
-            if (_physics.Rigidbody != null && _originalGravityScale.HasValue)
-            {
-                _physics.Rigidbody.gravityScale = _originalGravityScale.Value;
-                _originalGravityScale = null;
-            }
         }
     }
 }

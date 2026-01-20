@@ -130,6 +130,10 @@ namespace TeamSuneat.Data
                 {
                     count += 1;
                 }
+                else if (LoadSpeakerDialogueSync(path))
+                {
+                    count += 1;
+                }
             }
 
             Log.Info("파일을 읽어왔습니다. Count: {0}", count.ToString());
@@ -405,6 +409,14 @@ namespace TeamSuneat.Data
                         if (!_cameraImpulseAssets.ContainsKey(cameraImpulse.TID))
                         {
                             _cameraImpulseAssets[cameraImpulse.TID] = cameraImpulse;
+                            count++;
+                        }
+                        break;
+
+                    case SpeakerDialogueAsset speakerDialogue:
+                        if (!_speakerDialogueAssets.ContainsKey(speakerDialogue.TID))
+                        {
+                            _speakerDialogueAssets[speakerDialogue.TID] = speakerDialogue;
                             count++;
                         }
                         break;

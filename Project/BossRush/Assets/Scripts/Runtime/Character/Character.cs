@@ -80,6 +80,22 @@ namespace TeamSuneat
         {
             base.OnStart();
             RegisterVitalEvents();
+
+            // 초기화 시 FacingDirection을 IsFacingRight와 동기화
+            SyncFacingDirectionFromModel();
+        }
+
+        private void SyncFacingDirectionFromModel()
+        {
+            // CharacterModel의 localScale.x를 기반으로 FacingDirection 초기화
+            if (CharacterModel != null)
+            {
+                SetFacingDirection(CharacterModel.transform.localScale.x > 0 ? 1 : -1);
+            }
+            else
+            {
+                SetFacingDirection(localScale.x > 0 ? 1 : -1);
+            }
         }
 
         protected virtual void RegisterVitalEvents()
@@ -151,7 +167,6 @@ namespace TeamSuneat
         }
 
         #endregion Initialization
-
 
         protected virtual void OnDamage(DamageResult damageResult)
         {
@@ -225,6 +240,7 @@ namespace TeamSuneat
             UpdateAnimators();
             Buff?.LogicUpdate();
         }
+
         public virtual void LateLogicUpdate()
         {
             _command.UpdateBuffer();
@@ -271,6 +287,12 @@ namespace TeamSuneat
 
         protected virtual void ApplyBaseStats(CharacterAssetData assetData)
         {
+            if (Stat == null)
+            {
+                LogError("StatSystem is NULL.");
+                return;
+            }
+
             if (assetData.Stats == null)
             {
                 return;
@@ -279,6 +301,11 @@ namespace TeamSuneat
             for (int i = 0; i < assetData.Stats.Count; i++)
             {
                 CharacterStatEntry statEntry = assetData.Stats[i];
+                if (statEntry == null)
+                {
+                    continue;
+                }
+
                 if (statEntry.Name == StatNames.None)
                 {
                     continue;
@@ -295,6 +322,12 @@ namespace TeamSuneat
 
         private void AddDefaultStats()
         {
+            if (Stat == null)
+            {
+                LogError("stat system is null.");
+                return;
+            }
+
             StatNames[] statNames = EnumEx.GetValues<StatNames>();
             StatData statData;
             for (int i = 1; i < statNames.Length; i++)

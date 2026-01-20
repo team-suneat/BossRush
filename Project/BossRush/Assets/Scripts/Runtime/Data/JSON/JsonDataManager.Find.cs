@@ -47,5 +47,16 @@ namespace TeamSuneat.Data
 
             return new StatData();
         }
+
+        public static StringDialogueData FindStringDialogueData(string key)
+        {
+            if (_stringDialogueSheetData.ContainsKey(key))
+            {
+                return _stringDialogueSheetData[key];
+            }
+
+            Log.Warning(LogTags.JsonData, "StringDialogueData를 찾을 수 없습니다: {0}", key);
+            return new StringDialogueData();
+        }
     }
 }
