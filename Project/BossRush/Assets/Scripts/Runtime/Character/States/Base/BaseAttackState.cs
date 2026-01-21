@@ -67,7 +67,7 @@ namespace TeamSuneat
         protected void PlayAttackAnimation(int attackIndex)
         {
             // 공격 방향 처리
-            Character.FacingDirections? targetDirection = GetAttackDirection();
+            FacingDirections? targetDirection = GetAttackDirection();
             if (targetDirection.HasValue)
             {
                 if (_stateMachine != null && _stateMachine.Character != null)
@@ -83,7 +83,7 @@ namespace TeamSuneat
         protected void PlayAirAttackAnimation()
         {
             // 공격 방향 처리
-            Character.FacingDirections? targetDirection = GetAttackDirection();
+            FacingDirections? targetDirection = GetAttackDirection();
             if (targetDirection.HasValue)
             {
                 if (_stateMachine != null && _stateMachine.Character != null)
@@ -95,7 +95,7 @@ namespace TeamSuneat
             _animator?.PlayAttackAnimation("AirAttack");
         }
 
-        protected virtual Character.FacingDirections? GetAttackDirection()
+        protected virtual FacingDirections? GetAttackDirection()
         {
             // 기본 구현: null 반환 (방향 변경 없음)
             // 플레이어/몬스터별로 오버라이드

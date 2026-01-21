@@ -15,7 +15,7 @@ MonoBehaviour:
   NameString: Boss1Pattern1Attack3
   Data:
     IsChangingAsset: 0
-    Name: 4
+    Name: 5
     Subject: 1
     IsDamage: 0
     IsPiercing: 0
@@ -23,9 +23,9 @@ MonoBehaviour:
     Stats: 
     Priority: 3
     Direction: 1
-    ForceVelocity: {x: 6, y: 0}
+    ForceVelocity: {x: 6, y: 3}
     Acceleration: {x: 0, y: 0}
-    Gravity: 0
+    Gravity: 1
     Friction: 0
     AirResist: 0
     AirResistFlyingMonster: 0

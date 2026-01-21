@@ -31,6 +31,9 @@
         /// <summary> 캐릭터 상태 </summary>
         CharacterState,
 
+        /// <summary> 패턴 </summary>
+        Pattern,
+
         #endregion Character
 
         #region Character-Renderer

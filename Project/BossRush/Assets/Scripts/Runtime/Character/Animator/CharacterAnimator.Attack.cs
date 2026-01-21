@@ -5,28 +5,8 @@ namespace TeamSuneat
 {
     public partial class CharacterAnimator
     {
-        // CharacterAnimator에서 사용하는 Attack은 몬스터의 공격으로 제한합니다.
-
-        // 공격 애니메이션 이름
         protected string _attackAnimationName;
-
-        // 순서대로 재생되는 공격 애니메이션 여부
-        // 돌진과 같이 시작-반복-완료 애니메이션이 각각 설정된 공격 애니메이션을 뜻합니다.
         private bool _isSequenceAttackAnimation;
-
-        // 재생되고 있는 공격 애니메이션 이름
-        protected string AttackingAnimationName
-        {
-            get
-            {
-                if (_isSequenceAttackAnimation)
-                {
-                    return _attackAnimationName + "Complete";
-                }
-
-                return _attackAnimationName;
-            }
-        }
 
         protected UnityEvent<string> RefreshAttackCooldown { get; set; }
 
@@ -40,12 +20,30 @@ namespace TeamSuneat
             return stateInfo.IsName(_attackAnimationName);
         }
 
+        public bool IsPlayingAttackAnimation()
+        {
+            if (_animator == null || string.IsNullOrEmpty(_attackAnimationName))
+            {
+                return false;
+            }
+
+            AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+            if (_isSequenceAttackAnimation)
+            {
+                return stateInfo.IsName(_attackAnimationName) || stateInfo.IsName(_attackAnimationName + "Complete");
+            }
+
+            return stateInfo.IsName(_attackAnimationName);
+        }
+
+        //
         public void PlayAttackAnimation(string animationName)
         {
             _animator.Play(animationName, 0);
-            AnimatorLog.LogInfo("공격 애니메이션을 재생합니다. {0}", animationName);
             _attackAnimationName = animationName;
             _isSequenceAttackAnimation = false;
+
+            AnimatorLog.LogInfo("공격 애니메이션을 재생합니다. {0}", animationName);
         }
 
         public bool PlaySequenceAttackAnimation(string animationName)
@@ -55,9 +53,7 @@ namespace TeamSuneat
                 AnimatorLog.LogInfo("연속되는 공격 애니메이션을 재생합니다. {0}", animationName);
 
                 _attackAnimationName = animationName;
-
                 _isSequenceAttackAnimation = true;
-
                 _animator.UpdateAnimatorBoolIfExists(animationName + "Progress", true);
 
                 return true;
@@ -88,8 +84,8 @@ namespace TeamSuneat
         protected virtual void OnAnimatorAttackStateExit()
         {
             StopAttacking();
-
             SetAttacking(false);
+            ProcessNextStep();
         }
 
         public void StopAttacking()
@@ -110,6 +106,23 @@ namespace TeamSuneat
 
         //
 
+        protected void ProcessNextStep()
+        {
+            if (_owner.IsPlayer)
+            {
+                return;
+            }
+
+            MonsterCharacter enemy = _owner as MonsterCharacter;
+            if (enemy != null && enemy.Pattern != null)
+            {
+                enemy.Pattern.NextStep();
+                enemy.Pattern.ProcessStep();
+            }
+        }
+
+        //
+
         public void CallRefreshCooldownEvent()
         {
             RefreshAttackCooldown?.Invoke(_attackAnimationName);
@@ -117,20 +130,14 @@ namespace TeamSuneat
 
         public void RegisterRefreshCooldownEvent(UnityAction<string> action)
         {
-            if (RefreshAttackCooldown == null)
-            {
-                RefreshAttackCooldown = new UnityEvent<string>();
-            }
+            RefreshAttackCooldown ??= new UnityEvent<string>();
 
             RefreshAttackCooldown.AddListener(action);
         }
 
         public void UnregisterRefreshCooldownEvent(UnityAction<string> action)
         {
-            if (RefreshAttackCooldown != null)
-            {
-                RefreshAttackCooldown.RemoveListener(action);
-            }
+            RefreshAttackCooldown?.RemoveListener(action);
         }
     }
 }

@@ -141,7 +141,7 @@ namespace TeamSuneat
             }
         }
 
-        protected override Character.FacingDirections? GetAttackDirection()
+        protected override FacingDirections? GetAttackDirection()
         {
             // 플레이어: 입력 방향에 맞게 캐릭터 반전
             if (_character != null)
@@ -150,8 +150,8 @@ namespace TeamSuneat
                 if (Mathf.Abs(cmd.HorizontalInput) > 0.01f)
                 {
                     return cmd.HorizontalInput > 0
-                        ? Character.FacingDirections.Right
-                        : Character.FacingDirections.Left;
+                        ? FacingDirections.Right
+                        : FacingDirections.Left;
                 }
             }
 

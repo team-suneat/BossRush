@@ -15,7 +15,7 @@ namespace TeamSuneat
         private float _globalCooldownTime = 0f;
 
         [SerializeField]
-        private MonsterAttackableArea _attackableArea;
+        private MonsterAttackableArea[] _attackableAreas;
 
         // 쿨타임 관리 (몬스터 전용)
         private readonly MonsterAttackCooldown _attackCooldown = new();
@@ -49,10 +49,10 @@ namespace TeamSuneat
         {
             // 개별 공격 쿨타임 체크
             bool isIndividualCooldown = _attackCooldown.CheckCooldown(attackOrder);
-            
+
             // 전역 쿨타임 체크
             bool isGlobalCooldown = _attackCooldown.CheckGlobalCooldown();
-            
+
             // 둘 중 하나라도 쿨타임 중이면 공격 불가
             return isIndividualCooldown || isGlobalCooldown;
         }
@@ -66,7 +66,7 @@ namespace TeamSuneat
         {
             // 개별 공격 쿨타임 시작
             _attackCooldown.StartCooldown(attackOrder);
-            
+
             // 전역 쿨타임 시작
             _attackCooldown.StartGlobalCooldown();
         }
@@ -87,12 +87,32 @@ namespace TeamSuneat
 
         public override bool CheckTargetInAttackableArea()
         {
-            if (_attackableArea.CheckTargetInArea())
+            return CheckTargetInAttackableArea(0);
+        }
+
+        public override bool CheckTargetInAttackableArea(int index)
+        {
+            if (_attackableAreas == null || _attackableAreas.Length == 0)
+            {
+                return false;
+            }
+
+            if (index < 0 || index >= _attackableAreas.Length)
+            {
+                return false;
+            }
+
+            if (_attackableAreas[index] == null)
+            {
+                return false;
+            }
+
+            if (_attackableAreas[index].CheckTargetInArea())
             {
                 return true;
             }
 
-            return base.CheckTargetInAttackableArea();
+            return false;
         }
     }
 }

@@ -26,7 +26,7 @@ MonoBehaviour:
     ApplyToSelf: 0
     ApplyMultiplierToSelf: 0
     ExecutionConditionalTargetLifeRate: 0
-    FixedDamage: 0
+    FixedDamage: 1
     FixedDamageByLevel: 0
     LinkedDamageType: 0
     LinkedStateEffect: 0
@@ -53,8 +53,8 @@ MonoBehaviour:
     ParryTypeString: Parryable
     LinkedDamageTypeString: None
     LinkedStateEffectString: None
-    NameOnHitString: None
-    DiminishingTypeString: None
+    NameOnHitString: 
+    DiminishingTypeString: 
     AttackTargetTypeString: TargetOfOwner
     ResourceConsumeTypeString: None
     ForceVelocityNameString: None

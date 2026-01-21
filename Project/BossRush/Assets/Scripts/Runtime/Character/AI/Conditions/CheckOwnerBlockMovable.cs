@@ -1,5 +1,4 @@
 ﻿using NodeCanvas.Framework;
-
 using ParadoxNotion.Design;
 
 namespace TeamSuneat
@@ -16,12 +15,19 @@ namespace TeamSuneat
                 result = "Character를 찾을 수 없습니다.";
                 return false;
             }
+
             switch (agent.StateMachine.CurrentState)
             {
                 case CharacterState.Stunned:
+                    result = "캐릭터가 기절 상태입니다.";
+                    return true;
+
                 case CharacterState.Dead:
+                    result = "캐릭터가 사망 상태입니다.";
+                    return true;
+
                 case CharacterState.ControlledMovement:
-                    result = "FV가 적용 중입니다.";
+                    result = "캐릭터가 군중 제어 상태입니다.";
                     return true;
             }
 
@@ -33,7 +39,7 @@ namespace TeamSuneat
         {
             get
             {
-                return "이동 차단 상태 확인";
+                return "이동 불가 상태 확인";
             }
         }
     }

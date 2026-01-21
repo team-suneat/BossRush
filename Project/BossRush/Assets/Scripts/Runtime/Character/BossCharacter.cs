@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TeamSuneat
 {
-    public class BossCharacter : Character
+    public class BossCharacter : MonsterCharacter
     {
 
     }

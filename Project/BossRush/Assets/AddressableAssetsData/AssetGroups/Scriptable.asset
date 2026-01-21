@@ -57,8 +57,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0febb5f497acd2a43a0c5d4129340a87
+    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_FirstBossAttack1Hit2.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1264165fed5027e4e99f8b4f1bde0c05
     m_Address: Assets/Addressables/Scriptable/ForceVelocity/ForceVelocity_PlayerDash.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 171f3cbd4f6f448438a1288706869568
+    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_FirstBossAttack1Hit3.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -95,6 +107,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2cc909dbd55810749b2736dff821e0ca
     m_Address: Assets/Addressables/Scriptable/Floaty/Floaty_PlayerDamaged.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3377b6e0f9ae96a4ca59b750b38be2b3
+    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_FirstBossAttack3.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -279,6 +297,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: db3359b650a323143a5162ef67355304
+    m_Address: Assets/Addressables/Scriptable/Character/Character_Boss1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dbc2a86de7829c04892900c58161dfb4
     m_Address: Assets/Addressables/Scriptable/Sound/Sound_Movement_Landing.asset
     m_ReadOnly: 0
@@ -293,6 +317,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e27ee2d0dca20d643bfd5ec5d8de9105
     m_Address: Assets/Addressables/Scriptable/Charm/2. Skill/Charm_SlamDownStrike.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e3be47aa8df4a184480bf49dd24c55b1
+    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_FirstBossAttack2.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -341,6 +371,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fcf94e2554cc6cf43bbc67efa29d54c9
     m_Address: Assets/Addressables/Scriptable/Charm/3. Support/Charm_FullHealthParry.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fd8e45265cbd7e24bb18ecee2cd66892
+    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_FirstBossAttack1Hit1.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable

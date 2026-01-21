@@ -24,6 +24,14 @@ namespace TeamSuneat
             private set => _current = value;
         }
 
+        public Order()
+        {
+            _isCircular = true;
+            _min = 0;
+            _max = 0;
+            _current = _min;
+        }
+
         public bool Next()
         {
             if (Min == Max)
@@ -55,6 +63,18 @@ namespace TeamSuneat
         public void First()
         {
             Current = Min;
+        }
+
+        public void Set(int value)
+        {
+            if (value < Min || value > Max)
+            {
+                Log.Error($"값({value})은 최소값({Min})보다 작거나 최대값({Max})보다 클 수 없습니다.");
+            }
+            else
+            {
+                Current = value;
+            }
         }
 
         public void SetMin(int index)
@@ -96,12 +116,20 @@ namespace TeamSuneat
             return Current >= Max;
         }
 
-        public Order()
-        {
-            _isCircular = true;
-            _min = 0;
-            _max = 0;
-            _current = _min;
-        }
+        public void Shuffle()
+		{
+			if (Max == 0)
+			{
+				return;
+			}
+
+			int random = Current;
+			while (random == Current)
+			{
+				random = RandomEx.Range(Min, Max + 1);
+			}
+
+			_current = random;
+		}
     }
 }

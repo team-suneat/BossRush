@@ -1659,7 +1659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1363968709
 Transform:
   m_ObjectHideFlags: 0
@@ -1688,7 +1688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnParentPoint: {fileID: 1363968709}
-  _monsterPrefab: {fileID: 2547355166613048083, guid: 9327609a49a33e84989139fb0f865395, type: 3}
+  _monsterPrefab: {fileID: 2547355166613048083, guid: ad44a6e63b3bf204997621861062b166, type: 3}
 --- !u!1 &1403437780
 GameObject:
   m_ObjectHideFlags: 0

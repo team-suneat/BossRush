@@ -26,6 +26,7 @@ namespace TeamSuneat
         [FoldoutGroup("[캐릭터]")][SuffixLabel("몬스터 캐릭터")] public bool Monster;
         [FoldoutGroup("[캐릭터]")][SuffixLabel("캐릭터 생성")] public bool CharacterSpawn;
         [FoldoutGroup("[캐릭터]")][SuffixLabel("캐릭터 상태")] public bool CharacterState;
+        [FoldoutGroup("[캐릭터]")][SuffixLabel("패턴")] public bool Pattern;
 
         #endregion Character
 
@@ -169,6 +170,7 @@ namespace TeamSuneat
             Monster = true;
             CharacterSpawn = true;
             CharacterState = true;
+            Pattern = true;
 
             Animation = true;
 
@@ -238,6 +240,7 @@ namespace TeamSuneat
             Monster = false;
             CharacterSpawn = false;
             CharacterState = false;
+            Pattern = false;
 
             Animation = false;
 
@@ -316,6 +319,7 @@ namespace TeamSuneat
                 LogTags.Monster => Monster,
                 LogTags.CharacterSpawn => CharacterSpawn,
                 LogTags.CharacterState => CharacterState,
+                LogTags.Pattern => Pattern,
 
                 LogTags.Animation => Animation,
 
@@ -391,6 +395,7 @@ namespace TeamSuneat
                 case LogTags.Monster: { Monster = true; } break;
                 case LogTags.CharacterSpawn: { CharacterSpawn = true; } break;
                 case LogTags.CharacterState: { CharacterState = true; } break;
+                case LogTags.Pattern: { Pattern = true; } break;
 
                 case LogTags.Animation: { Animation = true; } break;
 
@@ -464,6 +469,7 @@ namespace TeamSuneat
                 case LogTags.Monster: { Monster = false; } break;
                 case LogTags.CharacterSpawn: { CharacterSpawn = false; } break;
                 case LogTags.CharacterState: { CharacterState = false; } break;
+                case LogTags.Pattern: { Pattern = false; } break;
 
                 case LogTags.Animation: { Animation = false; } break;
 

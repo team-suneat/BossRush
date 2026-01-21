@@ -20,7 +20,7 @@ MonoBehaviour:
     EntityType: 2
     IsCrowdControl: 0
     DamageType: 1
-    ParryType: 3
+    ParryType: 0
     NotPlayDamageAnimation: 0
     ApplyKnockback: 0
     ApplyToSelf: 0
@@ -36,13 +36,13 @@ MonoBehaviour:
     StopAttackAnimationOnResourceLack: 0
     UseResourceOnActivate: 0
     UseResourceOnApply: 0
-    UseResourceOnAttack: 1
-    UseResourceOnAttackSucceeded: 1
+    UseResourceOnAttack: 0
+    UseResourceOnAttackSucceeded: 0
     UseResourceOnAttackFailed: 0
     UseResourceOnInactive: 0
     UseResourceValue: 0
-    RestoreResourceValue: 0.25
-    ResourceConsumeType: 5
+    RestoreResourceValue: 0
+    ResourceConsumeType: 0
     ForceResourceConsume: 0
     IgnoreDeathByConsume: 0
     ConsumeDelayTime: 0
@@ -50,11 +50,11 @@ MonoBehaviour:
     ForceVelocityName: 0
     HitFXPrefabName: fx_player_attack_success
     DamageTypeString: Normal
-    ParryTypeString: Unparryable
+    ParryTypeString: None
     LinkedDamageTypeString: None
     LinkedStateEffectString: None
-    NameOnHitString: None
-    DiminishingTypeString: None
+    NameOnHitString: 
+    DiminishingTypeString: 
     AttackTargetTypeString: TargetOfOwner
-    ResourceConsumeTypeString: FixedResourceAndPulse
+    ResourceConsumeTypeString: None
     ForceVelocityNameString: None

@@ -37,6 +37,11 @@ namespace TeamSuneat
         public int FacingDirection => _core != null ? _core.FacingDirection : 1;
         public float MoveSpeed => _moveSpeed;
 
+        public Collider2D AboveCollider => _core != null ? _core.AboveCollider : null;
+        public Collider2D BelowCollider => _core != null ? _core.BelowCollider : null;
+        public Collider2D LeftCollider => _core != null ? _core.LeftCollider : null;
+        public Collider2D RightCollider => _core != null ? _core.RightCollider : null;
+
         #endregion Core 프로퍼티 위임
 
         #region Ability 프로퍼티 위임

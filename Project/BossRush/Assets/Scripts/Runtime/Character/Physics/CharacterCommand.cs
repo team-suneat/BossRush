@@ -163,5 +163,36 @@ namespace TeamSuneat
             IsAttackBuffered = false;
             _attackBufferEndTime = 0f;
         }
+
+        public void CopyFrom(CharacterCommand source)
+        {
+            if (source == null)
+            {
+                return;
+            }
+
+            // 이동 입력
+            HorizontalInput = source.HorizontalInput;
+            VerticalInput = source.VerticalInput;
+            IsDownInputPressed = source.IsDownInputPressed;
+
+            // 한 프레임만 true인 입력
+            IsJumpPressed = source.IsJumpPressed;
+            IsJumpReleased = source.IsJumpReleased;
+            IsDashPressed = source.IsDashPressed;
+            IsAttackPressed = source.IsAttackPressed;
+            IsParryPressed = source.IsParryPressed;
+
+            // 이전 프레임 상태
+            _wasJumpPressed = source._wasJumpPressed;
+            _wasDashPressed = source._wasDashPressed;
+            _wasAttackPressed = source._wasAttackPressed;
+            _wasParryPressed = source._wasParryPressed;
+
+            // 공격 입력 버퍼
+            IsAttackBuffered = source.IsAttackBuffered;
+            _attackBufferEndTime = source._attackBufferEndTime;
+        }
+
     }
 }

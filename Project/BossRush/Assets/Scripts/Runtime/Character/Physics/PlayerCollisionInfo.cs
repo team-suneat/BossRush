@@ -7,7 +7,7 @@ namespace TeamSuneat
     /// 4방향(위, 아래, 왼쪽, 오른쪽) 충돌 상태를 추적
     /// </summary>
     [System.Serializable]
-    public struct PlayerCollisionInfo
+    public struct CharacterCollisionInfo
     {
         public bool above;
         public bool below;
@@ -16,11 +16,20 @@ namespace TeamSuneat
 
         public int faceDir; // 이동 방향 (-1: 왼쪽, 1: 오른쪽)
 
+        public Collider2D aboveCollider;
+        public Collider2D belowCollider;
+        public Collider2D leftCollider;
+        public Collider2D rightCollider;
+
         public void Reset()
         {
             above = below = false;
             left = right = false;
             faceDir = 1;
+            aboveCollider = null;
+            belowCollider = null;
+            leftCollider = null;
+            rightCollider = null;
         }
     }
 }

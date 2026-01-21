@@ -3,6 +3,7 @@ using UnityEngine;
 
 #if UNITY_EDITOR
 
+
 #endif
 
 namespace TeamSuneat
@@ -16,6 +17,10 @@ namespace TeamSuneat
 
         [ShowIf("_detectAreaType", DetectAreaTypes.Circle)]
         [SerializeField] private float _radius;
+
+#if UNITY_EDITOR
+        [SerializeField] private bool _showGizmo = true;
+#endif
 
         private Character _ownerCharacter;
 
@@ -36,20 +41,28 @@ namespace TeamSuneat
                 return false;
             }
 
+            Vital targetVital = _ownerCharacter.TargetCharacter.MyVital;
             if (_detectAreaType == DetectAreaTypes.Circle)
             {
-                return _ownerCharacter.MyVital.CheckColliderInCircle(position, _radius);
+                return targetVital.CheckColliderInCircle(position, _radius);
             }
             else if (_detectAreaType == DetectAreaTypes.Box)
             {
-                return _ownerCharacter.MyVital.CheckColliderInBox(position, _boxSize);
+                return targetVital.CheckColliderInBox(position, _boxSize);
             }
 
             return false;
         }
 
+#if UNITY_EDITOR
+
         private void OnDrawGizmos()
         {
+            if (!_showGizmo)
+            {
+                return;
+            }
+
             if (_detectAreaType == DetectAreaTypes.Circle)
             {
                 GizmoEx.DrawWireSphere(position, _radius);
@@ -59,5 +72,7 @@ namespace TeamSuneat
                 GizmoEx.DrawGizmoRectangle(position, _boxSize);
             }
         }
+
+#endif
     }
 }

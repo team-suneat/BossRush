@@ -237,7 +237,14 @@ namespace TeamSuneat
             offset = collider.offset;
             areaRect = CreateRect(areaPosition, areaSize);
             vitalRect = CreateRect(position + offset, collider.bounds.size);
-            return areaRect.Overlaps(vitalRect);
+            if (areaRect.Overlaps(vitalRect))
+            {
+                DebugEx.DrawRectangle(areaRect, GameColors.Dev, 1);
+                DebugEx.DrawRectangle(vitalRect, GameColors.Select, 1);
+                return true;
+            }
+
+            return false;
         }
 
         private Rect CreateRect(Vector3 position, Vector3 size)

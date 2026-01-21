@@ -739,8 +739,6 @@ namespace TeamSuneat
             // 두 배율을 곱하여 최종 배율 계산
             float totalMultiplier = attackRangeMultiplier * additionalMultiplier;
 
-            Log.Info("영역 공격의 크기 최종 배율: {0}", ValueStringEx.GetPercentString(totalMultiplier));
-
             // 원본 크기에 최종 배율을 적용
             if (_attackCollider is BoxCollider2D boxCollider)
             {

@@ -44,8 +44,13 @@ namespace TeamSuneat
         public LayerMask GroundLayerMask => _groundLayerMask;
         public BoxCollider2D BoxCollider => _boxCollider;
 
+        public Collider2D AboveCollider => _collisionInfo.aboveCollider;
+        public Collider2D BelowCollider => _collisionInfo.belowCollider;
+        public Collider2D LeftCollider => _collisionInfo.leftCollider;
+        public Collider2D RightCollider => _collisionInfo.rightCollider;
+
         private RaycastOrigins _raycastOrigins;
-        private PlayerCollisionInfo _collisionInfo;
+        private CharacterCollisionInfo _collisionInfo;
         private float _horizontalRaySpacing;
         private float _verticalRaySpacing;
         private Bounds _originalBounds;
@@ -423,6 +428,7 @@ namespace TeamSuneat
                     if (isActuallyGrounded)
                     {
                         _collisionInfo.below = true;
+                        _collisionInfo.belowCollider = hit.collider;
                         IsOnOneWayPlatform = isOneWayPlatform;
                         break;
                     }
@@ -452,6 +458,7 @@ namespace TeamSuneat
                         }
 
                         _collisionInfo.above = true;
+                        _collisionInfo.aboveCollider = hit.collider;
                         break;
                     }
                 }
@@ -468,6 +475,8 @@ namespace TeamSuneat
             {
                 _collisionInfo.left = false;
                 _collisionInfo.right = false;
+                _collisionInfo.leftCollider = null;
+                _collisionInfo.rightCollider = null;
                 _collisionInfo.faceDir = 1;
                 return;
             }
@@ -484,6 +493,8 @@ namespace TeamSuneat
 
             _collisionInfo.left = false;
             _collisionInfo.right = false;
+            _collisionInfo.leftCollider = null;
+            _collisionInfo.rightCollider = null;
 
             for (int i = 0; i < _horizontalRayCount; i++)
             {
@@ -512,10 +523,12 @@ namespace TeamSuneat
                     if (directionX == -1)
                     {
                         _collisionInfo.left = true;
+                        _collisionInfo.leftCollider = hit.collider;
                     }
                     else
                     {
                         _collisionInfo.right = true;
+                        _collisionInfo.rightCollider = hit.collider;
                     }
 
                     if (_knockback != null && _knockback.IsKnockback)

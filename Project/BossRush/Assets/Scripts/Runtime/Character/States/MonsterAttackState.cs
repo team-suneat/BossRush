@@ -101,7 +101,7 @@ namespace TeamSuneat
             // 공격 순서는 유지 (다음 공격 시 재사용 가능)
         }
 
-        protected override Character.FacingDirections? GetAttackDirection()
+        protected override FacingDirections? GetAttackDirection()
         {
             // 몬스터: 타겟 방향을 바라봄
             if (_character != null && _character.TargetCharacter != null)
@@ -111,11 +111,11 @@ namespace TeamSuneat
 
                 if (targetPosition.x > myPosition.x)
                 {
-                    return Character.FacingDirections.Right;
+                    return FacingDirections.Right;
                 }
                 else
                 {
-                    return Character.FacingDirections.Left;
+                    return FacingDirections.Left;
                 }
             }
 

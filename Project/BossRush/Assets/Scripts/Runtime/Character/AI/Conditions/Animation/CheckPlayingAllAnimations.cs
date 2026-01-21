@@ -1,5 +1,4 @@
 ﻿using NodeCanvas.Framework;
-
 using ParadoxNotion.Design;
 
 namespace TeamSuneat
@@ -11,13 +10,9 @@ namespace TeamSuneat
 
         protected override bool OnCheck()
         {
-            // 더 이상 사용되지 않음 - 항상 false 반환
-            return false;
-
             if (agent == null)
             {
                 result = "Character를 찾을 수 없습니다.";
-
                 return false;
             }
 
@@ -27,16 +22,21 @@ namespace TeamSuneat
                 return false;
             }
 
-            result = null;
+            if (!agent.CharacterAnimator.IsPlayingAttackAnimation())
+            {
+                result = "공격 애니메이션 재생 중이 아닙니다.";
+                return false;
+            }
 
-            return false;
+            result = "공격 애니메이션 재생 중입니다.";
+            return true;
         }
 
         protected override string info
         {
             get
             {
-                return "모든 애니메이션 재생 중 확인 (사용 안 함)";
+                return "공격 애니메이션 재생 중인지 확인";
             }
         }
     }

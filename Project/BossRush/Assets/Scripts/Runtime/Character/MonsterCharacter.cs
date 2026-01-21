@@ -1,10 +1,12 @@
-﻿using TeamSuneat.Data;
-
-namespace TeamSuneat
+﻿namespace TeamSuneat
 {
     public class MonsterCharacter : Character
     {
         public AIBrain Brain { get; private set; }
+
+        public ChaseSystem Chase { get; private set; }
+
+        public PatternSystem Pattern { get; private set; }
 
         public override LogTags LogTag => LogTags.Monster;
 
@@ -12,6 +14,8 @@ namespace TeamSuneat
         {
             base.Awake();
             Brain = GetComponent<AIBrain>();
+            Chase = GetComponentInChildren<ChaseSystem>();
+            Pattern = GetComponentInChildren<PatternSystem>();
         }
 
         public override void Initialize()
@@ -26,6 +30,8 @@ namespace TeamSuneat
             base.BattleReady();
 
             Brain?.Activate();
+            Pattern?.LoadPatterns();
+            IsBattleReady = true;
         }
 
         public override void OnDespawn()
@@ -92,8 +98,10 @@ namespace TeamSuneat
                     }
                 }
             }
-        }
 
+            // 3. Model 스프라이트 방향 반전
+            UpdateModelDirection();
+        }
 
         protected override void OnDeath(DamageResult damageResult)
         {

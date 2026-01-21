@@ -6,15 +6,6 @@ namespace TeamSuneat
 {
     public partial class Character
     {
-        public enum ControllerTypes
-        { Player, AI }
-
-        public enum FacingDirections
-        { Left, Right }
-
-        public enum SpawnFacingDirections
-        { Left, Right }
-
         [FoldoutGroup("#Character")] public CharacterNames Name;
         [FoldoutGroup("#Character")] public string NameString;
 
@@ -41,11 +32,11 @@ namespace TeamSuneat
         // ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
         [FoldoutGroup("#Character/Direction")]
-        public SpawnFacingDirections DirectionOnStart = SpawnFacingDirections.Right;
+        public FacingDirections DirectionOnStart = FacingDirections.Right;
 
         [FoldoutGroup("#Character/Direction")]
         [Tooltip("여기서 캐릭터가 스폰될 때 향해야 하는 방향을 강제할 수 있습니다. 기본값으로 설정하면 모델의 초기 방향과 일치합니다")]
-        public SpawnFacingDirections DirectionOnSpawn = SpawnFacingDirections.Right;
+        public FacingDirections DirectionOnSpawn = FacingDirections.Right;
 
         // ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
 

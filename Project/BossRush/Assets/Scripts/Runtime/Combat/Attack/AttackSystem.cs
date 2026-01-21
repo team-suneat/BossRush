@@ -217,6 +217,11 @@ namespace TeamSuneat
             return false;
         }
 
+        public virtual bool CheckTargetInAttackableArea(int index)
+        {
+            return false;
+        }
+
         //---------------------------------------------------------------------------------------------------------------
         // 쿨타임 관리 (몬스터 전용 - virtual 메서드)
 

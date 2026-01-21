@@ -33,9 +33,11 @@ namespace TeamSuneat.Data
         public bool IsChangingAsset;
 
         [GUIColor("GetCharacterNameColor")]
+        [EnableIf("IsChangingAsset")]
         public CharacterNames Name;
 
         public bool SuperArmor;
+        public bool IsFlying;
 
         [FoldoutGroup("#능력치")]
         [ListDrawerSettings(ShowIndexLabels = true, ListElementLabelName = "GetStatEntryLabel")]
@@ -92,6 +94,7 @@ namespace TeamSuneat.Data
                 Name = Name,
                 IsChangingAsset = IsChangingAsset,
                 SuperArmor = SuperArmor,
+                IsFlying = IsFlying,
                 Stats = new List<CharacterStatEntry>()
             };
 
