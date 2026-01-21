@@ -22,12 +22,12 @@ namespace TeamSuneat.Data
 
         #region Inspector
 
-        protected Color GetCharacterNameColor(CharacterNames key)
+        protected Color GetCharacterColor(CharacterNames key)
         {
             return GetFieldColor(key);
         }
 
-        protected Color GetStatNameColor(StatNames key)
+        protected Color GetStatColor(StatNames key)
         {
             return GetFieldColor(key);
         }
@@ -38,6 +38,31 @@ namespace TeamSuneat.Data
         }
 
         protected Color GetHitmarkColor(HitmarkNames key)
+        {
+            return GetFieldColor(key);
+        }
+
+        protected Color GetLinkedDamageTypeColor(LinkedDamageTypes key)
+        {
+            return GetFieldColor(key);
+        }
+
+        protected Color GetParryTypeColor(ParryTypes key)
+        {
+            return GetFieldColor(key);
+        }
+
+        protected Color GetKnockbackTypeColor(KnockbackType key)
+        {
+            return GetFieldColor(key);
+        }
+
+        protected Color GetAttackTargetTypeColor(AttackTargetTypes key)
+        {
+            return GetFieldColor(key);
+        }
+
+        protected Color GetAttackEntityTypeColor(AttackEntityTypes key)
         {
             return GetFieldColor(key);
         }
@@ -69,10 +94,99 @@ namespace TeamSuneat.Data
             return GetFieldColor(key);
         }
 
-        protected Color GetForceVelocityNameColor(FVNames key)
+        protected Color GetForceVelocityColor(FVNames key)
         {
             return GetFieldColor(key);
         }
+
+        protected Color GetCharmTypeColor(CharmType key)
+        {
+            return GetFieldColor(key);
+        }
+
+        protected Color GetCharmApplicationTypeColor(CharmApplicationType key)
+        {
+            return GetFieldColor(key);
+        }
+
+        protected Color GetBuffNameColor(BuffName key)
+        {
+            return GetFieldColor(key);
+        }
+
+        protected Color GetBuffTypeColor(BuffType key)
+        {
+            return GetFieldColor(key);
+        }
+
+        protected Color GetSkillNameColor(SkillName key)
+        {
+            return GetFieldColor(key);
+        }
+
+        protected Color GetPassiveNameColor(PassiveName key)
+        {
+            return GetFieldColor(key);
+        }
+
+        protected Color GetSubjectColor(FVSubjects key)
+        {
+            return GetFieldColor(key);
+        }
+
+        protected Color GetApplicationColor(ApplicationTypes key)
+        {
+            return GetFieldColor(key);
+        }
+
+        protected Color GetStatsColor(StatNames[] stats)
+        {
+            if (stats == null || stats.Length == 0)
+            {
+                return GameColors.DarkGray;
+            }
+            else
+            {
+                return GameColors.GreenYellow;
+            }
+        }
+
+        protected Color GetDirectionColor(FVDirections key)
+        {
+            return GetFieldColor(key);
+        }
+
+        protected Color GetDirectionalTypeColor(FVDirectionalType key)
+        {
+            return GetFieldColor(key);
+        }
+
+        protected Color GetGravityTypeColor(FVGravityType key)
+        {
+            return GetFieldColor(key);
+        }
+
+        protected Color GetAccelerationTypeColor(FVAccelerationType key)
+        {
+            return GetFieldColor(key);
+        }
+
+        protected Color GetFrictionTypeColor(FVFrictionType key)
+        {
+            return GetFieldColor(key);
+        }
+
+        protected Color GetStopOnCollisionTypeColor(FVStopOnCollisionType key)
+        {
+            return GetFieldColor(key);
+        }
+
+        protected Color GetIgnoreTypeColor(FVIgnoreType key)
+        {
+            return GetFieldColor(key);
+        }
+
+        //
 
         protected Color GetBoolColor(bool value)
         {
@@ -109,6 +223,8 @@ namespace TeamSuneat.Data
                 return GameColors.GreenYellow;
             }
         }
+
+        //
 
         protected Color GetFieldColor<T>(T value)
         {

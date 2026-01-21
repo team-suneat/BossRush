@@ -118,6 +118,13 @@ namespace TeamSuneat
 
         protected override void RequestDash()
         {
+            // 쿨타임 체크: 쿨타임이 남아있으면 대시 불가
+            if (_physics != null && _physics.DashCooldownRemaining > 0f)
+            {
+                return;
+            }
+
+            // 펄스가 없으면 대시 불가
             if (_character != null && _character.MyVital != null)
             {
                 if (!_character.MyVital.TryUsePulse())

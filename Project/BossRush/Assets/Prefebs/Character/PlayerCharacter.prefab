@@ -152,7 +152,7 @@ Transform:
   m_GameObject: {fileID: 1026507667165685364}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.088, z: 0}
+  m_LocalPosition: {x: 0, y: 0.156, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -202,12 +202,12 @@ SpriteRenderer:
   m_SortingLayerID: 1036289741
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5115618752126089108, guid: 1ac240577733fca41aa521aceab95cc0, type: 3}
+  m_Sprite: {fileID: -8139127314800039556, guid: 3a0b553d445c77840ab4d1884756224f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.5, y: 1}
+  m_Size: {x: 4, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -632,7 +632,7 @@ BoxCollider2D:
     drawMode: 1
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.5, y: 1.2}
+  m_Size: {x: 0.5, y: 1.695}
   m_EdgeRadius: 0
 --- !u!114 &1254885824481266176
 MonoBehaviour:
@@ -711,8 +711,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 084ab3f3be05d1542be46eb41eef64fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colliderSize: {x: 0.5, y: 1}
-  _autoSetupCollider: 1
   _groundCheckDistance: 0.1
   _groundLayerMask:
     serializedVersion: 2
@@ -775,9 +773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df3daa5f69518d749862db08aeda9efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dashDistance: 3
-  _dashDuration: 0.2
-  _dashCooldown: 0.5
+  _dashCooldown: 1
   _airDashEnabled: 1
 --- !u!114 &1255221723583392627
 MonoBehaviour:
@@ -791,10 +787,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2e090a6e375c0d44b8bf674fa5057ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _knockbackForce: 2
-  _knockbackDuration: 0.1
   _bounceMultiplier: 0.5
   _verticalRatio: 0.3
+  _minReflectedForce: 1
 --- !u!114 &6718290384554708816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1092,7 +1087,7 @@ Transform:
   m_GameObject: {fileID: 5715563824093532856}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.55, z: 0}
+  m_LocalPosition: {x: 0, y: -0.6915, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1267,7 +1262,7 @@ BoxCollider2D:
     drawMode: 1
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.4, y: 1.1}
+  m_Size: {x: 0.6, y: 1.7950001}
   m_EdgeRadius: 0
 --- !u!114 &520535794936682376
 MonoBehaviour:

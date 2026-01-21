@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41d55d7fd76831a41bb643a1b85440b9, type: 3}
-  m_Name: ForceVelocity_Boss1Pattern1Attack3
+  m_Name: ForceVelocity_Boss1Pattern4Attack
   m_EditorClassIdentifier: 
-  NameString: Boss1Pattern1Attack3
+  NameString: Boss1Pattern4Attack
   Data:
     IsChangingAsset: 0
-    Name: 5
+    Name: 8
     Subject: 1
     IsDamage: 0
     IsPiercing: 0
@@ -23,7 +23,7 @@ MonoBehaviour:
     Stats: 
     Priority: 3
     Direction: 1
-    ForceVelocity: {x: 6, y: 0}
+    ForceVelocity: {x: 6, y: 3}
     Acceleration: {x: 0, y: 0}
     Gravity: 1
     Friction: 0

@@ -173,6 +173,11 @@ namespace TeamSuneat
             return _animator.UpdateAnimatorTrigger(ANIMATOR_DAMAGE_PARAMETER_ID, AnimatorParameters);
         }
 
+        public virtual bool PlayKnockbackAnimation()
+        {
+            return _animator.UpdateAnimatorTrigger(ANIMATOR_KNOCKBACK_PARAMETER_ID, AnimatorParameters);
+        }
+
         public virtual void PlayDeathAnimation()
         {
             if (!IsBlockDeathAnimation)
@@ -215,6 +220,10 @@ namespace TeamSuneat
             {
                 OnAnimatorDamageStateEnter();
             }
+            else if (CheckStateNames(stateInfo, "Knockback"))
+            {
+                OnAnimatorKnockbackStateEnter();
+            }
             else if (CheckStateName(stateInfo, "Stun"))
             {
                 OnAnimatorStunStateEnter();
@@ -248,6 +257,10 @@ namespace TeamSuneat
             else if (CheckStateNames(stateInfo, "Damage", "DamageGround"))
             {
                 OnAnimatorDamageStateExit();
+            }
+            else if (CheckStateNames(stateInfo, "Knockback"))
+            {
+                OnAnimatorKnockbackStateExit();
             }
             else if (CheckStateName(stateInfo, "DashEnd"))
             {
@@ -382,14 +395,25 @@ namespace TeamSuneat
         {
             AnimatorLog.LogInfo("피격 상태의 애니메이션에 진입했습니다.");
             LockMovement();
-
             SetDamaging(true);
         }
 
         protected virtual void OnAnimatorDamageStateExit()
         {
             UnlockMovement();
+            SetDamaging(false);
+        }
 
+        protected virtual void OnAnimatorKnockbackStateEnter()
+        {
+            AnimatorLog.LogInfo("넉백 상태의 애니메이션에 진입했습니다.");
+            LockMovement();
+            SetDamaging(true);
+        }
+
+        protected virtual void OnAnimatorKnockbackStateExit()
+        {
+            UnlockMovement();
             SetDamaging(false);
         }
 

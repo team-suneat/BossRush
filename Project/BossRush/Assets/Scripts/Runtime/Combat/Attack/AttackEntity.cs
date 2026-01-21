@@ -248,12 +248,6 @@ namespace TeamSuneat
         {
             LogInfo("공격 독립체를 비활성화합니다.");
 
-            // ForceVelocity 중지 (source 기반)
-            if (Owner != null && Owner.Physics != null)
-            {
-                Owner.Physics.StopForceVelocity(this);
-            }
-
             if (IsActive)
             {
                 TriggerAttackStopFeedback();

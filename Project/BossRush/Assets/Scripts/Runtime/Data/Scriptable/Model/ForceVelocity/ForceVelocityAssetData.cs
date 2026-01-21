@@ -10,12 +10,13 @@ namespace TeamSuneat.Data
         [SuffixLabel("개별 에셋 변경 모드")]
         public bool IsChangingAsset;
 
-        [GUIColor("GetForceVelocityNameColor")]
+        [GUIColor("GetForceVelocityColor")]
         [EnableIf("IsChangingAsset")]
         [SuffixLabel("ForceVelocity 이름")]
         public FVNames Name;
 
         [FoldoutGroup("#기본 설정")]
+        [GUIColor("GetSubjectColor")]
         [EnableIf("IsChangingAsset")]
         [SuffixLabel("대상")]
         public FVSubjects Subject;
@@ -31,11 +32,13 @@ namespace TeamSuneat.Data
         public bool IsPiercing;
 
         [FoldoutGroup("#기본 설정")]
+        [GUIColor("GetApplicationColor")]
         [EnableIf("IsChangingAsset")]
         [SuffixLabel("적용 방식")]
         public ApplicationTypes Application;
 
         [FoldoutGroup("#기본 설정")]
+        [GUIColor("GetStatsColor")]
         [EnableIf("IsChangingAsset")]
         [SuffixLabel("스탯")]
         public StatNames[] Stats;
@@ -46,6 +49,7 @@ namespace TeamSuneat.Data
         public int Priority;
 
         [FoldoutGroup("#기본 설정")]
+        [GUIColor("GetDirectionColor")]
         [EnableIf("IsChangingAsset")]
         [SuffixLabel("방향")]
         public FVDirections Direction;
@@ -89,31 +93,38 @@ namespace TeamSuneat.Data
         public float Duration;
 
         [FoldoutGroup("#옵션")]
+        [GUIColor("GetDirectionalTypeColor")]
         [EnableIf("IsChangingAsset")]
-        [SuffixLabel("방향성 타입")]
+        [SuffixLabel("방향 타입")]
+        [InfoBox("넉백 FV는 방향 타입을 설정하지 않습니다.")]
         public FVDirectionalType DirectionalType = FVDirectionalType.None;
 
         [FoldoutGroup("#옵션")]
+        [GUIColor("GetGravityTypeColor")]
         [EnableIf("IsChangingAsset")]
         [SuffixLabel("중력 타입")]
         public FVGravityType GravityType = FVGravityType.None;
 
         [FoldoutGroup("#옵션")]
+        [GUIColor("GetAccelerationTypeColor")]
         [EnableIf("IsChangingAsset")]
         [SuffixLabel("가속도 타입")]
         public FVAccelerationType AccelerationType = FVAccelerationType.None;
 
         [FoldoutGroup("#옵션")]
+        [GUIColor("GetFrictionTypeColor")]
         [EnableIf("IsChangingAsset")]
         [SuffixLabel("마찰 및 저항 타입")]
         public FVFrictionType FrictionType = FVFrictionType.None;
 
         [FoldoutGroup("#옵션")]
+        [GUIColor("GetStopOnCollisionTypeColor")]
         [EnableIf("IsChangingAsset")]
         [SuffixLabel("충돌 시 정지 타입")]
         public FVStopOnCollisionType StopOnCollisionType = FVStopOnCollisionType.None;
 
         [FoldoutGroup("#옵션")]
+        [GUIColor("GetIgnoreTypeColor")]
         [EnableIf("IsChangingAsset")]
         [SuffixLabel("무시 타입")]
         public FVIgnoreType IgnoreType = FVIgnoreType.None;

@@ -33,6 +33,13 @@ namespace TeamSuneat
 
 #if UNITY_EDITOR
 
+        public override void AutoGetComponents()
+        {
+            base.AutoGetComponents();
+
+            Patterns = GetComponentsInChildren<CharacterPattern>();
+        }
+
         public override void AutoSetting()
         {
             base.AutoSetting();

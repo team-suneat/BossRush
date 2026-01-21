@@ -51,6 +51,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0d0ff90df8be6904982c6ebb7bc06c90
+    m_Address: Assets/Addressables/Scriptable/ForceVelocity/ForceVelocity_Boss1Pattern4Attack.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0e22f513c1cdcd44ca1c97d76d342bba
     m_Address: Assets/Addressables/Scriptable/Charm/2. Skill/Charm_LinearPulseShot.asset
     m_ReadOnly: 0
@@ -58,7 +64,7 @@ MonoBehaviour:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0febb5f497acd2a43a0c5d4129340a87
-    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_FirstBossAttack1Hit2.asset
+    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_Boss1Pattern1Attack2.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -70,7 +76,7 @@ MonoBehaviour:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 171f3cbd4f6f448438a1288706869568
-    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_FirstBossAttack1Hit3.asset
+    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_Boss1Pattern1Attack3.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -87,12 +93,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 215eefdf082782041b988908c83c7720
-    m_Address: Assets/Addressables/JSON/StringDialogue.json
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - JSON
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 24813a5af48c78c4a9556cefefba20ea
     m_Address: Assets/Addressables/Scriptable/Camera/CameraImpulse_Horizontal_Right.asset
     m_ReadOnly: 0
@@ -101,6 +101,18 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 28e651b23279e0c4699bd24689eb5211
     m_Address: Assets/Addressables/Scriptable/Charm/4. Counter/Charm_LastStandFury.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2919c179372b26f419813ed30594ab7a
+    m_Address: Assets/Addressables/Scriptable/ForceVelocity/ForceVelocity_Boss1Pattern3Attack.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2c2acb9e723c32943ae7d1ea5116eeca
+    m_Address: Assets/Addressables/Scriptable/ForceVelocity/ForceVelocity_Boss1Pattern3Knockback.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -171,8 +183,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 759ae7e702e285f45a8b30dba5d29dcf
+    m_Address: Assets/Addressables/Scriptable/ForceVelocity/ForceVelocity_Boss1Pattern2Knockback.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 76b0cdd5c52f473418b5975b6bfb6110
     m_Address: Assets/Addressables/Scriptable/Sound/Sound_Movement_Dash.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 78a8a808b1a301542985af77c2799865
+    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_Boss1Pattern4Attack.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -185,6 +209,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7a8f3c2d1e4b5a6f9c8d7e2b3a4f5c6d
     m_Address: Assets/Addressables/Scriptable/Buff/Buff_ParryStun.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7bf7a5a215bd1ac4aa0d786f93e8ad44
+    m_Address: Assets/Addressables/Scriptable/ForceVelocity/ForceVelocity_Boss1Pattern2Attack.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -227,6 +257,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9a28b77bdcbc2c84ca69c1b74b8db001
     m_Address: Assets/Addressables/Scriptable/ForceVelocity/ForceVelocity_Boss1Pattern1Attack1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a2c05bc19cea3c64a9198ad2812dd125
+    m_Address: Assets/Addressables/Scriptable/ForceVelocity/ForceVelocity_Boss1Pattern1Knockback.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -376,7 +412,7 @@ MonoBehaviour:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fd8e45265cbd7e24bb18ecee2cd66892
-    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_FirstBossAttack1Hit1.asset
+    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_Boss1Pattern1Attack1.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable

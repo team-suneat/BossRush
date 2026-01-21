@@ -150,31 +150,6 @@ namespace TeamSuneat.Data
             }
         }
 
-        private Color GetCharmTypeColor(CharmType key)
-        {
-            return GetFieldColor(key);
-        }
-
-        private Color GetCharmApplicationTypeColor(CharmApplicationType key)
-        {
-            return GetFieldColor(key);
-        }
-
-        private Color GetBuffNameColor(BuffName key)
-        {
-            return GetFieldColor(key);
-        }
-
-        private Color GetSkillNameColor(SkillName key)
-        {
-            return GetFieldColor(key);
-        }
-
-        private Color GetPassiveNameColor(PassiveName key)
-        {
-            return GetFieldColor(key);
-        }
-
         private bool HasBuffApplication()
         {
             return IsChangingAsset && (ApplicationType & CharmApplicationType.Buff) != 0;

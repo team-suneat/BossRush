@@ -24,26 +24,29 @@ namespace TeamSuneat
         public int OrderIndex;
 
         [ShowIf("UseRandomOrder")]
-        [SuffixLabel("순서 최대 인덱스")] 
+        [SuffixLabel("순서 최대 인덱스")]
         public int OrderMaxIndex;
 
         [SuffixLabel("반복 사용")]
         public bool UseRepeat;
 
+        [EnableIf("UseRepeat")]
+        [SuffixLabel("반복 최대 횟수")]
+        public int CurrentRepeatMaxCount;
+
+        [EnableIf("UseRepeat")]
         [SuffixLabel("랜덤 반복 사용")]
         public bool UseRandomRepeat;
 
-        [ShowIf("UseRandomRepeat")]
-        [SuffixLabel("반복 최소 횟수")] 
+        [EnableIf("UseRandomRepeat")]
+        [SuffixLabel("무작위 반복 최소 횟수")]
         public int RepeatMinCount;
 
-        [ShowIf("UseRandomRepeat")]
-        [SuffixLabel("반복 최대 횟수")] 
+        [EnableIf("UseRandomRepeat")]
+        [SuffixLabel("무작위 반복 최대 횟수")]
         public int RepeatMaxCount;
 
         [HideInInspector] public int CurrentRepeatCount;
-
-        [HideInInspector] public int CurrentRepeatMaxCount;
 
         [FoldoutGroup("#Event")]
         public UnityEvent OnFailureCallback;
@@ -89,7 +92,7 @@ namespace TeamSuneat
             if (UseRepeat && UseRandomRepeat)
             {
                 CurrentRepeatMaxCount = RandomEx.Range(RepeatMinCount - 1, RepeatMaxCount);
-                Log.Info(LogTags.Pattern, "{0}, 랜덤 반복 횟수 설정. 최소: {1}, 최대: {2}, 설정된 값: {3}", 
+                Log.Info(LogTags.Pattern, "{0}, 랜덤 반복 횟수 설정. 최소: {1}, 최대: {2}, 설정된 값: {3}",
                     Pattern?.Name.ToSelectString() ?? "Unknown", RepeatMinCount, RepeatMaxCount, CurrentRepeatMaxCount);
             }
         }
@@ -223,7 +226,7 @@ namespace TeamSuneat
             if (CheckAgainstWall(FaceAgainstWallDistance))
             {
                 FacingDirections direction = Owner.IsFacingRight ? FacingDirections.Right : FacingDirections.Left;
-                Log.Info(LogTags.Pattern, "{0}, 벽에 부딪혀 방향을 강제로 변경합니다. 거리: {1}, 방향: {2}", 
+                Log.Info(LogTags.Pattern, "{0}, 벽에 부딪혀 방향을 강제로 변경합니다. 거리: {1}, 방향: {2}",
                     Pattern?.Name.ToSelectString() ?? "Unknown", FaceAgainstWallDistance, direction);
                 Owner.ForceFace(direction);
             }
@@ -252,7 +255,7 @@ namespace TeamSuneat
             }
             else
             {
-                Log.Warning(LogTags.Pattern, "{0}, Owner.Chase가 null입니다. 지상 추적 패턴을 실행할 수 없습니다.", 
+                Log.Warning(LogTags.Pattern, "{0}, Owner.Chase가 null입니다. 지상 추적 패턴을 실행할 수 없습니다.",
                     Pattern?.Name.ToSelectString() ?? "Unknown");
             }
         }
@@ -263,14 +266,14 @@ namespace TeamSuneat
 
             if (Owner.StateMachine is MonsterStateMachine monsterStateMachine)
             {
-                Log.Info(LogTags.Pattern, "{0}, 공격 패턴을 실행합니다. StepOrder: {1}", 
+                Log.Info(LogTags.Pattern, "{0}, 공격 패턴을 실행합니다. StepOrder: {1}",
                     Pattern?.Name.ToSelectString() ?? "Unknown", stepOrder);
                 monsterStateMachine.SetAttackOrder(new List<int> { stepOrder });
-                Owner.Command.SetAttackPressed(true);                
+                Owner.Command.SetAttackPressed(true);
             }
             else
             {
-                Log.Warning(LogTags.Pattern, "{0}, StateMachine이 MonsterStateMachine이 아니거나 null입니다. 공격 패턴을 실행할 수 없습니다.", 
+                Log.Warning(LogTags.Pattern, "{0}, StateMachine이 MonsterStateMachine이 아니거나 null입니다. 공격 패턴을 실행할 수 없습니다.",
                     Pattern?.Name.ToSelectString() ?? "Unknown");
             }
         }
@@ -279,14 +282,14 @@ namespace TeamSuneat
         {
             if (Owner.Attack == null)
             {
-                Log.Warning(LogTags.Pattern, "{0}, Owner.Attack이 null입니다. 공격 범위 체크 패턴을 실행할 수 없습니다.", 
+                Log.Warning(LogTags.Pattern, "{0}, Owner.Attack이 null입니다. 공격 범위 체크 패턴을 실행할 수 없습니다.",
                     Pattern?.Name.ToSelectString() ?? "Unknown");
                 return;
             }
 
             if (!Owner.Attack.CheckTargetInAttackableArea(OrderIndex))
             {
-                Log.Info(LogTags.Pattern, "{0}, 공격 가능 범위에 타겟이 없습니다. 다음 스텝으로 이동합니다. OrderIndex: {1}", 
+                Log.Info(LogTags.Pattern, "{0}, 공격 가능 범위에 타겟이 없습니다. 다음 스텝으로 이동합니다. OrderIndex: {1}",
                     Pattern?.Name.ToSelectString() ?? "Unknown", OrderIndex);
                 ProcessNextStep();
                 return;
@@ -296,14 +299,14 @@ namespace TeamSuneat
 
             if (Owner.StateMachine is MonsterStateMachine monsterStateMachine)
             {
-                Log.Info(LogTags.Pattern, "{0}, 공격 범위 체크 패턴을 실행합니다. StepOrder: {1}, OrderIndex: {2}", 
+                Log.Info(LogTags.Pattern, "{0}, 공격 범위 체크 패턴을 실행합니다. StepOrder: {1}, OrderIndex: {2}",
                     Pattern?.Name.ToSelectString() ?? "Unknown", stepOrder, OrderIndex);
                 monsterStateMachine.SetAttackOrder(new List<int> { stepOrder });
                 Owner.Command.SetAttackPressed(true);
             }
             else
             {
-                Log.Warning(LogTags.Pattern, "{0}, StateMachine이 MonsterStateMachine이 아니거나 null입니다. 공격 범위 체크 패턴을 실행할 수 없습니다.", 
+                Log.Warning(LogTags.Pattern, "{0}, StateMachine이 MonsterStateMachine이 아니거나 null입니다. 공격 범위 체크 패턴을 실행할 수 없습니다.",
                     Pattern?.Name.ToSelectString() ?? "Unknown");
             }
         }
@@ -312,13 +315,13 @@ namespace TeamSuneat
         {
             if (Owner.Physics.IsOnOneWayPlatform)
             {
-                Log.Info(LogTags.Pattern, "{0}, 일방향 플랫폼 위에 있어 다음 스텝으로 이동합니다.", 
+                Log.Info(LogTags.Pattern, "{0}, 일방향 플랫폼 위에 있어 다음 스텝으로 이동합니다.",
                     Pattern?.Name.ToSelectString() ?? "Unknown");
                 ProcessNextStep();
                 return false;
             }
 
-            Log.Info(LogTags.Pattern, "{0}, 지면 조건을 만족합니다. 패턴을 계속 진행합니다.", 
+            Log.Info(LogTags.Pattern, "{0}, 지면 조건을 만족합니다. 패턴을 계속 진행합니다.",
                 Pattern?.Name.ToSelectString() ?? "Unknown");
             return true;
         }
@@ -327,13 +330,13 @@ namespace TeamSuneat
         {
             if (Owner.Physics.IsOnOneWayPlatform)
             {
-                Log.Info(LogTags.Pattern, "{0}, 일방향 플랫폼 위에 있어 다음 스텝으로 이동합니다.", 
+                Log.Info(LogTags.Pattern, "{0}, 일방향 플랫폼 위에 있어 다음 스텝으로 이동합니다.",
                     Pattern?.Name.ToSelectString() ?? "Unknown");
                 ProcessNextStep();
                 return false;
             }
 
-            Log.Info(LogTags.Pattern, "{0}, 플랫폼 조건을 만족합니다. 패턴을 계속 진행합니다.", 
+            Log.Info(LogTags.Pattern, "{0}, 플랫폼 조건을 만족합니다. 패턴을 계속 진행합니다.",
                 Pattern?.Name.ToSelectString() ?? "Unknown");
             return true;
         }

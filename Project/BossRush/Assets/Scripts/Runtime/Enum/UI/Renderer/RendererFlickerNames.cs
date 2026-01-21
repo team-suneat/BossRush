@@ -6,6 +6,7 @@ namespace TeamSuneat
 
         Damage,
         Dash,
+        DashCooldown,
         Parry,
     }
 }

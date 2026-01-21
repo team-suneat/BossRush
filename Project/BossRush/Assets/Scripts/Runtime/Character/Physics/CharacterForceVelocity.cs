@@ -276,7 +276,8 @@ namespace TeamSuneat
                 state.ElapsedTime += Time.fixedDeltaTime;
                 UpdateForceVelocityFrame(assetData, ref state);
 
-                Vector2 appliedForce = ApplyForceVelocity(assetData, state.CurrentVelocity);
+                Vector2 appliedForce = ApplyForceVelocity(assetData, state.CurrentVelocity, state.IsFirstFrame);
+                state.IsFirstFrame = false;
                 item.ElapsedTime = state.ElapsedTime;
                 item.AppliedForce = appliedForce;
                 _activeForceVelocities[itemIndex] = item;
@@ -296,6 +297,7 @@ namespace TeamSuneat
             public Vector2 Acceleration;
             public int LastFacingDirection;
             public float ElapsedTime;
+            public bool IsFirstFrame;
         }
 
         private ForceVelocityState InitializeForceVelocity(ForceVelocityAssetData assetData)
@@ -333,13 +335,14 @@ namespace TeamSuneat
                 CurrentVelocity = forceVelocity,
                 Acceleration = acceleration,
                 LastFacingDirection = lastFacingDirection,
-                ElapsedTime = 0f
+                ElapsedTime = 0f,
+                IsFirstFrame = true
             };
         }
 
         private void ApplyGravitySettings(ForceVelocityAssetData assetData)
         {
-            if ((assetData.GravityType & FVGravityType.UseGravity) == 0)
+            if (assetData.GravityType == FVGravityType.None)
             {
                 if (!_originalGravityScale.HasValue)
                 {
@@ -348,7 +351,7 @@ namespace TeamSuneat
                 _physics.Rigidbody.gravityScale = 0f;
                 Log.Info(LogTags.Physics, "ForceVelocity 중력 비활성화. {0}, {1}, 원본 중력: {2}", this.GetHierarchyPath(), assetData.Name.ToLogString(), _originalGravityScale.Value);
             }
-            else if ((assetData.GravityType & FVGravityType.UseCustomGravity) != 0)
+            else if (assetData.GravityType == FVGravityType.UseCustomGravity)
             {
                 if (!_originalGravityScale.HasValue)
                 {
@@ -439,17 +442,21 @@ namespace TeamSuneat
             }
         }
 
-        private Vector2 ApplyForceVelocity(ForceVelocityAssetData assetData, Vector2 currentVelocity)
+        private Vector2 ApplyForceVelocity(ForceVelocityAssetData assetData, Vector2 currentVelocity, bool isFirstFrame)
         {
-            if ((assetData.GravityType & FVGravityType.UseGravity) == 0)
+            if (assetData.GravityType == FVGravityType.None)
             {
+                // 중력이 없으면 전체 velocity를 직접 설정
                 _physics.ApplyVelocity(currentVelocity);
                 return currentVelocity;
             }
             else
             {
+                // 중력이 있으면 Rigidbody의 중력이 작용
                 Vector2 currentRigidbodyVelocity = _physics.RigidbodyVelocity;
-                Vector2 newVelocity = new(currentVelocity.x, currentRigidbodyVelocity.y);
+                // 첫 프레임에만 y값을 설정하고, 이후에는 Rigidbody의 y를 유지 (중력이 자연스럽게 작용)
+                float velocityY = isFirstFrame ? currentVelocity.y : currentRigidbodyVelocity.y;
+                Vector2 newVelocity = new(currentVelocity.x, velocityY);
                 _physics.ApplyVelocity(newVelocity);
                 return newVelocity;
             }

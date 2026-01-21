@@ -33,6 +33,7 @@ namespace TeamSuneat
         private const string ANIMATOR_PARRY_PARAMETER_NAME = "Parry";
         private const string ANIMATOR_STUN_PARAMETER_NAME = "Stun";
         protected const string ANIMATOR_DAMAGE_PARAMETER_NAME = "Damage";
+        protected const string ANIMATOR_KNOCKBACK_PARAMETER_NAME = "Knockback";
         protected const string ANIMATOR_DEATH_PARAMETER_NAME = "Death";
         private const string ANIMATOR_DISABLE_PARAMETER_NAME = "Disable";
 
@@ -69,6 +70,7 @@ namespace TeamSuneat
         protected int ANIMATOR_PARRY_PARAMETER_ID;
         protected int ANIMATOR_STUN_PARAMETER_ID;
         protected int ANIMATOR_DAMAGE_PARAMETER_ID;
+        protected int ANIMATOR_KNOCKBACK_PARAMETER_ID;
         protected int ANIMATOR_DEATH_PARAMETER_ID;
         private int ANIMATOR_DISABLE_PARAMETER_ID;
 
@@ -109,6 +111,7 @@ namespace TeamSuneat
             _animator.AddAnimatorParameterIfExists(ANIMATOR_PARRY_PARAMETER_NAME, out ANIMATOR_PARRY_PARAMETER_ID, AnimatorControllerParameterType.Trigger, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_STUN_PARAMETER_NAME, out ANIMATOR_STUN_PARAMETER_ID, AnimatorControllerParameterType.Trigger, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_DAMAGE_PARAMETER_NAME, out ANIMATOR_DAMAGE_PARAMETER_ID, AnimatorControllerParameterType.Trigger, AnimatorParameters);
+            _animator.AddAnimatorParameterIfExists(ANIMATOR_KNOCKBACK_PARAMETER_NAME, out ANIMATOR_KNOCKBACK_PARAMETER_ID, AnimatorControllerParameterType.Trigger, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_DEATH_PARAMETER_NAME, out ANIMATOR_DEATH_PARAMETER_ID, AnimatorControllerParameterType.Trigger, AnimatorParameters);
 
             _animator.AddAnimatorParameterIfExists(ANIMATOR_ATTACK_SPEED_PARAMETER_NAME, out ANIMATOR_ATTACK_SPEED_PARAMETER_ID, AnimatorControllerParameterType.Float, AnimatorParameters);

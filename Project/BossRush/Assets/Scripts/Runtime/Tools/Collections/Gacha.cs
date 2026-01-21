@@ -9,7 +9,7 @@ namespace TeamSuneat
     public class Gacha
     {
         [SerializeField] private List<float> _baseProbabilities = new();
-        [SerializeField] private List<float> _resultValues = new();
+        private List<int> _resultValues = new();
         private List<float> _activeProbabilities = new();
         protected float _maxProbability;
         protected int _pickedIndex;
@@ -71,8 +71,7 @@ namespace TeamSuneat
                     _maxProbability = 1f;
                     return;
                 }
-
-                Log.Error("가챠의 확률 총합이 0이거나 음수입니다.");
+                Log.Warning("가챠의 확률 총합이 0이거나 음수입니다.");
                 return;
             }
 
@@ -114,11 +113,28 @@ namespace TeamSuneat
                 Log.Error($"LockAt: 인덱스 {index}는 유효하지 않습니다.");
                 return;
             }
+
             _activeProbabilities[index] = 0f;
             RecalculateMaxProbability();
         }
 
-        public void Set(float[] probabilities, float[] resultValues)
+        public void Add(float probability, int resultValue)
+        {
+            if (probability < 0f)
+            {
+                Log.Warning($"Add: 확률({probability})이 음수입니다. 0으로 처리됩니다.");
+                probability = 0f;
+            }
+
+            _baseProbabilities.Add(probability);
+            _resultValues.Add(resultValue);
+            _baseVersion++;
+            _hasLoggedNormalization = false;
+
+            Refresh();
+        }
+
+        public void SetAll(float[] probabilities, int[] resultValues)
         {
             if (probabilities == null || resultValues == null)
             {
@@ -141,10 +157,22 @@ namespace TeamSuneat
 
             _baseProbabilities = new List<float>(probabilities);
             _activeProbabilities = new List<float>(probabilities);
-            _resultValues = new List<float>(resultValues);
+            _resultValues = new List<int>(resultValues);
             _baseVersion++;
             _hasLoggedNormalization = false;
             Refresh();
+        }
+
+        public void Clear()
+        {
+            _baseProbabilities.Clear();
+            _resultValues.Clear();
+            _activeProbabilities.Clear();
+            _maxProbability = 0f;
+            _pickedIndex = -1;
+            _baseVersion++;
+            _lastCheckedVersion = _baseVersion;
+            _hasLoggedNormalization = false;
         }
 
         public int Pick()
@@ -182,6 +210,8 @@ namespace TeamSuneat
             }
         }
 
+        #region Editor
+
         [Button("균등 분배 생성", ButtonSizes.Medium)]
         [System.Diagnostics.Conditional("UNITY_EDITOR")]
         public void GenerateEqualDistribution(int candidateCount)
@@ -210,5 +240,7 @@ namespace TeamSuneat
             _baseVersion++;
             _lastCheckedVersion = _baseVersion;
         }
+
+        #endregion Editor
     }
 }

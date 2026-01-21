@@ -142,7 +142,7 @@ AnimationClip:
     messageOptions: 0
   - time: 0.75
     functionName: StartAttackAnimationEvent
-    data: ScarecrowAttack
+    data: Boss1Pattern1Attack1
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
@@ -163,7 +163,7 @@ AnimationClip:
     messageOptions: 0
   - time: 1.5833334
     functionName: StartAttackAnimationEvent
-    data: ScarecrowAttack
+    data: Boss1Pattern1Attack2
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
@@ -176,7 +176,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 2
-    functionName: SpawnUnparryableAttackReadyVFX
+    functionName: SpawnParryableAttackReadyVFX
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -184,7 +184,7 @@ AnimationClip:
     messageOptions: 0
   - time: 2.5
     functionName: StartAttackAnimationEvent
-    data: ScarecrowAttack3
+    data: Boss1Pattern1Attack3
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

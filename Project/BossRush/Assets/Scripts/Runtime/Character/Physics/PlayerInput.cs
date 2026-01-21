@@ -46,7 +46,7 @@ namespace TeamSuneat
             // threshold 미만의 입력은 0으로 필터링
             float h = TSInputManager.Instance.PrimaryMovement.x;
             float v = TSInputManager.Instance.PrimaryMovement.y;
-            
+
             if (Mathf.Abs(h) < TSInputManager.ThresholdCharacter.x)
             {
                 h = 0f;
@@ -55,7 +55,7 @@ namespace TeamSuneat
             {
                 v = 0f;
             }
-            
+
             _character.SetHorizontalInput(h);
             _character.SetVerticalInput(v);
             _character.SetDownInputPressed(TSInputManager.Instance.CheckButtonState(ActionNames.MoveDown, ButtonStates.ButtonPressed));

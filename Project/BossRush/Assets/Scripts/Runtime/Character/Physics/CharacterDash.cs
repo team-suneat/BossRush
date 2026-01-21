@@ -14,7 +14,9 @@ namespace TeamSuneat
         private CharacterPhysicsCore _physics;
         private CharacterForceVelocity _forceVelocity;
         private Vital _vital;
+        private Character _character;
         private float _dashCooldownRemaining;
+        private bool _wasOnCooldown;
 
         public bool IsDashing => _forceVelocity != null && _forceVelocity.IsProcessing;
         public bool CanDash => _dashCooldownRemaining <= 0f && !IsDashing && HasPulse();
@@ -26,6 +28,7 @@ namespace TeamSuneat
             _physics = GetComponent<CharacterPhysicsCore>();
             _forceVelocity = GetComponent<CharacterForceVelocity>();
             _vital = GetComponentInChildren<Vital>();
+            _character = GetComponentInParent<Character>();
         }
 
         // 방향 없이 대시 요청 (캐릭터가 바라보는 방향으로 대시)
@@ -37,20 +40,19 @@ namespace TeamSuneat
 
         private void RequestDash(Vector2 direction)
         {
-            if (!CanDash) return;
-            if (_physics == null) return;
-            if (_physics.IsKnockback) return;
-            if (!_airDashEnabled && !_physics.IsGrounded) return;
+            if (!CanDash) { return; }
+            if (_physics == null) { return; }
+            if (_physics.IsKnockback) { return; }
+            if (!_airDashEnabled && !_physics.IsGrounded) { return; }
+
             ExecuteDash(direction);
         }
 
         private void ExecuteDash(Vector2 direction)
         {
-            if (_physics == null || _forceVelocity == null)
-            {
-                return;
-            }
+            if (_physics == null || _forceVelocity == null) { return; }
 
+            // 방향 정규화
             if (direction.magnitude < 0.01f)
             {
                 direction = new Vector2(_physics.FacingDirection, 0f);
@@ -61,10 +63,7 @@ namespace TeamSuneat
             }
 
             // 펄스 소모
-            if (!ConsumePulse())
-            {
-                return;
-            }
+            if (!ConsumePulse()) { return; }
 
             // ForceVelocityAsset 데이터 가져오기
             ForceVelocityAssetData dashAssetData = ScriptableDataManager.Instance?.FindForceVelocityClone(FVNames.PlayerDash);
@@ -80,7 +79,11 @@ namespace TeamSuneat
             // ForceVelocity 시작
             _forceVelocity.StartForceVelocity(dashAssetData, isFacingRight, this);
 
+            // 대시 flicker 효과 적용
+            StartDashFlicker();
+
             _dashCooldownRemaining = _dashCooldown;
+            _wasOnCooldown = true;
         }
 
         public void SetAirDashEnabled(bool enabled)
@@ -100,35 +103,47 @@ namespace TeamSuneat
                 return;
             }
 
-            // 쿨다운만 관리 (실제 대시는 ForceVelocity가 처리)
+            // 쿨다운 관리 (실제 대시는 ForceVelocity가 처리)
             if (_dashCooldownRemaining > 0f)
             {
                 _dashCooldownRemaining -= Time.fixedDeltaTime;
+                _wasOnCooldown = true;
+            }
+            else if (_wasOnCooldown)
+            {
+                // 쿨다운이 끝난 순간에만 flicker 효과 적용
+                StartDashCooldownFlicker();
+                _wasOnCooldown = false;
             }
         }
 
         private bool HasPulse()
         {
-            if (_vital == null)
-            {
-                return false;
-            }
-
-            if (_vital.Pulse == null)
-            {
-                return false;
-            }
+            if (_vital == null) { return false; }
+            if (_vital.Pulse == null) { return false; }
 
             return _vital.Pulse.Current >= 1 && !_vital.Pulse.IsBurnout;
         }
 
         private bool ConsumePulse()
         {
-            if (_vital == null)
-            {
-                return false;
-            }
+            if (_vital == null) { return false; }
+
             return _vital.UseDash();
+        }
+
+        private void StartDashFlicker()
+        {
+            if (_character == null || _character.CharacterRenderer == null) { return; }
+
+            _character.CharacterRenderer.StartFlickerCoroutine(RendererFlickerNames.Dash);
+        }
+
+        private void StartDashCooldownFlicker()
+        {
+            if (_character == null || _character.CharacterRenderer == null) { return; }
+
+            _character.CharacterRenderer.StartFlickerCoroutine(RendererFlickerNames.Dash);
         }
     }
 }

@@ -10,23 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44a1fdb7a9d3e48429d7d49c64140db0, type: 3}
-  m_Name: Hitmark_FirstBossAttack3
+  m_Name: Hitmark_Boss1Pattern1Attack2
   m_EditorClassIdentifier: 
-  NameString: FirstBossAttack3
+  NameString: Boss1Pattern1Attack2
   Data:
     IsChangingAsset: 0
-    Name: 9
+    Name: 6
     AttackTargetType: 2
     EntityType: 2
-    IsCrowdControl: 0
     DamageType: 1
-    ParryType: 3
+    ParryType: 1
+    ParryKnockbackType: 2
+    KnockbackForceVelocityName: 9
     NotPlayDamageAnimation: 0
     ApplyKnockback: 0
     ApplyToSelf: 0
     ApplyMultiplierToSelf: 0
     ExecutionConditionalTargetLifeRate: 0
-    FixedDamage: 2
+    FixedDamage: 1
     FixedDamageByLevel: 0
     LinkedDamageType: 0
     LinkedStateEffect: 0
@@ -46,15 +47,17 @@ MonoBehaviour:
     ForceResourceConsume: 0
     IgnoreDeathByConsume: 0
     ConsumeDelayTime: 0
-    ApplyForceVelocityOnActivate: 0
-    ForceVelocityName: 0
+    ApplyForceVelocityOnActivate: 1
+    ForceVelocityName: 4
     HitFXPrefabName: fx_scarecrow_attack_success
     DamageTypeString: Normal
-    ParryTypeString: Unparryable
+    ParryTypeString: Parryable
+    ParryKnockbackTypeString: Attacker
+    KnockbackForceVelocityNameString: Boss1Pattern1Knockback
     LinkedDamageTypeString: None
     LinkedStateEffectString: None
     NameOnHitString: 
     DiminishingTypeString: 
     AttackTargetTypeString: TargetOfOwner
     ResourceConsumeTypeString: None
-    ForceVelocityNameString: None
+    ForceVelocityNameString: Boss1Pattern1Attack2

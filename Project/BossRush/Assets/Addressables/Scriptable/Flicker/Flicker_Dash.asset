@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NameString: Dash
   IsChangingAsset: 0
-  Name: 10
-  FlickerColor: {r: 1, g: 1, b: 1, a: 1}
-  FlickerBlend: 0.5
+  Name: 2
+  FlickerColor: {r: 1, g: 1, b: 0, a: 1}
+  FlickerBlend: 0.1
   FlickerSpeed: 0.1
   FlickerDuration: 0.2

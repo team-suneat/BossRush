@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using System.Diagnostics;
+using UnityEngine;
 
 namespace TeamSuneat
 {
@@ -15,32 +17,25 @@ namespace TeamSuneat
             Mana = GetComponent<Mana>();
         }
 
-        private Transform GetParentTransform()
-        {
-            return Owner != null ? Owner.transform : null;
-        }
-
-        private Transform GetFeedbackParentTransform(Transform parentTransform)
-        {
-            Transform feedbackParent = parentTransform.FindTransform("#Feedbacks");
-            if (feedbackParent == null)
-            {
-                feedbackParent = parentTransform.FindTransform("Model/#Feedbacks");
-            }
-
-            return feedbackParent;
-        }
-
-        public override void AutoAddComponents()
-        {
-            base.AutoAddComponents();
-        }
-
         public override void AutoNaming()
         {
             if (Owner != null)
             {
                 SetGameObjectName($"Vital({Owner.Name})");
+            }
+        }
+
+        [FoldoutGroup("#Buttons", 999)]
+        [Button("Resize Coliider", ButtonSizes.Medium)]
+        [Conditional("UNITY_EDITOR")]
+        private void ResizeColliderForEditor()
+        {
+            BoxCollider2D characterCollider = this.FindFirstParentComponent<BoxCollider2D>();
+            BoxCollider2D vitalCollider = GetComponent<BoxCollider2D>();
+            if (characterCollider != null && vitalCollider != null)
+            {
+                localPosition = characterCollider.offset;
+                vitalCollider.size = characterCollider.size + (Vector2.one * 0.1f);
             }
         }
     }

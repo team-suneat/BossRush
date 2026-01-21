@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44a1fdb7a9d3e48429d7d49c64140db0, type: 3}
+  m_Name: Hitmark_Boss1Pattern3Attack
+  m_EditorClassIdentifier: 
+  NameString: Boss1Pattern3Attack
+  Data:
+    IsChangingAsset: 0
+    Name: 9
+    AttackTargetType: 2
+    EntityType: 2
+    DamageType: 1
+    ParryType: 2
+    ParryKnockbackType: 3
+    KnockbackForceVelocityName: 11
+    NotPlayDamageAnimation: 0
+    ApplyKnockback: 0
+    ApplyToSelf: 0
+    ApplyMultiplierToSelf: 0
+    ExecutionConditionalTargetLifeRate: 0
+    FixedDamage: 2
+    FixedDamageByLevel: 0
+    LinkedDamageType: 0
+    LinkedStateEffect: 0
+    LinkedHitmarkMagnification: 0
+    LinkedValueMagnificationByLevel: 0
+    LinkedValueMagnificationByStack: 0
+    StopAttackAnimationOnResourceLack: 0
+    UseResourceOnActivate: 0
+    UseResourceOnApply: 0
+    UseResourceOnAttack: 0
+    UseResourceOnAttackSucceeded: 0
+    UseResourceOnAttackFailed: 0
+    UseResourceOnInactive: 0
+    UseResourceValue: 0
+    RestoreResourceValue: 0
+    ResourceConsumeType: 0
+    ForceResourceConsume: 0
+    IgnoreDeathByConsume: 0
+    ConsumeDelayTime: 0
+    ApplyForceVelocityOnActivate: 0
+    ForceVelocityName: 0
+    HitFXPrefabName: fx_scarecrow_attack_success
+    DamageTypeString: Normal
+    ParryTypeString: ParryableWithStun
+    ParryKnockbackTypeString: Both
+    KnockbackForceVelocityNameString: Boss1Pattern3Knockback
+    LinkedDamageTypeString: None
+    LinkedStateEffectString: None
+    NameOnHitString: 
+    DiminishingTypeString: 
+    AttackTargetTypeString: TargetOfOwner
+    ResourceConsumeTypeString: None
+    ForceVelocityNameString: None

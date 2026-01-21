@@ -331,7 +331,7 @@ namespace TeamSuneat.Data
             return GetColor(key);
         }
 
-        protected Color GetStatNameColor(StatNames key)
+        protected Color GetStatColor(StatNames key)
         {
             return GetColor(key);
         }

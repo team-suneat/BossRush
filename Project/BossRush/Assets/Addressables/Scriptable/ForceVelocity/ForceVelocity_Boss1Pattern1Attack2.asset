@@ -15,7 +15,7 @@ MonoBehaviour:
   NameString: Boss1Pattern1Attack2
   Data:
     IsChangingAsset: 0
-    Name: 3
+    Name: 4
     Subject: 1
     IsDamage: 0
     IsPiercing: 0

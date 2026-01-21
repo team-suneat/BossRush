@@ -28,9 +28,19 @@ namespace TeamSuneat
 
         public void ApplyKnockback(Vector2 direction)
         {
+            ApplyKnockback(direction, FVNames.PlayerKnockback);
+        }
+
+        public void ApplyKnockback(Vector2 direction, FVNames forceVelocityName)
+        {
             if (_physics == null || _forceVelocity == null)
             {
                 return;
+            }
+
+            if (forceVelocityName == FVNames.None)
+            {
+                forceVelocityName = FVNames.PlayerKnockback;
             }
 
             if (direction.magnitude < 0.01f)
@@ -43,10 +53,10 @@ namespace TeamSuneat
             }
 
             // ForceVelocityAsset 데이터 가져오기
-            ForceVelocityAssetData knockbackAssetData = ScriptableDataManager.Instance?.FindForceVelocityClone(FVNames.PlayerKnockback);
+            ForceVelocityAssetData knockbackAssetData = ScriptableDataManager.Instance?.FindForceVelocityClone(forceVelocityName);
             if (knockbackAssetData == null)
             {
-                Log.Warning(LogTags.Physics, "PlayerKnockback ForceVelocity 데이터를 찾을 수 없습니다. {0}", this.GetHierarchyPath());
+                Log.Warning(LogTags.Physics, "{0} ForceVelocity 데이터를 찾을 수 없습니다. {1}", forceVelocityName.ToLogString(), this.GetHierarchyPath());
                 return;
             }
 

@@ -10,28 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41d55d7fd76831a41bb643a1b85440b9, type: 3}
-  m_Name: ForceVelocity_Boss1Pattern1Attack3
+  m_Name: ForceVelocity_Boss1Pattern1Knockback
   m_EditorClassIdentifier: 
-  NameString: Boss1Pattern1Attack3
+  NameString: Boss1Pattern1Knockback
   Data:
     IsChangingAsset: 0
-    Name: 5
+    Name: 9
     Subject: 1
     IsDamage: 0
     IsPiercing: 0
     Application: 1
     Stats: 
-    Priority: 3
-    Direction: 1
-    ForceVelocity: {x: 6, y: 0}
+    Priority: 1
+    Direction: 0
+    ForceVelocity: {x: 3, y: 0}
     Acceleration: {x: 0, y: 0}
-    Gravity: 1
+    Gravity: 0
     Friction: 0
     AirResist: 0
     AirResistFlyingMonster: 0
     Delay: 0
     Duration: 0.1
-    DirectionalType: 1
+    DirectionalType: 0
     GravityType: 1
     AccelerationType: 0
     FrictionType: 0
@@ -40,8 +40,8 @@ MonoBehaviour:
     SubjectString: Owner
     ApplicationString: Overlap
     StatString: []
-    DirectionString: Face
-    DirectionalTypeString: Facing
+    DirectionString: None
+    DirectionalTypeString: None
     GravityTypeString: UseGravity
     AccelerationTypeString: None
     FrictionTypeString: None

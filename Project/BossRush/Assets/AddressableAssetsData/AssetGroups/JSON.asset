@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: JSON
   m_GUID: 14d5d10955573b0408816efc238f7f89
   m_SerializeEntries:
+  - m_GUID: 215eefdf082782041b988908c83c7720
+    m_Address: Assets/Addressables/JSON/StringDialogue.json
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - JSON
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4635f893becf07e48811b77f68ed6bb7
     m_Address: Assets/Addressables/JSON/String.json
     m_ReadOnly: 0

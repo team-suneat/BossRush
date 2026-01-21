@@ -67,7 +67,7 @@ namespace TeamSuneat
             {
                 return;
             }
-            
+
             if (_core != null)
             {
                 _core.ApplyHorizontalInput(axis);
@@ -168,6 +168,11 @@ namespace TeamSuneat
         public void ApplyKnockback(Vector2 direction)
         {
             _knockback?.ApplyKnockback(direction);
+        }
+
+        public void ApplyKnockback(Vector2 direction, FVNames forceVelocityName)
+        {
+            _knockback?.ApplyKnockback(direction, forceVelocityName);
         }
 
         public void StartForceVelocity(TeamSuneat.Data.ForceVelocityAssetData assetData, bool isFacingRight, object source = null)

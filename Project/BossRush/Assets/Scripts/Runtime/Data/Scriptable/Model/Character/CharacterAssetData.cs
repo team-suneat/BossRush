@@ -32,7 +32,7 @@ namespace TeamSuneat.Data
     {
         public bool IsChangingAsset;
 
-        [GUIColor("GetCharacterNameColor")]
+        [GUIColor("GetCharacterColor")]
         [EnableIf("IsChangingAsset")]
         public CharacterNames Name;
 

@@ -2,7 +2,6 @@
 using System;
 using System.Linq;
 using UnityEngine;
-using TeamSuneat;
 
 namespace TeamSuneat.Data
 {
@@ -13,19 +12,19 @@ namespace TeamSuneat.Data
         public bool IsChangingAsset;
 
         [EnableIf("IsChangingAsset")]
+        [GUIColor("GetHitmarkColor")]
         [SuffixLabel("히트마크 이름")]
         public HitmarkNames Name;
 
         [EnableIf("IsChangingAsset")]
+        [GUIColor("GetAttackTargetTypeColor")]
         [SuffixLabel("목표 설정 방식")]
         public AttackTargetTypes AttackTargetType;
 
         [EnableIf("IsChangingAsset")]
+        [GUIColor("GetAttackEntityTypeColor")]
         [SuffixLabel("독립체 방식")]
         public AttackEntityTypes EntityType;
-
-        [SuffixLabel("군중제어기 여부")]
-        public bool IsCrowdControl;
 
         #region 피해 정보 (Damage Information)
 
@@ -36,30 +35,42 @@ namespace TeamSuneat.Data
         public DamageTypes DamageType;
 
         [EnableIf("IsChangingAsset")]
-        [FoldoutGroup("#피해 정보 - 토글")]
+        [FoldoutGroup("#피해 정보")]
         [GUIColor("GetParryTypeColor")]
         [SuffixLabel("패링 타입")]
         public ParryTypes ParryType;
 
+        [EnableIf("IsChangingAsset")]
+        [FoldoutGroup("#피해 정보")]
+        [GUIColor("GetKnockbackTypeColor")]
+        [SuffixLabel("패링 넉백 타입")]
+        public KnockbackType ParryKnockbackType;
+
+        [EnableIf("IsChangingAsset")]
+        [FoldoutGroup("#피해 정보")]
+        [GUIColor("GetForceVelocityColor")]
+        [SuffixLabel("넉백 ForceVelocity 이름")]
+        public FVNames KnockbackForceVelocityName;
+
         // 피격
 
-        [FoldoutGroup("#피해 정보 - 토글/애니메이션", true)]
+        [FoldoutGroup("#피해 정보")]
         [GUIColor("GetBoolColor")]
-        [Tooltip("피격 애니메이션을 재생하지 않으면 피격 FV 또한 적용하지 않습니다.")]
-        [SuffixLabel("피격 애니메이션 사용 안함*")]
+        [InfoBox("피격 애니메이션을 재생하지 않으면 피격 FV 또한 적용하지 않습니다.")]
+        [SuffixLabel("피격 애니메이션 사용 안함")]
         public bool NotPlayDamageAnimation;
 
-        [FoldoutGroup("#피해 정보 - 토글")]
+        [FoldoutGroup("#피해 정보")]
         [GUIColor("GetBoolColor")]
         [SuffixLabel("넉백 적용")]
         public bool ApplyKnockback;
 
-        [FoldoutGroup("#피해 정보 - 토글")]
+        [FoldoutGroup("#피해 정보")]
         [GUIColor("GetBoolColor")]
         [SuffixLabel("자기 자신에게 적용")]
         public bool ApplyToSelf;
 
-        [FoldoutGroup("#피해 정보 - 토글")]
+        [FoldoutGroup("#피해 정보")]
         [GUIColor("GetFloatColor")]
         [EnableIf("ApplyToSelf")]
         [SuffixLabel("자기 자신에게 적용 배율(%)")]
@@ -69,8 +80,8 @@ namespace TeamSuneat.Data
 
         [FoldoutGroup("#피해량")]
         [GUIColor("GetFloatColor")]
-        [Tooltip("피해 종류가 물리 또는 마법일 때 피격자의 생명력 비율이 일정 이하라면 적을 처형합니다.")]
-        [SuffixLabel("피격자의 처형 조건 생명력 비율*")]
+        [InfoBox("피격자의 생명력 비율이 일정 이하라면 적을 처형합니다.")]
+        [SuffixLabel("피격자의 처형 조건 생명력 비율")]
         [Range(0f, 1f)]
         public float ExecutionConditionalTargetLifeRate;
 
@@ -87,9 +98,9 @@ namespace TeamSuneat.Data
         // 연결된 값
 
         [FoldoutGroup("#연결된 참조 피해량")]
-        [Tooltip("피해량을 고정으로 설정하지 않고, 해당 값을 찾아 비례 피해를 입힙니다")]
+        [InfoBox("피해량을 고정으로 설정하지 않고, 해당 값을 찾아 비례 피해를 입힙니다")]
         [GUIColor("GetLinkedDamageTypeColor")]
-        [SuffixLabel("연결된 값 종류*")]
+        [SuffixLabel("연결된 값 종류")]
         public LinkedDamageTypes LinkedDamageType;
 
         [FoldoutGroup("#연결된 참조 피해량")]
@@ -120,83 +131,83 @@ namespace TeamSuneat.Data
 
         #region 자원 (Resource)
 
-        [FoldoutGroup("#자원 (Resource)")]
+        [FoldoutGroup("#자원")]
         [SuffixLabel("자원이 부족하다면 공격 애니메이션을 멈춥니다")]
         public bool StopAttackAnimationOnResourceLack;
 
-        [FoldoutGroup("#자원 (Resource)")]
-        [SuffixLabel("공격 활성화 자원 소모*")]
+        [FoldoutGroup("#자원")]
+        [SuffixLabel("공격 활성화 자원 소모")]
         public bool UseResourceOnActivate;
 
-        [FoldoutGroup("#자원 (Resource)")]
-        [SuffixLabel("공격 적용시 자원 사용*")]
+        [FoldoutGroup("#자원")]
+        [SuffixLabel("공격 적용시 자원 사용")]
         public bool UseResourceOnApply;
 
-        [FoldoutGroup("#자원 (Resource)")]
-        [SuffixLabel("공격시 자원 사용*")]
+        [FoldoutGroup("#자원")]
+        [SuffixLabel("공격시 자원 사용")]
         public bool UseResourceOnAttack;
 
-        [FoldoutGroup("#자원 (Resource)")]
-        [SuffixLabel("공격 성공시 자원 사용*")]
+        [FoldoutGroup("#자원")]
+        [SuffixLabel("공격 성공시 자원 사용")]
         public bool UseResourceOnAttackSucceeded;
 
-        [FoldoutGroup("#자원 (Resource)")]
-        [SuffixLabel("공격 실패시 자원 사용*")]
+        [FoldoutGroup("#자원")]
+        [SuffixLabel("공격 실패시 자원 사용")]
         public bool UseResourceOnAttackFailed;
 
-        [FoldoutGroup("#자원 (Resource)")]
+        [FoldoutGroup("#자원")]
         [SuffixLabel("공격 비활성화시 자원 소모")]
         public bool UseResourceOnInactive;
 
-        [FoldoutGroup("#자원 (Resource)")]
+        [FoldoutGroup("#자원")]
         [SuffixLabel("자원 소모량")]
         [GUIColor("GetFloatColor")]
         public float UseResourceValue;
 
-        [FoldoutGroup("#자원 (Resource)")]
+        [FoldoutGroup("#자원")]
         [SuffixLabel("자원 회복량")]
         [GUIColor("GetFloatColor")]
         public float RestoreResourceValue;
 
         [EnableIf("IsChangingAsset")]
-        [FoldoutGroup("#자원 (Resource)")]
+        [FoldoutGroup("#자원")]
         [SuffixLabel("자원 소모 방식")]
         public VitalConsumeTypes ResourceConsumeType;
 
-        [FoldoutGroup("#자원 (Resource)")]
-        [SuffixLabel("강제 자원 소모*")]
-        [Tooltip("자원이 부족해도 잔여 모든 자원을 사용합니다.")]
+        [FoldoutGroup("#자원")]
+        [InfoBox("자원이 부족해도 잔여 모든 자원을 사용합니다.")]
+        [SuffixLabel("강제 자원 소모")]
         public bool ForceResourceConsume;
 
-        [FoldoutGroup("#자원 (Resource)")]
-        [SuffixLabel("소모를 통한 죽음 무시*")]
+        [FoldoutGroup("#자원")]
+        [SuffixLabel("소모를 통한 죽음 무시")]
         public bool IgnoreDeathByConsume;
 
-        [FoldoutGroup("#자원 (Resource)")]
+        [FoldoutGroup("#자원")]
         [SuffixLabel("자원 소모 지연시간")]
         [GUIColor("GetFloatColor")]
         public float ConsumeDelayTime;
 
         #endregion 자원 (Resource)
 
-        #region 공격 이동 (Attack Movement)
+        #region 강제 이동 (Force Velocity)
 
-        [FoldoutGroup("#공격 이동 (Attack Movement)")]
+        [FoldoutGroup("#강제 이동")]
         [GUIColor("GetBoolColor")]
         [SuffixLabel("공격 활성화 시 ForceVelocity 적용")]
         public bool ApplyForceVelocityOnActivate;
 
-        [FoldoutGroup("#공격 이동 (Attack Movement)")]
+        [FoldoutGroup("#강제 이동")]
         [EnableIf("ApplyForceVelocityOnActivate")]
-        [GUIColor("GetForceVelocityNameColor")]
+        [GUIColor("GetForceVelocityColor")]
         [SuffixLabel("ForceVelocity 이름")]
         public FVNames ForceVelocityName;
 
-        #endregion 공격 이동 (Attack Movement)
+        #endregion 강제 이동 (Force Velocity)
 
         #region Effect
 
-        [FoldoutGroup("#Effect")]
+        [FoldoutGroup("#효과")]
         [SuffixLabel("피격 시 FX 프리팹 이름")]
         public string HitFXPrefabName;
 
@@ -206,6 +217,8 @@ namespace TeamSuneat.Data
 
         [FoldoutGroup("#String")] public string DamageTypeString;
         [FoldoutGroup("#String")] public string ParryTypeString;
+        [FoldoutGroup("#String")] public string ParryKnockbackTypeString;
+        [FoldoutGroup("#String")] public string KnockbackForceVelocityNameString;
         [FoldoutGroup("#String")] public string LinkedDamageTypeString;
         [FoldoutGroup("#String")] public string LinkedStateEffectString;
         [FoldoutGroup("#String")] public string NameOnHitString;
@@ -240,6 +253,14 @@ namespace TeamSuneat.Data
                 if (!EnumEx.ConvertTo(ref ParryType, ParryTypeString))
                 {
                     Log.Error("HitmarkAssetData의 ParryType을 변환하지 못합니다. Name:{0}, {1}", Name, ParryTypeString);
+                }
+                if (!EnumEx.ConvertTo(ref ParryKnockbackType, ParryKnockbackTypeString))
+                {
+                    Log.Error("HitmarkAssetData의 ParryKnockbackType을 변환하지 못합니다. Name:{0}, {1}", Name, ParryKnockbackTypeString);
+                }
+                if (!EnumEx.ConvertTo(ref KnockbackForceVelocityName, KnockbackForceVelocityNameString))
+                {
+                    Log.Error("HitmarkAssetData의 KnockbackForceVelocityName을 변환하지 못합니다. Name:{0}, {1}", Name, KnockbackForceVelocityNameString);
                 }
                 if (!EnumEx.ConvertTo(ref LinkedDamageType, LinkedDamageTypeString))
                 {
@@ -285,8 +306,6 @@ namespace TeamSuneat.Data
                 AttackTargetType = AttackTargetType,
                 EntityType = EntityType,
 
-                IsCrowdControl = IsCrowdControl,
-
                 StopAttackAnimationOnResourceLack = StopAttackAnimationOnResourceLack,
                 UseResourceOnActivate = UseResourceOnActivate,
                 UseResourceOnInactive = UseResourceOnInactive,
@@ -304,6 +323,8 @@ namespace TeamSuneat.Data
 
                 DamageType = DamageType,
                 ParryType = ParryType,
+                ParryKnockbackType = ParryKnockbackType,
+                KnockbackForceVelocityName = KnockbackForceVelocityName,
                 NotPlayDamageAnimation = NotPlayDamageAnimation,
                 ApplyKnockback = ApplyKnockback,
                 ApplyToSelf = ApplyToSelf,
@@ -334,6 +355,8 @@ namespace TeamSuneat.Data
         {
             DamageTypeString = DamageType.ToString();
             ParryTypeString = ParryType.ToString();
+            ParryKnockbackTypeString = ParryKnockbackType.ToString();
+            KnockbackForceVelocityNameString = KnockbackForceVelocityName.ToString();
             LinkedDamageTypeString = LinkedDamageType.ToString();
             LinkedStateEffectString = LinkedStateEffect.ToString();
             ForceVelocityNameString = ForceVelocityName.ToString();
@@ -353,16 +376,16 @@ namespace TeamSuneat.Data
         {
 #if UNITY_EDITOR
             // 게이지 기반 자원 타입일 때 UseResourceValue와 RestoreResourceValue가 0~1 범위인지 검증
-            if (ResourceConsumeType == VitalConsumeTypes.FixedResource ||
-                ResourceConsumeType == VitalConsumeTypes.FixedPulse ||
-                ResourceConsumeType == VitalConsumeTypes.FixedResourceAndPulse)
+            if (ResourceConsumeType is VitalConsumeTypes.FixedResource or
+                VitalConsumeTypes.FixedPulse or
+                VitalConsumeTypes.FixedResourceAndPulse)
             {
-                if (UseResourceValue < 0f || UseResourceValue > 1f)
+                if (UseResourceValue is < 0f or > 1f)
                 {
                     Log.Error("HitmarkAssetData의 UseResourceValue가 0~1 범위를 벗어났습니다. Name:{0} ({1}), ResourceConsumeType:{2}, UseResourceValue:{3}", Name, Name.ToLogString(), ResourceConsumeType, UseResourceValue);
                 }
 
-                if (RestoreResourceValue < 0f || RestoreResourceValue > 1f)
+                if (RestoreResourceValue is < 0f or > 1f)
                 {
                     Log.Error("HitmarkAssetData의 RestoreResourceValue가 0~1 범위를 벗어났습니다. Name:{0} ({1}), ResourceConsumeType:{2}, RestoreResourceValue:{3}", Name, Name.ToLogString(), ResourceConsumeType, RestoreResourceValue);
                 }
@@ -382,6 +405,9 @@ namespace TeamSuneat.Data
         {
             if (Name != another.Name) { return false; }
             if (DamageType != another.DamageType) { return false; }
+            if (ParryType != another.ParryType) { return false; }
+            if (ParryKnockbackType != another.ParryKnockbackType) { return false; }
+            if (KnockbackForceVelocityName != another.KnockbackForceVelocityName) { return false; }
             if (NotPlayDamageAnimation != another.NotPlayDamageAnimation) { return false; }
             if (ApplyKnockback != another.ApplyKnockback) { return false; }
             if (ApplyToSelf != another.ApplyToSelf) { return false; }
@@ -411,6 +437,8 @@ namespace TeamSuneat.Data
 
             UpdateIfChanged(ref DamageTypeString, DamageType);
             UpdateIfChanged(ref ParryTypeString, ParryType);
+            UpdateIfChanged(ref ParryKnockbackTypeString, ParryKnockbackType);
+            UpdateIfChanged(ref KnockbackForceVelocityNameString, KnockbackForceVelocityName);
             UpdateIfChanged(ref LinkedDamageTypeString, LinkedDamageType);
             UpdateIfChanged(ref LinkedStateEffectString, LinkedStateEffect);
             UpdateIfChanged(ref ForceVelocityNameString, ForceVelocityName);
@@ -447,16 +475,6 @@ namespace TeamSuneat.Data
                 target = newString;
                 _hasChangedWhiteRefreshAll = true;
             }
-        }
-
-        private Color GetLinkedDamageTypeColor(LinkedDamageTypes key)
-        {
-            return GetFieldColor(key);
-        }
-
-        private Color GetParryTypeColor(ParryTypes key)
-        {
-            return GetFieldColor(key);
         }
 
 #endif

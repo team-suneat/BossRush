@@ -35,7 +35,7 @@ namespace TeamSuneat.Data
 
         [FoldoutGroup("#버프 정보")]
         [EnableIf("IsChangingAsset")]
-        [GUIColor("GetStatNameColor")]
+        [GUIColor("GetStatColor")]
         [SuffixLabel("스탯 버프용")]
         public StatNames Stat;
 
@@ -131,11 +131,6 @@ namespace TeamSuneat.Data
                 target = newString;
                 _hasChangedWhiteRefreshAll = true;
             }
-        }
-
-        private Color GetBuffTypeColor(BuffType key)
-        {
-            return GetFieldColor(key);
         }
 
         private void TypeLog()

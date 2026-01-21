@@ -23,7 +23,7 @@ MonoBehaviour:
       Value: 1
       NameAsString: Attack
     - Name: 2
-      Value: 20
+      Value: 100
       NameAsString: Life
     - Name: 3
       Value: 1

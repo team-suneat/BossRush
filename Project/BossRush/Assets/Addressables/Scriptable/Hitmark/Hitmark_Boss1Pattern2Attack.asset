@@ -10,17 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44a1fdb7a9d3e48429d7d49c64140db0, type: 3}
-  m_Name: Hitmark_FirstBossAttack1Hit1
+  m_Name: Hitmark_Boss1Pattern2Attack
   m_EditorClassIdentifier: 
-  NameString: FirstBossAttack1Hit1
+  NameString: Boss1Pattern2Attack
   Data:
     IsChangingAsset: 0
-    Name: 5
+    Name: 8
     AttackTargetType: 2
     EntityType: 2
-    IsCrowdControl: 0
     DamageType: 1
     ParryType: 1
+    ParryKnockbackType: 3
+    KnockbackForceVelocityName: 10
     NotPlayDamageAnimation: 0
     ApplyKnockback: 0
     ApplyToSelf: 0
@@ -47,14 +48,16 @@ MonoBehaviour:
     IgnoreDeathByConsume: 0
     ConsumeDelayTime: 0
     ApplyForceVelocityOnActivate: 1
-    ForceVelocityName: 3
+    ForceVelocityName: 6
     HitFXPrefabName: fx_scarecrow_attack_success
     DamageTypeString: Normal
     ParryTypeString: Parryable
+    ParryKnockbackTypeString: Both
+    KnockbackForceVelocityNameString: Boss1Pattern2Knockback
     LinkedDamageTypeString: None
     LinkedStateEffectString: None
     NameOnHitString: 
     DiminishingTypeString: 
     AttackTargetTypeString: TargetOfOwner
     ResourceConsumeTypeString: None
-    ForceVelocityNameString: Boss1Pattern1Attack1
+    ForceVelocityNameString: Boss1Pattern2Attack

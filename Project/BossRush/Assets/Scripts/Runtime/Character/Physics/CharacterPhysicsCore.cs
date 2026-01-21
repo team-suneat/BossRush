@@ -5,10 +5,6 @@ namespace TeamSuneat
     [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
     public class CharacterPhysicsCore : MonoBehaviour
     {
-        [Header("Collider Setup")]
-        [SerializeField] private Vector2 _colliderSize = new Vector2(0.5f, 1f);
-        [SerializeField] private bool _autoSetupCollider = true;
-
         [Header("Collision Detection")]
         [SerializeField] private float _groundCheckDistance = 0.1f;
         [SerializeField] private LayerMask _groundLayerMask = 1;
@@ -59,12 +55,7 @@ namespace TeamSuneat
         private void Awake()
         {
             SetupRigidbody2D();
-
-            if (_autoSetupCollider)
-            {
-                SetupCollider();
-            }
-
+            SetupCollider();
             InitializeCollisionSystem();
             _knockback = GetComponent<CharacterKnockback>();
             _character = GetComponent<Character>();
@@ -87,13 +78,7 @@ namespace TeamSuneat
         private void SetupCollider()
         {
             _boxCollider = GetComponent<BoxCollider2D>();
-
-            if (_boxCollider == null)
-            {
-                _boxCollider = gameObject.AddComponent<BoxCollider2D>();
-            }
-
-            _boxCollider.size = _colliderSize;
+            // RequireComponent가 있으므로 항상 존재함
             _boxCollider.isTrigger = false;
         }
 

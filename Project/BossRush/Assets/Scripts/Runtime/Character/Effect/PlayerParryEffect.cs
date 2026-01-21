@@ -16,11 +16,6 @@ namespace TeamSuneat
         [Tooltip("패리 성공 시 재생할 VFX 프리팹")]
         private GameObject _parrySuccessVFXPrefab;
 
-        [FoldoutGroup("#PlayerParryEffect-Knockback")]
-        [SerializeField]
-        [Tooltip("패리 성공 시 넉백 타입")]
-        private KnockbackType _knockbackType = KnockbackType.Both;
-
         [FoldoutGroup("#PlayerParryEffect-SlowMotion")]
         [SerializeField]
         [Tooltip("슬로우 모션 지속 시간")]
@@ -57,30 +52,35 @@ namespace TeamSuneat
             _vital = _character?.MyVital;
         }
 
-        public void OnParrySuccess(Character attacker, Character targetCharacter, Vector3 attackPosition, ParryTypes parryType)
+        public void OnParrySuccess(ParrySuccessData data)
         {
             if (_character == null)
             {
                 return;
             }
 
-            if (_knockbackType != KnockbackType.None && attacker != null)
-            {
-                ApplyKnockback(attacker);
-            }
+            ApplyParryStopForceVelocity(data.Attacker);
+            ApplyKnockback(data.Attacker, data.KnockbackType, data.KnockbackForceVelocityName);
+            SpawnVFX(data.AttackPosition);
 
-            SpawnVFX(attackPosition);
-
-            ApplyParry(attacker, parryType);
+            ApplyParryPenaltyToAttacker(data.Attacker, data.ParryType);
             ApplyPulseReward();
             ApplySound();
             ApplySlowMotion();
             ApplyVibration();
-            ApplyParryRendererEffect(targetCharacter);
-            ApplyCameraShake(attackPosition);
+            ApplyParryRendererEffect(data.TargetCharacter);
+            ApplyCameraShake(data.AttackPosition);
         }
 
-        private void ApplyParry(Character attacker, ParryTypes parryType)
+        private void ApplyParryStopForceVelocity(Character attacker)
+        {
+            if (attacker != null)
+            {
+                attacker.Physics?.StopForceVelocity();
+            }
+        }
+
+        private void ApplyParryPenaltyToAttacker(Character attacker, ParryTypes parryType)
         {
             if (parryType == ParryTypes.ParryableWithStun)
             {
@@ -88,6 +88,14 @@ namespace TeamSuneat
                 {
                     // 공격자에게 1초 기절 적용 (패링 타입에 따라 결정)
                     attacker.Buff.Add(BuffName.ParryStun, 1, _character);
+                }
+            }
+            else if (parryType == ParryTypes.Parryable)
+            {
+                if (attacker != null && attacker.CharacterAnimator != null)
+                {
+                    // 공격자에게 경직 적용
+                    attacker.CharacterAnimator.PlayKnockbackAnimation();
                 }
             }
         }
@@ -103,12 +111,15 @@ namespace TeamSuneat
             _character.CharacterAnimator?.SetParrySuccess(true);
         }
 
-        private void ApplyKnockback(Character attacker)
+        private void ApplyKnockback(Character attacker, KnockbackType knockbackType, FVNames knockbackForceVelocityName)
         {
             if (attacker == null || _character == null || _physics == null)
             {
                 return;
             }
+
+            if (knockbackType == KnockbackType.None)
+            { return; }
 
             Vector3 attackerPosition = attacker.transform.position;
             Vector3 defenderPosition = _character.transform.position;
@@ -116,19 +127,19 @@ namespace TeamSuneat
 
             Vector2 knockbackDirection = new Vector2(direction.x, 0f).normalized;
 
-            switch (_knockbackType)
+            switch (knockbackType)
             {
                 case KnockbackType.Defender:
-                    _physics.ApplyKnockback(-knockbackDirection);
+                    _physics.ApplyKnockback(-knockbackDirection, knockbackForceVelocityName);
                     break;
 
                 case KnockbackType.Attacker:
-                    attacker.Physics?.ApplyKnockback(knockbackDirection);
+                    attacker.Physics?.ApplyKnockback(knockbackDirection, knockbackForceVelocityName);
                     break;
 
                 case KnockbackType.Both:
-                    attacker.Physics?.ApplyKnockback(knockbackDirection);
-                    _physics.ApplyKnockback(-knockbackDirection);
+                    attacker.Physics?.ApplyKnockback(knockbackDirection, knockbackForceVelocityName);
+                    _physics.ApplyKnockback(-knockbackDirection, knockbackForceVelocityName);
                     break;
 
                 case KnockbackType.None:

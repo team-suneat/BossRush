@@ -1,13 +1,11 @@
 ﻿using Sirenix.OdinInspector;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Diagnostics;
 
 namespace TeamSuneat
 {
     public class PatternSystem : XBehaviour
     {
-        public MonsterCharacter Owner { get; private set; }
-
         [SuffixLabel("패턴 순서")]
         public Order PatternOrder;
 
@@ -17,15 +15,12 @@ namespace TeamSuneat
         [SuffixLabel("페이즈")]
         public CharacterPhase[] Phases;
 
-        [SerializeField]
         private List<CharacterPattern> _usablePatterns = new();
         private int _maxPhase = -1;
 
+        public MonsterCharacter Owner { get; private set; }
+
         public bool IsStartPattern { get; protected set; }
-
-        public bool IsWaitPattern { get; protected set; }
-
-        public bool IsCooldownPattern => CurrentPattern.IsCooldown;
 
         public CharacterPattern CurrentPattern
         {
@@ -49,9 +44,15 @@ namespace TeamSuneat
 
         public CharacterPatternStep CurrentPatternStep => CurrentPattern != null ? CurrentPattern.GetStep() : null;
 
+        public override void AutoGetComponents()
+        {
+            base.AutoGetComponents();
+            Phases = GetComponentsInChildren<CharacterPhase>();
+        }
+
         private void OnValidate()
         {
-            Gacha.Validate();
+            Gacha?.Validate();
         }
 
         private void Awake()
@@ -64,6 +65,38 @@ namespace TeamSuneat
         protected override void OnStart()
         {
             base.OnStart();
+            SetPatternProbabilities();
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (CurrentPatternStep != null)
+            {
+                GizmoEx.DrawText(
+                    $"StepName: {CurrentPatternStep.StepName}\n" +
+                    $"OrderIndex: {CurrentPatternStep.OrderIndex}\n" +
+                    $"IsStartPattern: {IsStartPattern}\n",
+                transform.position);
+            }
+        }
+
+        [FoldoutGroup("#Buttons", 999)]
+        [Button("Auto Setup Gacha & Order", ButtonSizes.Medium)]
+        [Conditional("UNITY_EDITOR")]
+        private void SetPatternProbabilitiesForEditor()
+        {
+            AutoGetComponents();
+            if (Phases != null)
+            {
+                for (int i = 0; i < Phases.Length; i++)
+                {
+                    if (Phases[i] != null)
+                    {
+                        Phases[i].AutoGetComponents();
+                    }
+                }
+            }
+
             SetPatternProbabilities();
         }
 
@@ -91,32 +124,48 @@ namespace TeamSuneat
                 for (int j = 0; j < currentPhase.PatternLength; j++)
                 {
                     CharacterPattern currentPattern = currentPhase.Patterns[j];
-                    patternProbabilities.Add(currentPattern.ProbabilityToPicked);
+                    if (currentPattern != null)
+                    {
+                        patternProbabilities.Add(currentPattern.ProbabilityToPicked);
+                    }
                 }
             }
 
             PatternOrder.SetMax(patternCount);
 
-            Gacha?.Set(patternProbabilities.ToArray(), patternProbabilities.ToArray());
-
-            Log.Info(LogTags.Pattern, "패턴 확률 설정 완료. 전체 패턴 개수: {0}", patternCount);
+            if (patternProbabilities.Count > 0 && Gacha != null)
+            {
+                Gacha.Clear();
+                for (int i = 0; i < patternProbabilities.Count; i++)
+                {
+                    Gacha.Add(patternProbabilities[i], i);
+                }
+                Log.Info(LogTags.Pattern, "패턴 확률 설정 완료. 전체 패턴 개수: {0}", patternCount);
+            }
+            else
+            {
+                Log.Warning(LogTags.Pattern, "설정할 패턴이 없습니다. 인스펙터에 설정된 Gacha 값을 유지합니다.");
+            }
         }
 
         private void LoadPatternProbabilityToPicked()
         {
-            if (_usablePatterns == null || _usablePatterns.Count == 0)
+            if (!_usablePatterns.IsValid() || Gacha == null)
             {
                 return;
             }
 
-            float[] probabilities = new float[_usablePatterns.Count];
-
+            Gacha.Clear();
             for (int i = 0; i < _usablePatterns.Count; i++)
             {
-                probabilities[i] = _usablePatterns[i].ProbabilityToPicked;
-            }
+                if (_usablePatterns[i] == null)
+                {
+                    continue;
+                }
 
-            Gacha.Set(probabilities, probabilities);
+                float probability = _usablePatterns[i].ProbabilityToPicked;
+                Gacha.Add(probability, i);
+            }
         }
 
         public void LoadPatterns()
@@ -127,7 +176,6 @@ namespace TeamSuneat
                 return;
             }
 
-            // Owner 상태 로그
             if (Owner == null)
             {
                 Log.Error(LogTags.Pattern, "Owner가 null입니다.");
@@ -138,7 +186,6 @@ namespace TeamSuneat
             Log.Info(LogTags.Pattern, "패턴 로드 시작. Owner 체력 비율: {0}", healthRate);
 
             int maxPhase = GetMaxPhase();
-
             if (_maxPhase >= maxPhase)
             {
                 Log.Info(LogTags.Pattern, "이미 최대 페이즈({0})에 도달했습니다. 패턴 로드를 건너뜁니다.", _maxPhase);
@@ -151,9 +198,13 @@ namespace TeamSuneat
 
             for (int i = 0; i < Phases.Length; i++)
             {
+                if (Phases[i] == null)
+                {
+                    continue;
+                }
+
                 Phases[i].SetMaxPhase(maxPhase);
 
-                // Phase 상태 로그
                 Log.Info(LogTags.Pattern, "Phase[{0}]: IsLocked={1}, ConditionHealthRate={2}, PatternCount={3}",
                     i, Phases[i].IsLocked, Phases[i].ConditionHealthRate, Phases[i].PatternLength);
 
@@ -176,17 +227,20 @@ namespace TeamSuneat
             }
 
             LoadPatternProbabilityToPicked();
-
             Log.Info(LogTags.Pattern, "패턴 로드 완료. 사용 가능한 패턴 개수: {0}", _usablePatterns.Count);
         }
 
         private int GetMaxPhase()
         {
-            int maxPhase = 0;
+            if (Phases == null || Owner == null)
+            {
+                return 0;
+            }
 
+            int maxPhase = 0;
             for (int i = Phases.Length - 1; i >= 0; i--)
             {
-                if (Phases[i].CheckConditionHealthRate(Owner))
+                if (Phases[i] != null && Phases[i].CheckConditionHealthRate(Owner))
                 {
                     if (maxPhase < i)
                     {
@@ -196,36 +250,51 @@ namespace TeamSuneat
             }
 
             Log.Info(LogTags.Pattern, "최대 페이즈 계산 완료: {0}", maxPhase);
-
             return maxPhase;
         }
 
         private void AddUsablePattern(CharacterPattern[] patterns)
         {
+            if (patterns == null)
+            {
+                return;
+            }
+
             for (int i = 0; i < patterns.Length; i++)
             {
-                if (!_usablePatterns.Contains(patterns[i]))
+                if (patterns[i] != null && !_usablePatterns.Contains(patterns[i]))
                 {
                     _usablePatterns.Add(patterns[i]);
                     Log.Info(LogTags.Pattern, "사용하는 패턴을 추가합니다. Order: {0}, Name: {1}", patterns[i].Order, patterns[i].Name);
                 }
             }
 
-            PatternOrder.SetMax(_usablePatterns.Count - 1);
+            if (_usablePatterns.Count > 0)
+            {
+                PatternOrder.SetMax(_usablePatterns.Count - 1);
+            }
         }
 
         private void RemoveUsablePattern(CharacterPattern[] patterns)
         {
+            if (patterns == null)
+            {
+                return;
+            }
+
             for (int i = 0; i < patterns.Length; i++)
             {
-                if (_usablePatterns.Contains(patterns[i]))
+                if (patterns[i] != null && _usablePatterns.Contains(patterns[i]))
                 {
-                    _ = _usablePatterns.Remove(patterns[i]);
+                    _usablePatterns.Remove(patterns[i]);
                     Log.Info(LogTags.Pattern, "사용하지 않는 패턴을 삭제합니다. Order: {0}, Name: {1}", patterns[i].Order, patterns[i].Name);
                 }
             }
 
-            PatternOrder.SetMax(_usablePatterns.Count - 1);
+            if (_usablePatterns.Count > 0)
+            {
+                PatternOrder.SetMax(_usablePatterns.Count - 1);
+            }
         }
 
         public void StartPattern()
@@ -246,6 +315,12 @@ namespace TeamSuneat
 
         public void PickPattern()
         {
+            if (CurrentPattern == null)
+            {
+                Log.Warning(LogTags.Pattern, "현재 패턴이 null입니다. 패턴을 선정할 수 없습니다.");
+                return;
+            }
+
             CurrentPattern.FirstStep();
 
             if (Gacha != null)
@@ -255,7 +330,7 @@ namespace TeamSuneat
                 int cooldownCount = 0;
                 for (int i = 0; i < _usablePatterns.Count; i++)
                 {
-                    if (_usablePatterns[i].IsCooldown)
+                    if (_usablePatterns[i] != null && _usablePatterns[i].IsCooldown)
                     {
                         Gacha.LockAt(i);
                         cooldownCount++;
@@ -285,8 +360,11 @@ namespace TeamSuneat
 
             IsStartPattern = false;
 
-            Log.Info(LogTags.Pattern, "패턴을 선정합니다. Order: {0}, Pattern: {1}, Step: {2}",
-                PatternOrder.Current, CurrentPattern.Name, CurrentPatternStep.StepName);
+            if (CurrentPattern != null && CurrentPatternStep != null)
+            {
+                Log.Info(LogTags.Pattern, "패턴을 선정합니다. Order: {0}, Pattern: {1}, Step: {2}",
+                    PatternOrder.Current, CurrentPattern.Name, CurrentPatternStep.StepName);
+            }
         }
 
         public void NextStep()
@@ -318,19 +396,6 @@ namespace TeamSuneat
         {
             NextStep();
             ProcessStep();
-        }
-
-        private void OnDrawGizmos()
-        {
-            if (CurrentPatternStep != null)
-            {
-                GizmoEx.DrawText(
-                    $"StepName: {CurrentPatternStep.StepName}\n" +
-                    $"OrderIndex: {CurrentPatternStep.OrderIndex}\n" +
-                    $"IsStartPattern: {IsStartPattern}\n" +
-                    $"IsWaitPattern: {IsWaitPattern}\n",
-                transform.position);
-            }
         }
     }
 }

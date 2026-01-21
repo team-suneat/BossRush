@@ -14,15 +14,6 @@ namespace TeamSuneat
             return transform.position;
         }
 
-        public void ResizeCollider(Vector2 colliderOffset, Vector2 colliderSize)
-        {
-            if (Collider != null)
-            {
-                localPosition = colliderOffset;
-                Collider.size = colliderSize + (Vector2.one * 0.1f);
-            }
-        }
-
         public void ResizeCollider(string typeString)
         {
             VitalColliderData data = VitalColliderHandler.Find(typeString);

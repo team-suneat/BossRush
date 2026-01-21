@@ -416,9 +416,13 @@ namespace TeamSuneat
 
             // 패링 타입 확인
             ParryTypes parryType = ParryTypes.Parryable;
+            KnockbackType parryKnockbackType = KnockbackType.None;
+            FVNames knockbackForceVelocityName = FVNames.None;
             if (AssetData != null)
             {
                 parryType = AssetData.ParryType;
+                parryKnockbackType = AssetData.ParryKnockbackType;
+                knockbackForceVelocityName = AssetData.KnockbackForceVelocityName;
             }
 
             // 패링 불가능한 공격인지 확인
@@ -427,8 +431,7 @@ namespace TeamSuneat
                 return false;
             }
 
-            var targetCharacter = targetVital.Owner;
-
+            Character targetCharacter = targetVital.Owner;
             if (!targetCharacter.CharacterAnimator.IsParrying)
             {
                 return false;
@@ -458,8 +461,12 @@ namespace TeamSuneat
             PlayerParryEffect parryEffect = targetCharacter.GetComponentNoAlloc<PlayerParryEffect>();
             if (parryEffect != null)
             {
-                parryEffect.OnParrySuccess(Owner, targetCharacter, attackPosition, parryType);
+                ParrySuccessData parryData = new(Owner, targetCharacter, attackPosition, parryType, parryKnockbackType, knockbackForceVelocityName);
+                parryEffect.OnParrySuccess(parryData);
             }
+
+            // 패링 성공 시 공격 독립체 비활성화
+            Deactivate();
 
             return true;
         }
@@ -531,12 +538,16 @@ namespace TeamSuneat
             if (_attackCollider is BoxCollider2D boxCollider)
             {
                 if (targetVital.CheckColliderInBox(attackAreaPosition, boxCollider.size))
+                {
                     return true;
+                }
             }
             else if (_attackCollider is CircleCollider2D circleCollider)
             {
                 if (targetVital.CheckColliderInCircle(attackAreaPosition, circleCollider.radius))
+                {
                     return true;
+                }
             }
 
             return false;
@@ -714,7 +725,6 @@ namespace TeamSuneat
                 _isOriginalSizeStored = true;
             }
         }
-
 
         private void RefreshArea()
         {
