@@ -48,10 +48,10 @@ namespace TeamSuneat
         public virtual bool CanTransitionTo(CharacterState targetState)
         {
             // 공격에서 전환 가능한 상태
-            return targetState == CharacterState.Idle ||
-                   targetState == CharacterState.Walk ||
-                   targetState == CharacterState.Jumping ||
-                   targetState == CharacterState.Falling;
+            return targetState is CharacterState.Idle or
+                   CharacterState.Walk or
+                   CharacterState.Jumping or
+                   CharacterState.Falling;
         }
 
         public void EnableFlip()
@@ -111,7 +111,7 @@ namespace TeamSuneat
 
             if (!_animator.IsAttacking)
             {
-                var cmd = _character.Command;
+                CharacterCommand cmd = _character.Command;
                 if (_physics.IsGrounded)
                 {
                     // 착지 시

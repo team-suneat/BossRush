@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 4420934102763570396}
   - component: {fileID: 3768585195882074426}
   - component: {fileID: 4777675871268816174}
+  - component: {fileID: 6674642508409529806}
+  - component: {fileID: 9176809412989375240}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -50,7 +52,7 @@ Animator:
   m_GameObject: {fileID: 985439403793911923}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 43ef618f651d71f45b985f83251cd090, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2b6475369b141d24eb82b753ddedd9f5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -124,6 +126,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d81af227c8545848b40c46bebe16045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6674642508409529806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985439403793911923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac4261d3856d8724c87b0abe14aa6fe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dustVFXPrefab: {fileID: 8520831504355238459, guid: 58021f37aab3adc45a6e996f5d1216f6, type: 3}
+--- !u!114 &9176809412989375240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985439403793911923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c3f6430ae8fbf048ad11f8210780f95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dustVFXPrefab: {fileID: 1121669814633366354, guid: 417c75eb6b3aaf44291991d71e0559c6, type: 3}
 --- !u!1 &1026507667165685364
 GameObject:
   m_ObjectHideFlags: 0

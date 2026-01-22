@@ -6,7 +6,7 @@ namespace TeamSuneat
     {
         // 콤보 관련 필드
         private int _currentComboIndex = 0;
-        private int _maxComboCount = 3;
+        private int _maxComboCount = 2;
         private bool _canQueueCombo = false;
         private bool _hasQueuedCombo = false;
         private bool _isAirAttack = false;
@@ -14,11 +14,6 @@ namespace TeamSuneat
         public PlayerAttackState(CharacterStateMachine stateMachine, CharacterPhysics physics, CharacterAnimator animator, Character character)
             : base(stateMachine, physics, animator, character)
         {
-        }
-
-        public void SetMaxComboCount(int maxComboCount)
-        {
-            _maxComboCount = Mathf.Max(1, maxComboCount);
         }
 
         public void EnableComboQueue()
@@ -56,7 +51,7 @@ namespace TeamSuneat
             {
                 // 지상 공격: 기존 콤보 시스템 사용
                 _isAirAttack = false;
-                _maxComboCount = 3;  // 기본값으로 초기화
+                _maxComboCount = 2;  // 기본값으로 초기화
                 PlayAttackAnimation(_currentComboIndex);
 
                 // 이동 잠금
@@ -80,7 +75,7 @@ namespace TeamSuneat
 
             if (_character != null)
             {
-                var cmd = _character.Command;
+                CharacterCommand cmd = _character.Command;
                 if (cmd.IsAttackPressed)
                 {
                     if (_canQueueCombo)
@@ -146,7 +141,7 @@ namespace TeamSuneat
             // 플레이어: 입력 방향에 맞게 캐릭터 반전
             if (_character != null)
             {
-                var cmd = _character.Command;
+                CharacterCommand cmd = _character.Command;
                 if (Mathf.Abs(cmd.HorizontalInput) > 0.01f)
                 {
                     return cmd.HorizontalInput > 0

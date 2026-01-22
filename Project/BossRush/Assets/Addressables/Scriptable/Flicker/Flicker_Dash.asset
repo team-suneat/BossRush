@@ -15,7 +15,7 @@ MonoBehaviour:
   NameString: Dash
   IsChangingAsset: 0
   Name: 2
-  FlickerColor: {r: 1, g: 1, b: 1, a: 1}
-  FlickerBlend: 0.3
+  FlickerColor: {r: 0, g: 0.77254903, b: 0.99607843, a: 1}
+  FlickerBlend: 0.1
   FlickerSpeed: 0.1
   FlickerDuration: 0.2

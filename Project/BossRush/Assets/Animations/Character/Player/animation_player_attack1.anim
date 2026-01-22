@@ -83,6 +83,13 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.11111111
+    functionName: DisableFlipInput
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.11111111
     functionName: StartAttackAnimationEvent
     data: PlayerAttack
     objectReferenceParameter: {fileID: 0}
@@ -90,7 +97,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.11111111
-    functionName: DisableFlipInput
+    functionName: EnableComboInput
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -98,13 +105,6 @@ AnimationClip:
     messageOptions: 0
   - time: 0.22222222
     functionName: EnableFlipInput
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.22222222
-    functionName: EnableComboInput
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

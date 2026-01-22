@@ -47,10 +47,10 @@ MonoBehaviour:
   m_TrailElementDurationCondition: 0
   m_TrailMaxLength: 10
   m_TrailDuration: 1
-  m_TrailElementSpawnCondition: 1
+  m_TrailElementSpawnCondition: 2
   m_TimeBetweenSpawns: 0
-  m_FramesBetweenSpawns: 30
-  m_DistanceBetweenSpawns: 0.225
+  m_FramesBetweenSpawns: 12
+  m_DistanceBetweenSpawns: 0.9
   m_DistanceCorrection: 1
   m_UseSizeModifier: 0
   m_UsePositionModifier: 0

@@ -27,13 +27,12 @@ namespace TeamSuneat
         /// </summary>
         private void EnableComboInput()
         {
-            if (_character?.StateMachine?.CurrentState == CharacterState.Attack)
-            {
-                if (_character.StateMachine is PlayerStateMachine playerStateMachine)
-                {
-                    playerStateMachine.EnableComboInput();
-                }
-            }
+            if (_character == null) { return; }
+            if (_character.StateMachine == null) { return; }
+            if (_character.StateMachine is not PlayerStateMachine playerStateMachine) { return; }
+            if (_character.StateMachine.CurrentState != CharacterState.Attack) { return; }
+
+            playerStateMachine.EnableComboInput();
         }
 
         /// <summary>
@@ -41,13 +40,12 @@ namespace TeamSuneat
         /// </summary>
         private void DisableComboInput()
         {
-            if (_character?.StateMachine?.CurrentState == CharacterState.Attack)
-            {
-                if (_character.StateMachine is PlayerStateMachine playerStateMachine)
-                {
-                    playerStateMachine.DisableComboInput();
-                }
-            }
+            if (_character == null) { return; }
+            if (_character.StateMachine == null) { return; }
+            if (_character.StateMachine is not PlayerStateMachine playerStateMachine) { return; }
+            if (_character.StateMachine.CurrentState != CharacterState.Attack) { return; }
+
+            playerStateMachine.DisableComboInput();
         }
     }
 }
