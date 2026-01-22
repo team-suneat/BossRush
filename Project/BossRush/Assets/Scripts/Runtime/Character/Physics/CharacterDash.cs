@@ -1,5 +1,6 @@
 using Sirenix.OdinInspector;
 using TeamSuneat.Data;
+using TeamSuneat.Feedbacks;
 using UnityEngine;
 
 namespace TeamSuneat
@@ -10,6 +11,7 @@ namespace TeamSuneat
         [Title("Dash")]
         [SerializeField] private float _dashCooldown = 0.5f;
         [SerializeField] private bool _airDashEnabled = true;
+        [SerializeField] private GameFeedbacks _trailFeedback;
 
         private CharacterPhysicsCore _physics;
         private CharacterForceVelocity _forceVelocity;
@@ -17,6 +19,7 @@ namespace TeamSuneat
         private Character _character;
         private float _dashCooldownRemaining;
         private bool _wasOnCooldown;
+        private bool _wasDashing;
 
         public bool IsDashing => _forceVelocity != null && _forceVelocity.IsProcessing;
         public bool CanDash => _dashCooldownRemaining <= 0f && !IsDashing && HasPulse();
@@ -29,6 +32,7 @@ namespace TeamSuneat
             _forceVelocity = GetComponent<CharacterForceVelocity>();
             _vital = GetComponentInChildren<Vital>();
             _character = GetComponentInParent<Character>();
+            _trailFeedback = this.FindComponent<GameFeedbacks>("Feedbacks/Dash");
         }
 
         // 방향 없이 대시 요청 (캐릭터가 바라보는 방향으로 대시)
@@ -79,8 +83,8 @@ namespace TeamSuneat
             // ForceVelocity 시작
             _forceVelocity.StartForceVelocity(dashAssetData, isFacingRight, this);
 
-            // 대시 flicker 효과 적용
             StartDashFlicker();
+            PlayTrailFeedbacks();
 
             _dashCooldownRemaining = _dashCooldown;
             _wasOnCooldown = true;
@@ -102,6 +106,13 @@ namespace TeamSuneat
                 }
                 return;
             }
+
+            // 대시 종료 감지 및 SpriteTrail 비활성화
+            if (_wasDashing && !IsDashing)
+            {
+                StopTrailFeedbacks();
+            }
+            _wasDashing = IsDashing;
 
             // 쿨다운 관리 (실제 대시는 ForceVelocity가 처리)
             if (_dashCooldownRemaining > 0f)
@@ -144,6 +155,20 @@ namespace TeamSuneat
             if (_character == null || _character.CharacterRenderer == null) { return; }
 
             _character.CharacterRenderer.StartFlickerCoroutine(RendererFlickerNames.Dash);
+        }
+
+        private void PlayTrailFeedbacks()
+        {
+            if (_trailFeedback == null) { return; }
+
+            _trailFeedback.PlayFeedbacks();
+        }
+
+        private void StopTrailFeedbacks()
+        {
+            if (_trailFeedback == null) { return; }
+
+            _trailFeedback.StopFeedbacks();
         }
     }
 }
