@@ -1,0 +1,1539 @@
+fileFormatVersion: 2
+guid: 5ad09f9b32298b14a9836f308509fee9
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 50
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 256
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: PS5
+    maxTextureSize: 256
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: GameCoreScarlett
+    maxTextureSize: 256
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Switch
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 2
+    textureCompression: 1
+    compressionQuality: 100
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: PS4
+    maxTextureSize: 2048
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: GameCoreXboxOne
+    maxTextureSize: 2048
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ui_input_joystick_a
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 232
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5da19c410c3c4404c8d107f6e4aeab8c
+      internalID: -1478542893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_b
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 232
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b2563a285f96497b8f4d0679adbc1b4
+      internalID: 1404124420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_x
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 232
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 718b0a4c098c145bcb9760072adde44a
+      internalID: 1910333637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_y
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 232
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b3e8aa51232647a79651c7955c8169d
+      internalID: 194954450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_cross
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 232
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6064e37277db24a749e453670d4981bc
+      internalID: 1845398893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_circle
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 232
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca233f073fc514c7db63a92cde6d8595
+      internalID: -13815093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_square
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 232
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbee134c981da4cf8a3c0beb728ba0cd
+      internalID: -1625192718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_triangle
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 232
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1870151f9001b4ee796e89ae3e610f6f
+      internalID: 646163748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_start
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 200
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf28c663fdb0c443186ab8a64534b8c4
+      internalID: -799227207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_back
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 200
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee097a94bd7e44a218e3e9c9e421d49c
+      internalID: 15933446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_leftshoulder
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 200
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da34571c8abbe49b88c3b3b341e8d1d8
+      internalID: 542112437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_rightshoulder
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 200
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae9a6b1f69d1f470895937bdc595152e
+      internalID: -1719811824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_touchpadbutton
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 199
+        width: 25
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16ba53ca931324bee9d64be8ba55be62
+      internalID: -1372736327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_l1
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 200
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5894d10bb40ca4727b57f9c41b6a6460
+      internalID: -1749131392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_r1
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 200
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e0aeb156662f45c7ab118706a143f2a
+      internalID: -74394775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_options
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 199
+        width: 27
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6e77914bd5404becbcc1140f5c88c84
+      internalID: -108826098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_lefttrigger
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 168
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 128a4429b89a74777b3406af8907646c
+      internalID: 2083432477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_righttrigger
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 168
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5825d6eab56d14fb499593c06fe33aa0
+      internalID: 2048758008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_d-padup
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 168
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69bb7433a31244588a5a6b6aa7d60a11
+      internalID: 1066071734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_d-paddown
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 168
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b215765b8b4b7482ca32163c8138f05c
+      internalID: 160872330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_l2
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 168
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d643a6b7a9c7a4b24a4bd3aab046e604
+      internalID: -1238327108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_r2
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 168
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5235f15b1a834ad7aff108aaf3b89a1
+      internalID: -35762608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_d-padleft
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 136
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1443e6dca55f34d0e8d1d04996dbd6af
+      internalID: -632326008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_d-padright
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 136
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78f89d642d813428fb7691248e10ef63
+      internalID: 473261482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_l3
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 133
+        width: 20
+        height: 23
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc1a27b43258746a1bf8123e62bcab40
+      internalID: -1954323215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_r3
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 133
+        width: 20
+        height: 23
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d0f8e4de394a43d989c93c0fa9bdac9
+      internalID: 763612131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_leftstickup
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 100
+        width: 20
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d1480861af9c4c5bbeccdb15719a115
+      internalID: -838659778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_leftstickdown
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 97
+        width: 20
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4627808c5ed17497ab7c4c785e4e64e6
+      internalID: -1372248002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_leftstickleft
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 100
+        width: 23
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86a8aba04d2f647be987d96c57e9c470
+      internalID: 887075007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_leftstickright
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 100
+        width: 23
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eaa60e841cc8444518f670bde18d7598
+      internalID: 64657980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_rightstickup
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 68
+        width: 20
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f99eeb6eda9e467f9d2b51fc2edf15b
+      internalID: -1096943852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_rightstickdown
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 65
+        width: 20
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ab79c738501e4a5d9e792c358e91455
+      internalID: 467936318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_rightstickleft
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 68
+        width: 23
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 334510fd174594b2ab29af18b62907ff
+      internalID: -65042705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_rightstickright
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 68
+        width: 23
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 732a7b7e0bb2d4ece9e284ee7e1a06b3
+      internalID: 820946250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_leftstickbutton
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 136
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4e5d09e3f021485ab6591d046add576
+      internalID: -1320337190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_rightstickbutton
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 136
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fb65f6cb6275460eb32dfea2b64d4a4
+      internalID: 714026702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_l
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 200
+        width: 19
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a181ad79c419fd488e76bbea970fd8f
+      internalID: -192661642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_r
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 200
+        width: 19
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4edd023f4b08a30449536f66f1af6a85
+      internalID: -828246853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_zr
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 168
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1459bb22debc544e9d8b10490ffaed0
+      internalID: 1934161435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_zl
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 168
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d61d29f70d5d664f8cad38cf7e93dbc
+      internalID: 1072695394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_plus
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 199
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82b5329dfa71f364c8cc4903af1cd5d4
+      internalID: -447291023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_minus
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 204
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16e753c7c6ce65744abc0489881d2b03
+      internalID: 1688223773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_nintendo_b
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 232
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29989b53396f6794dbf0b547b5693e36
+      internalID: 1932336611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_nintendo_a
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 232
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a031d0c3699e6d140aa0a26c727d3804
+      internalID: 248344947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_nintendo_y
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 232
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94fe569dc42aa6243bb49b516b6800df
+      internalID: -797332824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_nintendo_x
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 232
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be6b375af41b28645b5909400d76dc6b
+      internalID: 987563585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_options2
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 104
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34029920e72be5d4c8de6701a3d9c415
+      internalID: 1759974287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_touchpadbutton2
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 103
+        width: 23
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b776b35b4133474aa320f6b300c8aed
+      internalID: -206986056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_d-padup_ps
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 168
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 743ac449d9def6c41b15f3cfb578fcd3
+      internalID: -935533144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_d-paddown_ps
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 168
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70387a4417eb813429d534aae6bc9053
+      internalID: -1095975394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_d-padleft_ps
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 136
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dace811cbdf219547b09771a8d4898fd
+      internalID: 366132065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_d-padright_ps
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 136
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0ae02e39e36b4347a7c451ce9b49085
+      internalID: 75281189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_d-padup_nx
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 168
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c59506ab3d6de4643a86ab297eb13732
+      internalID: -650191113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_d-paddown_nx
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 168
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 026b2a2df6c9be14893e8b63e5d72c14
+      internalID: 232083969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_d-padleft_nx
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 136
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3738957a9b9818540a1634b6af3902f1
+      internalID: 1128393156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_input_joystick_d-padright_nx
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 136
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0863d3d1df615fb4cade5393a0ab9c17
+      internalID: 104888699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ui_input_joystick_a: -1478542893
+      ui_input_joystick_b: 1404124420
+      ui_input_joystick_back: 15933446
+      ui_input_joystick_button_12: 1748646071
+      ui_input_joystick_button_20: -1407020075
+      ui_input_joystick_button_21: -1680157600
+      ui_input_joystick_button_23: 931164804
+      ui_input_joystick_button_24: -1562126357
+      ui_input_joystick_button_28: 525237415
+      ui_input_joystick_button_29: -1056295314
+      ui_input_joystick_button_30: -672704136
+      ui_input_joystick_button_31: 319377947
+      ui_input_joystick_button_32: 1607604818
+      ui_input_joystick_button_33: -2118433842
+      ui_input_joystick_button_34: -455392433
+      ui_input_joystick_button_35: -1041108504
+      ui_input_joystick_button_36: -1510255138
+      ui_input_joystick_button_38: -223384739
+      ui_input_joystick_button_39: 1681602517
+      ui_input_joystick_button_41: 1349039263
+      ui_input_joystick_button_42: -1660660826
+      ui_input_joystick_button_45: 1096597520
+      ui_input_joystick_button_46: 884867948
+      ui_input_joystick_button_47: -782879625
+      ui_input_joystick_button_48: -190661917
+      ui_input_joystick_button_49: 1407578403
+      ui_input_joystick_button_50: 1106010933
+      ui_input_joystick_button_51: 2125661726
+      ui_input_joystick_button_52: -96892944
+      ui_input_joystick_button_53: 771431465
+      ui_input_joystick_button_54: -690425026
+      ui_input_joystick_button_55: -1461125988
+      ui_input_joystick_button_56: -1516934689
+      ui_input_joystick_circle: -13815093
+      ui_input_joystick_cross: 1845398893
+      ui_input_joystick_d-paddown: 160872330
+      ui_input_joystick_d-paddown_nx: 232083969
+      ui_input_joystick_d-paddown_ps: -1095975394
+      ui_input_joystick_d-padleft: -632326008
+      ui_input_joystick_d-padleft_nx: 1128393156
+      ui_input_joystick_d-padleft_ps: 366132065
+      ui_input_joystick_d-padright: 473261482
+      ui_input_joystick_d-padright_nx: 104888699
+      ui_input_joystick_d-padright_ps: 75281189
+      ui_input_joystick_d-padup: 1066071734
+      ui_input_joystick_d-padup_nx: -650191113
+      ui_input_joystick_d-padup_ps: -935533144
+      ui_input_joystick_l: -192661642
+      ui_input_joystick_l1: -1749131392
+      ui_input_joystick_l2: -1238327108
+      ui_input_joystick_l3: -1954323215
+      ui_input_joystick_leftshoulder: 542112437
+      ui_input_joystick_leftstickbutton: -1320337190
+      ui_input_joystick_leftstickdown: -1372248002
+      ui_input_joystick_leftstickleft: 887075007
+      ui_input_joystick_leftstickright: 64657980
+      ui_input_joystick_leftstickup: -838659778
+      ui_input_joystick_lefttrigger: 2083432477
+      ui_input_joystick_minus: 1688223773
+      ui_input_joystick_options: -108826098
+      ui_input_joystick_options2: 1759974287
+      ui_input_joystick_plus: -447291023
+      ui_input_joystick_r: -828246853
+      ui_input_joystick_r1: -74394775
+      ui_input_joystick_r2: -35762608
+      ui_input_joystick_r3: 763612131
+      ui_input_joystick_rightshoulder: -1719811824
+      ui_input_joystick_rightstickbutton: 714026702
+      ui_input_joystick_rightstickdown: 467936318
+      ui_input_joystick_rightstickleft: -65042705
+      ui_input_joystick_rightstickright: 820946250
+      ui_input_joystick_rightstickup: -1096943852
+      ui_input_joystick_righttrigger: 2048758008
+      ui_input_joystick_square: -1625192718
+      ui_input_joystick_start: -799227207
+      ui_input_joystick_touchpadbutton: -1372736327
+      ui_input_joystick_touchpadbutton2: -206986056
+      ui_input_joystick_triangle: 646163748
+      ui_input_joystick_x: 1910333637
+      ui_input_joystick_y: 194954450
+      ui_input_joystick_zl: 1072695394
+      ui_input_joystick_zr: 1934161435
+      ui_input_nintendo_a: 248344947
+      ui_input_nintendo_b: 1932336611
+      ui_input_nintendo_x: 987563585
+      ui_input_nintendo_y: -797332824
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

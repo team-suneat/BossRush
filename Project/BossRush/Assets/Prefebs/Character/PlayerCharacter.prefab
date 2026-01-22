@@ -803,12 +803,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parrySuccessVFXPrefab: {fileID: 8554548559816220945, guid: 798522a924458e547975569a24bef6c1, type: 3}
-  _knockbackType: 1
   _slowMotionDuration: 0.1
   _slowMotionFactor: 0.01
   _vibrationLeftMotorIntensity: 0.6
   _vibrationRightMotorIntensity: 0.6
   _vibrationDuration: 0.15
+  _screenFlashColor: {r: 0.98039216, g: 0.98039216, b: 0.972549, a: 0.1254902}
+  _screenFlashFadeDuration: 0.1
+  _screenFlashColorDuration: 0.02
 --- !u!114 &3525791487850614202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1042,9 +1044,9 @@ MonoBehaviour:
   AttackOnHitNonDamageableFeedback: {fileID: 0}
   AttackOnKillFeedback: {fileID: 0}
   AttackOnParryFeedback: {fileID: 8811467595131594538}
-  LateDamageHit: 0
   DisableColliderOnHit: 0
-  UseActiveColliderOnInit: 0
+  ActivateColliderOnBattleReady: 0
+  ToggleColliderOnHit: 0
   TargetLayerMask:
     serializedVersion: 2
     m_Bits: 2048

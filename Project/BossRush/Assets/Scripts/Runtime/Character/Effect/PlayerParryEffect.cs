@@ -4,6 +4,7 @@ using TeamSuneat.Audio;
 using TeamSuneat.CameraSystem.Core;
 using TeamSuneat.Data;
 using TeamSuneat.Setting;
+using TeamSuneat.UserInterface;
 using UnityEngine;
 
 namespace TeamSuneat
@@ -41,6 +42,21 @@ namespace TeamSuneat
         [Tooltip("패리 성공 시 진동 지속 시간 (초)")]
         private float _vibrationDuration = 0.15f;
 
+        [FoldoutGroup("#PlayerParryEffect-ScreenFlash")]
+        [SerializeField]
+        [Tooltip("패리 성공 시 화면 깜박임 색상")]
+        private Color _screenFlashColor = Color.white;
+
+        [FoldoutGroup("#PlayerParryEffect-ScreenFlash")]
+        [SerializeField]
+        [Tooltip("패리 성공 시 화면 깜박임 페이드 지속 시간 (초)")]
+        private float _screenFlashFadeDuration = 0.05f;
+
+        [FoldoutGroup("#PlayerParryEffect-ScreenFlash")]
+        [SerializeField]
+        [Tooltip("패리 성공 시 화면 깜박임 컬러 유지 시간 (초)")]
+        private float _screenFlashColorDuration = 0.02f;
+
         private Character _character;
         private CharacterPhysics _physics;
         private Vital _vital;
@@ -68,6 +84,7 @@ namespace TeamSuneat
             ApplySound();
             ApplySlowMotion();
             ApplyVibration();
+            ApplyScreenFlash();
             ApplyParryRendererEffect(data.TargetCharacter);
             ApplyCameraShake(data.AttackPosition);
         }
@@ -193,6 +210,12 @@ namespace TeamSuneat
 
             inputPlayer.SetVibration(0, _vibrationLeftMotorIntensity, _vibrationDuration);
             inputPlayer.SetVibration(1, _vibrationRightMotorIntensity, _vibrationDuration);
+        }
+
+        private void ApplyScreenFlash()
+        {
+            // 패링 성공 시 화면 깜박임 효과
+            UIManager.Instance?.ScreenFader?.FadeInOut(_screenFlashColor, _screenFlashFadeDuration, 0f, _screenFlashColorDuration);
         }
 
         private void ApplyParryRendererEffect(Character targetCharacter)

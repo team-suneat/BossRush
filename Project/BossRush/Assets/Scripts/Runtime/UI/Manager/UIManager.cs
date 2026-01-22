@@ -6,15 +6,25 @@ namespace TeamSuneat.UserInterface
 {
     public partial class UIManager : XStaticBehaviour<UIManager>
     {
-        [FoldoutGroup("Manager")] public UICanvasManager CanvasManager;
-        [FoldoutGroup("Manager")] public UIGaugeManager GaugeManager;
-        [FoldoutGroup("Manager")] public UITextManager TextManager;
-        [FoldoutGroup("Manager")] public HUDManager HUDManager;
-        [FoldoutGroup("Manager")] public UIPopupManager PopupManager;
-        [FoldoutGroup("Manager")] public UIDetailsManager DetailsManager;
-        [FoldoutGroup("Manager")] public UINoticeManager NoticeManager;
-        [FoldoutGroup("Manager")] public UISelectController SelectController;
-        public UIScreenFader ScreenFader;
+        [FoldoutGroup("Manager-Canvas")] public UICanvasManager CanvasManager;
+        [FoldoutGroup("Manager-Canvas")] public HUDManager HUDManager;
+        [FoldoutGroup("Manager-Canvas")] public UIPopupManager PopupManager;
+        [FoldoutGroup("Manager-Canvas")] public UIDetailsManager DetailsManager;
+        [FoldoutGroup("Manager-Canvas")] public UINoticeManager NoticeManager;
+
+        //
+
+        [FoldoutGroup("Manager-Runtime")] public UIGaugeManager GaugeManager;
+        [FoldoutGroup("Manager-Runtime")] public UITextManager TextManager;
+
+        //
+
+        [FoldoutGroup("Manager-Controller")] public UISelectController SelectController;
+
+        //
+
+        [FoldoutGroup("Manager-Effect")] public UIScreenFader ScreenFader;
+        [FoldoutGroup("Manager-Effect")] public UICinematicBar CinematicBar;
 
         public Vector3 WorldPositionMin { get; set; }
         public Vector3 WorldPositionMax { get; set; }
@@ -37,6 +47,7 @@ namespace TeamSuneat.UserInterface
             NoticeManager = GetComponentInChildren<UINoticeManager>();
             TextManager = GetComponentInChildren<UITextManager>();
             ScreenFader = GetComponentInChildren<UIScreenFader>();
+            CinematicBar = GetComponentInChildren<UICinematicBar>();
             SelectController = GetComponentInChildren<UISelectController>();
         }
 

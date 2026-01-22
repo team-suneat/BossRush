@@ -63,6 +63,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - default
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 94d225fa836a8cb4e95c64ad589cf8e5
+    m_Address: Assets/Addressables/Atlas/atlas_input.spriteatlasv2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9b327578e2bfff645ab591cdd0c24dea
     m_Address: Assets/Addressables/Atlas/atlas_item.spriteatlasv2
     m_ReadOnly: 0

@@ -211,6 +211,9 @@
         /// <summary> UI 선택 이벤트 </summary>
         UI_SelectEvent,
 
+        /// <summary> UI 단축키 </summary>
+        UI_Shortcut,
+
         #endregion UI
 
         #region Media
