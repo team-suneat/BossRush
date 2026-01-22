@@ -17,10 +17,8 @@ MonoBehaviour:
     IsChangingAsset: 0
     Name: 2
     SuperArmor: 0
+    IsFlying: 0
     Stats:
-    - Name: 1
-      Value: 1
-      NameAsString: Attack
     - Name: 2
       Value: 9999999
       NameAsString: Life

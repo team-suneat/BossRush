@@ -19,9 +19,6 @@ MonoBehaviour:
     SuperArmor: 0
     IsFlying: 0
     Stats:
-    - Name: 1
-      Value: 1
-      NameAsString: Attack
     - Name: 2
       Value: 100
       NameAsString: Life

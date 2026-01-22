@@ -231,6 +231,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 813de0573b5496a42accbf55ee56d0bb
+    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_ContactDamage.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 867ca3d404478c54c904f5f567fa3e6f
     m_Address: Assets/Addressables/Scriptable/Charm/3. Support/Charm_ManaOvercharge.asset
     m_ReadOnly: 0

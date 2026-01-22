@@ -10,16 +10,18 @@ namespace TeamSuneat
         #region 토글 (Toggle)
 
         [FoldoutGroup("#AttackAreaEntity-Toggle")]
-        [LabelText("오직 애니메이션 공격만 활성화")]
-        public bool LateDamageHit = false;
-
-        [FoldoutGroup("#AttackAreaEntity-Toggle")]
+        [InfoBox("공격 시 충돌체를 비활성화합니다.")]
         [LabelText("공격 후 충돌체 비활성화")]
         public bool DisableColliderOnHit;
 
         [FoldoutGroup("#AttackAreaEntity-Toggle")]
-        [LabelText("초기화 시 충돌체 활성화")]
-        public bool UseActiveColliderOnInit;
+        [LabelText("전투 준비 시 충돌체 활성화")]
+        public bool ActivateColliderOnBattleReady;
+
+        [FoldoutGroup("#AttackAreaEntity-Toggle")]
+        [InfoBox("공격 시 충돌체 토글을 사용하면, 공격 후 충돌체를 비활성화하고, 공격 성공 시 충돌체를 활성화합니다.")]
+        [LabelText("공격 시 충돌체 토글")]
+        public bool ToggleColliderOnHit;
 
         #endregion 토글 (Toggle)
 
@@ -113,6 +115,7 @@ namespace TeamSuneat
         private List<GameObject> _ignoredGameObjects; // 충돌을 무시하는 게임 오브젝트
         private float _activeDuration; // 충돌체 활성화 지속 시간
         private Coroutine _timerCoroutine; // 지속 타이머
+        private Coroutine _toggleColliderCoroutine; // 충돌체 토글 코루틴
         private int _hitCountAtTime; // 활성화시 1회에 공격한 횟수
         private Vector2 _originalBoxSize; // 원본 박스 크기
         private float _originalCircleRadius; // 원본 원형 반지름
@@ -158,21 +161,39 @@ namespace TeamSuneat
             base.OnDisabled();
 
             _timerCoroutine = null;
+            _toggleColliderCoroutine = null;
             ClearTargetsOfChainLightning();
 
             // 이벤트 해제
             UnregisterStatRefresh();
         }
 
-        public override void Initialization()
+        public override void OnBattleReady()
         {
-            base.Initialization();
+            base.OnBattleReady();
 
-            if (UseActiveColliderOnInit)
+            if (ActivateColliderOnBattleReady)
             {
                 ActivateCollider();
             }
         }
+
+        private IEnumerator ToggleColliderForReentry()
+        {
+            if (_attackCollider == null) yield break;
+
+            // 충돌체 비활성화
+            DeactivateCollider();
+
+            // FixedUpdate 간격만큼 대기 (물리 충돌 감지 간격에 맞춤)
+            yield return new WaitForFixedUpdate();
+
+            // 충돌체 재활성화 (OnTriggerEnter2D 재호출)
+            ActivateCollider();
+            _toggleColliderCoroutine = null;
+        }
+
+
 
         public override void Activate()
         {
@@ -299,8 +320,6 @@ namespace TeamSuneat
             {
                 if (TrySetColliderVital())
                 {
-                    AddIgnoreGameObject(collision.gameObject);
-
                     OnCollideWithDamageable();
                 }
                 else
@@ -382,6 +401,23 @@ namespace TeamSuneat
 
             if (ApplyToTargetVital(colliderVital))
             {
+                // 공격 성공 시 충돌체 토글 로직
+                if (ToggleColliderOnHit)
+                {
+                    // 충돌체 토글 시 무시 목록을 클리어하여 재충돌을 허용
+                    ClearIgnoringObjects();
+
+                    if (_toggleColliderCoroutine == null)
+                    {
+                        _toggleColliderCoroutine = StartXCoroutine(ToggleColliderForReentry());
+                    }
+                }
+                else if (UseIgnoreHitTarget)
+                {
+                    // 일반적인 경우에만 무시 목록에 추가
+                    AddIgnoreGameObject(collidingCollider.gameObject);
+                }
+
                 if (colliderVital.IsAlive)
                 {
                     TriggerAttackOnHitDamageableFeedback(collidingCollider.transform.position);

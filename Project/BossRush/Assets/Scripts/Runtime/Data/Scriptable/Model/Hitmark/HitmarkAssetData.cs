@@ -60,6 +60,7 @@ namespace TeamSuneat.Data
         [SuffixLabel("피격 애니메이션 사용 안함")]
         public bool NotPlayDamageAnimation;
 
+
         [FoldoutGroup("#피해 정보")]
         [GUIColor("GetBoolColor")]
         [SuffixLabel("넉백 적용")]

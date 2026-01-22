@@ -37,8 +37,7 @@ namespace TeamSuneat
         {
             TSInputManager.Instance.GetInputState();
             CharacterManager.Instance.LogicUpdate();
-            UIManager.Instance?.LogicUpdate();
-            GameTimeManager.Instance.LogicUpdate();
+            UIManager.Instance?.LogicUpdate();            
             TimelineManager.Instance?.LogicUpdate();
         }
 

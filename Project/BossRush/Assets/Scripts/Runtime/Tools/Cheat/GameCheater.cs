@@ -51,6 +51,17 @@ namespace TeamSuneat
                     {
                         GameTimeManager.Instance.SetFactor(5f);
                     }
+
+                    // Vital
+
+                    if (Input.GetKeyDown(KeyCode.H))
+                    {
+                        CharacterManager.Instance.Player.MyVital.Heal(1);
+                    }
+                    if (Input.GetKeyDown(KeyCode.M))
+                    {
+                        CharacterManager.Instance.Player.MyVital.RestoreMana(1);
+                    }
                 }
             }
         }

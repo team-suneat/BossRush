@@ -3,9 +3,9 @@
     public enum HitmarkNames
     {
         None,
-        
+
         PlayerAttack,
-        
+
         ScarecrowAttack,
         ScarecrowAttack2,
         ScarecrowAttack3,
@@ -16,5 +16,7 @@
         Boss1Pattern2Attack,
         Boss1Pattern3Attack,
         Boss1Pattern4Attack,
+
+        ContactDamage,
     }
 }
