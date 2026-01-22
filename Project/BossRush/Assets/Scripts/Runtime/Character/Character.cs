@@ -173,15 +173,16 @@ namespace TeamSuneat
             if (damageResult == null) return;
             if (Physics == null) return;
 
-            if (damageResult.Asset == null || !damageResult.Asset.ApplyKnockback)
+            if (damageResult.Asset == null || damageResult.Asset.DamageKnockbackFVName == FVNames.None)
             {
                 return;
             }
 
             if (damageResult.Attacker != null)
             {
-                Vector2 direction = damageResult.Attacker.IsFacingRight ? Vector2.right : Vector2.left;
-                Physics.ApplyKnockback(direction);
+                // 공격 위치와 캐릭터 위치를 기준으로 밀어냅니다.
+                Vector2 direction = damageResult.AttackPosition.x < position.x ? Vector2.right : Vector2.left;
+                Physics.ApplyKnockback(direction, damageResult.Asset.DamageKnockbackFVName);
             }
         }
 

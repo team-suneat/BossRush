@@ -21,6 +21,8 @@ namespace TeamSuneat
         Boss1Pattern1Knockback,
         Boss1Pattern2Knockback,
         Boss1Pattern3Knockback,
+
+        ContactAttackKnockback,
     }
 
     public enum FVSubjects

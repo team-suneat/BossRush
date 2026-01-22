@@ -15,13 +15,13 @@ MonoBehaviour:
   NameString: Boss1Pattern1Attack1
   Data:
     IsChangingAsset: 0
-    Name: 2
+    Name: 3
     Subject: 1
     IsDamage: 0
     IsPiercing: 0
     Application: 1
     Stats: 
-    Priority: 1
+    Priority: 0
     Direction: 1
     ForceVelocity: {x: 3, y: 0}
     Acceleration: {x: 0, y: 0}

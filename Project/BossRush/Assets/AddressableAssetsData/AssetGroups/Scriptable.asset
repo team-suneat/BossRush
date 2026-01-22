@@ -147,6 +147,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 55b288ab5d5af294b817ebc35c3f3414
+    m_Address: Assets/Addressables/Scriptable/ForceVelocity/ForceVelocity_ContactAttackKnockback.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5b3db7e71dd32e749b6911ba0ec74264
     m_Address: Assets/Addressables/Scriptable/Flicker/Flicker_Parry.asset
     m_ReadOnly: 0
@@ -232,7 +238,7 @@ MonoBehaviour:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 813de0573b5496a42accbf55ee56d0bb
-    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_ContactDamage.asset
+    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_ContactAttack.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable

@@ -579,8 +579,8 @@ GameObject:
   - component: {fileID: 3236255111009777452}
   - component: {fileID: 2315055179100343539}
   - component: {fileID: 1611497401235278697}
-  m_Layer: 20
-  m_Name: ContactDamage
+  m_Layer: 21
+  m_Name: ContactAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -660,7 +660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 11
-  NameString: ContactDamage
+  NameString: ContactAttack
   Owner: {fileID: 621528978702120020}
   Vital: {fileID: 0}
   Index: 0

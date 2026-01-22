@@ -184,17 +184,17 @@ namespace TeamSuneat
                 return;
             }
 
-            if (AssetData.ForceVelocityName == FVNames.None)
+            if (AssetData.AttackFVName == FVNames.None)
             {
                 Log.Warning(LogTags.Physics, "ForceVelocity 이름이 설정되지 않았습니다. {0}, {1}", Owner.Name.ToLogString(), Name.ToLogString());
                 return;
             }
 
             // ForceVelocity 데이터 가져오기
-            ForceVelocityAssetData forceVelocityData = ScriptableDataManager.Instance.FindForceVelocityClone(AssetData.ForceVelocityName);
+            ForceVelocityAssetData forceVelocityData = ScriptableDataManager.Instance.FindForceVelocityClone(AssetData.AttackFVName);
             if (forceVelocityData == null)
             {
-                Log.Warning(LogTags.Physics, "ForceVelocity 데이터를 찾을 수 없습니다. {0}, {1}, {2}", Owner.Name.ToLogString(), Name.ToLogString(), AssetData.ForceVelocityName.ToLogString());
+                Log.Warning(LogTags.Physics, "ForceVelocity 데이터를 찾을 수 없습니다. {0}, {1}, {2}", Owner.Name.ToLogString(), Name.ToLogString(), AssetData.AttackFVName.ToLogString());
                 return;
             }
 
@@ -221,12 +221,7 @@ namespace TeamSuneat
 
             AutoSetTarget();
             TriggerAttackStartFeedback();
-
-            // 공격 활성화 시 ForceVelocity 적용
-            if (AssetData != null && AssetData.ApplyForceVelocityOnActivate)
-            {
-                ApplyForceVelocity();
-            }
+            ApplyForceVelocity();
 
             IsActive = true;
         }

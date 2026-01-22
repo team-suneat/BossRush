@@ -17,6 +17,6 @@
         Boss1Pattern3Attack,
         Boss1Pattern4Attack,
 
-        ContactDamage,
+        ContactAttack,
     }
 }

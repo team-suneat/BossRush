@@ -21,7 +21,7 @@ MonoBehaviour:
     IsPiercing: 0
     Application: 1
     Stats: 
-    Priority: 3
+    Priority: 1
     Direction: 0
     ForceVelocity: {x: 5, y: 0}
     Acceleration: {x: 0, y: 0}

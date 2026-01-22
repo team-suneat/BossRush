@@ -34,24 +34,6 @@ namespace TeamSuneat.Data
         [GUIColor("GetDamageTypeColor")]
         public DamageTypes DamageType;
 
-        [EnableIf("IsChangingAsset")]
-        [FoldoutGroup("#피해 정보")]
-        [GUIColor("GetParryTypeColor")]
-        [SuffixLabel("패링 타입")]
-        public ParryTypes ParryType;
-
-        [EnableIf("IsChangingAsset")]
-        [FoldoutGroup("#피해 정보")]
-        [GUIColor("GetKnockbackTypeColor")]
-        [SuffixLabel("패링 넉백 타입")]
-        public KnockbackType ParryKnockbackType;
-
-        [EnableIf("IsChangingAsset")]
-        [FoldoutGroup("#피해 정보")]
-        [GUIColor("GetForceVelocityColor")]
-        [SuffixLabel("넉백 ForceVelocity 이름")]
-        public FVNames KnockbackForceVelocityName;
-
         // 피격
 
         [FoldoutGroup("#피해 정보")]
@@ -59,12 +41,6 @@ namespace TeamSuneat.Data
         [InfoBox("피격 애니메이션을 재생하지 않으면 피격 FV 또한 적용하지 않습니다.")]
         [SuffixLabel("피격 애니메이션 사용 안함")]
         public bool NotPlayDamageAnimation;
-
-
-        [FoldoutGroup("#피해 정보")]
-        [GUIColor("GetBoolColor")]
-        [SuffixLabel("넉백 적용")]
-        public bool ApplyKnockback;
 
         [FoldoutGroup("#피해 정보")]
         [GUIColor("GetBoolColor")]
@@ -96,7 +72,7 @@ namespace TeamSuneat.Data
         [SuffixLabel("고정 성장 피해")]
         public float FixedDamageByLevel;
 
-        // 연결된 값
+        #region 연결된 참조 피해량 (Linked Damage)
 
         [FoldoutGroup("#연결된 참조 피해량")]
         [InfoBox("피해량을 고정으로 설정하지 않고, 해당 값을 찾아 비례 피해를 입힙니다")]
@@ -127,6 +103,8 @@ namespace TeamSuneat.Data
         [DisableIf("LinkedDamageType", LinkedDamageTypes.None)]
         [SuffixLabel("연결된 값 배율(%) (스택별)")]
         public float LinkedValueMagnificationByStack;
+
+        #endregion 연결된 참조 피해량 (Linked Damage)
 
         #endregion 피해 정보 (Damage Information)
 
@@ -193,18 +171,41 @@ namespace TeamSuneat.Data
 
         #region 강제 이동 (Force Velocity)
 
+        [EnableIf("IsChangingAsset")]
         [FoldoutGroup("#강제 이동")]
-        [GUIColor("GetBoolColor")]
-        [SuffixLabel("공격 활성화 시 ForceVelocity 적용")]
-        public bool ApplyForceVelocityOnActivate;
-
-        [FoldoutGroup("#강제 이동")]
-        [EnableIf("ApplyForceVelocityOnActivate")]
         [GUIColor("GetForceVelocityColor")]
-        [SuffixLabel("ForceVelocity 이름")]
-        public FVNames ForceVelocityName;
+        [SuffixLabel("공격 시 공격자 FV 이름")]
+        public FVNames AttackFVName;
+
+        [EnableIf("IsChangingAsset")]
+        [FoldoutGroup("#강제 이동")]
+        [GUIColor("GetForceVelocityColor")]
+        [SuffixLabel("적중 시 넉백 FV 이름")]
+        public FVNames DamageKnockbackFVName;
 
         #endregion 강제 이동 (Force Velocity)
+
+        #region 패링 (Parry)
+
+        [EnableIf("IsChangingAsset")]
+        [FoldoutGroup("#패링")]
+        [GUIColor("GetParryTypeColor")]
+        [SuffixLabel("패링 타입")]
+        public ParryTypes ParryType;
+
+        [EnableIf("IsChangingAsset")]
+        [FoldoutGroup("#패링")]
+        [GUIColor("GetKnockbackTypeColor")]
+        [SuffixLabel("패링 넉백 타입")]
+        public KnockbackType ParryKnockbackType;
+
+        [EnableIf("IsChangingAsset")]
+        [FoldoutGroup("#패링")]
+        [GUIColor("GetForceVelocityColor")]
+        [SuffixLabel("패링 성공 시 넉백 FV 이름")]
+        public FVNames ParryKnockbackFVName;
+
+        #endregion 패링 (Parry)
 
         #region Effect
 
@@ -217,16 +218,17 @@ namespace TeamSuneat.Data
         #region 스트링 (String)
 
         [FoldoutGroup("#String")] public string DamageTypeString;
-        [FoldoutGroup("#String")] public string ParryTypeString;
-        [FoldoutGroup("#String")] public string ParryKnockbackTypeString;
-        [FoldoutGroup("#String")] public string KnockbackForceVelocityNameString;
         [FoldoutGroup("#String")] public string LinkedDamageTypeString;
         [FoldoutGroup("#String")] public string LinkedStateEffectString;
         [FoldoutGroup("#String")] public string NameOnHitString;
         [FoldoutGroup("#String")] public string DiminishingTypeString;
         [FoldoutGroup("#String")] public string AttackTargetTypeString;
         [FoldoutGroup("#String")] public string ResourceConsumeTypeString;
-        [FoldoutGroup("#String")] public string ForceVelocityNameString;
+        [FoldoutGroup("#String")] public string AttackFVNameString;
+        [FoldoutGroup("#String")] public string DamageKnockbackFVNameString;
+        [FoldoutGroup("#String")] public string ParryTypeString;
+        [FoldoutGroup("#String")] public string ParryKnockbackTypeString;
+        [FoldoutGroup("#String")] public string ParryKnockbackFVNameString;
 
         #endregion 스트링 (String)
 
@@ -251,18 +253,6 @@ namespace TeamSuneat.Data
                 {
                     Log.Error("HitmarkAssetData의 DamageType을 변환하지 못합니다. Name:{0}, {1}", Name, DamageTypeString);
                 }
-                if (!EnumEx.ConvertTo(ref ParryType, ParryTypeString))
-                {
-                    Log.Error("HitmarkAssetData의 ParryType을 변환하지 못합니다. Name:{0}, {1}", Name, ParryTypeString);
-                }
-                if (!EnumEx.ConvertTo(ref ParryKnockbackType, ParryKnockbackTypeString))
-                {
-                    Log.Error("HitmarkAssetData의 ParryKnockbackType을 변환하지 못합니다. Name:{0}, {1}", Name, ParryKnockbackTypeString);
-                }
-                if (!EnumEx.ConvertTo(ref KnockbackForceVelocityName, KnockbackForceVelocityNameString))
-                {
-                    Log.Error("HitmarkAssetData의 KnockbackForceVelocityName을 변환하지 못합니다. Name:{0}, {1}", Name, KnockbackForceVelocityNameString);
-                }
                 if (!EnumEx.ConvertTo(ref LinkedDamageType, LinkedDamageTypeString))
                 {
                     Log.Error("HitmarkAssetData의 LinkedDamageType을 변환하지 못합니다. Name:{0}, {1}", Name, LinkedDamageTypeString);
@@ -271,9 +261,25 @@ namespace TeamSuneat.Data
                 {
                     Log.Error("HitmarkAssetData의 LinkedStateEffect을 변환하지 못합니다. Name:{0}, {1}", Name, LinkedStateEffectString);
                 }
-                if (!EnumEx.ConvertTo(ref ForceVelocityName, ForceVelocityNameString))
+                if (!EnumEx.ConvertTo(ref AttackFVName, AttackFVNameString))
                 {
-                    Log.Error("HitmarkAssetData의 ForceVelocityName을 변환하지 못합니다. Name:{0}, {1}", Name, ForceVelocityNameString);
+                    Log.Error("HitmarkAssetData의 AttackFVName을 변환하지 못합니다. Name:{0}, {1}", Name, AttackFVNameString);
+                }
+                if (!EnumEx.ConvertTo(ref DamageKnockbackFVName, DamageKnockbackFVNameString))
+                {
+                    Log.Error("HitmarkAssetData의 DamageKnockbackFVName을 변환하지 못합니다. Name:{0}, {1}", Name, DamageKnockbackFVNameString);
+                }
+                if (!EnumEx.ConvertTo(ref ParryType, ParryTypeString))
+                {
+                    Log.Error("HitmarkAssetData의 ParryType을 변환하지 못합니다. Name:{0}, {1}", Name, ParryTypeString);
+                }
+                if (!EnumEx.ConvertTo(ref ParryKnockbackType, ParryKnockbackTypeString))
+                {
+                    Log.Error("HitmarkAssetData의 ParryKnockbackType을 변환하지 못합니다. Name:{0}, {1}", Name, ParryKnockbackTypeString);
+                }
+                if (!EnumEx.ConvertTo(ref ParryKnockbackFVName, ParryKnockbackFVNameString))
+                {
+                    Log.Error("HitmarkAssetData의 ParryKnockbackFVName을 변환하지 못합니다. Name:{0}, {1}", Name, ParryKnockbackFVNameString);
                 }
             }
         }
@@ -323,11 +329,7 @@ namespace TeamSuneat.Data
                 RestoreResourceValue = RestoreResourceValue,
 
                 DamageType = DamageType,
-                ParryType = ParryType,
-                ParryKnockbackType = ParryKnockbackType,
-                KnockbackForceVelocityName = KnockbackForceVelocityName,
                 NotPlayDamageAnimation = NotPlayDamageAnimation,
-                ApplyKnockback = ApplyKnockback,
                 ApplyToSelf = ApplyToSelf,
                 ApplyMultiplierToSelf = ApplyMultiplierToSelf,
 
@@ -343,8 +345,12 @@ namespace TeamSuneat.Data
 
                 HitFXPrefabName = HitFXPrefabName,
 
-                ApplyForceVelocityOnActivate = ApplyForceVelocityOnActivate,
-                ForceVelocityName = ForceVelocityName,
+                AttackFVName = AttackFVName,
+                DamageKnockbackFVName = DamageKnockbackFVName,
+
+                ParryType = ParryType,
+                ParryKnockbackType = ParryKnockbackType,
+                ParryKnockbackFVName = ParryKnockbackFVName,
             };
 
             return clone;
@@ -357,10 +363,10 @@ namespace TeamSuneat.Data
             DamageTypeString = DamageType.ToString();
             ParryTypeString = ParryType.ToString();
             ParryKnockbackTypeString = ParryKnockbackType.ToString();
-            KnockbackForceVelocityNameString = KnockbackForceVelocityName.ToString();
+            ParryKnockbackFVNameString = ParryKnockbackFVName.ToString();
             LinkedDamageTypeString = LinkedDamageType.ToString();
             LinkedStateEffectString = LinkedStateEffect.ToString();
-            ForceVelocityNameString = ForceVelocityName.ToString();
+            AttackFVNameString = AttackFVName.ToString();
         }
 
         private void DamageTypeLog()
@@ -408,9 +414,8 @@ namespace TeamSuneat.Data
             if (DamageType != another.DamageType) { return false; }
             if (ParryType != another.ParryType) { return false; }
             if (ParryKnockbackType != another.ParryKnockbackType) { return false; }
-            if (KnockbackForceVelocityName != another.KnockbackForceVelocityName) { return false; }
+            if (ParryKnockbackFVName != another.ParryKnockbackFVName) { return false; }
             if (NotPlayDamageAnimation != another.NotPlayDamageAnimation) { return false; }
-            if (ApplyKnockback != another.ApplyKnockback) { return false; }
             if (ApplyToSelf != another.ApplyToSelf) { return false; }
             if (ApplyMultiplierToSelf != another.ApplyMultiplierToSelf) { return false; }
             if (ExecutionConditionalTargetLifeRate != another.ExecutionConditionalTargetLifeRate) { return false; }
@@ -421,8 +426,7 @@ namespace TeamSuneat.Data
             if (LinkedHitmarkMagnification != another.LinkedHitmarkMagnification) { return false; }
             if (LinkedValueMagnificationByLevel != another.LinkedValueMagnificationByLevel) { return false; }
             if (LinkedValueMagnificationByStack != another.LinkedValueMagnificationByStack) { return false; }
-            if (ApplyForceVelocityOnActivate != another.ApplyForceVelocityOnActivate) { return false; }
-            if (ForceVelocityName != another.ForceVelocityName) { return false; }
+            if (AttackFVName != another.AttackFVName) { return false; }
 
             return true;
         }
@@ -439,10 +443,10 @@ namespace TeamSuneat.Data
             UpdateIfChanged(ref DamageTypeString, DamageType);
             UpdateIfChanged(ref ParryTypeString, ParryType);
             UpdateIfChanged(ref ParryKnockbackTypeString, ParryKnockbackType);
-            UpdateIfChanged(ref KnockbackForceVelocityNameString, KnockbackForceVelocityName);
+            UpdateIfChanged(ref ParryKnockbackFVNameString, ParryKnockbackFVName);
             UpdateIfChanged(ref LinkedDamageTypeString, LinkedDamageType);
             UpdateIfChanged(ref LinkedStateEffectString, LinkedStateEffect);
-            UpdateIfChanged(ref ForceVelocityNameString, ForceVelocityName);
+            UpdateIfChanged(ref AttackFVNameString, AttackFVName);
 
             return _hasChangedWhiteRefreshAll;
         }

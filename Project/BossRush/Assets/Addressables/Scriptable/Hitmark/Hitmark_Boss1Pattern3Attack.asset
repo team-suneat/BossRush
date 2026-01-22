@@ -19,11 +19,7 @@ MonoBehaviour:
     AttackTargetType: 2
     EntityType: 2
     DamageType: 1
-    ParryType: 2
-    ParryKnockbackType: 3
-    KnockbackForceVelocityName: 11
     NotPlayDamageAnimation: 0
-    ApplyKnockback: 0
     ApplyToSelf: 0
     ApplyMultiplierToSelf: 0
     ExecutionConditionalTargetLifeRate: 0
@@ -47,17 +43,21 @@ MonoBehaviour:
     ForceResourceConsume: 0
     IgnoreDeathByConsume: 0
     ConsumeDelayTime: 0
-    ApplyForceVelocityOnActivate: 0
-    ForceVelocityName: 0
+    AttackFVName: 5
+    DamageKnockbackFVName: 11
+    ParryType: 2
+    ParryKnockbackType: 3
+    ParryKnockbackFVName: 11
     HitFXPrefabName: fx_scarecrow_attack_success
     DamageTypeString: Normal
-    ParryTypeString: ParryableWithStun
-    ParryKnockbackTypeString: Both
-    KnockbackForceVelocityNameString: Boss1Pattern3Knockback
     LinkedDamageTypeString: None
     LinkedStateEffectString: None
     NameOnHitString: 
     DiminishingTypeString: 
     AttackTargetTypeString: TargetOfOwner
     ResourceConsumeTypeString: None
-    ForceVelocityNameString: None
+    AttackFVNameString: Boss1Pattern1Attack3
+    DamageKnockbackFVNameString: 
+    ParryTypeString: ParryableWithStun
+    ParryKnockbackTypeString: Both
+    ParryKnockbackFVNameString: Boss1Pattern3Knockback

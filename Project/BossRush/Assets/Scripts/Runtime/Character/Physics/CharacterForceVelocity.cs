@@ -23,45 +23,23 @@ namespace TeamSuneat
         private Vital _vital;
         private Character _character;
         private CharacterAnimator _characterAnimator;
-        private readonly List<ForceVelocityItem> _activeForceVelocities = new();
+        private ForceVelocityItem? _currentForceVelocity = null;
         private float? _originalGravityScale;
 
         public bool IsProcessing
         {
             get
             {
-                if (_activeForceVelocities.Count <= 0)
-                {
-                    return false;
-                }
-
-                ForceVelocityItem item = GetTopPriorityItem();
-                if (item.Coroutine == null)
-                {
-                    return false;
-                }
-
-                return true;
+                return _currentForceVelocity.HasValue && _currentForceVelocity.Value.Coroutine != null;
             }
         }
 
         public bool IsProcessingForName(FVNames name)
         {
-            if (_activeForceVelocities.Count <= 0)
-            {
-                return false;
-            }
-
-            for (int i = 0; i < _activeForceVelocities.Count; i++)
-            {
-                ForceVelocityItem item = _activeForceVelocities[i];
-                if (item.AssetData != null && item.AssetData.Name == name && item.Coroutine != null)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return _currentForceVelocity.HasValue &&
+                   _currentForceVelocity.Value.AssetData != null &&
+                   _currentForceVelocity.Value.AssetData.Name == name &&
+                   _currentForceVelocity.Value.Coroutine != null;
         }
 
         private void Awake()
@@ -70,6 +48,23 @@ namespace TeamSuneat
             _vital = GetComponentInChildren<Vital>();
             _character = GetComponentInParent<Character>();
             _characterAnimator = _character != null ? _character.CharacterAnimator : null;
+        }
+
+        private void StopCurrentForceVelocity()
+        {
+            if (!_currentForceVelocity.HasValue)
+            {
+                return;
+            }
+
+            if (_currentForceVelocity.Value.Coroutine != null)
+            {
+                StopCoroutine(_currentForceVelocity.Value.Coroutine);
+            }
+
+            RestoreGravity();
+            UpdateAnimatorParameters(Vector2.zero);
+            _currentForceVelocity = null;
         }
 
         public void StartForceVelocity(ForceVelocityAssetData assetData, bool isFacingRight, object source = null)
@@ -85,125 +80,71 @@ namespace TeamSuneat
                 return;
             }
 
-            int priority = assetData.Priority;
-            bool wasProcessing = IsProcessing;
-            ForceVelocityItem previousTopItem = wasProcessing ? GetTopPriorityItem() : default;
+            // 기존 ForceVelocity가 있다면 완전히 취소
+            if (_currentForceVelocity.HasValue)
+            {
+                Log.Info(LogTags.Physics, "기존 ForceVelocity를 취소합니다. {0}, {1}",
+                    this.GetHierarchyPath(), _currentForceVelocity.Value.AssetData.Name.ToLogString());
+                StopCurrentForceVelocity();
+            }
 
+            // 새로운 ForceVelocity 설정
             ForceVelocityItem newItem = new()
             {
                 AssetData = assetData,
                 Source = source,
-                Priority = priority,
+                Priority = assetData.Priority,
                 Coroutine = null,
                 IsFacingRight = isFacingRight,
                 ElapsedTime = 0f,
                 AppliedForce = Vector2.zero
             };
 
-            int insertIndex = 0;
-            for (int i = 0; i < _activeForceVelocities.Count; i++)
-            {
-                if (priority > _activeForceVelocities[i].Priority)
-                {
-                    insertIndex = i;
-                    break;
-                }
-                if (priority == _activeForceVelocities[i].Priority)
-                {
-                    insertIndex = i;
-                    break;
-                }
-                insertIndex = i + 1;
-            }
-            _activeForceVelocities.Insert(insertIndex, newItem);
+            _currentForceVelocity = newItem;
 
-            Log.Info(LogTags.Physics, "ForceVelocity를 시작합니다. {0}, {1}, Priority: {2}", this.GetHierarchyPath(), assetData.Name.ToLogString(), priority);
+            // 새로운 FV 시작 전 Rigidbody 속도 초기화 (이전 FV의 잔여 속도 제거)
+            _physics.ApplyVelocity(Vector2.zero);
 
-            ForceVelocityItem currentTopItem = GetTopPriorityItem();
-            if (wasProcessing && previousTopItem.Coroutine != null && currentTopItem.AssetData != previousTopItem.AssetData)
-            {
-                Log.Info(LogTags.Physics, "높은 우선순위 ForceVelocity가 이전 항목을 일시정지합니다. {0}, {1} -> {2}",
-                    this.GetHierarchyPath(), previousTopItem.AssetData.Name.ToLogString(), currentTopItem.AssetData.Name.ToLogString());
-                StopCoroutine(previousTopItem.Coroutine);
-            }
+            Log.Info(LogTags.Physics, "ForceVelocity를 시작합니다. {0}, {1}", this.GetHierarchyPath(), assetData.Name.ToLogString());
 
-            if (currentTopItem.AssetData == assetData)
-            {
-                Coroutine newCoroutine = StartCoroutine(ProcessForceVelocity(insertIndex));
-                ForceVelocityItem updatedItem = currentTopItem;
-                updatedItem.Coroutine = newCoroutine;
-                _activeForceVelocities[0] = updatedItem;
-            }
+            // 코루틴 시작
+            Coroutine newCoroutine = StartCoroutine(ProcessForceVelocity());
+            newItem.Coroutine = newCoroutine;
+            _currentForceVelocity = newItem;
         }
 
         public void StopForceVelocity(object source = null, FVNames? name = null)
         {
-            if (_activeForceVelocities.Count == 0)
+            if (!_currentForceVelocity.HasValue)
             {
                 return;
             }
 
+            // source와 name이 모두 null이면 모든 FV 중지
             if (source == null && name == null)
             {
-                StopAllForceVelocities();
+                StopCurrentForceVelocity();
                 return;
             }
 
-            List<int> indicesToRemove = new();
-            for (int i = _activeForceVelocities.Count - 1; i >= 0; i--)
+            // 현재 FV가 조건에 맞는지 확인
+            bool shouldStop = false;
+            var currentItem = _currentForceVelocity.Value;
+
+            if (source != null && currentItem.Source == source)
             {
-                ForceVelocityItem item = _activeForceVelocities[i];
-                bool shouldRemove = false;
-
-                if (source != null && item.Source == source)
-                {
-                    shouldRemove = true;
-                }
-                else if (name.HasValue && item.AssetData != null && item.AssetData.Name == name.Value)
-                {
-                    shouldRemove = true;
-                }
-
-                if (shouldRemove)
-                {
-                    indicesToRemove.Add(i);
-                }
+                shouldStop = true;
+            }
+            else if (name.HasValue && currentItem.AssetData != null && currentItem.AssetData.Name == name.Value)
+            {
+                shouldStop = true;
             }
 
-            foreach (int index in indicesToRemove)
+            if (shouldStop)
             {
-                ForceVelocityItem item = _activeForceVelocities[index];
-                string fvName = item.AssetData != null ? item.AssetData.Name.ToLogString() : "Unknown";
-
+                string fvName = currentItem.AssetData != null ? currentItem.AssetData.Name.ToLogString() : "Unknown";
                 Log.Info(LogTags.Physics, "ForceVelocity를 중지합니다. {0}, {1}", this.GetHierarchyPath(), fvName);
-
-                if (item.Coroutine != null)
-                {
-                    StopCoroutine(item.Coroutine);
-                }
-
-                _activeForceVelocities.RemoveAt(index);
-            }
-
-            if (indicesToRemove.Contains(0) && _activeForceVelocities.Count > 0)
-            {
-                RestoreGravity();
-                UpdateAnimatorParameters(Vector2.zero);
-
-                ForceVelocityItem nextItem = GetTopPriorityItem();
-                if (nextItem.AssetData != null && nextItem.Coroutine == null)
-                {
-                    Coroutine nextCoroutine = StartCoroutine(ProcessForceVelocity(0));
-                    nextItem.Coroutine = nextCoroutine;
-                    _activeForceVelocities[0] = nextItem;
-                    Log.Info(LogTags.Physics, "다음 우선순위 ForceVelocity로 전환합니다. {0}, {1}", this.GetHierarchyPath(), nextItem.AssetData.Name.ToLogString());
-                }
-            }
-            else if (_activeForceVelocities.Count == 0)
-            {
-                RestoreGravity();
-                UpdateAnimatorParameters(Vector2.zero);
-                Log.Info(LogTags.Physics, "모든 ForceVelocity가 제거되어 중력이 복원되었습니다. {0}", this.GetHierarchyPath());
+                StopCurrentForceVelocity();
             }
         }
 
@@ -225,14 +166,14 @@ namespace TeamSuneat
             }
         }
 
-        private IEnumerator ProcessForceVelocity(int itemIndex)
+        private IEnumerator ProcessForceVelocity()
         {
-            if (itemIndex < 0 || itemIndex >= _activeForceVelocities.Count)
+            if (!_currentForceVelocity.HasValue)
             {
                 yield break;
             }
 
-            ForceVelocityItem item = _activeForceVelocities[itemIndex];
+            ForceVelocityItem item = _currentForceVelocity.Value;
             ForceVelocityAssetData assetData = item.AssetData;
 
             if (assetData == null || _physics == null || _physics.Rigidbody == null)
@@ -246,7 +187,8 @@ namespace TeamSuneat
                 yield return new WaitForSeconds(assetData.Delay);
             }
 
-            if (itemIndex >= _activeForceVelocities.Count || _activeForceVelocities[itemIndex].AssetData != assetData)
+            // 현재 FV가 여전히 유효한지 확인
+            if (!_currentForceVelocity.HasValue || _currentForceVelocity.Value.AssetData != assetData)
             {
                 yield break;
             }
@@ -256,12 +198,12 @@ namespace TeamSuneat
 
             while (state.ElapsedTime < assetData.Duration)
             {
-                itemIndex = FindItemIndex(assetData, itemSource);
-                if (itemIndex < 0)
+                // 현재 FV가 여전히 유효한지 확인
+                if (!_currentForceVelocity.HasValue || _currentForceVelocity.Value.AssetData != assetData)
                 {
                     yield break;
                 }
-                item = _activeForceVelocities[itemIndex];
+                item = _currentForceVelocity.Value;
 
                 if (!ValidateForceVelocityComponents(assetData))
                 {
@@ -278,9 +220,11 @@ namespace TeamSuneat
 
                 Vector2 appliedForce = ApplyForceVelocity(assetData, state.CurrentVelocity, state.IsFirstFrame);
                 state.IsFirstFrame = false;
+
+                // 현재 FV 업데이트
                 item.ElapsedTime = state.ElapsedTime;
                 item.AppliedForce = appliedForce;
-                _activeForceVelocities[itemIndex] = item;
+                _currentForceVelocity = item;
 
                 UpdateAnimatorParameters(appliedForce);
 
@@ -464,76 +408,29 @@ namespace TeamSuneat
 
         private void FinalizeForceVelocity(ForceVelocityAssetData assetData, object itemSource)
         {
-            int itemIndex = FindItemIndex(assetData, itemSource);
-            if (itemIndex >= 0)
-            {
-                _activeForceVelocities.RemoveAt(itemIndex);
-            }
+            // 현재 FV가 완료되었으므로 null로 설정
+            _currentForceVelocity = null;
 
-            if (_activeForceVelocities.Count == 0)
-            {
-                RestoreGravity();
-                UpdateAnimatorParameters(Vector2.zero);
-            }
-            else
-            {
-                ForceVelocityItem nextItem = GetTopPriorityItem();
-                if (nextItem.AssetData != null && nextItem.Coroutine == null)
-                {
-                    Coroutine nextCoroutine = StartCoroutine(ProcessForceVelocity(0));
-                    nextItem.Coroutine = nextCoroutine;
-                    _activeForceVelocities[0] = nextItem;
-                    Log.Info(LogTags.Physics, "다음 우선순위 ForceVelocity로 전환합니다. {0}, {1}", this.GetHierarchyPath(), nextItem.AssetData.Name.ToLogString());
-                }
-            }
+            // 중력 복원 및 애니메이터 파라미터 리셋
+            RestoreGravity();
+            UpdateAnimatorParameters(Vector2.zero);
+
+            Log.Info(LogTags.Physics, "ForceVelocity가 완료되어 중력이 복원되었습니다. {0}", this.GetHierarchyPath());
         }
 
         private void StopAllForceVelocities()
         {
-            if (_activeForceVelocities.Count == 0)
+            if (!_currentForceVelocity.HasValue)
             {
                 return;
             }
 
-            ForceVelocityItem topItem = GetTopPriorityItem();
-            string fvName = topItem.AssetData != null ? topItem.AssetData.Name.ToLogString() : "Unknown";
-            Log.Info(LogTags.Physics, "모든 ForceVelocity를 중지합니다. {0}, {1}", this.GetHierarchyPath(), fvName);
+            string fvName = _currentForceVelocity.Value.AssetData != null ? _currentForceVelocity.Value.AssetData.Name.ToLogString() : "Unknown";
+            Log.Info(LogTags.Physics, "현재 ForceVelocity를 중지합니다. {0}, {1}", this.GetHierarchyPath(), fvName);
 
-            for (int i = 0; i < _activeForceVelocities.Count; i++)
-            {
-                ForceVelocityItem item = _activeForceVelocities[i];
-                if (item.Coroutine != null)
-                {
-                    StopCoroutine(item.Coroutine);
-                }
-            }
-
-            _activeForceVelocities.Clear();
-            RestoreGravity();
-            UpdateAnimatorParameters(Vector2.zero);
+            StopCurrentForceVelocity();
         }
 
-        private ForceVelocityItem GetTopPriorityItem()
-        {
-            if (_activeForceVelocities.Count == 0)
-            {
-                return default;
-            }
-            return _activeForceVelocities[0];
-        }
-
-        private int FindItemIndex(ForceVelocityAssetData assetData, object source)
-        {
-            for (int i = 0; i < _activeForceVelocities.Count; i++)
-            {
-                ForceVelocityItem item = _activeForceVelocities[i];
-                if (item.AssetData == assetData && item.Source == source)
-                {
-                    return i;
-                }
-            }
-            return -1;
-        }
 
         private void RestoreGravity()
         {

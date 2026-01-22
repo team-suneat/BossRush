@@ -458,7 +458,7 @@ namespace TeamSuneat
             {
                 parryType = AssetData.ParryType;
                 parryKnockbackType = AssetData.ParryKnockbackType;
-                knockbackForceVelocityName = AssetData.KnockbackForceVelocityName;
+                knockbackForceVelocityName = AssetData.ParryKnockbackFVName;
             }
 
             // 패링 불가능한 공격인지 확인
