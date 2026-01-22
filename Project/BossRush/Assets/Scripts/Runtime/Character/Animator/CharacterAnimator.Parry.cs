@@ -6,6 +6,8 @@ namespace TeamSuneat
     {
         public bool PlayParryAnimation()
         {
+            SetParryType();
+
             if (_animator.UpdateAnimatorTrigger(ANIMATOR_PARRY_PARAMETER_ID, AnimatorParameters))
             {
                 AnimatorLog.LogInfo("패리 애니메이션을 재생합니다.");
@@ -41,6 +43,13 @@ namespace TeamSuneat
             SetParrying(false);
             AnimatorLog.LogInfo("패링 상태를 해제합니다.");
         }
+
+        public void SetParryType()
+        {
+            float parryType = RandomEx.GetFloatValue();
+            _animator.UpdateAnimatorFloat(ANIMATOR_PARRY_TYPE_PARAMETER_ID, parryType, AnimatorParameters);
+        }
+
 
     }
 }

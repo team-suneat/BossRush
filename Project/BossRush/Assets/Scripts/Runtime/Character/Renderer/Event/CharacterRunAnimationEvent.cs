@@ -1,3 +1,4 @@
+using TeamSuneat.Audio;
 using UnityEngine;
 
 namespace TeamSuneat
@@ -20,6 +21,8 @@ namespace TeamSuneat
             {
                 VFXManager.Spawn(_dustVFXPrefab, _character.FootPoint, _character.IsFacingRight);
             }
+
+            AudioManager.Instance.PlaySFXOneShotUnscaled(SoundNames.Movement_Run);
         }
     }
 }

@@ -93,7 +93,7 @@ namespace TeamSuneat
             // 상태 전환 로그
             if (_character != null)
             {
-                Log.Info(LogTags.CharacterState, "{0}, 상태 전환: {1} -> {2}", _character.Name.ToLogString(), previousStateValue, newState);
+                Log.Info(LogTags.CharacterState, "{0}, 입력에 따른 상태 변경: {1} -> {2}", _character.Name.ToLogString(), previousStateValue, newState);
             }
         }
 
@@ -129,7 +129,7 @@ namespace TeamSuneat
             // 상태 전환 로그
             if (_character != null)
             {
-                Log.Info(LogTags.CharacterState, "{0}, 상태 전환: {1} -> {2}", _character.Name.ToLogString(), previousStateValue, newState);
+                Log.Info(LogTags.CharacterState, "{0}, 상태 자동 전환: {1} -> {2}", _character.Name.ToLogString(), previousStateValue, newState);
             }
         }
 

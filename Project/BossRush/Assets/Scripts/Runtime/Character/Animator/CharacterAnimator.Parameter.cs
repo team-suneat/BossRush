@@ -50,6 +50,7 @@ namespace TeamSuneat
         private const string ANIMATOR_FORCE_SPEED_X_PARAMETER_NAME = "ForceSpeedX";
         private const string ANIMATOR_FORCE_SPEED_Y_PARAMETER_NAME = "ForceSpeedY";
         private const string ANIMATOR_PARRYING_TYPE_PARAMETER_NAME = "ParryingType";
+        private const string ANIMATOR_PARRY_TYPE_PARAMETER_NAME = "ParryType";
 
         private int ANIMATOR_IS_SPAWNING_PARAMETER_ID;
         private int ANIMATOR_IS_SPAWNED_PARAMETER_ID;
@@ -86,6 +87,7 @@ namespace TeamSuneat
         private int ANIMATOR_FORCE_SPEED_X_PARAMETER_ID;
         private int ANIMATOR_FORCE_SPEED_Y_PARAMETER_ID;
         private int ANIMATOR_PARRYING_TYPE_PARAMETER_ID;
+        private int ANIMATOR_PARRY_TYPE_PARAMETER_ID;
 
         protected virtual void InitializeAnimatorParameters()
         {
@@ -125,6 +127,7 @@ namespace TeamSuneat
             _animator.AddAnimatorParameterIfExists(ANIMATOR_FORCE_SPEED_X_PARAMETER_NAME, out ANIMATOR_FORCE_SPEED_X_PARAMETER_ID, AnimatorControllerParameterType.Float, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_FORCE_SPEED_Y_PARAMETER_NAME, out ANIMATOR_FORCE_SPEED_Y_PARAMETER_ID, AnimatorControllerParameterType.Float, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_PARRYING_TYPE_PARAMETER_NAME, out ANIMATOR_PARRYING_TYPE_PARAMETER_ID, AnimatorControllerParameterType.Float, AnimatorParameters);
+            _animator.AddAnimatorParameterIfExists(ANIMATOR_PARRY_TYPE_PARAMETER_NAME, out ANIMATOR_PARRY_TYPE_PARAMETER_ID, AnimatorControllerParameterType.Float, AnimatorParameters);
         }
     }
 }
