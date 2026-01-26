@@ -6,51 +6,43 @@ using UnityEngine;
 
 namespace TeamSuneat.Data.Game
 {
-    /// <summary>
-    /// GameDataManager의 에디터 전용 복구 및 디버깅 기능들
-    /// </summary>
     public partial class GameDataManager
     {
-        /// <summary>
-        /// [에디터 전용] 백업 파일에서 게임 데이터 복구를 시도합니다.
-        /// </summary>
         public bool TryLoadFromBackup()
         {
 #if UNITY_EDITOR
-            string backupPath = GetBackupFilePath();
-            Debug.Log($"[에디터 전용] 백업 파일에서 데이터 복구를 시도합니다. 경로: {backupPath}");
+            string saveFilePath = GetSaveFilePath(0);
+            GameData recoveredData = TryLoadFromBackupFiles(saveFilePath);
 
-            if (File.Exists(backupPath))
+            if (recoveredData != null)
             {
-                return TryLoad(backupPath);
+                Data = recoveredData;
+                Debug.Log("[에디터 전용] 타임스탬프 백업 파일에서 데이터 복구를 성공했습니다.");
+                return true;
             }
 
-            Debug.LogWarning("백업 파일이 존재하지 않습니다.");
+            Debug.LogWarning("[에디터 전용] 백업 파일이 존재하지 않습니다.");
 #endif
             return false;
         }
 
-        /// <summary>
-        /// [에디터 전용] 모든 가능한 세이브 파일과 백업에서 로드를 시도합니다.
-        /// </summary>
         public bool TryLoadFromAnyAvailableFile()
         {
 #if UNITY_EDITOR
-            // 1단계: 정상적인 세이브 파일들 시도
-            for (int i = 0; i < GAME_DATA_COUNT; i++)
+            // 1단계: 메인 세이브 파일 시도
+            string saveFilePath = GetSaveFilePath(0);
+            if (TryLoad(saveFilePath))
             {
-                string saveFilePath = GetSaveFilePath(i);
-                if (TryLoad(saveFilePath))
-                {
-                    Debug.Log($"[에디터 전용] 세이브 파일 {i + 1}에서 데이터를 성공적으로 불러왔습니다.");
-                    return true;
-                }
+                Debug.Log("[에디터 전용] 메인 세이브 파일에서 데이터를 성공적으로 불러왔습니다.");
+                return true;
             }
 
-            // 2단계: 백업 파일에서 시도
-            if (TryLoadFromBackup())
+            // 2단계: 타임스탬프 백업 파일에서 시도
+            GameData recoveredData = TryLoadFromBackupFiles(saveFilePath);
+            if (recoveredData != null)
             {
-                Debug.Log("[에디터 전용] 백업 파일에서 데이터를 성공적으로 복구했습니다.");
+                Data = recoveredData;
+                Debug.Log("[에디터 전용] 타임스탬프 백업 파일에서 데이터를 성공적으로 복구했습니다.");
                 // 복구된 데이터를 메인 세이브 파일에 저장
                 Save();
                 return true;
@@ -61,9 +53,6 @@ namespace TeamSuneat.Data.Game
             return false;
         }
 
-        /// <summary>
-        /// [에디터 전용] 세이브 파일의 마이그레이션 정보를 분석합니다.
-        /// </summary>
         public void AnalyzeSaveFileMigration(string filePath)
         {
 #if UNITY_EDITOR
@@ -85,46 +74,48 @@ namespace TeamSuneat.Data.Game
 #endif
         }
 
-        /// <summary>
-        /// [에디터 전용] 모든 세이브 파일의 마이그레이션 상태를 점검합니다.
-        /// </summary>
         public void CheckAllSaveFilesMigrationStatus()
         {
 #if UNITY_EDITOR
             Debug.Log("[에디터 전용] 모든 세이브 파일의 마이그레이션 상태를 점검합니다.");
 
-            // 메인 세이브 파일들
-            for (int i = 0; i < GAME_DATA_COUNT; i++)
+            // 메인 세이브 파일
+            string saveFilePath = GetSaveFilePath(0);
+            if (File.Exists(saveFilePath))
             {
-                string saveFilePath = GetSaveFilePath(i);
-                if (File.Exists(saveFilePath))
-                {
-                    Debug.Log($"[에디터 전용] 세이브 파일 {i + 1} 분석:");
-                    AnalyzeSaveFileMigration(saveFilePath);
-                }
-                else
-                {
-                    Debug.Log($"[에디터 전용] 세이브 파일 {i + 1}이 존재하지 않습니다.");
-                }
-            }
-
-            // 백업 파일
-            string backupFilePath = GetBackupFilePath();
-            if (File.Exists(backupFilePath))
-            {
-                Debug.Log("[에디터 전용] 백업 파일 분석:");
-                AnalyzeSaveFileMigration(backupFilePath);
+                Debug.Log("[에디터 전용] 메인 세이브 파일 분석:");
+                AnalyzeSaveFileMigration(saveFilePath);
             }
             else
             {
-                Debug.Log("[에디터 전용] 백업 파일이 존재하지 않습니다.");
+                Debug.Log("[에디터 전용] 메인 세이브 파일이 존재하지 않습니다.");
+            }
+
+            // 타임스탬프 백업 파일들
+            try
+            {
+                string[] backupFiles = GetAllBackupFilePaths();
+                if (backupFiles.Length > 0)
+                {
+                    Debug.Log($"[에디터 전용] 타임스탬프 백업 파일 {backupFiles.Length}개 발견:");
+                    foreach (string backupFile in backupFiles.Take(5)) // 최근 5개만 분석
+                    {
+                        Debug.Log($"[에디터 전용] 백업 파일 분석: {Path.GetFileName(backupFile)}");
+                        AnalyzeSaveFileMigration(backupFile);
+                    }
+                }
+                else
+                {
+                    Debug.Log("[에디터 전용] 타임스탬프 백업 파일이 존재하지 않습니다.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"[에디터 전용] 백업 파일 검색 중 오류: {ex.Message}");
             }
 #endif
         }
 
-        /// <summary>
-        /// [에디터 전용] 세이브 파일을 현재 버전으로 마이그레이션합니다.
-        /// </summary>
         public bool MigrateSaveFile(string filePath)
         {
 #if UNITY_EDITOR
@@ -172,53 +163,46 @@ namespace TeamSuneat.Data.Game
 #endif
         }
 
-        /// <summary>
-        /// [에디터 전용] 모든 세이브 파일 상태를 확인합니다.
-        /// </summary>
         public void LogAllSaveFileStatus()
         {
 #if UNITY_EDITOR
             Debug.Log("[에디터 전용] ─── 세이브 파일 상태 점검 ───");
 
-            for (int i = 0; i < GAME_DATA_COUNT; i++)
+            // 메인 세이브 파일
+            string filePath = GetSaveFilePath(0);
+            if (File.Exists(filePath))
             {
-                string filePath = GetSaveFilePath(i);
-                if (File.Exists(filePath))
-                {
-                    FileInfo fileInfo = new FileInfo(filePath);
-                    Debug.Log($"[에디터 전용] 세이브 파일 {i + 1}: 존재함 ({fileInfo.Length} bytes, {fileInfo.LastWriteTime})");
-                }
-                else
-                {
-                    Debug.Log($"[에디터 전용] 세이브 파일 {i + 1}: 존재하지 않음 ({filePath})");
-                }
+                FileInfo fileInfo = new FileInfo(filePath);
+                Debug.Log($"[에디터 전용] 메인 세이브 파일: 존재함 ({fileInfo.Length} bytes, {fileInfo.LastWriteTime})");
+            }
+            else
+            {
+                Debug.Log($"[에디터 전용] 메인 세이브 파일: 존재하지 않음 ({filePath})");
             }
 
-            // 백업 파일 정보 출력
+            // 타임스탬프 백업 파일 정보 출력
             LogBackupFileInfo();
             Debug.Log("[에디터 전용] ─── 점검 완료 ───");
 #endif
         }
 
-        /// <summary>
-        /// [에디터 전용] 백업 파일을 메인 세이브 파일로 복사합니다.
-        /// </summary>
         public bool RestoreFromBackup()
         {
 #if UNITY_EDITOR
-            string backupPath = GetBackupFilePath();
+            string saveFilePath = GetSaveFilePath(0);
+            GameData recoveredData = TryLoadFromBackupFiles(saveFilePath);
 
-            if (!File.Exists(backupPath))
+            if (recoveredData == null)
             {
-                Debug.LogError("[에디터 전용] 백업 파일이 존재하지 않습니다.");
+                Debug.LogError("[에디터 전용] 복구할 백업 파일이 존재하지 않습니다.");
                 return false;
             }
 
             try
             {
-                string mainSavePath = GetSaveFilePath(0);
-                File.Copy(backupPath, mainSavePath, true);
-                Debug.Log($"[에디터 전용] 백업 파일을 메인 세이브 파일로 복사했습니다: {backupPath} ▶ {mainSavePath}");
+                Data = recoveredData;
+                Save();
+                Debug.Log("[에디터 전용] 가장 최근 백업 파일에서 메인 세이브 파일로 복구했습니다.");
                 return true;
             }
             catch (System.Exception ex)
@@ -231,10 +215,6 @@ namespace TeamSuneat.Data.Game
 #endif
         }
 
-        /// <summary>
-        /// [에디터 전용] 세이브 파일의 상세 진단을 수행합니다.
-        /// </summary>
-        /// <param name="filePath">진단할 파일 경로</param>
         public void DiagnoseSaveFile(string filePath)
         {
 #if UNITY_EDITOR
@@ -279,31 +259,14 @@ namespace TeamSuneat.Data.Game
 #endif
         }
 
-        /// <summary>
-        /// [에디터 전용] 모든 세이브 파일에 대해 상세 진단을 수행합니다.
-        /// </summary>
         public void DiagnoseAllSaveFiles()
         {
 #if UNITY_EDITOR
             Debug.Log("[에디터 전용] ─── 모든 세이브 파일 진단 시작 ───");
 
-            // 메인 세이브 파일들 진단
-            for (int i = 0; i < GAME_DATA_COUNT; i++)
-            {
-                string saveFilePath = GetSaveFilePath(i);
-                DiagnoseSaveFile(saveFilePath);
-            }
-
-            // 백업 파일들 진단
-            string backupPath = GetBackupFilePath();
-            if (File.Exists(backupPath))
-            {
-                DiagnoseSaveFile(backupPath);
-            }
-            else
-            {
-                Debug.Log("[에디터 전용] 백업 파일이 존재하지 않습니다.");
-            }
+            // 메인 세이브 파일 진단
+            string saveFilePath = GetSaveFilePath(0);
+            DiagnoseSaveFile(saveFilePath);
 
             // 타임스탬프 백업 파일들 진단
             try
@@ -312,9 +275,16 @@ namespace TeamSuneat.Data.Game
                     .Take(3) // 최근 3개만 진단
                     .ToArray();
 
-                foreach (string backupFile in allBackupFiles)
+                if (allBackupFiles.Length > 0)
                 {
-                    DiagnoseSaveFile(backupFile);
+                    foreach (string backupFile in allBackupFiles)
+                    {
+                        DiagnoseSaveFile(backupFile);
+                    }
+                }
+                else
+                {
+                    Debug.Log("[에디터 전용] 타임스탬프 백업 파일이 존재하지 않습니다.");
                 }
             }
             catch (Exception ex)
@@ -326,11 +296,6 @@ namespace TeamSuneat.Data.Game
 #endif
         }
 
-        /// <summary>
-        /// [에디터 전용] 손상된 세이브 파일을 복구 시도합니다.
-        /// </summary>
-        /// <param name="filePath">복구할 파일 경로</param>
-        /// <returns>복구 성공 여부</returns>
         public bool AttemptFileRecovery(string filePath)
         {
 #if UNITY_EDITOR
@@ -378,11 +343,6 @@ namespace TeamSuneat.Data.Game
 #endif
         }
 
-        /// <summary>
-        /// [에디터 전용] 세이브 파일을 안전하게 삭제합니다.
-        /// </summary>
-        /// <param name="filePath">삭제할 파일 경로</param>
-        /// <returns>삭제 성공 여부</returns>
         public bool SafeDeleteSaveFile(string filePath)
         {
 #if UNITY_EDITOR
@@ -416,9 +376,6 @@ namespace TeamSuneat.Data.Game
 #endif
         }
 
-        /// <summary>
-        /// [에디터 전용] 세이브 파일 통계를 출력합니다.
-        /// </summary>
         public void PrintSaveFileStatistics()
         {
 #if UNITY_EDITOR
@@ -463,9 +420,6 @@ namespace TeamSuneat.Data.Game
 
         #region Private Helper Methods
 
-        /// <summary>
-        /// JSON 형식이 유효한지 확인합니다.
-        /// </summary>
         private bool IsValidJson(string content)
         {
             try
@@ -479,9 +433,6 @@ namespace TeamSuneat.Data.Game
             }
         }
 
-        /// <summary>
-        /// 손상된 내용을 복구 시도합니다.
-        /// </summary>
         private string AttemptContentRecovery(string content)
         {
             // 1. JSON 형식이면 그대로 반환

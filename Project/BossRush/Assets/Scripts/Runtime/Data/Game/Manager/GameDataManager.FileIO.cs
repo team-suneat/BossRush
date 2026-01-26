@@ -3,13 +3,9 @@ using UnityEngine;
 
 namespace TeamSuneat.Data.Game
 {
-    /// <summary>
-    /// GameDataManager의 파일 입출력 시스템을 담당하는 partial 클래스
-    /// </summary>
     public partial class GameDataManager
     {
         private static string SaveFilePathFormat { get; set; }
-        private static string BackupFilePathFormat { get; set; }
 
         public static void SetSaveFilePath()
         {
@@ -21,84 +17,267 @@ namespace TeamSuneat.Data.Game
             {
                 SaveFilePathFormat = $"{Application.persistentDataPath}/{Application.productName}{"{0}"}.json";
             }
-
-            // 백업 파일 포맷 설정
-            BackupFilePathFormat = $"{Application.persistentDataPath}/{Application.productName}_Backup.json";
         }
 
-        /// <summary>
-        /// 세이브 파일 경로를 반환합니다.
-        /// </summary>
-        /// <param name="index">세이브 파일 인덱스</param>
-        /// <returns>세이브 파일 경로</returns>
         public static string GetSaveFilePath(int index)
         {
             return string.Format(SaveFilePathFormat, index + 1);
         }
 
-        /// <summary>
-        /// 백업 파일 경로를 반환합니다.
-        /// </summary>
-        /// <returns>백업 파일 경로</returns>
-        public static string GetBackupFilePath()
-        {
-            return BackupFilePathFormat;
-        }
-
-        /// <summary>
-        /// 파일에서 데이터를 읽습니다.
-        /// </summary>
-        /// <param name="saveFilePath">파일 경로</param>
-        /// <returns>읽은 데이터</returns>
         private string Read(string saveFilePath)
         {
+            // 로드 전 임시 파일 처리
+            ProcessOrphanedTempFiles(saveFilePath);
             return File.ReadAllText(saveFilePath);
         }
 
-        /// <summary>
-        /// 파일에 데이터를 씁니다.
-        /// </summary>
-        /// <param name="saveFilePath">파일 경로</param>
-        /// <param name="chunk">쓸 데이터</param>
-        /// <returns>성공 여부</returns>
-        private bool Write(string saveFilePath, string chunk)
+        private void ProcessOrphanedTempFiles(string saveFilePath)
         {
             try
             {
-                Log.Info(LogTags.GameData, "게임 데이터를 저장합니다. SaveFilePath: {0}\nChunk: {1}", saveFilePath, chunk);
-                File.WriteAllText(saveFilePath, chunk);
+                string saveDirectory = Path.GetDirectoryName(saveFilePath);
+                if (string.IsNullOrEmpty(saveDirectory) || !Directory.Exists(saveDirectory))
+                {
+                    return;
+                }
+
+                string fileName = Path.GetFileNameWithoutExtension(saveFilePath);
+                string fileExtension = Path.GetExtension(saveFilePath);
+                string searchPattern = $"{fileName}{fileExtension}.*.tmp";
+
+                string[] tempFiles = Directory.GetFiles(saveDirectory, searchPattern);
+                if (tempFiles.Length == 0)
+                {
+                    return;
+                }
+
+                Debug.LogWarning($"임시 파일 {tempFiles.Length}개 발견. 백업 파일로 변환합니다.");
+
+                foreach (string tempFile in tempFiles)
+                {
+                    try
+                    {
+                        // 임시 파일 내용 검증
+                        if (!File.Exists(tempFile))
+                        {
+                            continue;
+                        }
+
+                        FileInfo fileInfo = new FileInfo(tempFile);
+                        if (fileInfo.Length == 0)
+                        {
+                            Debug.LogWarning($"빈 임시 파일 삭제: {Path.GetFileName(tempFile)}");
+                            File.Delete(tempFile);
+                            continue;
+                        }
+
+                        // 임시 파일 내용 읽기
+                        string chunk = File.ReadAllText(tempFile);
+                        if (string.IsNullOrEmpty(chunk))
+                        {
+                            Debug.LogWarning($"읽을 수 없는 임시 파일 삭제: {Path.GetFileName(tempFile)}");
+                            File.Delete(tempFile);
+                            continue;
+                        }
+
+                        // 타임스탬프 추출 (파일명에서)
+                        string tempFileName = Path.GetFileName(tempFile);
+                        string timestamp = ExtractTimestampFromTempFileName(tempFileName);
+                        if (string.IsNullOrEmpty(timestamp))
+                        {
+                            // 타임스탬프를 추출할 수 없으면 파일 수정 시간 사용
+                            timestamp = fileInfo.LastWriteTime.ToString("yyyyMMdd_HHmmss");
+                        }
+
+                        // 백업 파일로 변환
+                        string backupPath = GetBackupFilePathWithTimestamp(timestamp);
+                        File.Move(tempFile, backupPath);
+                        Debug.Log($"임시 파일을 백업으로 변환: {Path.GetFileName(tempFile)} -> {Path.GetFileName(backupPath)}");
+                    }
+                    catch (System.Exception ex)
+                    {
+                        Debug.LogWarning($"임시 파일 처리 실패 ({Path.GetFileName(tempFile)}): {ex.Message}");
+                        // 처리 실패한 임시 파일은 삭제 시도
+                        try
+                        {
+                            if (File.Exists(tempFile))
+                            {
+                                File.Delete(tempFile);
+                            }
+                        }
+                        catch
+                        {
+                            // 삭제 실패는 무시
+                        }
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogWarning($"임시 파일 처리 중 오류: {ex.Message}");
+            }
+        }
+
+        private string ExtractTimestampFromTempFileName(string tempFileName)
+        {
+            // 파일명 형식: {원본파일명}.{타임스탬프}.tmp
+            // 예: BossRush1_Dev.json.20250126_123456.tmp
+            int lastDotIndex = tempFileName.LastIndexOf('.');
+            if (lastDotIndex < 0)
+            {
+                return null;
+            }
+
+            int secondLastDotIndex = tempFileName.LastIndexOf('.', lastDotIndex - 1);
+            if (secondLastDotIndex < 0)
+            {
+                return null;
+            }
+
+            string timestamp = tempFileName.Substring(secondLastDotIndex + 1, lastDotIndex - secondLastDotIndex - 1);
+            // 타임스탬프 형식 검증 (yyyyMMdd_HHmmss)
+            if (timestamp.Length == 15 && timestamp.Contains("_"))
+            {
+                return timestamp;
+            }
+
+            return null;
+        }
+
+        private bool Write(string saveFilePath, string chunk)
+        {
+            string tempFilePath = null;
+
+            try
+            {
+                // 1. 로그 (선택)
+                Log.Info(LogTags.GameData,
+                    $"[세이브 시도] Path: {saveFilePath}, Length: {chunk?.Length ?? 0}");
+
+                // 2. 임시 파일 경로 생성
+                string timestamp = System.DateTime.Now.ToString("yyyyMMddHHmmss");
+                tempFilePath = $"{saveFilePath}.{timestamp}.tmp";
+
+                // 3. 임시 파일에 쓰기
+                File.WriteAllText(tempFilePath, chunk ?? string.Empty);
+
+                // 4. 임시 파일 검증
+                if (!ValidateTempFile(tempFilePath, chunk))
+                {
+                    // 검증 실패: 임시 파일을 에러 파일로 남기고, 본 파일은 건드리지 않음
+                    RenameTempFileToErrorFile(tempFilePath, "validation_failed", "[원자적 쓰기] ValidateTempFile 실패");
+                    return false;
+                }
+
+                // 5. 검증 성공 시에만 본 파일 교체
+                if (File.Exists(saveFilePath))
+                {
+                    File.Delete(saveFilePath);
+                }
+
+                File.Move(tempFilePath, saveFilePath);
+
                 return true;
             }
             catch (System.Exception ex)
             {
-                Debug.LogErrorFormat("게임 데이터를 저장할 수 없습니다.\nException Massage:{0}", ex.Message.ToString());
+                Debug.LogErrorFormat(
+                    "게임 데이터를 저장할 수 없습니다.\nException Message: {0}",
+                    ex.Message);
+
+                // 예외 발생 시에도 임시 파일은 에러 파일로 남김
+                try
+                {
+                    if (!string.IsNullOrEmpty(tempFilePath) && File.Exists(tempFilePath))
+                    {
+                        RenameTempFileToErrorFile(
+                            tempFilePath,
+                            "exception",
+                            ex.ToString());
+                    }
+                }
+                catch (System.Exception cleanupEx)
+                {
+                    Debug.LogWarning(
+                        $"임시 파일 정리 중 추가 예외 발생: {cleanupEx.Message}");
+                }
+
                 return false;
             }
         }
 
-        /// <summary>
-        /// 빌드용 세이브 파일을 삭제합니다.
-        /// </summary>
-        public static void DeleteSaveFileForBuild()
+        private bool ValidateTempFile(string tempFilePath, string originalChunk)
         {
-            for (int i = 0; i < GAME_DATA_COUNT; i++)
+            try
             {
-                string saveFilePath = GetSaveFilePath(i);
-                if (File.Exists(saveFilePath))
+                // 1. 파일 존재 확인
+                if (!File.Exists(tempFilePath))
                 {
-                    File.Delete(saveFilePath);
-                    Debug.LogFormat($"세이브 데이터를 삭제합니다. 세이브 데이터 경로: {saveFilePath}");
+                    Debug.LogError("[원자적 쓰기] 임시 파일이 생성되지 않았습니다.");
+                    return false;
                 }
-                else
+
+                // 2. 파일 크기 확인 (0 바이트가 아닌지)
+                FileInfo fileInfo = new FileInfo(tempFilePath);
+                if (fileInfo.Length == 0)
                 {
-                    Debug.LogFormat($"삭제할 세이브 데이터를 존재하지 않습니다. 세이브 데이터 경로: {saveFilePath}");
+                    Debug.LogError("[원자적 쓰기] 임시 파일이 비어있습니다.");
+                    return false;
                 }
+
+                // 3. 파일 내용 읽어서 원본과 비교
+                string writtenContent = File.ReadAllText(tempFilePath);
+                if (string.IsNullOrEmpty(writtenContent))
+                {
+                    Debug.LogError("[원자적 쓰기] 임시 파일 내용을 읽을 수 없습니다.");
+                    return false;
+                }
+
+                if (writtenContent != (originalChunk ?? string.Empty))
+                {
+                    Debug.LogError("[원자적 쓰기] 임시 파일 내용이 원본과 일치하지 않습니다.");
+                    return false;
+                }
+
+                return true;
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError($"[원자적 쓰기] 임시 파일 검증 중 오류 발생: {ex.Message}");
+                return false;
             }
         }
 
-        /// <summary>
-        /// 에디터용 세이브 파일을 삭제합니다.
-        /// </summary>
+        private void RenameTempFileToErrorFile(string tempFilePath, string errorType, string errorMessage = null)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(tempFilePath) || !File.Exists(tempFilePath))
+                    return;
+
+                string errorFilePath = tempFilePath.Replace(".tmp", $".{errorType}.error");
+
+                if (File.Exists(errorFilePath))
+                    File.Delete(errorFilePath);
+
+                File.Move(tempFilePath, errorFilePath);
+
+                // 에러 정보 덧붙이기
+                if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    File.AppendAllText(
+                        errorFilePath,
+                        $"\n\n--- ERROR INFO ---\n[{System.DateTime.Now:yyyy-MM-dd HH:mm:ss}]\n{errorMessage}\n");
+                }
+
+                Debug.LogWarning($"임시 파일을 에러 파일로 전환했습니다. ErrorType={errorType}, File={Path.GetFileName(errorFilePath)}");
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogWarning($"에러 파일로 전환 중 예외 발생: {ex.Message}");
+            }
+        }
+
         public static void DeleteSaveFileForEditor()
         {
             for (int i = 0; i < GAME_DATA_COUNT; i++)

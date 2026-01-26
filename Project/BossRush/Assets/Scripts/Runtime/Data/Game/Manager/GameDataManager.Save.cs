@@ -40,32 +40,12 @@ namespace TeamSuneat.Data.Game
 
         public string SaveForEditorOrDevelopment()
         {
-            string chunk = SaveForEditor(0);
-            if (!string.IsNullOrEmpty(chunk))
-            {
-                if (_saveCount >= GAME_DATA_SAVE_INTERVAL_COUNT)
-                {
-                    SaveForEditor(1);
-                    _saveCount = 0;
-                }
-            }
-
-            return chunk;
+            return SaveForEditor(0);
         }
 
         public string SaveForBuild()
         {
-            string chunk = SaveForBuild(0);
-            if (!string.IsNullOrEmpty(chunk))
-            {
-                if (_saveCount >= GAME_DATA_SAVE_INTERVAL_COUNT)
-                {
-                    _ = SaveForBuild(1);
-                    _saveCount = 0;
-                }
-            }
-
-            return chunk;
+            return SaveForBuild(0);
         }
 
         public string SaveForEditor(int index)
@@ -133,7 +113,7 @@ namespace TeamSuneat.Data.Game
             {
                 lock (_asyncSaveLock)
                 {
-                    if (_storedChunks[index] == chunk)
+                    if (_storedChunk == chunk)
                     {
                         return null;
                     }
@@ -141,7 +121,7 @@ namespace TeamSuneat.Data.Game
             }
             else
             {
-                if (_storedChunks[index] == chunk)
+                if (_storedChunk == chunk)
                 {
                     return null;
                 }
@@ -152,7 +132,7 @@ namespace TeamSuneat.Data.Game
 
         private void UpdateSaveState(string chunk, int index, float timestamp, bool isBackground = false)
         {
-            _storedChunks[index] = chunk;
+            _storedChunk = chunk;
 
             if (index == 0)
             {
@@ -164,15 +144,16 @@ namespace TeamSuneat.Data.Game
                     Debug.Log($"유니티 에디터용 게임 데이터를 저장합니다. Index:{index}, SaveCount:{_saveCount}/{GAME_DATA_SAVE_INTERVAL_COUNT}");
                 }
 
-                // 백업 저장이 필요한 경우
+                // 주기적 타임스탬프 백업 생성
                 if (_saveCount >= GAME_DATA_SAVE_INTERVAL_COUNT)
                 {
-                    _ = PerformSave(1, isBackground, timestamp); // 백업 저장
+                    string saveFilePath = GetSaveFilePath(0);
+                    SaveBackupWithTimestamp(chunk, saveFilePath);
                     _saveCount = 0;
 
                     if (CheckUnityEditor())
                     {
-                        Debug.Log($"유니티 에디터용 게임 백업 데이터를 저장합니다. Index:1");
+                        Debug.Log("유니티 에디터용 게임 데이터 타임스탬프 백업을 생성합니다.");
                     }
                 }
             }
@@ -180,9 +161,6 @@ namespace TeamSuneat.Data.Game
 
         #region 비동기 저장
 
-        /// <summary>
-        /// 비동기적으로 게임 데이터를 저장합니다.
-        /// </summary>
         private void SaveAsync()
         {
             lock (_asyncSaveLock)
@@ -196,22 +174,17 @@ namespace TeamSuneat.Data.Game
             }
 
             // 메인 스레드에서 최소한의 정보만 준비
-            bool needsBackup = _saveCount >= GAME_DATA_SAVE_INTERVAL_COUNT;
             float currentTimestamp = Time.time; // 메인 스레드에서 미리 계산
 
             TeamSuneat.Log.Progress("게임 데이터를 저장합니다: {0}/{1}", _saveCount, GAME_DATA_SAVE_INTERVAL_COUNT);
 
             // 모든 무거운 작업을 백그라운드 스레드로 이동
-            _ = System.Threading.Tasks.Task.Run(() => PerformFullAsyncSave(needsBackup, currentTimestamp));
+            _ = System.Threading.Tasks.Task.Run(() => PerformFullAsyncSave(currentTimestamp));
         }
 
-        /// <summary>
-        /// 완전한 비동기 저장 작업을 수행합니다 (직렬화, 파일 쓰기 모두 백그라운드에서).
-        /// </summary>
-        private void PerformFullAsyncSave(bool needsBackup, float timestamp)
+        private void PerformFullAsyncSave(float timestamp)
         {
             bool saveSuccess = false;
-            bool backupSuccess = true;
             string errorMessage = null;
             string originalChunk = null;
 
@@ -225,13 +198,6 @@ namespace TeamSuneat.Data.Game
                 }
 
                 saveSuccess = true;
-
-                // 백업 저장도 필요하면 처리
-                if (needsBackup)
-                {
-                    string backupChunk = PerformSave(1, true, timestamp);
-                    backupSuccess = !string.IsNullOrEmpty(backupChunk);
-                }
             }
             catch (System.Exception ex)
             {
@@ -251,28 +217,18 @@ namespace TeamSuneat.Data.Game
                 if (monoBehaviour != null)
                 {
                     _ = monoBehaviour.StartCoroutine(
-                        OnAsyncSaveComplete(saveSuccess, backupSuccess, originalChunk, needsBackup, errorMessage));
+                        OnAsyncSaveComplete(saveSuccess, originalChunk, errorMessage));
                 }
             }
         }
 
-        /// <summary>
-        /// 비동기 저장 완료 시 메인 스레드에서 호출됩니다.
-        /// </summary>
-        private System.Collections.IEnumerator OnAsyncSaveComplete(bool saveSuccess, bool backupSuccess, string originalChunk, bool needsBackup, string errorMessage)
+        private System.Collections.IEnumerator OnAsyncSaveComplete(bool saveSuccess, string originalChunk, string errorMessage)
         {
             yield return null; // 한 프레임 대기
 
             if (saveSuccess)
             {
-                if (backupSuccess)
-                {
-                    Debug.Log("비동기 저장이 완료되었습니다.");
-                }
-                else
-                {
-                    Debug.LogWarning("메인 저장은 성공했지만 백업 저장에 실패했습니다.");
-                }
+                Debug.Log("비동기 저장이 완료되었습니다.");
             }
             else
             {
@@ -289,9 +245,6 @@ namespace TeamSuneat.Data.Game
 
         #region 동기 저장
 
-        /// <summary>
-        /// 동기적으로 게임 데이터를 저장합니다.
-        /// </summary>
         private void SaveSync()
         {
             if (CheckUnityEditor())
@@ -308,10 +261,6 @@ namespace TeamSuneat.Data.Game
 
         #region 유틸리티
 
-        /// <summary>
-        /// Unity 에디터인지 확인합니다.
-        /// </summary>
-        /// <returns>에디터 여부</returns>
         private bool CheckUnityEditor()
         {
 #if UNITY_EDITOR

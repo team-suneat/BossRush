@@ -14,6 +14,7 @@ namespace TeamSuneat.Development
         GamePlay,
         Cheat,
         Stat,
+        GameData,
 
         // Charm,
     }
@@ -132,7 +133,8 @@ namespace TeamSuneat.Development
                 "게임 플레이",
                 "치트",
                 // "부적",
-                "능력치"
+                "능력치",
+                "게임 데이터"
             };
 
             int newSelectedTab = _gui.DrawSelectionGrid((int)_selectedTab, tabNames, tabNames.Length, useWidth: true, useHeight: false);
@@ -169,6 +171,10 @@ namespace TeamSuneat.Development
 
                 case DevelopmentToolTab.Stat:
                     DrawStatSection();
+                    break;
+
+                case DevelopmentToolTab.GameData:
+                    DrawGameDataSection();
                     break;
             }
         }
@@ -696,6 +702,122 @@ namespace TeamSuneat.Development
                 StatModType.Use => "사용",
                 _ => modType.ToString()
             };
+        }
+
+        private void DrawGameDataSection()
+        {
+            GameDataManager dataManager = GetGameDataManager();
+
+            GUILayout.BeginVertical("box");
+            _gui.DrawTitleLabel("저장/로드", useWidth: true, useHeight: true);
+
+            if (dataManager == null)
+            {
+                _gui.DrawContentLabel("GameDataManager 인스턴스를 찾을 수 없습니다.");
+                GUILayout.EndVertical();
+                return;
+            }
+
+            GUILayout.BeginHorizontal();
+            _gui.DrawButton("게임 데이터 저장", () =>
+            {
+                dataManager.Save();
+                Debug.Log("게임 데이터를 저장했습니다.");
+            }, useWidth: true, useHeight: false);
+            _gui.DrawButton("게임 데이터 로드", () =>
+            {
+                dataManager.LoadGameDataWithRecovery();
+                Debug.Log("게임 데이터를 로드했습니다.");
+            }, useWidth: false);
+            GUILayout.EndHorizontal();
+
+            GUILayout.EndVertical();
+            GUILayout.Space(5);
+
+            GUILayout.BeginVertical("box");
+            _gui.DrawTitleLabel("백업 복구", useWidth: true, useHeight: true);
+
+            _gui.DrawButton("백업 파일에서 복구", () =>
+            {
+                bool success = dataManager.TryLoadFromBackup();
+                if (!success)
+                {
+                    Debug.LogWarning("백업 파일에서 복구에 실패했습니다.");
+                }
+            }, useWidth: false);
+
+            _gui.DrawButton("모든 파일에서 복구 시도", () =>
+            {
+                bool success = dataManager.TryLoadFromAnyAvailableFile();
+                if (!success)
+                {
+                    Debug.LogWarning("모든 파일에서 복구에 실패했습니다.");
+                }
+            }, useWidth: false);
+
+            _gui.DrawButton("가장 최근 백업으로 복구", () =>
+            {
+                bool success = dataManager.RestoreFromBackup();
+                if (!success)
+                {
+                    Debug.LogWarning("백업 복구에 실패했습니다.");
+                }
+            }, useWidth: false);
+
+            GUILayout.EndVertical();
+            GUILayout.Space(5);
+
+            GUILayout.BeginVertical("box");
+            _gui.DrawTitleLabel("진단/분석", useWidth: true, useHeight: true);
+
+            _gui.DrawButton("세이브 파일 상태 확인", () =>
+            {
+                dataManager.LogAllSaveFileStatus();
+            }, useWidth: false);
+
+            _gui.DrawButton("백업 파일 정보 출력", () =>
+            {
+                dataManager.LogBackupFileInfo();
+            }, useWidth: false);
+
+            _gui.DrawButton("모든 세이브 파일 진단", () =>
+            {
+                dataManager.DiagnoseAllSaveFiles();
+            }, useWidth: false);
+
+            _gui.DrawButton("마이그레이션 상태 점검", () =>
+            {
+                dataManager.CheckAllSaveFilesMigrationStatus();
+            }, useWidth: false);
+
+            _gui.DrawButton("세이브 파일 통계 출력", () =>
+            {
+                dataManager.PrintSaveFileStatistics();
+            }, useWidth: false);
+
+            GUILayout.EndVertical();
+            GUILayout.Space(5);
+
+            GUILayout.BeginVertical("box");
+            _gui.DrawTitleLabel("파일 관리", useWidth: true, useHeight: true);
+
+            _gui.DrawButton("에디터용 세이브 파일 삭제", () =>
+            {
+                GameDataManager.DeleteSaveFileForEditor();
+                Debug.Log("에디터용 세이브 파일을 삭제했습니다.");
+            }, useWidth: false);
+
+            GUILayout.EndVertical();
+        }
+
+        private GameDataManager GetGameDataManager()
+        {
+            var gameApp = GameApp.Instance;
+            if (gameApp != null && gameApp.dataManager != null)
+            {
+                return gameApp.dataManager;
+            }
+            return null;
         }
     }
 }

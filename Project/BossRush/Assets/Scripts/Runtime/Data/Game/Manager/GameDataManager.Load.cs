@@ -3,16 +3,8 @@ using UnityEngine;
 
 namespace TeamSuneat.Data.Game
 {
-    /// <summary>
-    /// GameDataManager의 로드 로직을 담당하는 partial 클래스
-    /// </summary>
     public partial class GameDataManager
     {
-        /// <summary>
-        /// 세이브 파일에서 데이터를 로드합니다.
-        /// </summary>
-        /// <param name="saveFilePath">세이브 파일 경로</param>
-        /// <returns>로드 성공 여부</returns>
         public bool TryLoad(string saveFilePath)
         {
             GameData gameData = LoadGameData(saveFilePath);
@@ -25,13 +17,11 @@ namespace TeamSuneat.Data.Game
             return false;
         }
 
-        /// <summary>
-        /// 게임 데이터를 로드합니다.
-        /// </summary>
-        /// <param name="filePath">파일 경로</param>
-        /// <returns>로드된 GameData</returns>
         private GameData LoadGameData(string filePath)
         {
+            // 로드 전 임시 파일 처리 (파일이 없어도 임시 파일은 처리)
+            ProcessOrphanedTempFiles(filePath);
+
             GameData gameData;
             string chunk;
 
@@ -65,9 +55,6 @@ namespace TeamSuneat.Data.Game
             return null;
         }
 
-        /// <summary>
-        /// 로드된 게임 데이터에 대한 후처리를 수행합니다.
-        /// </summary>
         public void OnLoadGameData()
         {
             if (Data != null)
@@ -76,27 +63,18 @@ namespace TeamSuneat.Data.Game
             }
         }
 
-        /// <summary>
-        /// 게임 데이터를 복구 시스템을 포함하여 로드합니다.
-        /// </summary>
         public void LoadGameDataWithRecovery()
         {
-            string saveFile1Path = GetSaveFilePath(0);
-            string saveFile2Path = GetSaveFilePath(1);
+            string saveFilePath = GetSaveFilePath(0);
 
-            if (TryLoad(saveFile1Path))
+            if (TryLoad(saveFilePath))
             {
                 OnLoadGameData();
-            }
-            else if (TryLoad(saveFile2Path))
-            {
-                OnLoadGameData();
-                Save(); // 복구된 데이터를 메인 세이브에 저장
             }
             else
             {
-                // 백업 파일에서 복구 시도
-                GameData recoveredData = TryLoadFromBackupFiles(saveFile1Path);
+                // 타임스탬프 백업 파일에서 복구 시도
+                GameData recoveredData = TryLoadFromBackupFiles(saveFilePath);
                 if (recoveredData != null)
                 {
                     Data = recoveredData;

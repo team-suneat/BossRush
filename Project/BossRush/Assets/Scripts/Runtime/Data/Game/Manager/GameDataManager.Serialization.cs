@@ -3,16 +3,8 @@ using UnityEngine;
 
 namespace TeamSuneat.Data.Game
 {
-    /// <summary>
-    /// GameDataManager의 직렬화/역직렬화 시스템을 담당하는 partial 클래스
-    /// </summary>
     public partial class GameDataManager
     {
-        /// <summary>
-        /// GameData 객체를 JSON으로 직렬화합니다.
-        /// </summary>
-        /// <param name="gameData">직렬화할 GameData 객체</param>
-        /// <returns>JSON 문자열</returns>
         private string SerializeObject(GameData gameData)
         {
             try
@@ -27,11 +19,6 @@ namespace TeamSuneat.Data.Game
             }
         }
 
-        /// <summary>
-        /// JSON 문자열을 GameData 객체로 역직렬화합니다.
-        /// </summary>
-        /// <param name="chunk">역직렬화할 JSON 문자열</param>
-        /// <returns>GameData 객체</returns>
         private GameData Deserialize(string chunk)
         {
             try

@@ -5,21 +5,11 @@ using UnityEngine;
 
 namespace TeamSuneat.Data.Game
 {
-    /// <summary>
-    /// GameDataManager의 마이그레이션 시스템을 담당하는 partial 클래스
-    /// </summary>
     public partial class GameDataManager
     {
-        // 마이그레이션 시스템 상수
         private const int CURRENT_SAVE_VERSION = 1;
-
         private const int MIN_SUPPORTED_VERSION = 1;
 
-        /// <summary>
-        /// 마이그레이션 시스템을 통한 게임 데이터 불러오기
-        /// </summary>
-        /// <param name="jsonString">JSON 문자열</param>
-        /// <returns>마이그레이션된 GameData 객체</returns>
         private GameData MigrateAndLoad(string jsonString)
         {
             try
@@ -80,11 +70,6 @@ namespace TeamSuneat.Data.Game
             }
         }
 
-        /// <summary>
-        /// JSON에서 세이브 버전을 추출합니다.
-        /// </summary>
-        /// <param name="jsonString">JSON 문자열</param>
-        /// <returns>세이브 버전 (기본값: 1)</returns>
         private int ExtractSaveVersion(string jsonString)
         {
             try
@@ -120,11 +105,6 @@ namespace TeamSuneat.Data.Game
             }
         }
 
-        /// <summary>
-        /// 현재 버전으로 GameData를 불러옵니다.
-        /// </summary>
-        /// <param name="jsonString">JSON 문자열</param>
-        /// <returns>GameData 객체 (현재 버전인 경우에만)</returns>
         private GameData LoadCurrentVersion(string jsonString)
         {
             try
@@ -149,12 +129,6 @@ namespace TeamSuneat.Data.Game
             }
         }
 
-        /// <summary>
-        /// 지정된 버전에서 현재 버전으로 마이그레이션합니다.
-        /// </summary>
-        /// <param name="jsonString">원본 JSON 문자열</param>
-        /// <param name="fromVersion">원본 버전</param>
-        /// <returns>마이그레이션된 GameData 객체</returns>
         private GameData MigrateToCurrentVersion(string jsonString, int fromVersion)
         {
             try
@@ -184,12 +158,6 @@ namespace TeamSuneat.Data.Game
             }
         }
 
-        /// <summary>
-        /// 특정 버전 간 마이그레이션을 수행합니다.
-        /// </summary>
-        /// <param name="fromVersion">원본 버전</param>
-        /// <param name="jsonString">JSON 문자열</param>
-        /// <returns>마이그레이션된 JSON 문자열</returns>
         private string MigrateVersion(int fromVersion, string jsonString)
         {
             switch (fromVersion)
@@ -203,13 +171,6 @@ namespace TeamSuneat.Data.Game
 
         #region 마이그레이션 공통 로직
 
-        /// <summary>
-        /// 공통 마이그레이션 로직을 수행합니다.
-        /// </summary>
-        /// <param name="gameData">마이그레이션할 GameData 객체</param>
-        /// <param name="fromVersion">원본 버전</param>
-        /// <param name="toVersion">대상 버전</param>
-        /// <returns>마이그레이션된 JSON 문자열</returns>
         private string PerformMigration(GameData gameData, int fromVersion, int toVersion)
         {
             try
@@ -233,11 +194,6 @@ namespace TeamSuneat.Data.Game
 
         #endregion 마이그레이션 공통 로직
 
-        /// <summary>
-        /// JSON 문자열이 마이그레이션 가능한지 확인합니다.
-        /// </summary>
-        /// <param name="jsonString">JSON 문자열</param>
-        /// <returns>마이그레이션 가능 여부</returns>
         private bool CanMigrate(string jsonString)
         {
             try
@@ -251,10 +207,6 @@ namespace TeamSuneat.Data.Game
             }
         }
 
-        /// <summary>
-        /// 마이그레이션 정보를 로그로 출력합니다.
-        /// </summary>
-        /// <param name="jsonString">JSON 문자열</param>
         private void LogMigrationInfo(string jsonString)
         {
             try
