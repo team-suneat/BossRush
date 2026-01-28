@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UnityEngine;
 
@@ -21,6 +22,11 @@ namespace TeamSuneat.Data.Game
 
         public static string GetSaveFilePath(int index)
         {
+            if (string.IsNullOrEmpty(SaveFilePathFormat))
+            {
+                SetSaveFilePath();
+            }
+
             return string.Format(SaveFilePathFormat, index + 1);
         }
 
@@ -94,7 +100,7 @@ namespace TeamSuneat.Data.Game
                         File.Move(tempFile, backupPath);
                         Debug.Log($"임시 파일을 백업으로 변환: {Path.GetFileName(tempFile)} -> {Path.GetFileName(backupPath)}");
                     }
-                    catch (System.Exception ex)
+                    catch (Exception ex)
                     {
                         Debug.LogWarning($"임시 파일 처리 실패 ({Path.GetFileName(tempFile)}): {ex.Message}");
                         // 처리 실패한 임시 파일은 삭제 시도
@@ -112,7 +118,7 @@ namespace TeamSuneat.Data.Game
                     }
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 Debug.LogWarning($"임시 파일 처리 중 오류: {ex.Message}");
             }
@@ -147,46 +153,37 @@ namespace TeamSuneat.Data.Game
         private bool Write(string saveFilePath, string chunk)
         {
             string tempFilePath = null;
-
             try
             {
-                // 1. 로그 (선택)
-                Log.Info(LogTags.GameData,
-                    $"[세이브 시도] Path: {saveFilePath}, Length: {chunk?.Length ?? 0}");
-
-                // 2. 임시 파일 경로 생성
-                string timestamp = System.DateTime.Now.ToString("yyyyMMddHHmmss");
+                // 임시 파일 경로 생성
+                string timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
                 tempFilePath = $"{saveFilePath}.{timestamp}.tmp";
 
-                // 3. 임시 파일에 쓰기
+                // 임시 파일에 쓰기
                 File.WriteAllText(tempFilePath, chunk ?? string.Empty);
 
-                // 4. 임시 파일 검증
+                // 임시 파일 검증
                 if (!ValidateTempFile(tempFilePath, chunk))
                 {
                     // 검증 실패: 임시 파일을 에러 파일로 남기고, 본 파일은 건드리지 않음
-                    RenameTempFileToErrorFile(tempFilePath, "validation_failed", "[원자적 쓰기] ValidateTempFile 실패");
+                    RenameTempFileToErrorFile(tempFilePath, "validation_failed", "ValidateTempFile 실패");
                     return false;
                 }
 
-                // 5. 검증 성공 시에만 본 파일 교체
+                // 검증 성공 시에만 본 파일 교체
                 if (File.Exists(saveFilePath))
                 {
                     File.Delete(saveFilePath);
                 }
 
                 File.Move(tempFilePath, saveFilePath);
-
                 return true;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Debug.LogErrorFormat(
-                    "게임 데이터를 저장할 수 없습니다.\nException Message: {0}",
-                    ex.Message);
+                Debug.LogErrorFormat("게임 데이터를 저장할 수 없습니다.\nException Message: {0}", ex.Message);
 
-                // 예외 발생 시에도 임시 파일은 에러 파일로 남김
-                try
+                try // 예외 발생 시에도 임시 파일은 에러 파일로 남김
                 {
                     if (!string.IsNullOrEmpty(tempFilePath) && File.Exists(tempFilePath))
                     {
@@ -196,7 +193,7 @@ namespace TeamSuneat.Data.Game
                             ex.ToString());
                     }
                 }
-                catch (System.Exception cleanupEx)
+                catch (Exception cleanupEx)
                 {
                     Debug.LogWarning(
                         $"임시 파일 정리 중 추가 예외 발생: {cleanupEx.Message}");
@@ -210,40 +207,39 @@ namespace TeamSuneat.Data.Game
         {
             try
             {
-                // 1. 파일 존재 확인
+                // 파일 존재 확인
                 if (!File.Exists(tempFilePath))
                 {
-                    Debug.LogError("[원자적 쓰기] 임시 파일이 생성되지 않았습니다.");
+                    Debug.LogError("임시 파일이 생성되지 않았습니다.");
                     return false;
                 }
 
-                // 2. 파일 크기 확인 (0 바이트가 아닌지)
+                // 파일 크기 확인
                 FileInfo fileInfo = new FileInfo(tempFilePath);
                 if (fileInfo.Length == 0)
                 {
-                    Debug.LogError("[원자적 쓰기] 임시 파일이 비어있습니다.");
+                    Debug.LogError("임시 파일이 비어있습니다.");
                     return false;
                 }
 
-                // 3. 파일 내용 읽어서 원본과 비교
+                // 파일 내용 읽어서 원본과 비교
                 string writtenContent = File.ReadAllText(tempFilePath);
                 if (string.IsNullOrEmpty(writtenContent))
                 {
-                    Debug.LogError("[원자적 쓰기] 임시 파일 내용을 읽을 수 없습니다.");
+                    Debug.LogError("임시 파일 내용을 읽을 수 없습니다.");
                     return false;
                 }
-
-                if (writtenContent != (originalChunk ?? string.Empty))
+                else if (writtenContent != (originalChunk ?? string.Empty))
                 {
-                    Debug.LogError("[원자적 쓰기] 임시 파일 내용이 원본과 일치하지 않습니다.");
+                    Debug.LogError("임시 파일 내용이 원본과 일치하지 않습니다.");
                     return false;
                 }
 
                 return true;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Debug.LogError($"[원자적 쓰기] 임시 파일 검증 중 오류 발생: {ex.Message}");
+                Debug.LogError($"임시 파일 검증 중 오류 발생: {ex.Message}");
                 return false;
             }
         }
@@ -253,12 +249,16 @@ namespace TeamSuneat.Data.Game
             try
             {
                 if (string.IsNullOrEmpty(tempFilePath) || !File.Exists(tempFilePath))
+                {
                     return;
+                }
 
                 string errorFilePath = tempFilePath.Replace(".tmp", $".{errorType}.error");
 
                 if (File.Exists(errorFilePath))
+                {
                     File.Delete(errorFilePath);
+                }
 
                 File.Move(tempFilePath, errorFilePath);
 
@@ -267,12 +267,12 @@ namespace TeamSuneat.Data.Game
                 {
                     File.AppendAllText(
                         errorFilePath,
-                        $"\n\n--- ERROR INFO ---\n[{System.DateTime.Now:yyyy-MM-dd HH:mm:ss}]\n{errorMessage}\n");
+                        $"\n\n--- ERROR INFO ---\n[{DateTime.Now:yyyy-MM-dd HH:mm:ss}]\n{errorMessage}\n");
                 }
 
                 Debug.LogWarning($"임시 파일을 에러 파일로 전환했습니다. ErrorType={errorType}, File={Path.GetFileName(errorFilePath)}");
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 Debug.LogWarning($"에러 파일로 전환 중 예외 발생: {ex.Message}");
             }

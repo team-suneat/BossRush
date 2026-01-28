@@ -33,13 +33,12 @@ MonoBehaviour:
     StopAttackAnimationOnResourceLack: 0
     UseResourceOnActivate: 0
     UseResourceOnApply: 0
-    UseResourceOnAttack: 0
-    UseResourceOnAttackSucceeded: 0
+    UseResourceOnAttackSucceeded: 1
     UseResourceOnAttackFailed: 0
     UseResourceOnInactive: 0
     UseResourceValue: 0
-    RestoreResourceValue: 0
-    ResourceConsumeType: 0
+    RestoreResourceValue: 0.1
+    ResourceConsumeType: 3
     ForceResourceConsume: 0
     IgnoreDeathByConsume: 0
     ConsumeDelayTime: 0
@@ -55,9 +54,9 @@ MonoBehaviour:
     NameOnHitString: 
     DiminishingTypeString: 
     AttackTargetTypeString: TargetOfOwner
-    ResourceConsumeTypeString: None
-    AttackFVNameString: 
+    ResourceConsumeTypeString: FixedResource
+    AttackFVNameString: None
     DamageKnockbackFVNameString: 
     ParryTypeString: None
-    ParryKnockbackTypeString: 
-    ParryKnockbackFVNameString: 
+    ParryKnockbackTypeString: None
+    ParryKnockbackFVNameString: None

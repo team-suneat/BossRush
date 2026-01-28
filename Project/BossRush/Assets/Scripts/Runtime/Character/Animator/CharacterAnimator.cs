@@ -1,4 +1,4 @@
-﻿using Sirenix.OdinInspector;
+using Sirenix.OdinInspector;
 using System.Linq;
 using UnityEngine;
 
@@ -9,7 +9,7 @@ namespace TeamSuneat
         [Title("#Character Animator")]
         [SerializeField]
         [LabelText("공격 중 반전 잠금 무시")]
-        private bool _ignoreFlipOnAttacking;
+        protected bool _ignoreFlipOnAttacking;
 
         [SerializeField]
         [LabelText("공격 중 피격 애니메이션 재생 차단")]
@@ -21,6 +21,7 @@ namespace TeamSuneat
 
         protected Character _owner;
         protected Animator _animator;
+
 
         public delegate void OnStateEnterDelegate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex);
         public delegate void OnStateExitDelegate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex);
@@ -191,6 +192,12 @@ namespace TeamSuneat
             AnimatorLog.LogInfo("{0} 애니메이션 파라미터를 설정합니다. {1}", ANIMATOR_INTERACT_PARAMETER_NAME, true.ToBoolString());
 
             _animator.UpdateAnimatorBool(ANIMATOR_INTERACT_PARAMETER_ID, true, AnimatorParameters);
+        }
+
+        public virtual bool PlayCastAnimation(SkillName skillName = SkillName.None)
+        {
+            // 기본 구현은 아무것도 하지 않음 (플레이어 전용)
+            return false;
         }
 
         #endregion Play

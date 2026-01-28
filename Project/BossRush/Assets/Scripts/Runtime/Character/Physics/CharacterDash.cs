@@ -10,21 +10,22 @@ namespace TeamSuneat
     {
         [Title("Dash")]
         [SerializeField] private float _dashCooldown = 0.5f;
-        [SerializeField] private bool _airDashEnabled = true;
         [SerializeField] private GameFeedbacks _trailFeedback;
 
         private CharacterPhysicsCore _physics;
         private CharacterForceVelocity _forceVelocity;
         private Vital _vital;
         private Character _character;
-        private float _dashCooldownRemaining;
         private bool _wasOnCooldown;
         private bool _wasDashing;
 
         public bool IsDashing => _forceVelocity != null && _forceVelocity.IsProcessing;
-        public bool CanDash => _dashCooldownRemaining <= 0f && !IsDashing && HasPulse();
-        public bool IsAirDashEnabled => _airDashEnabled;
-        public float DashCooldownRemaining => _dashCooldownRemaining;
+        public bool CanDash => DashCooldownRemaining <= 0f && !IsDashing && HasPulse();
+
+        [field: SerializeField]
+        public bool IsAirDashEnabled { get; private set; } = true;
+
+        public float DashCooldownRemaining { get; private set; }
 
         private void Awake()
         {
@@ -38,7 +39,7 @@ namespace TeamSuneat
         // 방향 없이 대시 요청 (캐릭터가 바라보는 방향으로 대시)
         public void RequestDash()
         {
-            Vector2 direction = new Vector2(_physics != null ? _physics.FacingDirection : 1f, 0f);
+            Vector2 direction = new(_physics != null ? _physics.FacingDirection : 1f, 0f);
             RequestDash(direction);
         }
 
@@ -47,7 +48,7 @@ namespace TeamSuneat
             if (!CanDash) { return; }
             if (_physics == null) { return; }
             if (_physics.IsKnockback) { return; }
-            if (!_airDashEnabled && !_physics.IsGrounded) { return; }
+            if (!IsAirDashEnabled && !_physics.IsGrounded) { return; }
 
             ExecuteDash(direction);
         }
@@ -59,7 +60,7 @@ namespace TeamSuneat
             // 방향 정규화
             if (direction.magnitude < 0.01f)
             {
-                direction = new Vector2(_physics.FacingDirection, 0f);
+                _ = new Vector2(_physics.FacingDirection, 0f);
             }
             else
             {
@@ -67,7 +68,7 @@ namespace TeamSuneat
             }
 
             // 펄스 소모
-            if (!ConsumePulse()) { return; }
+            if (!TryConsumePulse()) { return; }
 
             // ForceVelocityAsset 데이터 가져오기
             ForceVelocityAssetData dashAssetData = ScriptableDataManager.Instance?.FindForceVelocityClone(FVNames.PlayerDash);
@@ -86,13 +87,13 @@ namespace TeamSuneat
             StartDashFlicker();
             PlayTrailFeedbacks();
 
-            _dashCooldownRemaining = _dashCooldown;
+            DashCooldownRemaining = _dashCooldown;
             _wasOnCooldown = true;
         }
 
         public void SetAirDashEnabled(bool enabled)
         {
-            _airDashEnabled = enabled;
+            IsAirDashEnabled = enabled;
         }
 
         public void AbilityTick()
@@ -115,9 +116,9 @@ namespace TeamSuneat
             _wasDashing = IsDashing;
 
             // 쿨다운 관리 (실제 대시는 ForceVelocity가 처리)
-            if (_dashCooldownRemaining > 0f)
+            if (DashCooldownRemaining > 0f)
             {
-                _dashCooldownRemaining -= Time.fixedDeltaTime;
+                DashCooldownRemaining -= Time.fixedDeltaTime;
                 _wasOnCooldown = true;
             }
             else if (_wasOnCooldown)
@@ -131,16 +132,20 @@ namespace TeamSuneat
         private bool HasPulse()
         {
             if (_vital == null) { return false; }
-            if (_vital.Pulse == null) { return false; }
-
-            return _vital.Pulse.Current >= 1 && !_vital.Pulse.IsBurnout;
+            return _vital.CanUse(VitalConsumeTypes.FixedPulse, 1);
         }
 
-        private bool ConsumePulse()
+        private bool TryConsumePulse()
         {
             if (_vital == null) { return false; }
 
-            return _vital.UseDash();
+            if (_vital.CanUseOrNotify(VitalConsumeTypes.FixedPulse, 1))
+            {
+                _vital.UseCurrentValue(VitalConsumeTypes.FixedPulse, 1);
+                return true;
+            }
+
+            return false;
         }
 
         private void StartDashFlicker()

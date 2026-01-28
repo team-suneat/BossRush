@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using TeamSuneat.CameraSystem.Core;
 using TeamSuneat.Data;
+using TeamSuneat.Data.Game;
 using TeamSuneat.Setting;
 using UnityEngine;
 
@@ -9,9 +10,6 @@ namespace TeamSuneat
     public class PlayerCharacter : Character
     {
         private PlayerInput _input;
-        private Transform _modelTransform;
-
-        public CharmSystem Charm { get; set; }
 
         public override LogTags LogTag => LogTags.Player;
 
@@ -19,6 +17,12 @@ namespace TeamSuneat
         {
             base.Awake();
             Charm = GetComponentInChildren<CharmSystem>();
+            Skill = GetComponentInChildren<SkillSystem>();
+        }
+
+        protected override CharacterAnimator GetCharacterAnimator()
+        {
+            return GetComponentInChildren<PlayerCharacterAnimator>();
         }
 
         public override void OnDespawn()
@@ -42,72 +46,19 @@ namespace TeamSuneat
             {
                 _input = gameObject.AddComponent<PlayerInput>();
             }
-
-            SetupModel();
         }
 
-        private void SetupModel()
+        public override void Initialize()
         {
-            // CharacterModel 필드가 있으면 우선 사용
-            if (CharacterModel != null)
-            {
-                _modelTransform = CharacterModel.transform;
-            }
-            else
-            {
-                // "Model" 자식 오브젝트 찾기
-                Transform modelChild = transform.Find("Model");
-                if (modelChild != null)
-                {
-                    _modelTransform = modelChild;
-                }
-                else
-                {
-                    Log.Warning(LogTag, "플레이어 캐릭터의 모델 Transform을 찾을 수 없습니다: {0}", this.GetHierarchyName());
-                }
-            }
-        }
-
-        protected override void ApplyCharacterCharms()
-        {
-            // 게임 데이터에서 플레이어 부적 정보 가져오기
-            var profile = GameApp.GetSelectedProfile();
-            if (profile == null)
-            {
-                Log.Warning(LogTag, "플레이어 프로필을 찾을 수 없습니다.");
-                return;
-            }
-
-            var charmData = profile.Charm;
-            if (charmData == null)
-            {
-                Log.Warning(LogTag, "플레이어 부적 데이터를 찾을 수 없습니다.");
-                return;
-            }
-
-            var slotCharmNames = charmData.SlotCharmNames;
-            if (slotCharmNames == null || slotCharmNames.Count == 0)
-            {
-                LogInfo("적용할 플레이어 부적이 없습니다.");
-                return;
-            }
-
-            // 부적 효과 적용
-            if (Charm == null)
-            {
-                Log.Warning(LogTag, "부적 시스템을 찾을 수 없습니다.");
-                return;
-            }
-
-            foreach (CharmName charmName in slotCharmNames)
-            {
-                Charm.AddCharm(charmName);
-            }
+            base.Initialize();
+            Skill?.Initialize();
         }
 
         public override void BattleReady()
         {
             base.BattleReady();
+
+            Skill?.OnBattleReady();
 
             CharacterManager.Instance.RegisterPlayer(this);
             SetupAnimatorLayerWeight();
@@ -156,6 +107,9 @@ namespace TeamSuneat
 
             // 5. Model 스프라이트 방향 반전
             UpdateModelDirection();
+
+            // 6. 스킬 업데이트
+            Skill?.LogicUpdate();
         }
 
         public override void PhysicsUpdate()
@@ -197,9 +151,6 @@ namespace TeamSuneat
                 }
             }
         }
-
-  
-
 
         //
 
@@ -265,10 +216,63 @@ namespace TeamSuneat
 
             // 모든 부적 효과 해제
             Charm?.ClearAll();
+            Skill?.OnDeath();
 
             CharacterManager.Instance.UnregisterPlayer(this);
 
             GlobalEvent.Send(GlobalEventType.PLAYER_CHARACTER_DEATH);
         }
+
+        #region 부적 (Charm)
+
+        public CharmSystem Charm { get; set; }
+
+        protected override void ApplyCharacterCharms()
+        {
+            // 게임 데이터에서 플레이어 부적 정보 가져오기
+            VProfile profile = GameApp.GetSelectedProfile();
+            if (profile == null)
+            {
+                LogWarning("플레이어 프로필을 찾을 수 없습니다.");
+                return;
+            }
+
+            VCharacterCharm charmData = profile.Charm;
+            if (charmData == null)
+            {
+                Log.Warning(LogTags.Charm, "플레이어 부적 데이터를 찾을 수 없습니다.");
+                return;
+            }
+
+            IReadOnlyList<CharmName> slotCharmNames = charmData.SlotCharmNames;
+            if (slotCharmNames == null || slotCharmNames.Count == 0)
+            {
+                Log.Warning(LogTags.Charm, "적용할 플레이어 부적이 없습니다.");
+                return;
+            }
+
+            // 부적 효과 적용
+            if (Charm == null)
+            {
+                Log.Warning(LogTags.Charm, "부적 시스템을 찾을 수 없습니다.");
+                return;
+            }
+
+            for (int i = 0; i < slotCharmNames.Count; i++)
+            {
+                CharmName charmName = slotCharmNames[i];
+                Charm.AddCharm(charmName);
+            }
+        }
+
+        #endregion 부적 (Charm)
+
+        #region 기술 (Skill)
+
+        public SkillSystem Skill { get; set; }
+
+        public void RequestCast() => Command.SetCastPressed(true);
+
+        #endregion 기술 (Skill)
     }
 }

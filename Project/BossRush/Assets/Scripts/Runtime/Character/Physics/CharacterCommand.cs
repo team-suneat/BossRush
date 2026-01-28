@@ -14,19 +14,25 @@ namespace TeamSuneat
         public bool IsJumpReleased;
         public bool IsDashPressed;
         public bool IsAttackPressed;
+        public bool IsCastPressed;
         public bool IsParryPressed;
 
         // 이전 프레임 상태 (한 프레임만 true 처리용)
         private bool _wasJumpPressed;
         private bool _wasDashPressed;
         private bool _wasAttackPressed;
+        private bool _wasCastPressed;
         private bool _wasParryPressed;
 
         // 공격 입력 버퍼
         public bool IsAttackBuffered { get; private set; }
+        public bool IsCastBuffered { get; private set; }
 
         private float _attackBufferEndTime;
+        private float _castBufferEndTime;
+
         private const float ATTACK_BUFFER_DURATION = 0.15f;
+        private const float CAST_BUFFER_DURATION = 0.15f;
 
         public void SetHorizontalInput(float value)
         {
@@ -92,6 +98,24 @@ namespace TeamSuneat
             _wasAttackPressed = value;
         }
 
+        public void SetCastPressed(bool value)
+        {
+            if (value && !_wasCastPressed)
+            {
+                IsCastPressed = true;
+
+                // 시전 입력 버퍼 시작
+                IsCastBuffered = true;
+                _castBufferEndTime = Time.time + CAST_BUFFER_DURATION;
+                Log.Info(LogTags.Input_Command, "[시전 입력 버퍼] 버퍼 시작. 만료 시간: {0:F3}초 후", CAST_BUFFER_DURATION);
+            }
+            else if (!value)
+            {
+                IsCastPressed = false;
+            }
+            _wasCastPressed = value;
+        }
+
         public void SetParryPressed(bool value)
         {
             if (value && !_wasParryPressed)
@@ -114,15 +138,25 @@ namespace TeamSuneat
                 IsAttackBuffered = false;
                 Log.Info(LogTags.Input_Command, "[공격 입력 버퍼] 버퍼 만료. 시간 초과로 무시됨");
             }
+            if (IsCastBuffered && Time.time > _castBufferEndTime)
+            {
+                IsCastBuffered = false;
+                Log.Info(LogTags.Input_Command, "[시전 입력 버퍼] 버퍼 만료. 시간 초과로 무시됨");
+            }
         }
 
         // 버퍼 소비
-        public void ConsumeAttackBuffer()
+        public void ConsumeBuffers()
         {
             if (IsAttackBuffered)
             {
                 IsAttackBuffered = false;
                 Log.Info(LogTags.Input_Command, "[공격 입력 버퍼] 버퍼 소비됨. 공격 실행");
+            }
+            if (IsCastBuffered)
+            {
+                IsCastBuffered = false;
+                Log.Info(LogTags.Input_Command, "[시전 입력 버퍼] 버퍼 소비됨. 시전 실행");
             }
         }
 
@@ -133,12 +167,14 @@ namespace TeamSuneat
             IsJumpReleased = false;
             IsDashPressed = false;
             IsAttackPressed = false;
+            IsCastPressed = false;
             IsParryPressed = false;
 
             // 이전 프레임 상태도 리셋 (다음 프레임에서 새로운 입력 감지 가능하도록)
             _wasJumpPressed = false;
             _wasDashPressed = false;
             _wasAttackPressed = false;
+            _wasCastPressed = false;
             _wasParryPressed = false;
 
             // 공격 버퍼(IsAttackBuffered)는 여기서 건드리지 않음
@@ -154,14 +190,18 @@ namespace TeamSuneat
             IsJumpReleased = false;
             IsDashPressed = false;
             IsAttackPressed = false;
+            IsCastPressed = false;
             IsParryPressed = false;
             _wasJumpPressed = false;
             _wasDashPressed = false;
             _wasAttackPressed = false;
+            _wasCastPressed = false;
             _wasParryPressed = false;
 
             IsAttackBuffered = false;
             _attackBufferEndTime = 0f;
+            IsCastBuffered = false;
+            _castBufferEndTime = 0f;
         }
 
         public void CopyFrom(CharacterCommand source)
@@ -181,17 +221,23 @@ namespace TeamSuneat
             IsJumpReleased = source.IsJumpReleased;
             IsDashPressed = source.IsDashPressed;
             IsAttackPressed = source.IsAttackPressed;
+            IsCastPressed = source.IsCastPressed;
             IsParryPressed = source.IsParryPressed;
 
             // 이전 프레임 상태
             _wasJumpPressed = source._wasJumpPressed;
             _wasDashPressed = source._wasDashPressed;
             _wasAttackPressed = source._wasAttackPressed;
+            _wasCastPressed = source._wasCastPressed;
             _wasParryPressed = source._wasParryPressed;
 
             // 공격 입력 버퍼
             IsAttackBuffered = source.IsAttackBuffered;
             _attackBufferEndTime = source._attackBufferEndTime;
+
+            // 시전 입력 버퍼
+            IsCastBuffered = source.IsCastBuffered;
+            _castBufferEndTime = source._castBufferEndTime;
         }
 
     }

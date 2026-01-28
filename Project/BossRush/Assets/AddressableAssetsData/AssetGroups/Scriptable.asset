@@ -51,6 +51,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0c32f5039510aaa4a91245cca4f3f696
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_PlayerSkill2.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0d0ff90df8be6904982c6ebb7bc06c90
     m_Address: Assets/Addressables/Scriptable/ForceVelocity/ForceVelocity_Boss1Pattern4Attack.asset
     m_ReadOnly: 0
@@ -161,6 +167,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5ce62921ee649b740a79d267065c5be7
     m_Address: Assets/Addressables/Scriptable/Flicker/Flicker_Dash.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5d58f63dbc6766147abcf97793763003
+    m_Address: Assets/Addressables/Scriptable/Skill/Skill_PlayerSkill1.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -311,6 +323,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b86951e4b14356f4f8cd5154f6597b67
     m_Address: Assets/Addressables/Scriptable/Charm/4. Counter/Charm_ReflectDrone.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: be573fead74e49246b98eab90a36dfc3
+    m_Address: Assets/Addressables/Scriptable/Charm/Charm_DefaultCharm.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable

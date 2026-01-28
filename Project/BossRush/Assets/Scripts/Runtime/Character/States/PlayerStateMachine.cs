@@ -26,6 +26,7 @@ namespace TeamSuneat
                 { CharacterState.Falling, new FallingState(this, _physics, _character) },
                 { CharacterState.Dash, new DashState(this, _physics, _animator, _character) },
                 { CharacterState.Attack, new PlayerAttackState(this, _physics, _animator, _character) },
+                { CharacterState.Cast, new CastState(this, _physics, _animator, _character) },
                 { CharacterState.Parry, new ParryState(this, _physics, _animator, _character) },
 
                 // 조건 상태
@@ -40,7 +41,10 @@ namespace TeamSuneat
 
         protected override void HandleInput()
         {
-            if (_character == null) return;
+            if (_character == null)
+            {
+                return;
+            }
 
             CharacterCommand cmd = _character.Command;
 
@@ -69,6 +73,15 @@ namespace TeamSuneat
             // 공격 입력 버퍼 소비
             TryConsumeAttackBuffer();
 
+            // 시전 입력 감지 (즉시 처리)
+            if (cmd.IsCastPressed)
+            {
+                RequestCast();
+            }
+
+            // 시전 입력 버퍼 소비
+            TryConsumeCastBuffer();
+
             // 패리 입력 감지
             if (cmd.IsParryPressed)
             {
@@ -81,22 +94,26 @@ namespace TeamSuneat
         // 공격 버퍼 소비
         private void TryConsumeAttackBuffer()
         {
-            if (_character == null) return;
-
-            var cmd = _character.Command;
-
-            if (!cmd.IsAttackBuffered)
+            if (_character == null)
+            {
                 return;
+            }
+
+            CharacterCommand cmd = _character.Command;
+            if (!cmd.IsAttackBuffered)
+            {
+                return;
+            }
 
             // 공격 시작 가능한 상태 명시적 정의
             // 초기 구현: Idle, Walk, Jumping, Falling만 허용
-            if (CurrentState == CharacterState.Idle ||
-                CurrentState == CharacterState.Walk ||
-                CurrentState == CharacterState.Jumping ||
-                CurrentState == CharacterState.Falling)
+            if (CurrentState is CharacterState.Idle or
+                CharacterState.Walk or
+                CharacterState.Jumping or
+                CharacterState.Falling)
             {
                 Log.Info(LogTags.Input_Command, "[공격 입력 버퍼] 버퍼 소비 시도. 현재 상태: {0}", CurrentState);
-                cmd.ConsumeAttackBuffer();
+                cmd.ConsumeBuffers();
                 RequestAttack();
             }
             else
@@ -104,14 +121,54 @@ namespace TeamSuneat
                 Log.Info(LogTags.Input_Command, "[공격 입력 버퍼] 버퍼 소비 실패. 공격 불가능한 상태: {0}", CurrentState);
             }
         }
+        private void TryConsumeCastBuffer()
+        {
+            if (_character == null)
+            {
+                return;
+            }
+
+            CharacterCommand cmd = _character.Command;
+            if (!cmd.IsCastBuffered)
+            {
+                return;
+            }
+
+            // 시전 시작 가능한 상태 명시적 정의
+            // 초기 구현: Idle, Walk, Jumping, Falling만 허용
+            if (CurrentState is CharacterState.Idle or
+                CharacterState.Walk or
+                CharacterState.Jumping or
+                CharacterState.Falling)
+            {
+                Log.Info(LogTags.Input_Command, "[시전 입력 버퍼] 버퍼 소비 시도. 현재 상태: {0}", CurrentState);
+                cmd.ConsumeBuffers();
+                RequestCast();
+            }
+            else
+            {
+                Log.Info(LogTags.Input_Command, "[시전 입력 버퍼] 버퍼 소비 실패. 시전 불가능한 상태: {0}", CurrentState);
+            }
+        }
 
         private void RequestAttack()
         {
-            if (_states.TryGetValue(CurrentState, out ICharacterState currentState))
+            if (_states.TryGetValue(CurrentState, out _))
             {
                 if (CurrentState != CharacterState.Attack)
                 {
                     ChangeState(CharacterState.Attack);
+                }
+            }
+        }
+
+        private void RequestCast()
+        {
+            if (_states.TryGetValue(CurrentState, out _))
+            {
+                if (CurrentState != CharacterState.Cast)
+                {
+                    ChangeState(CharacterState.Cast);
                 }
             }
         }
@@ -127,7 +184,7 @@ namespace TeamSuneat
             // 펄스가 없으면 대시 불가
             if (_character != null && _character.MyVital != null)
             {
-                if (!_character.MyVital.TryUsePulse())
+                if (!_character.MyVital.CanUseOrNotify(VitalConsumeTypes.FixedPulse, 1))
                 {
                     return;
                 }
@@ -140,13 +197,13 @@ namespace TeamSuneat
         {
             if (_character != null && _character.MyVital != null)
             {
-                if (!_character.MyVital.TryUsePulse())
+                if (!_character.MyVital.CanUseOrNotify(VitalConsumeTypes.FixedPulse, 1))
                 {
                     return;
                 }
             }
 
-            if (_states.TryGetValue(CurrentState, out ICharacterState currentState))
+            if (_states.TryGetValue(CurrentState, out _))
             {
                 if (CurrentState != CharacterState.Parry)
                 {
@@ -181,24 +238,12 @@ namespace TeamSuneat
 
         public void EnableFlipInput()
         {
-            if (_states.TryGetValue(CharacterState.Attack, out ICharacterState attackState))
-            {
-                if (attackState is PlayerAttackState attack)
-                {
-                    attack.EnableFlip();
-                }
-            }
+            _animator?.UnlockFlip();            
         }
 
         public void DisableFlipInput()
         {
-            if (_states.TryGetValue(CharacterState.Attack, out ICharacterState attackState))
-            {
-                if (attackState is PlayerAttackState attack)
-                {
-                    attack.DisableFlip();
-                }
-            }
+            _animator?.LockFlip();
         }
     }
 }

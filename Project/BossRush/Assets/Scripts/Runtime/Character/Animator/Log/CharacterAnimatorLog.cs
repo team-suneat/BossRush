@@ -1,6 +1,4 @@
-﻿using TeamSuneat.Data;
-
-namespace TeamSuneat
+﻿namespace TeamSuneat
 {
     public class CharacterAnimatorLog
     {

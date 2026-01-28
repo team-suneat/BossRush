@@ -11,7 +11,7 @@ namespace TeamSuneat
         {
             CharacterModel = this.FindGameObject("Model");
             Animator = this.FindComponent<Animator>("Model");
-            CharacterAnimator = GetComponentInChildren<CharacterAnimator>();
+            CharacterAnimator = GetCharacterAnimator();
             CharacterRenderer = GetComponentInChildren<CharacterRenderer>();
 
             Physics = GetComponent<CharacterPhysics>();
@@ -30,6 +30,11 @@ namespace TeamSuneat
             HeadPoint ??= transform;
             BodyPoint ??= transform;
             FootPoint ??= transform;
+        }
+
+        protected virtual CharacterAnimator GetCharacterAnimator()
+        {
+            return GetComponentInChildren<CharacterAnimator>();
         }
 
         protected override void OnRelease()

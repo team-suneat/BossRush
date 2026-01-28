@@ -124,6 +124,16 @@ namespace TeamSuneat.Data
             return GetFieldColor(key);
         }
 
+        protected Color GetSkillTypeColor(SkillType key)
+        {
+            return GetFieldColor(key);
+        }
+
+        protected Color GetSkillTriggerTypeColor(SkillTriggerType key)
+        {
+            return GetFieldColor(key);
+        }
+
         protected Color GetPassiveNameColor(PassiveName key)
         {
             return GetFieldColor(key);
@@ -150,6 +160,8 @@ namespace TeamSuneat.Data
                 return GameColors.GreenYellow;
             }
         }
+
+        //
 
         protected Color GetDirectionColor(FVDirections key)
         {
@@ -184,6 +196,13 @@ namespace TeamSuneat.Data
         protected Color GetIgnoreTypeColor(FVIgnoreType key)
         {
             return GetFieldColor(key);
+        }
+
+        //
+
+        protected Color GetVitalConsumeTypeColor(VitalConsumeTypes vitalConsumeType)
+        {
+            return GetFieldColor(vitalConsumeType);
         }
 
         //

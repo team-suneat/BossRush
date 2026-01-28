@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930900f4834fdbd49b030f42278e6662, type: 3}
+  m_Name: Skill_PlayerSkill1
+  m_EditorClassIdentifier: 
+  NameString: PlayerSkill1
+  Data:
+    IsChangingAsset: 0
+    Name: 1
+    Type: 1
+    TriggerType: 1
+    Cooldown: 0
+    UseResourceOnActivate: 1
+    UseResourceOnApply: 0
+    UseResourceValue: 1
+    RestoreResourceValue: 0
+    ResourceConsumeType: 3
+    ForceResourceConsume: 0
+    SkillFVName: 0
+    TypeString: Active
+    TriggerTypeString: InputCast
+    SkillFVNameString: None

@@ -111,31 +111,33 @@ namespace TeamSuneat.Data
         #region 자원 (Resource)
 
         [FoldoutGroup("#자원")]
+        [GUIColor("GetBoolColor")]
         [SuffixLabel("자원이 부족하다면 공격 애니메이션을 멈춥니다")]
         public bool StopAttackAnimationOnResourceLack;
 
         [FoldoutGroup("#자원")]
+        [GUIColor("GetBoolColor")]
         [SuffixLabel("공격 활성화 자원 소모")]
         public bool UseResourceOnActivate;
 
         [FoldoutGroup("#자원")]
+        [GUIColor("GetBoolColor")]
         [SuffixLabel("공격 적용시 자원 사용")]
         public bool UseResourceOnApply;
 
         [FoldoutGroup("#자원")]
-        [SuffixLabel("공격시 자원 사용")]
-        public bool UseResourceOnAttack;
-
-        [FoldoutGroup("#자원")]
         [SuffixLabel("공격 성공시 자원 사용")]
+        [GUIColor("GetBoolColor")]
         public bool UseResourceOnAttackSucceeded;
 
         [FoldoutGroup("#자원")]
         [SuffixLabel("공격 실패시 자원 사용")]
+        [GUIColor("GetBoolColor")]
         public bool UseResourceOnAttackFailed;
 
         [FoldoutGroup("#자원")]
         [SuffixLabel("공격 비활성화시 자원 소모")]
+        [GUIColor("GetBoolColor")]
         public bool UseResourceOnInactive;
 
         [FoldoutGroup("#자원")]
@@ -151,15 +153,18 @@ namespace TeamSuneat.Data
         [EnableIf("IsChangingAsset")]
         [FoldoutGroup("#자원")]
         [SuffixLabel("자원 소모 방식")]
+        [GUIColor("GetVitalConsumeTypeColor")]
         public VitalConsumeTypes ResourceConsumeType;
 
         [FoldoutGroup("#자원")]
         [InfoBox("자원이 부족해도 잔여 모든 자원을 사용합니다.")]
+        [GUIColor("GetBoolColor")]
         [SuffixLabel("강제 자원 소모")]
         public bool ForceResourceConsume;
 
         [FoldoutGroup("#자원")]
         [SuffixLabel("소모를 통한 죽음 무시")]
+        [GUIColor("GetBoolColor")]
         public bool IgnoreDeathByConsume;
 
         [FoldoutGroup("#자원")]
@@ -317,7 +322,6 @@ namespace TeamSuneat.Data
                 UseResourceOnActivate = UseResourceOnActivate,
                 UseResourceOnInactive = UseResourceOnInactive,
                 UseResourceOnApply = UseResourceOnApply,
-                UseResourceOnAttack = UseResourceOnAttack,
                 UseResourceOnAttackSucceeded = UseResourceOnAttackSucceeded,
                 UseResourceOnAttackFailed = UseResourceOnAttackFailed,
 
@@ -381,11 +385,8 @@ namespace TeamSuneat.Data
 
         private void ResourceConsumeTypeLog()
         {
-#if UNITY_EDITOR
-            // 게이지 기반 자원 타입일 때 UseResourceValue와 RestoreResourceValue가 0~1 범위인지 검증
-            if (ResourceConsumeType is VitalConsumeTypes.FixedResource or
-                VitalConsumeTypes.FixedPulse or
-                VitalConsumeTypes.FixedResourceAndPulse)
+#if UNITY_EDITOR            
+            if (ResourceConsumeType is VitalConsumeTypes.FixedResource or VitalConsumeTypes.FixedPulse)
             {
                 if (UseResourceValue is < 0f or > 1f)
                 {

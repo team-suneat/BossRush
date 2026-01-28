@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using TeamSuneat.Data;
-using UnityEngine;
 
 namespace TeamSuneat
 {
@@ -38,6 +37,12 @@ namespace TeamSuneat
             {
                 Log.Warning(LogTags.Charm, "부적 데이터를 찾을 수 없습니다: {0}", charmName.ToLogString());
                 return;
+            }
+
+            // 액티브+인풋 캐스트 트리거 스킬을 가진 부적은 동시에 하나만 유지합니다.
+            if (IsActiveInputCastSkillCharm(charmData))
+            {
+                RemoveCharmsWithActiveInputCastSkill();
             }
 
             _activeCharms[charmName] = charmData;
@@ -79,22 +84,10 @@ namespace TeamSuneat
 
             Log.Info(LogTags.Charm, "{0}에게 부적 효과를 적용합니다: {1} ({2})", Owner.Name.ToLogString(), charmData.Name.ToLogString(), charmData.ApplicationType);
 
-            // 버프 적용
-            if ((charmData.ApplicationType & CharmApplicationType.Buff) != 0)
-            {
-                ApplyCharmBuff(charmData.BuffName);
-            }
-
             // 스킬 적용
             if ((charmData.ApplicationType & CharmApplicationType.Skill) != 0)
             {
                 ApplyCharmSkill(charmData.SkillName);
-            }
-
-            // 패시브 적용
-            if ((charmData.ApplicationType & CharmApplicationType.Passive) != 0)
-            {
-                ApplyCharmPassive(charmData.PassiveName);
             }
         }
 
@@ -107,57 +100,11 @@ namespace TeamSuneat
 
             Log.Info(LogTags.Charm, "{0}에서 부적 효과를 제거합니다: {1} ({2})", Owner.Name.ToLogString(), charmData.Name.ToLogString(), charmData.ApplicationType);
 
-            // 버프 해제
-            if ((charmData.ApplicationType & CharmApplicationType.Buff) != 0)
-            {
-                RemoveCharmBuff(charmData.BuffName);
-            }
-
             // 스킬 해제
             if ((charmData.ApplicationType & CharmApplicationType.Skill) != 0)
             {
                 RemoveCharmSkill(charmData.SkillName);
             }
-
-            // 패시브 해제
-            if ((charmData.ApplicationType & CharmApplicationType.Passive) != 0)
-            {
-                RemoveCharmPassive(charmData.PassiveName);
-            }
-        }
-
-        private void ApplyCharmBuff(BuffName buffName)
-        {
-            if (buffName == BuffName.None)
-            {
-                Log.Warning(LogTags.Charm, "적용할 버프 이름이 없습니다.");
-                return;
-            }
-
-            if (Owner.Buff == null)
-            {
-                Log.Warning(LogTags.Charm, "버프 시스템이 존재하지 않습니다.");
-                return;
-            }
-
-            Owner.Buff.Add(buffName, 1, Owner);
-            Log.Info(LogTags.Charm, "{0}에게 부적 버프를 적용했습니다: {1}", Owner.Name.ToLogString(), buffName.ToLogString());
-        }
-
-        private void RemoveCharmBuff(BuffName buffName)
-        {
-            if (buffName == BuffName.None)
-            {
-                return;
-            }
-
-            if (Owner.Buff == null)
-            {
-                return;
-            }
-
-            Owner.Buff.Remove(buffName);
-            Log.Info(LogTags.Charm, "{0}에서 부적 버프를 제거했습니다: {1}", Owner.Name.ToLogString(), buffName.ToLogString());
         }
 
         private void ApplyCharmSkill(SkillName skillName)
@@ -168,8 +115,14 @@ namespace TeamSuneat
                 return;
             }
 
-            // TODO: 스킬 적용 로직 구현
-            Log.Info(LogTags.Charm, "{0}에게 부적 스킬 적용 준비됨 (구현 예정): {1}", Owner.Name.ToLogString(), skillName.ToLogString());
+            if (Owner.Skill == null)
+            {
+                Log.Warning(LogTags.Charm, "스킬 시스템이 존재하지 않습니다.");
+                return;
+            }
+
+            Owner.Skill.AddSkill(skillName, level: 1);
+            Log.Info(LogTags.Charm, "{0}에게 부적 스킬을 적용했습니다: {1}", Owner.Name.ToLogString(), skillName.ToLogString());
         }
 
         private void RemoveCharmSkill(SkillName skillName)
@@ -179,31 +132,13 @@ namespace TeamSuneat
                 return;
             }
 
-            // TODO: 스킬 해제 로직 구현
-            Log.Info(LogTags.Charm, "{0}에서 부적 스킬 해제 준비됨 (구현 예정): {1}", Owner.Name.ToLogString(), skillName.ToLogString());
-        }
-
-        private void ApplyCharmPassive(PassiveName passiveName)
-        {
-            if (passiveName == PassiveName.None)
-            {
-                Log.Warning(LogTags.Charm, "적용할 패시브 이름이 없습니다.");
-                return;
-            }
-
-            // TODO: 패시브 적용 로직 구현
-            Log.Info(LogTags.Charm, "{0}에게 부적 패시브 적용 준비됨 (구현 예정): {1}", Owner.Name.ToLogString(), passiveName.ToLogString());
-        }
-
-        private void RemoveCharmPassive(PassiveName passiveName)
-        {
-            if (passiveName == PassiveName.None)
+            if (Owner.Skill == null)
             {
                 return;
             }
 
-            // TODO: 패시브 해제 로직 구현
-            Log.Info(LogTags.Charm, "{0}에서 부적 패시브 해제 준비됨 (구현 예정): {1}", Owner.Name.ToLogString(), passiveName.ToLogString());
+            Owner.Skill.RemoveSkill(skillName);
+            Log.Info(LogTags.Charm, "{0}에서 부적 스킬을 제거했습니다: {1}", Owner.Name.ToLogString(), skillName.ToLogString());
         }
 
         protected override void RegisterGlobalEvent()
@@ -272,6 +207,57 @@ namespace TeamSuneat
             }
 
             Log.Info(LogTags.Charm, "{0}: 부적 슬롯 잠금 이벤트 수신: {1}개", Owner.Name.ToLogString(), slotCount);
+        }
+
+        private List<CharmName> FindCharmsWithActiveInputCastSkill()
+        {
+            List<CharmName> result = new();
+
+            foreach (KeyValuePair<CharmName, CharmAssetData> kvp in _activeCharms)
+            {
+                CharmAssetData charmData = kvp.Value;
+                if (charmData == null ||
+                    (charmData.ApplicationType & CharmApplicationType.Skill) == 0 ||
+                    charmData.SkillName == SkillName.None)
+                {
+                    continue;
+                }
+
+                SkillAssetData skillData = ScriptableDataManager.Instance?.FindSkillClone(charmData.SkillName);
+                if (skillData != null &&
+                    skillData.Type == SkillType.Active &&
+                    skillData.TriggerType == SkillTriggerType.InputCast)
+                {
+                    result.Add(kvp.Key);
+                }
+            }
+
+            return result;
+        }
+
+        private bool IsActiveInputCastSkillCharm(CharmAssetData charmData)
+        {
+            if (charmData == null ||
+                (charmData.ApplicationType & CharmApplicationType.Skill) == 0 ||
+                charmData.SkillName == SkillName.None)
+            {
+                return false;
+            }
+
+            SkillAssetData skillData = ScriptableDataManager.Instance?.FindSkillClone(charmData.SkillName);
+            return skillData != null &&
+                   skillData.Type == SkillType.Active &&
+                   skillData.TriggerType == SkillTriggerType.InputCast;
+        }
+
+        private void RemoveCharmsWithActiveInputCastSkill()
+        {
+            // 기존 부적 중 액티브+인풋 캐스트 트리거 스킬을 가진 부적 모두 제거
+            List<CharmName> charmsToRemove = FindCharmsWithActiveInputCastSkill();
+            for (int i = 0; i < charmsToRemove.Count; i++)
+            {
+                RemoveCharm(charmsToRemove[i]);
+            }
         }
     }
 }

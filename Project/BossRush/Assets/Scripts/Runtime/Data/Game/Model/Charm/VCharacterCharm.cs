@@ -19,7 +19,12 @@ namespace TeamSuneat.Data.Game
         [NonSerialized]
         private readonly List<CharmName> _slotCharmNames = new();
 
+        [NonSerialized]
+        private CharmName _activeInputCastCharmName = CharmName.None;
+
         public IReadOnlyList<CharmName> SlotCharmNames => _slotCharmNames;
+
+        public CharmName ActiveInputCastCharmName => _activeInputCastCharmName;
 
         public List<CharmName> GetCharmNames()
         {
@@ -44,8 +49,17 @@ namespace TeamSuneat.Data.Game
 
         public void OnLoadGameData()
         {
-            _charmMap.Clear();
+            BuildCharmMap();
+            BuildSlotCharmNames();
+            SyncSlotCharmNameStrings();
+            UpdateActiveInputCastCharmCache();
+        }
 
+        //
+
+        private void BuildCharmMap()
+        {
+            _charmMap.Clear();
             CharmName charmName = CharmName.None;
             foreach (KeyValuePair<string, VCharm> kvp in Charms)
             {
@@ -60,32 +74,39 @@ namespace TeamSuneat.Data.Game
 
                 charm.Name = charmName;
                 _charmMap[charmName] = charm;
+                Log.Info(LogTags.Charm, "인게임 부적을 등록합니다: {0}", charmName.ToLogString());
             }
+        }
 
+        private void BuildSlotCharmNames()
+        {
             _slotCharmNames.Clear();
-            foreach (string slotName in SlotCharmNameStrings)
+
+            CharmName charmName = CharmName.None;
+            for (int i = 0; i < SlotCharmNameStrings.Count; i++)
             {
+                // 슬롯 문자열을 enum으로 복원합니다.
+                string slotName = SlotCharmNameStrings[i];
                 if (!EnumEx.ConvertTo(ref charmName, slotName))
                 {
                     Log.Error(LogTags.Charm, "부적 슬롯 이름을 CharmName으로 변환하지 못했습니다: {0}", slotName);
                     continue;
                 }
 
+                // 세이브 데이터가 더 길어도, 현재 해금된 슬롯 수만큼만 구성합니다.
                 if (_slotCharmNames.Count >= UnlockedSlotCount)
                 {
                     break;
                 }
 
+                // 유효한 부적만 슬롯에 올립니다.
                 if (_charmMap.ContainsKey(charmName))
                 {
                     _slotCharmNames.Add(charmName);
+                    Log.Info(LogTags.Charm, "인게임 부적을 슬롯에 추가합니다: {0}", charmName.ToLogString());
                 }
             }
-
-            SyncSlotCharmNameStrings();
         }
-
-        //
 
         public bool CheckUnlocked(CharmName charmName)
         {
@@ -152,6 +173,7 @@ namespace TeamSuneat.Data.Game
             // 실제로 슬롯에 추가된 경우에만 이벤트 전송
             if (wasSlotAdded)
             {
+                UpdateActiveInputCastCharmCache();
                 GlobalEvent<CharmName>.Send(GlobalEventType.CHARM_ADDED, charmName);
             }
         }
@@ -174,6 +196,7 @@ namespace TeamSuneat.Data.Game
             // 실제로 슬롯에서 제거된 경우에만 이벤트 전송
             if (wasRemoved)
             {
+                UpdateActiveInputCastCharmCache();
                 GlobalEvent<CharmName>.Send(GlobalEventType.CHARM_REMOVED, charmName);
             }
         }
@@ -183,8 +206,36 @@ namespace TeamSuneat.Data.Game
         public static VCharacterCharm CreateDefault()
         {
             VCharacterCharm defaultCharms = new();
+            defaultCharms.InitializeDefaultSaveData();
 
             return defaultCharms;
+        }
+
+        private void InitializeDefaultSaveData()
+        {
+            // 주의: 세이브 기본값 초기화 전용입니다.
+            // - 이벤트/로그를 발생시키지 않습니다.
+            // - 런타임 캐시(_charmMap, _slotCharmNames)를 직접 만지지 않습니다.
+            // - 저장될 필드(Charms/UnlockedCharms/SlotCharmNameStrings/UnlockedSlotCount)만 세팅합니다.
+
+            Charms.Clear();
+            UnlockedCharms.Clear();
+            SlotCharmNameStrings.Clear();
+
+            CharmName defaultCharmName = CharmName.DefaultCharm;
+            string defaultCharmKey = defaultCharmName.ToString();
+
+            UnlockedSlotCount = 1;
+            Charms[defaultCharmKey] = new VCharm(defaultCharmName);
+            UnlockedCharms.Add(defaultCharmKey);
+            SlotCharmNameStrings.Add(defaultCharmKey);
+
+            UpdateActiveInputCastCharmCache();
+
+            Log.Info(LogTags.Charm, "기본 세이브 데이터를 초기화합니다. 해금된 슬롯 수:{0}, 소지한 부적 수:{1}, 액티브+인풋 캐스트 트리거 스킬을 가진 부적: {2}",
+                UnlockedSlotCount,
+                UnlockedCharms.Count,
+                ActiveInputCastCharmName.ToLogString());
         }
 
         public void UnlockSlot(int count)
@@ -217,6 +268,36 @@ namespace TeamSuneat.Data.Game
             for (int i = 0; i < _slotCharmNames.Count; i++)
             {
                 SlotCharmNameStrings.Add(_slotCharmNames[i].ToString());
+            }
+        }
+
+        private void UpdateActiveInputCastCharmCache()
+        {
+            _activeInputCastCharmName = CharmName.None;
+
+            if (ScriptableDataManager.Instance == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < _slotCharmNames.Count; i++)
+            {
+                CharmName charmName = _slotCharmNames[i];
+                CharmAssetData charmData = ScriptableDataManager.Instance.FindCharmClone(charmName);
+                if (!charmData.IsValid() ||
+                    (charmData.ApplicationType & CharmApplicationType.Skill) == 0)
+                {
+                    continue;
+                }
+
+                SkillAssetData skillData = ScriptableDataManager.Instance.FindSkillClone(charmData.SkillName);
+                if (skillData.IsValid() &&
+                    skillData.Type == SkillType.Active &&
+                    skillData.TriggerType == SkillTriggerType.InputCast)
+                {
+                    _activeInputCastCharmName = charmName;
+                    return;
+                }
             }
         }
     }

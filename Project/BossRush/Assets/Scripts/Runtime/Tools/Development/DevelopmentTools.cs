@@ -13,6 +13,7 @@ namespace TeamSuneat.Development
         LogTag,
         GamePlay,
         Cheat,
+        Charm,
         Stat,
         GameData,
 
@@ -132,7 +133,7 @@ namespace TeamSuneat.Development
                 "로그 태그",
                 "게임 플레이",
                 "치트",
-                // "부적",
+                "부적",
                 "능력치",
                 "게임 데이터"
             };
@@ -165,9 +166,9 @@ namespace TeamSuneat.Development
                     DrawCheatSection();
                     break;
 
-                // case DevelopmentToolTab.Charm:
-                // DrawCharmSection();
-                // break;
+                case DevelopmentToolTab.Charm:
+                    DrawCharmSection();
+                    break;
 
                 case DevelopmentToolTab.Stat:
                     DrawStatSection();
@@ -371,8 +372,8 @@ namespace TeamSuneat.Development
             // 죽지 않음
             cheat.IsNotDead = _gui.DrawContentToggleButton("죽지 않음", cheat.IsNotDead, useWidth: true, useHeight: true);
 
-            // 펄스 비용 없음
-            cheat.IsNotCostPulse = _gui.DrawContentToggleButton("펄스 비용 없음", cheat.IsNotCostPulse, useWidth: true, useHeight: true);
+            // 마나 비용 없음
+            cheat.IsNotCostResource = _gui.DrawContentToggleButton("마나 비용 없음", cheat.IsNotCostResource, useWidth: true, useHeight: true);
 
             GUILayout.EndVertical();
         }

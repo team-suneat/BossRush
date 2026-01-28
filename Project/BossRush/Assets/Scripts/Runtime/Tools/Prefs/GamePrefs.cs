@@ -205,16 +205,19 @@ namespace TeamSuneat
             PlayerPrefs.DeleteAll();
         }
 
+        // 게임Prefs로 관리되는 모든 설정 및 PlayerPrefs 데이터를 삭제한다. (임시 데이터 초기화용)
+        public static void DeleteAllSettings()
+        {
+            Clear();
+        }
+
         public static void Delete(GamePrefTypes type)
         {
-            string key = GAME_NAME + type.ToUpperString();
-
-            if (false == string.IsNullOrEmpty(key))
+            string key = $"{GAME_NAME}{type.ToUpperString()}";
+            if (PlayerPrefs.HasKey(key))
             {
-                if (PlayerPrefs.HasKey(key))
-                {
-                    PlayerPrefs.DeleteKey(key);
-                }
+                PlayerPrefs.DeleteKey(key);
+                Log.Info(LogTags.GamePref, $"Delete. key:({key})");
             }
         }
 

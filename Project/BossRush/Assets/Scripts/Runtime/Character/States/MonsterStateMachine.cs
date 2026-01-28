@@ -83,7 +83,7 @@ namespace TeamSuneat
         {
             if (_character != null && _character.MyVital != null)
             {
-                if (!_character.MyVital.TryUsePulse())
+                if (!_character.MyVital.CanUseOrNotify(VitalConsumeTypes.FixedPulse, 1))
                 {
                     return;
                 }

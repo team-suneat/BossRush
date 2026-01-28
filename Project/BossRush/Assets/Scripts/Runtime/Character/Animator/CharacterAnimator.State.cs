@@ -32,6 +32,7 @@ namespace TeamSuneat
         public bool IsDashing => _stateFlags.IsDashing;
         public bool IsDamaging => _stateFlags.IsDamaging;
         public bool IsParrying => _stateFlags.IsParrying;
+        public virtual bool IsCasting => false;
         public bool IsStunned => _stateFlags.IsStunned;
         public bool IsBlockDeathAnimation => _stateFlags.IsBlockDeathAnimation;
 
@@ -78,6 +79,11 @@ namespace TeamSuneat
                     _animator.UpdateAnimatorBool(ANIMATOR_IS_PARRYING_PARAMETER_ID, value, AnimatorParameters);
                 }
             }
+        }
+
+        protected virtual void SetCasting(bool value)
+        {
+            // 기본 구현은 아무것도 하지 않음 (플레이어 전용)
         }
 
         public void SetStunned(bool value)

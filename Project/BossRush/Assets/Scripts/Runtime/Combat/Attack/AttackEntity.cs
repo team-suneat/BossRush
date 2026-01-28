@@ -270,7 +270,7 @@ namespace TeamSuneat
         {
             if (AssetData.IsValid())
             {
-                if (AssetData.UseResourceOnAttack)
+                if (AssetData.UseResourceOnAttackSucceeded)
                 {
                     StartUseAndRestoreResource();
                 }

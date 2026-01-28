@@ -73,35 +73,30 @@ namespace TeamSuneat
 
         protected virtual void OnAnimatorAttackStateEnter()
         {
-            if (_ignoreFlipOnAttacking)
+            if (!_ignoreFlipOnAttacking)
             {
                 LockFlip();
             }
-
             SetAttacking(true);
         }
 
         protected virtual void OnAnimatorAttackStateExit()
         {
-            StopAttacking();
+            if (!_ignoreFlipOnAttacking)
+            {
+                UnlockFlip();
+            }
             SetAttacking(false);
             ProcessNextStep();
         }
 
-        public void StopAttacking()
+        public void ForceStopAttack()
         {
-            CancelAttackParameter();
-
-            _animator.UpdateAnimatorBool(ANIMATOR_IS_ATTACKING_PARAMETER_ID, false, AnimatorParameters);
-
-            if (_ignoreFlipOnAttacking)
+            if (!_ignoreFlipOnAttacking)
             {
                 UnlockFlip();
             }
-        }
-
-        private void CancelAttackParameter()
-        {
+            SetAttacking(false);
         }
 
         //

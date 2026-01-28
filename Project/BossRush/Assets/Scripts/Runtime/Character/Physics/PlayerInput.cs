@@ -76,6 +76,10 @@ namespace TeamSuneat
             {
                 _character.RequestAttack();
             }
+            if (TSInputManager.Instance.CheckButtonState(ActionNames.Cast, ButtonStates.ButtonDown))
+            {
+                _character.RequestCast();
+            }
             if (TSInputManager.Instance.CheckButtonState(ActionNames.Parry, ButtonStates.ButtonDown))
             {
                 _character.RequestParry();

@@ -7,7 +7,6 @@ namespace TeamSuneat.Data.Game
         public int IssuedItemSID;
         public VCharacterCharm Charm;
         public VCurrency Currency;
-
         public VCharacterStage Stage;
         public VCharacterSlot Slot;
         public VStatistics Statistics;

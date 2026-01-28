@@ -129,7 +129,7 @@ namespace TeamSuneat
             if (_physics != null && _physics.IsGrounded)
             {
                 // 공격 애니메이션 중지
-                _animator?.StopAttacking();
+                _animator?.ForceStopAttack();
 
                 // 점프 상태로 전환
                 _stateMachine.ChangeState(CharacterState.Jumping);

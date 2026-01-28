@@ -11,6 +11,7 @@ namespace TeamSuneat
         Falling,
         Dash,
         Attack,
+        Cast,
         Parry,
 
         // 조건 상태 (우선순위 높음)

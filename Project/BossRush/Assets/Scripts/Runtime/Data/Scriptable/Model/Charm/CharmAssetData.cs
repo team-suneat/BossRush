@@ -31,29 +31,15 @@ namespace TeamSuneat.Data
         public CharmApplicationType ApplicationType;
 
         [FoldoutGroup("#부적 정보")]
-        [EnableIf("HasBuffApplication")]
-        [SuffixLabel("버프 이름")]
-        [GUIColor("GetBuffNameColor")]
-        public BuffName BuffName;
-
-        [FoldoutGroup("#부적 정보")]
         [EnableIf("HasSkillApplication")]
         [SuffixLabel("스킬 이름")]
         [GUIColor("GetSkillNameColor")]
         public SkillName SkillName;
 
-        [FoldoutGroup("#부적 정보")]
-        [EnableIf("HasPassiveApplication")]
-        [SuffixLabel("패시브 이름")]
-        [GUIColor("GetPassiveNameColor")]
-        public PassiveName PassiveName;
-
         // 스트링
         [FoldoutGroup("#String")] public string TypeString;
         [FoldoutGroup("#String")] public string ApplicationTypeString;
-        [FoldoutGroup("#String")] public string BuffNameString;
         [FoldoutGroup("#String")] public string SkillNameString;
-        [FoldoutGroup("#String")] public string PassiveNameString;
 
         public override int GetKey()
         {
@@ -72,17 +58,9 @@ namespace TeamSuneat.Data
                 {
                     Log.Error("CharmAssetData의 ApplicationTypeString 변수를 변환할 수 없습니다. {0} ({1}), {2}", Name, Name.ToLogString(), ApplicationTypeString);
                 }
-                if (HasBuffApplication() && !EnumEx.ConvertTo(ref BuffName, BuffNameString))
-                {
-                    Log.Error("CharmAssetData의 BuffNameString 변수를 변환할 수 없습니다. {0} ({1}), {2}", Name, Name.ToLogString(), BuffNameString);
-                }
                 if (HasSkillApplication() && !EnumEx.ConvertTo(ref SkillName, SkillNameString))
                 {
                     Log.Error("CharmAssetData의 SkillNameString 변수를 변환할 수 없습니다. {0} ({1}), {2}", Name, Name.ToLogString(), SkillNameString);
-                }
-                if (HasPassiveApplication() && !EnumEx.ConvertTo(ref PassiveName, PassiveNameString))
-                {
-                    Log.Error("CharmAssetData의 PassiveNameString 변수를 변환할 수 없습니다. {0} ({1}), {2}", Name, Name.ToLogString(), PassiveNameString);
                 }
             }
         }
@@ -93,9 +71,7 @@ namespace TeamSuneat.Data
 
             TypeString = Type.ToString();
             ApplicationTypeString = ApplicationType.ToString();
-            BuffNameString = BuffName.ToString();
             SkillNameString = SkillName.ToString();
-            PassiveNameString = PassiveName.ToString();
 
             IsChangingAsset = false;
         }
@@ -115,9 +91,7 @@ namespace TeamSuneat.Data
                 Type = Type,
                 Description = Description,
                 ApplicationType = ApplicationType,
-                BuffName = BuffName,
                 SkillName = SkillName,
-                PassiveName = PassiveName,
             };
 
             return clone;
@@ -131,9 +105,7 @@ namespace TeamSuneat.Data
 
             UpdateIfChanged(ref TypeString, Type);
             UpdateIfChanged(ref ApplicationTypeString, ApplicationType);
-            UpdateIfChanged(ref BuffNameString, BuffName);
             UpdateIfChanged(ref SkillNameString, SkillName);
-            UpdateIfChanged(ref PassiveNameString, PassiveName);
 
             return _hasChangedWhiteRefreshAll;
         }
@@ -150,19 +122,9 @@ namespace TeamSuneat.Data
             }
         }
 
-        private bool HasBuffApplication()
-        {
-            return IsChangingAsset && (ApplicationType & CharmApplicationType.Buff) != 0;
-        }
-
         private bool HasSkillApplication()
         {
             return IsChangingAsset && (ApplicationType & CharmApplicationType.Skill) != 0;
-        }
-
-        private bool HasPassiveApplication()
-        {
-            return IsChangingAsset && (ApplicationType & CharmApplicationType.Passive) != 0;
         }
 
         private void TypeLog()

@@ -10,7 +10,6 @@ namespace TeamSuneat
         FixedBarrier,
         FixedResource,
         FixedPulse,
-        FixedResourceAndPulse,
     }
 
     public static class VitalEnumExtension

@@ -20,9 +20,9 @@ namespace TeamSuneat
         public void OnEnter()
         {
             // 펄스 소모
-            if (_character != null && _character.MyVital != null && _character.MyVital.Pulse != null)
+            if (_character != null && _character.MyVital != null)
             {
-                _character.MyVital.UseParry();
+                _character.MyVital.UseCurrentValue(VitalConsumeTypes.FixedPulse, 1);
             }
 
             // 이동 및 방향 전환 잠금

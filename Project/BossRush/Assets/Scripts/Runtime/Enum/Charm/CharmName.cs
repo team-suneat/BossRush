@@ -4,6 +4,8 @@ namespace TeamSuneat
     {
         None = 0,
 
+        DefaultCharm = 1,
+
         #region Attack (공격) - 100~199
         TechEcho = 100,              // 기술 피해 +20%, 성공 시 5초 1초마다 1피해
         WideArcBlade = 101,          // 공격 범위 50% 증가

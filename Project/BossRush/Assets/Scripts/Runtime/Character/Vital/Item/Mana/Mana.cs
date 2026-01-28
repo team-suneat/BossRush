@@ -1,5 +1,6 @@
 using Sirenix.OdinInspector;
 using System;
+using TeamSuneat.Setting;
 using UnityEngine;
 
 namespace TeamSuneat
@@ -16,13 +17,29 @@ namespace TeamSuneat
 
         public event Action<float> OnGaugeProgressChanged;
 
-        public override VitalResourceTypes Type => VitalResourceTypes.Mana;
-
         /// <summary> 현재 온전한 마나 개수. </summary>
         public int FullManaCount => Current;
 
         /// <summary> 최대 온전한 마나 개수. </summary>
         public int MaxFullManaCount => Max;
+
+        public override VitalResourceTypes Type => VitalResourceTypes.Mana;
+
+        public override bool AddCurrentValue(int value)
+        {
+            if (base.AddCurrentValue(value))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public override void Initialize()
+        {
+            base.Initialize();
+            GaugeProgress = 0f;
+            NotifyGaugeProgressChanged();
+        }
 
         public override void LoadCurrentValue()
         {
@@ -34,34 +51,30 @@ namespace TeamSuneat
             LogInfo("캐릭터의 마나를 초기화합니다. {0}/{1}", Current, Max);
         }
 
-        public override void Initialize()
+        /// <summary> 공격 성공 시 게이지 증가. </summary>
+        public void OnAttackSuccess(float gainAmount = 0f)
         {
-            base.Initialize();
-            GaugeProgress = 0f;
+            if (gainAmount <= 0f)
+            {
+                return;
+            }
+
+            float newProgress = GaugeProgress + gainAmount;
+
+            if (newProgress >= 1f)
+            {
+                if (AddFullMana())
+                {
+                    GaugeProgress = 0f;
+                }
+            }
+            else
+            {
+                GaugeProgress = newProgress;
+            }
+
             NotifyGaugeProgressChanged();
-        }
-
-        public override bool AddCurrentValue(int value)
-        {
-            if (base.AddCurrentValue(value))
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public override bool UseCurrentValue(int value)
-        {
-            if (base.UseCurrentValue(value))
-            {
-                return true;
-            }
-            return false;
-        }
-
-        protected override void OnAddCurrentValue(int value)
-        {
-            base.OnAddCurrentValue(value);
+            LogInfo("공격 성공으로 마나 게이지를 증가합니다. 진행도: {0:F1}%", GaugeProgress * 100f);
         }
 
         public override void RefreshMaxValue(bool shouldAddExcessToCurrent = false)
@@ -94,30 +107,37 @@ namespace TeamSuneat
             }
         }
 
-        /// <summary> 공격 성공 시 게이지 증가. </summary>
-        public void OnAttackSuccess(float gainAmount = 0f)
+        /// <summary> 온전한 마나 사용 시도. </summary>
+        public bool TryUseFullMana()
         {
-            if (gainAmount <= 0f)
+            if (Current <= 0)
             {
-                return;
+                LogWarning("온전한 마나가 부족합니다. 현재: {0}", Current);
+                return false;
             }
 
-            float newProgress = GaugeProgress + gainAmount;
+            Current--;
+            SendGlobalEventOfChange();
+            LogInfo("온전한 마나를 사용합니다. 남은 개수: {0}/{1}", Current, Max);
+            return true;
+        }
 
-            if (newProgress >= 1f)
+        public override bool UseCurrentValue(int value)
+        {
+            if (GameSetting.Instance.Cheat.IsNotCostResource)
             {
-                if (AddFullMana())
-                {
-                    GaugeProgress = 0f;
-                }
+                return true;
             }
-            else
+            if (base.UseCurrentValue(value))
             {
-                GaugeProgress = newProgress;
+                return true;
             }
+            return false;
+        }
 
-            NotifyGaugeProgressChanged();
-            LogInfo("공격 성공으로 마나 게이지를 증가합니다. 진행도: {0:F1}%", GaugeProgress * 100f);
+        protected override void OnAddCurrentValue(int value)
+        {
+            base.OnAddCurrentValue(value);
         }
 
         /// <summary> 온전한 마나 추가. </summary>
@@ -132,21 +152,6 @@ namespace TeamSuneat
             Current++;
             SendGlobalEventOfChange();
             LogInfo("온전한 마나를 획득합니다. {0}/{1}", Current, Max);
-            return true;
-        }
-
-        /// <summary> 온전한 마나 사용 시도. </summary>
-        public bool TryUseFullMana()
-        {
-            if (Current <= 0)
-            {
-                LogWarning("온전한 마나가 부족합니다. 현재: {0}", Current);
-                return false;
-            }
-
-            Current--;
-            SendGlobalEventOfChange();
-            LogInfo("온전한 마나를 사용합니다. 남은 개수: {0}/{1}", Current, Max);
             return true;
         }
 

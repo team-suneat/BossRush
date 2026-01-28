@@ -137,36 +137,8 @@ namespace TeamSuneat
                 return false;
             }
 
-            // FixedResourceAndPulse 타입일 때는 마나와 펄스를 동시에 회복
-            if (AssetData.ResourceConsumeType == VitalConsumeTypes.FixedResourceAndPulse)
-            {
-                float gainAmount = Mathf.Clamp01(AssetData.RestoreResourceValue);
-                if (gainAmount > 0f)
-                {
-                    bool restored = false;
-                    
-                    if (Owner.MyVital.Mana != null)
-                    {
-                        LogInfo("공격독립체에서 마나 게이지를 증가시킵니다. {0}, {1:F2}", AssetData.ResourceConsumeType, gainAmount);
-                        Owner.MyVital.Mana.OnAttackSuccess(gainAmount);
-                        restored = true;
-                    }
-                    
-                    if (Owner.MyVital.Pulse != null)
-                    {
-                        LogInfo("공격독립체에서 펄스 게이지를 증가시킵니다. {0}, {1:F2}", AssetData.ResourceConsumeType, gainAmount);
-                        Owner.MyVital.Pulse.OnAttackSuccess(gainAmount);
-                        restored = true;
-                    }
-                    
-                    return restored;
-                }
-                return false;
-            }
-
             // Life나 Barrier는 기존 방식 유지
             int value = (int)AssetData.RestoreResourceValue;
-
             if (value > 0)
             {
                 LogInfo("공격독립체에서 자원을 회복합니다. {0}, {1}", AssetData.ResourceConsumeType, value);
