@@ -1,4 +1,4 @@
-﻿using Rewired;
+using Rewired;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,27 +16,34 @@ namespace TeamSuneat
 
     public partial class TSInputManager : Singleton<TSInputManager>
     {
-#if VIRIDIAN_PATCH
-        const ControllerType DEFAULT_CONTROLLER = ControllerType.Joystick;
+        private static readonly ControllerType DEFAULT_CONTROLLER = GetDefaultControllerForPlatform();
+        private static readonly JoystickTypes DEFAULT_JOYSTICK = GetDefaultJoystickForPlatform();
 
-        /*Default joystick type - console invariant*/
-#if UNITY_SWITCH
-        const JoystickTypes DEFAULT_JOYSTICK = JoystickTypes.Nintendo;
-#elif UNITY_GAMECORE
-        const JoystickTypes DEFAULT_JOYSTICK = JoystickTypes.Xbox;
-#elif UNITY_PS5
-        const JoystickTypes DEFAULT_JOYSTICK = JoystickTypes.PlayStation5;
+        private static ControllerType GetDefaultControllerForPlatform()
+        {
+#if UNITY_PS5 || UNITY_GAMECORE || UNITY_SWITCH || UNITY_PS4
+            return ControllerType.Joystick;
+#elif UNITY_EDITOR || UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_STANDALONE_LINUX
+            return ControllerType.Keyboard;
+#else
+            return ControllerType.Keyboard;
+#endif
+        }
+
+        private static JoystickTypes GetDefaultJoystickForPlatform()
+        {
+#if UNITY_PS5
+            return JoystickTypes.PlayStation5;
 #elif UNITY_PS4
-        const JoystickTypes DEFAULT_JOYSTICK = JoystickTypes.PlayStation;
+            return JoystickTypes.PlayStation;
+#elif UNITY_SWITCH
+            return JoystickTypes.Nintendo;
+#elif UNITY_GAMECORE
+            return JoystickTypes.Xbox;
 #else
-        /*editor/catch all*/
-        const JoystickTypes DEFAULT_JOYSTICK = JoystickTypes.Nintendo;
+            return JoystickTypes.None;
 #endif
-
-#else
-        private const ControllerType DEFAULT_CONTROLLER = ControllerType.Keyboard;
-        private const JoystickTypes DEFAULT_JOYSTICK = JoystickTypes.None;
-#endif
+        }
 
         public static Vector2 ThresholdCharacter = new(0.1f, 0.4f);
         public static Vector2 ThresholdUI = new(0.5f, 0.5f);
@@ -161,10 +168,6 @@ namespace TeamSuneat
             Instance.Initialize();
         }
 
-        //
-
-        //
-
         public List<string> GetElementMapsWithAction(ControllerType controllerType, string actionName)
         {
             try
@@ -216,7 +219,7 @@ namespace TeamSuneat
                 return true;
             }
 
-            Log.Warning(LogTags.Input, "InputPlayer is null");
+            Log.Warning(LogTags.Input, "InputPlayer가 null입니다.");
             return false;
         }
 
@@ -305,7 +308,7 @@ namespace TeamSuneat
         {
             if (InputPlayer == null)
             {
-                Log.Warning(LogTags.Input, "InputPlayer is null");
+                Log.Warning(LogTags.Input, "InputPlayer가 null입니다.");
                 return;
             }
 
@@ -346,7 +349,7 @@ namespace TeamSuneat
         {
             if (InputPlayer == null)
             {
-                Log.Warning(LogTags.Input, "InputPlayer is null");
+                Log.Warning(LogTags.Input, "InputPlayer가 null입니다.");
                 return null;
             }
 
@@ -355,8 +358,6 @@ namespace TeamSuneat
                 return null;
             }
 
-            if (_buttonList != null)
-            {
             for (int i = 0; i < _buttonList.Count; i++)
             {
                 TSInputButton button = _buttonList[i];
@@ -369,7 +370,6 @@ namespace TeamSuneat
                 {
                     return button;
                 }
-            }
             }
 
             return null;
@@ -395,7 +395,7 @@ namespace TeamSuneat
                     break;
 
                 default:
-                    Log.Warning(LogTags.Input, "Unhandled controller type: " + CurrentControllerType);
+                    Log.Warning(LogTags.Input, $"처리되지 않은 컨트롤러 타입: {CurrentControllerType}");
                     break;
             }
         }
@@ -547,10 +547,6 @@ namespace TeamSuneat
                 }
             }
         }
-
-        //
-
-        //
 
         public bool CheckUIMoveLeft()
         {

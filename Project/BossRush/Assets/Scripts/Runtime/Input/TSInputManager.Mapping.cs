@@ -8,25 +8,464 @@ namespace TeamSuneat
 {
     public partial class TSInputManager
     {
-        // Remap
-        private readonly Dictionary<string, string> _defaultKeyCodes = new();
+        private static class InputConstants
+        {
+            public const string BUTTON_KEY_OPTIONS = "options";
+            public const string BUTTON_KEY_TOUCHPAD = "touchpad/button";
+            public const string BUTTON_KEY_TOUCHPAD_ALT = "touchpad_button";
 
-        // 컨트롤러 ID별로 기본 매핑된 ActionElementMap을 저장합니다.
+            public const string KEYCODE_SHARE = "Share";
+            public const string KEYCODE_OPTIONS = "Options";
+            public const string KEYCODE_TOUCHPAD_BUTTON = "Touchpad Button";
+            public const string KEYCODE_VIEW = "View";
+            public const string KEYCODE_MENU = "Menu";
+            public const string KEYCODE_GUIDE = "Guide";
+
+            public const string KEYCODE_L2 = "L2";
+            public const string KEYCODE_R2 = "R2";
+            public const string KEYCODE_LEFT_TRIGGER = "Left Trigger";
+            public const string KEYCODE_RIGHT_TRIGGER = "Right Trigger";
+
+            public const string KEYCODE_CROSS = "Cross";
+            public const string KEYCODE_CIRCLE = "Circle";
+            public const string KEYCODE_SQUARE = "Square";
+            public const string KEYCODE_TRIANGLE = "Triangle";
+            public const string KEYCODE_A = "A";
+            public const string KEYCODE_B = "B";
+            public const string KEYCODE_X = "X";
+            public const string KEYCODE_Y = "Y";
+
+            public const string KEYCODE_L1 = "L1";
+            public const string KEYCODE_R1 = "R1";
+            public const string KEYCODE_LEFT_SHOULDER = "Left Shoulder";
+            public const string KEYCODE_RIGHT_SHOULDER = "Right Shoulder";
+
+            public const string KEYCODE_L3 = "L3";
+            public const string KEYCODE_R3 = "R3";
+            public const string KEYCODE_LEFT_STICK_BUTTON = "Left Stick Button";
+            public const string KEYCODE_RIGHT_STICK_BUTTON = "Right Stick Button";
+
+            public const string ELEMENT_LEFT_STICK = "Left Stick";
+            public const string ELEMENT_RIGHT_STICK = "Right Stick";
+            public const string ELEMENT_BUTTON = "Button";
+
+            public const string CONTROLLER_NAME_DUAL = "Dual";
+            public const string ACTION_PREFIX_UI = "UI";
+            public const string CONTROLLER_TYPE_JOYSTICK = "Joystick";
+
+            public const string NORMALIZE_SPACE = " ";
+            public const string NORMALIZE_PLUS = "+";
+            public const string NORMALIZE_MINUS = "-";
+
+            public const string KEY_FORMAT = "{0}_{1}";
+            public const string KEY_FORMAT_JOYSTICK = "Joystick_{0}";
+        }
+
+        private readonly Dictionary<string, string> _defaultKeyCodes = new();
         private readonly Dictionary<int, Dictionary<string, ActionElementMap>> _defaultJoystickElementMapByController = new();
 
-        /// <summary>
-        /// 입력 액션을 내부적으로 재매핑합니다.
-        /// </summary>
-        /// <param name="controllerType">컨트롤러 타입 (예: 키보드, 조이스틱)</param>
-        /// <param name="actionName">입력 액션 이름</param>
-        /// <param name="keyCode">키 코드</param>
-        /// <param name="axisContribution">축 방향 (옵션)</param>
-        private void RemapActionInternal(ControllerType controllerType, ActionNames actionName, string keyCode, Pole? axisContribution = null)
+        #region 매핑 유틸리티
+
+        private bool ValidateInputPlayer()
         {
-            // InputPlayer가 할당되지 않은 상태에서 매핑을 시도할 경우 경고를 출력합니다.
             if (InputPlayer == null)
             {
                 Log.Warning(LogTags.Input, "InputPlayer가 할당되지 않았습니다.");
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValidateController(Controller controller)
+        {
+            if (controller == null)
+            {
+                Log.Warning(LogTags.Input, "컨트롤러가 null입니다.");
+                return false;
+            }
+            return true;
+        }
+
+        private string NormalizeActionName(string actionDescriptiveName)
+        {
+            if (string.IsNullOrEmpty(actionDescriptiveName))
+            {
+                return string.Empty;
+            }
+
+            return actionDescriptiveName.Replace(InputConstants.NORMALIZE_SPACE, "")
+                .Replace(InputConstants.NORMALIZE_PLUS, "")
+                .Replace(InputConstants.NORMALIZE_MINUS, "");
+        }
+
+        private Controller.Button FindOptionsButton(Controller controller)
+        {
+            if (controller == null)
+            {
+                return null;
+            }
+
+            for (int i = 0; i < controller.Buttons.Count; i++)
+            {
+                Controller.Button button = controller.Buttons[i];
+                if (button.elementIdentifier.key == InputConstants.BUTTON_KEY_OPTIONS)
+                {
+                    return button;
+                }
+            }
+
+            return null;
+        }
+
+        private Controller.Button FindTouchPadButton(Controller controller)
+        {
+            if (controller == null)
+            {
+                return null;
+            }
+
+            for (int i = 0; i < controller.Buttons.Count; i++)
+            {
+                Controller.Button button = controller.Buttons[i];
+                if (button.elementIdentifier.key == InputConstants.BUTTON_KEY_TOUCHPAD
+                    || button.elementIdentifier.key == InputConstants.BUTTON_KEY_TOUCHPAD_ALT)
+                {
+                    return button;
+                }
+            }
+
+            return null;
+        }
+
+        private ControllerMap[] GetControllerMapsForJoystick(Controller controller)
+        {
+            if (!ValidateInputPlayer() || !ValidateController(controller))
+            {
+                return null;
+            }
+
+            ControllerMap[] controllerMaps = InputPlayer.controllers?.maps?.GetMaps(ControllerType.Joystick, controller.id)?.ToArray();
+            if (controllerMaps == null || controllerMaps.Length == 0)
+            {
+                Log.Warning(LogTags.Input, "컨트롤러 맵을 찾을 수 없습니다.");
+                return null;
+            }
+
+            return controllerMaps;
+        }
+
+        private void SendKeyChangedEvent(ControllerType controllerType, ActionNames actionName, Pole axisContribution, string keyCode)
+        {
+            GlobalEvent<ControllerType, ActionNames, Pole, string>.Send(
+                GlobalEventType.GAME_INPUT_KEY_CHANGED,
+                controllerType,
+                actionName,
+                axisContribution,
+                keyCode
+            );
+        }
+
+        private bool CheckNonChangeableKey(string keyCode)
+        {
+            if (string.IsNullOrEmpty(keyCode))
+            {
+                return true;
+            }
+
+            switch (keyCode)
+            {
+                case InputConstants.KEYCODE_SHARE:
+                case InputConstants.KEYCODE_OPTIONS:
+                case InputConstants.KEYCODE_TOUCHPAD_BUTTON:
+                case InputConstants.KEYCODE_VIEW:
+                case InputConstants.KEYCODE_MENU:
+                case InputConstants.KEYCODE_GUIDE:
+                    return false;
+            }
+
+            return true;
+        }
+
+        private string GetOtherJoystickKeyCode(string keyCode)
+        {
+            if (string.IsNullOrEmpty(keyCode))
+            {
+                return keyCode;
+            }
+
+            switch (keyCode)
+            {
+                case InputConstants.KEYCODE_L2:
+                    return InputConstants.KEYCODE_LEFT_TRIGGER;
+
+                case InputConstants.KEYCODE_R2:
+                    return InputConstants.KEYCODE_RIGHT_TRIGGER;
+
+                case InputConstants.KEYCODE_LEFT_TRIGGER:
+                    return InputConstants.KEYCODE_L2;
+
+                case InputConstants.KEYCODE_RIGHT_TRIGGER:
+                    return InputConstants.KEYCODE_R2;
+
+                case InputConstants.KEYCODE_CROSS:
+                    return InputConstants.KEYCODE_A;
+
+                case InputConstants.KEYCODE_CIRCLE:
+                    return InputConstants.KEYCODE_B;
+
+                case InputConstants.KEYCODE_SQUARE:
+                    return InputConstants.KEYCODE_X;
+
+                case InputConstants.KEYCODE_TRIANGLE:
+                    return InputConstants.KEYCODE_Y;
+
+                case InputConstants.KEYCODE_A:
+                    return InputConstants.KEYCODE_CROSS;
+
+                case InputConstants.KEYCODE_B:
+                    return InputConstants.KEYCODE_CIRCLE;
+
+                case InputConstants.KEYCODE_X:
+                    return InputConstants.KEYCODE_SQUARE;
+
+                case InputConstants.KEYCODE_Y:
+                    return InputConstants.KEYCODE_TRIANGLE;
+
+                case InputConstants.KEYCODE_L1:
+                    return InputConstants.KEYCODE_LEFT_SHOULDER;
+
+                case InputConstants.KEYCODE_R1:
+                    return InputConstants.KEYCODE_RIGHT_SHOULDER;
+
+                case InputConstants.KEYCODE_LEFT_SHOULDER:
+                    return InputConstants.KEYCODE_L1;
+
+                case InputConstants.KEYCODE_RIGHT_SHOULDER:
+                    return InputConstants.KEYCODE_R1;
+
+                case InputConstants.KEYCODE_L3:
+                    return InputConstants.KEYCODE_LEFT_STICK_BUTTON;
+
+                case InputConstants.KEYCODE_R3:
+                    return InputConstants.KEYCODE_RIGHT_STICK_BUTTON;
+
+                case InputConstants.KEYCODE_LEFT_STICK_BUTTON:
+                    return InputConstants.KEYCODE_L3;
+
+                case InputConstants.KEYCODE_RIGHT_STICK_BUTTON:
+                    return InputConstants.KEYCODE_R3;
+
+                default:
+                    return keyCode;
+            }
+        }
+
+        private bool IsStickElement(string elementIdentifierName)
+        {
+            if (string.IsNullOrEmpty(elementIdentifierName))
+            {
+                return false;
+            }
+
+            return (elementIdentifierName.Contains(InputConstants.ELEMENT_LEFT_STICK) || elementIdentifierName.Contains(InputConstants.ELEMENT_RIGHT_STICK))
+                && !elementIdentifierName.Contains(InputConstants.ELEMENT_BUTTON);
+        }
+
+        private ActionNames ConvertToActionNames(string actionDescriptiveName)
+        {
+            if (string.IsNullOrEmpty(actionDescriptiveName))
+            {
+                return ActionNames.None;
+            }
+
+            string actionNameString = NormalizeActionName(actionDescriptiveName);
+            return EnumEx.ConvertTo<ActionNames>(actionNameString);
+        }
+
+        private void SetupAndInitializeButton(ActionNames actionName)
+        {
+            TSInputButton button = GetButton(actionName);
+            if (button != null)
+            {
+                button.SetupKeys();
+                button.InitializeState();
+            }
+        }
+
+        private ActionElementMap FindDefaultElementData(Dictionary<string, ActionElementMap> defaultMaps, string keyCode)
+        {
+            if (defaultMaps == null || string.IsNullOrEmpty(keyCode))
+            {
+                return null;
+            }
+
+            return defaultMaps.Values.FirstOrDefault(x => x != null && x.elementIdentifierName == keyCode);
+        }
+
+        private bool TryGetJoystickElementData(int controllerId, string keyCode, out ControllerElementType elementType, out int elementIdentifierId)
+        {
+            elementType = ControllerElementType.Button;
+            elementIdentifierId = -1;
+
+            if (!_defaultJoystickElementMapByController.TryGetValue(controllerId, out Dictionary<string, ActionElementMap> defaultMaps))
+            {
+                return false;
+            }
+
+            ActionElementMap defaultElementData = FindDefaultElementData(defaultMaps, keyCode);
+            if (defaultElementData != null)
+            {
+                elementType = defaultElementData.elementType;
+                elementIdentifierId = defaultElementData.elementIdentifierId;
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool ValidateReInputControllers()
+        {
+            if (ReInput.controllers == null || ReInput.controllers.Controllers == null)
+            {
+                Log.Warning(LogTags.Input, "ReInput 컨트롤러를 찾을 수 없습니다.");
+                return false;
+            }
+            return true;
+        }
+
+        private void ProcessAllControllers(Action<ControllerType> processAction)
+        {
+            if (!ValidateReInputControllers())
+            {
+                return;
+            }
+
+            for (int i = 0; i < ReInput.controllers.Controllers.Count; i++)
+            {
+                Controller controller = ReInput.controllers.Controllers[i];
+                if (controller == null || controller.type == ControllerType.Mouse)
+                {
+                    continue;
+                }
+
+                processAction(controller.type);
+            }
+        }
+
+        #endregion 매핑 유틸리티
+
+        #region 매핑 처리
+
+        private void ProcessMappings(ControllerType controllerType, Action<ControllerType, ActionElementMap, ControllerMap> processAction)
+        {
+            if (!ValidateInputPlayer())
+            {
+                return;
+            }
+
+            if (processAction == null)
+            {
+                Log.Warning(LogTags.Input, "처리 액션이 null입니다.");
+                return;
+            }
+
+            ControllerMap[] controllerMaps = InputPlayer.controllers?.maps?.GetAllMaps(controllerType)?.ToArray();
+            if (controllerMaps == null || controllerMaps.Length == 0)
+            {
+                return;
+            }
+
+            for (int i = 0; i < controllerMaps.Length; i++)
+            {
+                ControllerMap controllerMap = controllerMaps[i];
+                if (controllerMap == null)
+                {
+                    continue;
+                }
+
+                ActionElementMap[] elementMaps = controllerMap.ElementMaps?.ToArray();
+                if (elementMaps == null || elementMaps.Length == 0)
+                {
+                    continue;
+                }
+
+                for (int j = 0; j < elementMaps.Length; j++)
+                {
+                    ActionElementMap aem = elementMaps[j];
+                    if (aem == null)
+                    {
+                        continue;
+                    }
+
+                    processAction(controllerType, aem, controllerMap);
+                }
+            }
+        }
+
+        private void ProcessMappings(ControllerType controllerType, int controllerId, Action<ControllerType, ActionElementMap, ControllerMap> processAction)
+        {
+            if (!ValidateInputPlayer())
+            {
+                return;
+            }
+
+            if (processAction == null)
+            {
+                Log.Warning(LogTags.Input, "처리 액션이 null입니다.");
+                return;
+            }
+
+            ControllerMap[] controllerMaps = InputPlayer.controllers?.maps?.GetMaps(controllerType, controllerId)?.ToArray();
+            if (controllerMaps == null || controllerMaps.Length == 0)
+            {
+                return;
+            }
+
+            for (int i = 0; i < controllerMaps.Length; i++)
+            {
+                ControllerMap controllerMap = controllerMaps[i];
+                if (controllerMap == null)
+                {
+                    continue;
+                }
+
+                ActionElementMap[] elementMaps = controllerMap.ElementMaps?.ToArray();
+                if (elementMaps == null || elementMaps.Length == 0)
+                {
+                    continue;
+                }
+
+                for (int j = 0; j < elementMaps.Length; j++)
+                {
+                    ActionElementMap aem = elementMaps[j];
+                    if (aem == null)
+                    {
+                        continue;
+                    }
+
+                    processAction(controllerType, aem, controllerMap);
+                }
+            }
+        }
+
+        #endregion 매핑 처리
+
+        #region 액션 재매핑
+
+        public void RemapAction(ControllerType controllerType, ActionNames actionName, string keyCode)
+        {
+            RemapActionInternal(controllerType, actionName, keyCode);
+        }
+
+        public void RemapAction(ControllerType controllerType, ActionNames actionName, Pole axisContribution, string keyCode)
+        {
+            RemapActionInternal(controllerType, actionName, keyCode, axisContribution);
+        }
+
+        private void RemapActionInternal(ControllerType controllerType, ActionNames actionName, string keyCode, Pole? axisContribution = null)
+        {
+            if (!ValidateInputPlayer())
+            {
                 return;
             }
 
@@ -40,55 +479,61 @@ namespace TeamSuneat
             }
         }
 
-        /// <summary>
-        /// 키 변경 이벤트를 전송합니다.
-        /// </summary>
-        /// <param name="controllerType">컨트롤러 타입</param>
-        /// <param name="actionName">액션 이름</param>
-        /// <param name="axisContribution">축 방향</param>
-        /// <param name="keyCode">키 코드</param>
-        private void SendKeyChangedEvent(ControllerType controllerType, ActionNames actionName, Pole axisContribution, string keyCode)
-        {
-            GlobalEvent<ControllerType, ActionNames, Pole, string>.Send(
-                GlobalEventType.GAME_INPUT_KEY_CHANGED,
-                controllerType,
-                actionName,
-                axisContribution,
-                keyCode
-            );
-        }
-
-        /// <summary>
-        /// 조이스틱 입력 액션을 재매핑합니다.
-        /// </summary>
-        /// <param name="actionName">입력 액션 이름</param>
-        /// <param name="keyCode">키 코드</param>
-        /// <param name="axisContribution">축 방향 (옵션)</param>
         private void RemapJoystickAction(ActionNames actionName, string keyCode, Pole? axisContribution = null)
         {
-            // 컨트롤러 ID별로 기본 매핑된 ActionElementMap을 저장합니다.
+            if (!ValidateInputPlayer())
+            {
+                return;
+            }
+
+            if (CurrentJoystick == null)
+            {
+                Log.Warning(LogTags.Input, "조이스틱이 연결되지 않았습니다.");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(keyCode))
+            {
+                Log.Warning(LogTags.Input, "키코드가 유효하지 않습니다.");
+                return;
+            }
+
             int controllerId = CurrentJoystick.id;
-            ControllerMap[] controllerMaps = InputPlayer.controllers.maps.GetAllMaps(ControllerType.Joystick).ToArray();
+            ControllerMap[] controllerMaps = InputPlayer.controllers?.maps?.GetAllMaps(ControllerType.Joystick)?.ToArray();
+            if (controllerMaps == null || controllerMaps.Length == 0)
+            {
+                Log.Warning(LogTags.Input, "조이스틱 컨트롤러 맵을 찾을 수 없습니다.");
+                return;
+            }
 
             for (int i = 0; i < controllerMaps.Length; i++)
             {
                 ControllerMap controllerMap = controllerMaps[i];
+                if (controllerMap == null)
+                {
+                    continue;
+                }
 
-                // 액션 이름에 해당하는 요소들을 가져옵니다.
-                List<ActionElementMap> elementMaps = controllerMap.ElementMapsWithAction(actionName.ToString()).ToList();
+                List<ActionElementMap> elementMaps = controllerMap.ElementMapsWithAction(actionName.ToString())?.ToList();
+                if (elementMaps == null || elementMaps.Count == 0)
+                {
+                    continue;
+                }
 
                 for (int j = 0; j < elementMaps.Count; j++)
                 {
                     ActionElementMap aem = elementMaps[j];
+                    if (aem == null)
+                    {
+                        continue;
+                    }
 
-                    // 축이 다른 경우 매핑을 수정하지 않습니다.
                     if (axisContribution.HasValue && aem.axisContribution != axisContribution.Value)
                     {
                         continue;
                     }
 
-                    // 아날로그 스틱의 이동 기능은 변경 불가이므로 기존 매핑을 삭제하지 않습니다.
-                    if (!((aem.elementIdentifierName.Contains("Left Stick") || aem.elementIdentifierName.Contains("Right Stick")) && !aem.elementIdentifierName.Contains("Button")))
+                    if (!IsStickElement(aem.elementIdentifierName))
                     {
                         controllerMap.DeleteElementMap(aem.id);
                     }
@@ -104,23 +549,14 @@ namespace TeamSuneat
 
                     if (tempKeyCode != string.Empty && tempKeyCode != null)
                     {
-                        Dictionary<string, ActionElementMap> defaultJoystickElementMapByController = _defaultJoystickElementMapByController[controllerMap.controllerId];
-                        Dictionary<string, ActionElementMap>.ValueCollection values = defaultJoystickElementMapByController.Values;
-                        ActionElementMap defaultElementData = null;
-                        foreach (ActionElementMap value in values)
+                        if (!TryGetJoystickElementData(controllerMap.controllerId, tempKeyCode, out ControllerElementType foundElementType, out int foundElementIdentifierId))
                         {
-                            if (value.elementIdentifierName == tempKeyCode)
-                            {
-                                defaultElementData = value;
-                                break;
-                            }
+                            Log.Warning(LogTags.Input, "기본 조이스틱 맵을 찾을 수 없습니다. ControllerId: {0}", controllerMap.controllerId);
+                            continue;
                         }
 
-                        if (defaultElementData != null)
-                        {
-                            elementType = defaultElementData.elementType;
-                            elementIdentifierId = defaultElementData.elementIdentifierId;
-                        }
+                        elementType = foundElementType;
+                        elementIdentifierId = foundElementIdentifierId;
                     }
 
                     controllerMap.CreateElementMap(aem.actionId, aem.axisContribution, elementIdentifierId, elementType, aem.axisRange, false);
@@ -143,148 +579,115 @@ namespace TeamSuneat
 
                     if (controllerMap.controllerId == controllerId)
                     {
-                        TSInputButton button = GetButton(buttonActionName);
+                        SetupAndInitializeButton(buttonActionName);
 
-                        if (button != null)
-                        {
-                            button.SetupKeys();
-                            button.InitializeState();
-
-                            SendKeyChangedEvent(ControllerType.Joystick, actionName, axisContribution ?? aem.axisContribution, tempKeyCode);
-                            SaveMappings();
-                        }
+                        SendKeyChangedEvent(ControllerType.Joystick, actionName, axisContribution ?? aem.axisContribution, tempKeyCode);
+                        SaveMappings();
                     }
                 }
             }
         }
 
-        /// <summary>
-        /// 키보드 입력 액션을 재매핑합니다.
-        /// </summary>
-        /// <param name="actionName">입력 액션 이름</param>
-        /// <param name="keyCode">키 코드</param>
-        /// <param name="axisContribution">축 방향 (옵션)</param>
         private void RemapKeyboardAction(ActionNames actionName, string keyCode, Pole? axisContribution = null)
         {
+            if (!ValidateInputPlayer())
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(keyCode))
+            {
+                Log.Warning(LogTags.Input, "키코드가 유효하지 않습니다.");
+                return;
+            }
+
             if (!Enum.TryParse(keyCode, out KeyCode code))
             {
-                Log.Warning("키코드 파싱 실패. {0}", keyCode);
+                Log.Warning(LogTags.Input, "키코드 파싱 실패. {0}", keyCode);
                 return;
             }
 
             string actionNameString = actionName.ToString();
-            ControllerMap[] controllerMaps = InputPlayer.controllers.maps.GetAllMaps(ControllerType.Keyboard).ToArray();
+            ControllerMap[] controllerMaps = InputPlayer.controllers?.maps?.GetAllMaps(ControllerType.Keyboard)?.ToArray();
+            if (controllerMaps == null || controllerMaps.Length == 0)
+            {
+                Log.Warning(LogTags.Input, "키보드 컨트롤러 맵을 찾을 수 없습니다.");
+                return;
+            }
 
             for (int i = 0; i < controllerMaps.Length; i++)
             {
                 ControllerMap controllerMap = controllerMaps[i];
+                if (controllerMap == null)
+                {
+                    continue;
+                }
 
-                // 액션 이름에 해당하는 요소들을 가져옵니다.
                 IEnumerable<ActionElementMap> aemList = controllerMap.ElementMapsWithAction(actionNameString);
                 if (aemList == null)
                 {
                     continue;
                 }
+
                 List<ActionElementMap> elementMaps = aemList.ToList();
-
-                for (int j = 0; j < elementMaps.Count; j++)
-                {
-                    ActionElementMap aem = elementMaps[j];
-
-                    controllerMap.DeleteElementMap(aem.id);
-
-                    // 지원하지 않는 ActionNames이거나 axisContribution 인자가 없을 경우 기본 매핑을 저장합니다.
-                    if (axisContribution.HasValue)
-                    {
-                        controllerMap.CreateElementMap(aem.actionId, axisContribution.Value, code, ModifierKeyFlags.None);
-                    }
-                    else
-                    {
-                        controllerMap.CreateElementMap(aem.actionId, aem.axisContribution, code, ModifierKeyFlags.None);
-                    }
-
-                    UpdateButtonKeys(actionName);
-                    SendKeyChangedEvent(ControllerType.Keyboard, actionName, axisContribution ?? aem.axisContribution, keyCode);
-                    SaveMappings();
-
-                    // 첫 번째 요소를 처리했으므로 종료합니다.
-                    return;
-                }
-            }
-        }
-
-        public void RemapAction(ControllerType controllerType, ActionNames actionName, string keyCode)
-        {
-            RemapActionInternal(controllerType, actionName, keyCode);
-        }
-
-        public void RemapAction(ControllerType controllerType, ActionNames actionName, Pole axisContribution, string keyCode)
-        {
-            RemapActionInternal(controllerType, actionName, keyCode, axisContribution);
-        }
-
-        //
-
-        /// <summary> 컨트롤러 타입별로 모든 매핑을 처리 </summary>
-        /// <param name="controllerType">컨트롤러 타입</param>
-        /// <param name="processAction">매핑 처리 메서드</param>
-        private void ProcessMappings(ControllerType controllerType, Action<ControllerType, ActionElementMap, ControllerMap> processAction)
-        {
-            ControllerMap[] controllerMaps = InputPlayer.controllers.maps.GetAllMaps(controllerType).ToArray();
-            for (int i = 0; i < controllerMaps.Length; i++)
-            {
-                ControllerMap controllerMap = controllerMaps[i];
-                ActionElementMap[] elementMaps = controllerMap.ElementMaps.ToArray();
-                for (int j = 0; j < elementMaps.Length; j++)
-                {
-                    ActionElementMap aem = elementMaps[j];
-                    processAction(controllerType, aem, controllerMap);
-                }
-            }
-        }
-
-        /// <summary> controllerId에 해당하는 컨트롤러의 ElementMap만 매핑 진행 </summary>
-        private void ProcessMappings(ControllerType controllerType, int controllerId, Action<ControllerType, ActionElementMap, ControllerMap> processAction)
-        {
-            ControllerMap[] controllerMaps = InputPlayer.controllers?.maps?.GetMaps(controllerType, controllerId)?.ToArray();
-            if (controllerMaps == null)
-            {
-                return;
-            }
-            for (int i = 0; i < controllerMaps.Length; i++)
-            {
-                ControllerMap controllerMap = controllerMaps[i];
-                ActionElementMap[] elementMaps = controllerMap.ElementMaps.ToArray();
-                for (int j = 0; j < elementMaps.Length; j++)
-                {
-                    ActionElementMap aem = elementMaps[j];
-                    processAction(controllerType, aem, controllerMap);
-                }
-            }
-        }
-
-        /// <summary> 기본 매핑을 불러옵니다 </summary>
-        public void LoadDefaultMappings()
-        {
-            for (int i = 0; i < ReInput.controllers.Controllers.Count; i++)
-            {
-                Controller controller = ReInput.controllers.Controllers[i];
-                if (controller.type == ControllerType.Mouse)
+                if (elementMaps.Count == 0)
                 {
                     continue;
                 }
 
-                ProcessMappings(controller.type, LoadDefaultMapping);
+                if (elementMaps.Count > 1)
+                {
+                    Log.Warning(LogTags.Input, "액션 {0}에 {1}개의 매핑이 있습니다. 첫 번째 매핑만 변경합니다.", actionName, elementMaps.Count);
+                }
+
+                ActionElementMap aem = elementMaps[0];
+                if (aem == null)
+                {
+                    continue;
+                }
+
+                controllerMap.DeleteElementMap(aem.id);
+
+                if (axisContribution.HasValue)
+                {
+                    controllerMap.CreateElementMap(aem.actionId, axisContribution.Value, code, ModifierKeyFlags.None);
+                }
+                else
+                {
+                    controllerMap.CreateElementMap(aem.actionId, aem.axisContribution, code, ModifierKeyFlags.None);
+                }
+
+                UpdateButtonKeys(actionName);
+                SendKeyChangedEvent(ControllerType.Keyboard, actionName, axisContribution ?? aem.axisContribution, keyCode);
+                SaveMappings();
+
+                return;
             }
         }
 
-        /// <summary> 기본 매핑을 저장합니다 </summary>
+        #endregion 액션 재매핑
+
+        #region 기본 매핑 로드
+
+        public void LoadDefaultMappings()
+        {
+            ProcessAllControllers(controllerType => ProcessMappings(controllerType, LoadDefaultMapping));
+        }
+
         private void LoadDefaultMapping(ControllerType controllerType, ActionElementMap aem, ControllerMap controllerMap)
         {
-            string actionNameString = aem.actionDescriptiveName.Replace(" ", "")
-                .Replace("+", "")
-                .Replace("-", "");
-            ActionNames actionName = EnumEx.ConvertTo<ActionNames>(actionNameString);
+            if (aem == null || controllerMap == null)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(aem.actionDescriptiveName))
+            {
+                Log.Warning(LogTags.Input, "액션 설명 이름이 유효하지 않습니다.");
+                return;
+            }
+
+            ActionNames actionName = ConvertToActionNames(aem.actionDescriptiveName);
 
             if (actionName == ActionNames.None)
             {
@@ -299,7 +702,8 @@ namespace TeamSuneat
                     _defaultJoystickElementMapByController[controllerMap.controllerId] = new();
                 }
 
-                if (!_defaultJoystickElementMapByController[controllerMap.controllerId].ContainsKey(actionName.ToString()))
+                string actionNameString = NormalizeActionName(aem.actionDescriptiveName);
+                if (!_defaultJoystickElementMapByController[controllerMap.controllerId].ContainsKey(actionNameString))
                 {
                     _defaultJoystickElementMapByController[controllerMap.controllerId][actionNameString] = new ActionElementMap(aem);
                 }
@@ -314,25 +718,6 @@ namespace TeamSuneat
             }
         }
 
-        /// <summary> 저장된 매핑을 불러옵니다 </summary>
-        private void LoadMappings()
-        {
-            for (int i = 0; i < ReInput.controllers.Controllers.Count; i++)
-            {
-                Controller controller = ReInput.controllers.Controllers[i];
-                if (controller.type == ControllerType.Mouse)
-                {
-                    continue;
-                }
-
-                ProcessMappings(controller.type, LoadMapping);
-            }
-        }
-
-        /// <summary>
-        /// 신규 액션 추가 시 기존 저장 데이터에 누락된 조이스틱 매핑을 기본값으로만 보충합니다.
-        /// 사용자 커스텀 매핑은 유지합니다.
-        /// </summary>
         private void EnsureRequiredActionMappings()
         {
             if (InputPlayer == null)
@@ -348,12 +733,8 @@ namespace TeamSuneat
             }
         }
 
-        /// <summary>
-        /// 특정 조이스틱 맵에 액션 매핑이 없으면 기본 맵 정보로만 추가합니다.
-        /// </summary>
         private void TryEnsureJoystickAction(ControllerMap controllerMap, ActionNames actionName)
         {
-            // 이미 매핑이 있으면 유지
             if (controllerMap.ElementMapsWithAction(actionName.ToString()).Any())
             {
                 return;
@@ -375,24 +756,42 @@ namespace TeamSuneat
             Log.Info(LogTags.Input, "누락된 조이스틱 매핑을 기본값으로 추가했습니다. ControllerId: {0}, Action: {1}, Key: {2}", controllerMap.controllerId, actionName, defaultMap.elementIdentifierName);
         }
 
-        /// <summary>
-        /// 저장된 매핑을 불러올 때 사용
-        /// </summary>
+        #endregion 기본 매핑 로드
+
+        #region 저장된 매핑 로드
+
+        private void LoadMappings()
+        {
+            ProcessAllControllers(controllerType => ProcessMappings(controllerType, LoadMapping));
+        }
+
         private void LoadMapping(ControllerType controllerType, ActionElementMap aem, ControllerMap controllerMap)
         {
-            string actionNameString = aem.actionDescriptiveName.Replace(" ", "")
-                .Replace("+", "")
-                .Replace("-", "");
+            if (aem == null || controllerMap == null)
+            {
+                return;
+            }
 
-            string key = $"{controllerType}_{actionNameString}";
+            if (string.IsNullOrEmpty(aem.actionDescriptiveName))
+            {
+                Log.Warning(LogTags.Input, "액션 설명 이름이 유효하지 않습니다.");
+                return;
+            }
+
+            string actionNameString = NormalizeActionName(aem.actionDescriptiveName);
+            string key = string.Format(InputConstants.KEY_FORMAT, controllerType, actionNameString);
 
             if (GamePrefs.HasKey(key))
             {
                 string savedKeyCode = GamePrefs.GetString(key);
+                if (string.IsNullOrEmpty(savedKeyCode))
+                {
+                    return;
+                }
 
                 if (controllerType == ControllerType.Joystick)
                 {
-                    if (!((aem.elementIdentifierName.Contains("Left Stick") || aem.elementIdentifierName.Contains("Right Stick")) && !aem.elementIdentifierName.Contains("Button")))
+                    if (!IsStickElement(aem.elementIdentifierName))
                     {
                         controllerMap.DeleteElementMap(aem.id);
                     }
@@ -400,7 +799,12 @@ namespace TeamSuneat
                     int elementIdentifierId = -1;
                     ControllerElementType elementType = aem.elementType;
                     string tempKeyCode = savedKeyCode;
-                    Dictionary<string, ActionElementMap> maps = _defaultJoystickElementMapByController[controllerMap.controllerId];
+
+                    if (!_defaultJoystickElementMapByController.TryGetValue(controllerMap.controllerId, out Dictionary<string, ActionElementMap> maps))
+                    {
+                        Log.Warning(LogTags.Input, "기본 조이스틱 맵을 찾을 수 없습니다. ControllerId: {0}", controllerMap.controllerId);
+                        return;
+                    }
 
                     if (!maps.Values.ToList().Exists(x => x.elementIdentifierName == tempKeyCode))
                     {
@@ -409,15 +813,14 @@ namespace TeamSuneat
 
                     if (tempKeyCode != string.Empty && tempKeyCode != null)
                     {
-                        ActionElementMap defaultElementData = maps.Values.FirstOrDefault(x => x.elementIdentifierName == tempKeyCode);
-                        if (defaultElementData != null)
+                        if (TryGetJoystickElementData(controllerMap.controllerId, tempKeyCode, out ControllerElementType foundElementType, out int foundElementIdentifierId))
                         {
-                            elementType = defaultElementData.elementType;
-                            elementIdentifierId = defaultElementData.elementIdentifierId;
+                            elementType = foundElementType;
+                            elementIdentifierId = foundElementIdentifierId;
                         }
                         else
                         {
-                            Log.Error("defaultElementData 를 찾을 수 없습니다: {0}", tempKeyCode);
+                            Log.Error(LogTags.Input, "기본 요소 데이터를 찾을 수 없습니다: {0}", tempKeyCode);
                         }
                     }
 
@@ -435,23 +838,10 @@ namespace TeamSuneat
             }
         }
 
-        /// <summary> 조이스틱 매핑 삭제 </summary>
-        private void DeleteJoystickMapping(string actionName)
-        {
-            string actionNameString = actionName.Replace(" ", "")
-                .Replace("+", "")
-                .Replace("-", "");
+        #endregion 저장된 매핑 로드
 
-            string key = $"Joystick_{actionNameString}";
+        #region 기본 매핑 설정
 
-            if (GamePrefs.HasKey(key))
-            {
-                GamePrefs.Delete(key);
-            }
-        }
-
-        /// <summary> 기본 매핑으로 되돌리기 </summary>
-        /// <summary> 기본 매핑을 저장합니다 </summary>
         public void SetDefaultMappings()
         {
             if (CurrentControllerType == ControllerType.Mouse)
@@ -466,27 +856,45 @@ namespace TeamSuneat
             SaveMappings();
         }
 
-        /// <summary> 기본 매핑을 저장합니다 </summary>
         public void SetDefaultMappings(ControllerType controllerType)
         {
-            // 조이스틱 매핑의 경우 이동쪽 매핑을 수정하면 이동 관련 ElementMap이 남아있고 새로 생성되는 현상이 있어, 기존 ElementMap을 모두 삭제 후 DefaultMap으로 새로 생성합니다.
+            if (!ValidateInputPlayer())
+            {
+                return;
+            }
+
             if (controllerType == ControllerType.Joystick)
             {
-                ControllerMap[] controllerMaps = InputPlayer.controllers.maps.GetAllMaps(ControllerType.Joystick).ToArray();
+                ControllerMap[] controllerMaps = InputPlayer.controllers?.maps?.GetAllMaps(ControllerType.Joystick)?.ToArray();
+                if (controllerMaps == null || controllerMaps.Length == 0)
+                {
+                    Log.Warning(LogTags.Input, "조이스틱 컨트롤러 맵을 찾을 수 없습니다.");
+                    return;
+                }
+
                 for (int i = 0; i < controllerMaps.Length; i++)
                 {
                     ControllerMap controllerMap = controllerMaps[i];
+                    if (controllerMap == null)
+                    {
+                        continue;
+                    }
+
                     controllerMap.ClearElementMaps();
 
-                    Dictionary<string, ActionElementMap> defaultJoystickElementMap = _defaultJoystickElementMapByController[controllerMap.controllerId];
+                    if (!_defaultJoystickElementMapByController.TryGetValue(controllerMap.controllerId, out Dictionary<string, ActionElementMap> defaultJoystickElementMap))
+                    {
+                        Log.Warning(LogTags.Input, "기본 조이스틱 맵을 찾을 수 없습니다. ControllerId: {0}", controllerMap.controllerId);
+                        continue;
+                    }
                     foreach (var aem in defaultJoystickElementMap.Values)
                     {
                         DeleteJoystickMapping(aem.actionDescriptiveName);
                         controllerMap.CreateElementMap(aem.actionId, aem.axisContribution, aem.elementIdentifierId, aem.elementType, aem.axisRange, false);
                     }
                 }
-                // 플스 패드의 경우 터치패드 버튼이 따로 매핑되어 있지 않기 때문에 예외처리합니다.
-                Controller joystickPS = InputPlayer.controllers.Controllers.FirstOrDefault(x => x.name.Contains("Dual"));
+
+                Controller joystickPS = InputPlayer.controllers.Controllers.FirstOrDefault(x => x.name.Contains(InputConstants.CONTROLLER_NAME_DUAL));
                 if (joystickPS != null)
                 {
                     AddTouchPadMapping(joystickPS);
@@ -505,17 +913,20 @@ namespace TeamSuneat
             }
         }
 
-        /// <summary> 기본 매핑을 저장합니다 </summary>
         private void SetDefaultMapping(ControllerType controllerType, ActionElementMap aem, ControllerMap controllerMap)
         {
-            string actionNameString;
+            if (aem == null || controllerMap == null)
+            {
+                return;
+            }
 
-            actionNameString = aem.actionDescriptiveName;
-            actionNameString = actionNameString.Replace(" ", "");
-            actionNameString = actionNameString.Replace("+", "");
-            actionNameString = actionNameString.Replace("-", "");
+            if (string.IsNullOrEmpty(aem.actionDescriptiveName))
+            {
+                Log.Warning(LogTags.Input, "액션 설명 이름이 유효하지 않습니다.");
+                return;
+            }
 
-            ActionNames actionName = EnumEx.ConvertTo<ActionNames>(actionNameString);
+            ActionNames actionName = ConvertToActionNames(aem.actionDescriptiveName);
 
             if (_defaultKeyCodes.ContainsKey(actionName.ToString()))
             {
@@ -525,30 +936,25 @@ namespace TeamSuneat
                     controllerMap.DeleteElementMap(aem.id);
                     controllerMap.CreateElementMap(aem.actionId, aem.axisContribution, keyCode, ModifierKeyFlags.None, out ActionElementMap testAem);
                     Log.Info(LogTags.Input, "{0}의 기본 키코드: {1}", actionName, keyCode);
+                    Log.Info(LogTags.Input, "ActionChanged: KeyCode: {0}, ActionName: {1}", keyCode, actionName);
+                    Log.Info(LogTags.Input, "ActionChanged: PrevAction: aem.actionId: {0}, aem.elementIdentifierName: {1}, aem.elementIdentifierId: {2}, aem.actionDescriptiveName: {3}", aem.actionId, aem.elementIdentifierName, aem.elementIdentifierId, aem.actionDescriptiveName);
+                    Log.Info(LogTags.Input, "ActionChanged: ChangedAction: testAem.actionId: {0}, testAem.elementIdentifierName: {1}, testAem.elementIdentifierId: {2}, testAem.actionDescriptiveName: {3}", testAem.actionId, testAem.elementIdentifierName, testAem.elementIdentifierId, testAem.actionDescriptiveName);
 
-                    Log.Info(LogTags.Input, $"ActionChanged: KeyCode: {keyCode}, ActionName: {actionName}");
-                    Log.Info(LogTags.Input, $"ActionChanged: PrevAction: aem.actionId: {aem.actionId}, aem.elementIdentifierName: {aem.elementIdentifierName}, aem.elementIdentifierId: {aem.elementIdentifierId}, aem.actionDescriptiveName: {aem.actionDescriptiveName}");
-                    Log.Info(LogTags.Input, $"ActionChanged: ChangedAction: testAem.actionId: {testAem.actionId}, testAem.elementIdentifierName: {testAem.elementIdentifierName}, testAem.elementIdentifierId: {testAem.elementIdentifierId}, testAem.actionDescriptiveName: {testAem.actionDescriptiveName}");
-
-                    TSInputButton button = GetButton(actionName);
-                    if (button != null)
-                    {
-                        button.SetupKeys();
-                        button.InitializeState();
-                        GlobalEvent<ControllerType, ActionNames, Pole, string>.Send(GlobalEventType.GAME_INPUT_KEY_CHANGED,
-                            controllerType, actionName, aem.axisContribution, keyCode.ToString());
-                    }
+                    SetupAndInitializeButton(actionName);
+                    GlobalEvent<ControllerType, ActionNames, Pole, string>.Send(GlobalEventType.GAME_INPUT_KEY_CHANGED,
+                        controllerType, actionName, aem.axisContribution, keyCode.ToString());
                 }
             }
             else
             {
-                Log.Error("actionNameString에 Action을 찾을 수 없습니다. {0}", actionNameString);
+                Log.Error(LogTags.Input, "액션을 찾을 수 없습니다: {0}", actionName);
             }
         }
 
-        /// <summary>
-        /// 컨트롤러 타입에 따른 전체 매핑을 저장합니다
-        /// </summary>
+        #endregion 기본 매핑 설정
+
+        #region 매핑 저장
+
         private void SaveMappings()
         {
             if (CurrentControllerType == ControllerType.Mouse)
@@ -561,31 +967,43 @@ namespace TeamSuneat
             }
         }
 
-        /// <summary>
-        /// 매핑을 저장합니다
-        /// </summary>
-
         private void SaveMapping(ControllerType controllerType, ActionElementMap aem, ControllerMap controllerMap)
         {
+            if (aem == null || controllerMap == null)
+            {
+                return;
+            }
+
             if (controllerType == ControllerType.Joystick)
             {
-                string actionNameString = aem.actionDescriptiveName.Replace(" ", "")
-                    .Replace("+", "")
-                    .Replace("-", "");
-
-                //지원하지 않는 ActionNames이거나 기본 매핑과 동일한 경우 저장하지 않습니다.
-                if (EnumEx.ConvertTo<ActionNames>(actionNameString) == ActionNames.None || _defaultJoystickElementMapByController[controllerMap.controllerId][actionNameString].elementIdentifierName == aem.elementIdentifierName)
-
+                if (string.IsNullOrEmpty(aem.actionDescriptiveName))
                 {
                     return;
                 }
 
-                string key = $"{controllerType}_{actionNameString}";
+                string actionNameString = NormalizeActionName(aem.actionDescriptiveName);
+
+                if (!_defaultJoystickElementMapByController.TryGetValue(controllerMap.controllerId, out Dictionary<string, ActionElementMap> defaultMaps))
+                {
+                    return;
+                }
+
+                if (!defaultMaps.TryGetValue(actionNameString, out ActionElementMap defaultMap))
+                {
+                    return;
+                }
+
+                if (EnumEx.ConvertTo<ActionNames>(actionNameString) == ActionNames.None || defaultMap.elementIdentifierName == aem.elementIdentifierName)
+                {
+                    return;
+                }
+
+                string key = string.Format(InputConstants.KEY_FORMAT, controllerType, actionNameString);
                 SaveJoystickKeyMapping(key, aem);
             }
             else
             {
-                string key = $"{controllerType}_{aem.actionDescriptiveName}";
+                string key = string.Format(InputConstants.KEY_FORMAT, controllerType, aem.actionDescriptiveName);
 
                 GamePrefs.SetString(key, aem.keyCode.ToString());
             }
@@ -593,7 +1011,17 @@ namespace TeamSuneat
 
         private void SaveJoystickKeyMapping(string key, ActionElementMap aem)
         {
-            if ((!string.IsNullOrEmpty(aem.elementIdentifierName) && (aem.elementIdentifierName.Contains("Left Stick") || aem.elementIdentifierName.Contains("Right Stick")) && !aem.elementIdentifierName.Contains("Button"))
+            if (aem == null)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(key))
+            {
+                return;
+            }
+
+            if ((!string.IsNullOrEmpty(aem.elementIdentifierName) && IsStickElement(aem.elementIdentifierName))
 
             || !CheckNonChangeableKey(aem.elementIdentifierName)
             )
@@ -601,8 +1029,7 @@ namespace TeamSuneat
                 return;
             }
 
-            //UI 조작 요소는 저장하지 않으며, 관련 GamePrefs가 있을 경우 삭제합니다.
-            if (key.Contains("UI"))
+            if (key.Contains(InputConstants.ACTION_PREFIX_UI))
             {
                 if (GamePrefs.HasKey(key))
                 {
@@ -620,266 +1047,197 @@ namespace TeamSuneat
             }
         }
 
-        //플스 패드용 터치패드 버튼 예외처리입니다. Rewired의 게임패드 템플릿에서는 터치패드 항목이 없어 별도 예외처리합니다.
+        private void DeleteJoystickMapping(string actionName)
+        {
+            string actionNameString = NormalizeActionName(actionName);
+            string key = string.Format(InputConstants.KEY_FORMAT_JOYSTICK, actionNameString);
+
+            if (GamePrefs.HasKey(key))
+            {
+                GamePrefs.Delete(key);
+            }
+        }
+
+        #endregion 매핑 저장
+
+        #region PlayStation 특수 매핑
+
+        private void RemoveActionMappingFromOptionsButton(ControllerMap controllerMap, Controller.Button optionsButton, int actionId)
+        {
+            if (controllerMap == null || optionsButton == null)
+            {
+                return;
+            }
+
+            ActionElementMap[] buttonMaps = controllerMap.GetButtonMaps();
+            if (buttonMaps == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < buttonMaps.Length; i++)
+            {
+                ActionElementMap buttonMap = buttonMaps[i];
+                if (buttonMap != null &&
+                    buttonMap.elementIdentifierId == optionsButton.elementIdentifier.id &&
+                    buttonMap.actionId == actionId)
+                {
+                    controllerMap.DeleteElementMap(buttonMap.id);
+                    break;
+                }
+            }
+        }
+
         public void AddTouchPadMapping(Controller controller)
         {
+            if (!ValidateController(controller) || !ValidateInputPlayer())
+            {
+                return;
+            }
+
             const ActionNames actionName = ActionNames.PopupInventory;
             const int actionId = RewiredConsts.Action.PopupInventory;
-            Debug.Log($"Touchpad action: {actionId}: {actionName}");
 
-            Controller.Button touchpadButtonPS = null;
-            for (int i = 0; i < controller.Buttons.Count; i++)
-            {
-                Controller.Button buttonPS = controller.Buttons[i];
-                if (buttonPS.elementIdentifier.key == "touchpad/button"
-                    || buttonPS.elementIdentifier.key == "touchpad_button")
-                {
-                    touchpadButtonPS = buttonPS;
-                    break;
-                }
-            }
-
+            Controller.Button touchpadButtonPS = FindTouchPadButton(controller);
             if (touchpadButtonPS == null)
             {
-                Debug.LogWarning($"Touchpad Button == null");
+                Log.Warning(LogTags.Input, "터치패드 버튼을 찾을 수 없습니다.");
                 return;
             }
 
-            ControllerMap[] controllerMaps = InputPlayer.controllers.maps.GetMaps(ControllerType.Joystick, controller.id).ToArray();
-            if (controllerMaps.Length == 0)
+            ControllerMap[] controllerMaps = GetControllerMapsForJoystick(controller);
+            if (controllerMaps == null || controllerMaps.Length == 0 || controllerMaps[0] == null)
             {
-                Debug.LogWarning($"controllerMaps.Length == 0");
                 return;
             }
 
-            // Delete only the options button mapped to the PopupInventory action
-            Controller.Button optionsButtonPS = null;
-            for (int i = 0; i < controller.Buttons.Count; i++)
-            {
-                Controller.Button buttonPS = controller.Buttons[i];
-                if (buttonPS.elementIdentifier.key == "options")
-                {
-                    optionsButtonPS = buttonPS;
-                    break;
-                }
-            }
+            ControllerMap controllerMap = controllerMaps[0];
+            Controller.Button optionsButtonPS = FindOptionsButton(controller);
 
-            if (optionsButtonPS != null)
+            // GetButtonMaps()를 한 번만 호출하여 캐싱
+            ActionElementMap[] buttonMaps = controllerMap.GetButtonMaps();
+            if (buttonMaps == null)
             {
-                ActionElementMap[] buttonMaps = controllerMaps[0].GetButtonMaps();
-                for (int i = 0; i < buttonMaps.Length; i++)
-                {
-                    ActionElementMap buttonMap = buttonMaps[i];
-                    if (buttonMap.elementIdentifierId == optionsButtonPS.elementIdentifier.id
-                        && buttonMap.actionId == actionId)
-                    {
-                        controllerMaps[0].DeleteElementMap(buttonMap.id);
-                        break;
-                    }
-                }
-            }
-
-            // Map the touchpad button to PopupInventory
-            controllerMaps[0].CreateElementMap(actionId, Pole.Positive, touchpadButtonPS.elementIdentifier.id, touchpadButtonPS.type, AxisRange.Positive, false);
-
-            TSInputButton button = GetButton(actionName);
-            if (button == null)
-            {
-                Debug.Log($"GetButton({actionName}) == null");
                 return;
             }
 
-            button.SetupKeys();
-            button.InitializeState();
+            // 터치패드가 이미 PopupInventory로 매핑되어 있는지 확인
+            ActionElementMap existingTouchPadMap = buttonMaps.FirstOrDefault(x =>
+                x != null &&
+                x.elementIdentifierId == touchpadButtonPS.elementIdentifier.id &&
+                x.actionId == actionId);
+
+            if (existingTouchPadMap != null)
+            {
+                // Options 버튼에서 PopupInventory 매핑만 정리하고 종료
+                RemoveActionMappingFromOptionsButton(controllerMap, optionsButtonPS, actionId);
+                Log.Info(LogTags.Input, "터치패드가 이미 PopupInventory로 매핑되어 있습니다. 스킵합니다.");
+                return;
+            }
+
+            // Options 버튼에서 PopupInventory 매핑 제거
+            RemoveActionMappingFromOptionsButton(controllerMap, optionsButtonPS, actionId);
+
+            // 터치패드에 PopupInventory 매핑 생성
+            controllerMap.CreateElementMap(actionId, Pole.Positive, touchpadButtonPS.elementIdentifier.id, touchpadButtonPS.type, AxisRange.Positive, false);
+            SetupAndInitializeButton(actionName);
         }
 
-        // Viridian: Options button (right of touchpad) should pause the game. Touchpad already opens inventory.
         public void SwapOptionsMapping(Controller controller)
         {
+            if (!ValidateController(controller) || !ValidateInputPlayer())
+            {
+                return;
+            }
+
             const ActionNames actionName = ActionNames.PopupPause;
             const int actionId = RewiredConsts.Action.PopupPause;
-            Debug.Log($"Options action: {actionId}: {actionName}");
 
-            Controller.Button optionsButton = null;
-            for (int i = 0; i < controller.Buttons.Count; i++)
-            {
-                Controller.Button buttonPS = controller.Buttons[i];
-                if (buttonPS.elementIdentifier.key == "options")
-                {
-                    optionsButton = buttonPS;
-                    break;
-                }
-            }
+            Controller.Button optionsButton = FindOptionsButton(controller);
             if (optionsButton == null)
             {
-                Debug.Log($"Options Button == null");
+                Log.Warning(LogTags.Input, "Options 버튼을 찾을 수 없습니다.");
                 return;
             }
 
-            ControllerMap[] controllerMaps = InputPlayer.controllers.maps.GetMaps(ControllerType.Joystick, controller.id).ToArray();
-            if (controllerMaps.Length == 0)
+            ControllerMap[] controllerMaps = GetControllerMapsForJoystick(controller);
+            if (controllerMaps == null || controllerMaps.Length == 0 || controllerMaps[0] == null)
             {
-                Debug.Log($"controllerMaps.Length == 0");
                 return;
             }
 
-            var optionsInventoryMap = controllerMaps[0].GetButtonMaps().FirstOrDefault(x => x.elementIdentifierId == optionsButton.elementIdentifier.id);
-            if (optionsInventoryMap != null)
-            {
-                Debug.Log($"Deleting existing Options button mapping. ActionID: {optionsInventoryMap.actionId}, ElementID: {optionsInventoryMap.elementIdentifierId}, ElementName: {optionsInventoryMap.elementIdentifierName}");
-                controllerMaps[0].DeleteElementMap(optionsInventoryMap.id);
-            }
+            ControllerMap controllerMap = controllerMaps[0];
 
-            // PopupPause 액션에 Options 버튼 매핑
-            controllerMaps[0].CreateElementMap(actionId, Pole.Positive, optionsButton.elementIdentifier.id, optionsButton.type, AxisRange.Positive, false);
-
-            TSInputButton button = GetButton(actionName);
-            if (button == null)
+            // GetButtonMaps()를 한 번만 호출하여 캐싱
+            ActionElementMap[] buttonMaps = controllerMap.GetButtonMaps();
+            if (buttonMaps == null)
             {
-                Debug.Log($"GetButton({actionName}) == null");
                 return;
             }
 
-            button.SetupKeys();
-            button.InitializeState();
+            // 이미 PopupPause로 매핑되어 있는지 확인
+            ActionElementMap existingCorrectMap = buttonMaps.FirstOrDefault(x =>
+                x != null &&
+                x.elementIdentifierId == optionsButton.elementIdentifier.id &&
+                x.actionId == actionId);
+
+            if (existingCorrectMap != null)
+            {
+                Log.Info(LogTags.Input, "Options 버튼이 이미 PopupPause로 매핑되어 있습니다. 스킵합니다.");
+                return;
+            }
+
+            // 다른 액션에 매핑된 경우만 삭제 후 재매핑
+            ActionElementMap existingMap = buttonMaps.FirstOrDefault(x =>
+                x != null &&
+                x.elementIdentifierId == optionsButton.elementIdentifier.id);
+
+            if (existingMap != null)
+            {
+                controllerMap.DeleteElementMap(existingMap.id);
+            }
+
+            controllerMap.CreateElementMap(actionId, Pole.Positive, optionsButton.elementIdentifier.id, optionsButton.type, AxisRange.Positive, false);
+            SetupAndInitializeButton(actionName);
         }
 
-        // 새 함수 추가: Skip 액션 전용
         public void MapOptionsToSkip(Controller controller)
         {
-            Controller.Button optionsButton = null;
-            for (int i = 0; i < controller.Buttons.Count; i++)
+            if (!ValidateController(controller) || !ValidateInputPlayer())
             {
-                Controller.Button buttonPS = controller.Buttons[i];
-                if (buttonPS.elementIdentifier.key == "options")
-                {
-                    optionsButton = buttonPS;
-                    break;
-                }
-            }
-            if (optionsButton == null)
-            {
-                Debug.Log($"Options Button == null for Skip mapping");
                 return;
             }
 
-            ControllerMap[] controllerMaps = InputPlayer.controllers.maps.GetMaps(ControllerType.Joystick, controller.id).ToArray();
-            if (controllerMaps.Length == 0)
+            Controller.Button optionsButton = FindOptionsButton(controller);
+            if (optionsButton == null)
             {
-                Debug.Log($"controllerMaps.Length == 0 for Skip mapping");
+                Log.Warning(LogTags.Input, "Skip 매핑을 위한 Options 버튼을 찾을 수 없습니다.");
+                return;
+            }
+
+            ControllerMap[] controllerMaps = GetControllerMapsForJoystick(controller);
+            if (controllerMaps == null)
+            {
                 return;
             }
 
             const ActionNames skipActionName = ActionNames.Skip;
             const int skipActionId = RewiredConsts.Action.Skip;
 
-            // Skip 액션에 이미 Options 버튼이 매핑되어 있는지 확인
-            var existingSkipMap = controllerMaps[0].GetButtonMaps().FirstOrDefault(x =>
-                x.actionId == skipActionId && x.elementIdentifierId == optionsButton.elementIdentifier.id);
-
-            if (existingSkipMap == null)
+            if (controllerMaps.Length > 0 && controllerMaps[0] != null)
             {
-                controllerMaps[0].CreateElementMap(skipActionId, Pole.Positive, optionsButton.elementIdentifier.id, optionsButton.type, AxisRange.Positive, false);
-                Debug.Log($"Mapped Options button to Skip action. ActionID: {skipActionId}, ElementID: {optionsButton.elementIdentifier.id}");
+                var existingSkipMap = controllerMaps[0].GetButtonMaps()?.FirstOrDefault(x =>
+                    x != null && x.actionId == skipActionId && x.elementIdentifierId == optionsButton.elementIdentifier.id);
 
-                TSInputButton skipButton = GetButton(skipActionName);
-                if (skipButton != null)
+                if (existingSkipMap == null)
                 {
-                    skipButton.SetupKeys();
-                    skipButton.InitializeState();
-                }
-                else
-                {
-                    Debug.LogWarning($"GetButton({skipActionName}) == null");
+                    controllerMaps[0].CreateElementMap(skipActionId, Pole.Positive, optionsButton.elementIdentifier.id, optionsButton.type, AxisRange.Positive, false);
+
+                    SetupAndInitializeButton(skipActionName);
                 }
             }
         }
 
-        // 패드들의 중앙 버튼들은 변경할 수 없는 키값들이며 해당 입력 시 false를 리턴하는 함수입니다.
-        private bool CheckNonChangeableKey(string keyCode)
-        {
-            switch (keyCode)
-            {
-                case "Share":
-                case "Options":
-                case "Touchpad Button":
-                case "View":
-                case "Menu":
-                case "Guide":
-                    return false;
-            }
-
-            return true;
-        }
-
-        //엑박 패드 및 플스 패드의 버튼 키값을 서로 변환하는 함수입니다.
-        private string GetOtherJoystickKeyCode(string keyCode)
-        {
-            switch (keyCode)
-            {
-                case "L2":
-                    return "Left Trigger";
-
-                case "R2":
-                    return "Right Trigger";
-
-                case "Left Trigger":
-                    return "L2";
-
-                case "Right Trigger":
-                    return "R2";
-
-                case "Cross":
-                    return "A";
-
-                case "Circle":
-                    return "B";
-
-                case "Square":
-                    return "X";
-
-                case "Triangle":
-                    return "Y";
-
-                case "A":
-                    return "Cross";
-
-                case "B":
-                    return "Circle";
-
-                case "X":
-                    return "Square";
-
-                case "Y":
-                    return "Triangle";
-
-                case "L1":
-                    return "Left Shoulder";
-
-                case "R1":
-                    return "Right Shoulder";
-
-                case "Left Shoulder":
-                    return "L1";
-
-                case "Right Shoulder":
-                    return "R1";
-
-                case "L3":
-                    return "Left Stick Button";
-
-                case "R3":
-                    return "Right Stick Button";
-
-                case "Left Stick Button":
-                    return "L3";
-
-                case "Right Stick Button":
-                    return "R3";
-
-                default:
-                    return keyCode;
-            }
-        }
+        #endregion PlayStation 특수 매핑
     }
 }
