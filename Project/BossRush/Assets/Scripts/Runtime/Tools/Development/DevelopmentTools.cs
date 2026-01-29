@@ -305,6 +305,7 @@ namespace TeamSuneat.Development
                 LogTags.UI_Skill => "UI_Skill",
                 LogTags.UI_SelectEvent => "UI_Select",
                 LogTags.Charm => "Charm",
+                LogTags.TargetJump => "TargetJump",
                 _ => tag.ToString()
             };
         }

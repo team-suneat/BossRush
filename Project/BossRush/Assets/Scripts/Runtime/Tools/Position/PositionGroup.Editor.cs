@@ -1,5 +1,4 @@
 using Sirenix.OdinInspector;
-using System.Diagnostics;
 
 namespace TeamSuneat
 {
@@ -18,45 +17,28 @@ namespace TeamSuneat
         {
             base.AutoSetting();
 
-            if (HitmarkName != HitmarkNames.None)
+            if (PositionGroupName != PositionGroupNames.None)
             {
-                HitmarkNameString = HitmarkName.ToString();
+                PositionGroupNameString = PositionGroupName.ToString();
             }
         }
 
         private void OnValidate()
         {
-            if (!EnumEx.ConvertTo(ref HitmarkName, HitmarkNameString))
+            if (!EnumEx.ConvertTo(ref PositionGroupName, PositionGroupNameString))
             {
-                if (!string.IsNullOrEmpty(HitmarkNameString))
+                if (!string.IsNullOrEmpty(PositionGroupNameString))
                 {
-                    Log.Error("포지션 그룹의 히트마크({0})를 변환할 수 없습니다: {1}", HitmarkNameString, this.GetHierarchyPath());
+                    Log.Error($"포지션 그룹의 키({PositionGroupNameString})를 변환할 수 없습니다: {this.GetHierarchyPath()}");
                 }
             }
         }
 
         public override void AutoNaming()
         {
-            if (HitmarkName != HitmarkNames.None)
+            if (PositionGroupName != PositionGroupNames.None)
             {
-                SetGameObjectName(string.Format("Attack Position Group({0})", HitmarkName));
-            }
-        }
-
-        [FoldoutGroup("#Custom Buttons", 1000)]
-        [Button("Paste Children Positions", ButtonSizes.Medium)]
-        [Conditional("UNITY_EDITOR")]
-        public void PasteChildrenPositions()
-        {
-            if (LinkedPositionGroup != null)
-            {
-                for (int i = 0; i < LinkedPositionGroup.Children.Count; i++)
-                {
-                    if (Children.Count > i)
-                    {
-                        Children[i].position = LinkedPositionGroup.Children[i].position;
-                    }
-                }
+                SetGameObjectName($"Position Group({PositionGroupName})");
             }
         }
 

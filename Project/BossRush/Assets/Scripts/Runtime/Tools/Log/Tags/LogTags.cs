@@ -1,4 +1,4 @@
-﻿namespace TeamSuneat
+namespace TeamSuneat
 {
     public enum LogTags
     {
@@ -33,6 +33,9 @@
 
         /// <summary> 패턴 </summary>
         Pattern,
+
+        /// <summary> 타겟 점프 </summary>
+        TargetJump,
 
         #endregion Character
 

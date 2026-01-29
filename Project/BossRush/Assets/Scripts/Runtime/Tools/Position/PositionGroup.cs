@@ -4,9 +4,6 @@ using UnityEngine;
 
 namespace TeamSuneat
 {
-    /// <summary>
-    /// 포지션 그룹에서 위치 정렬 우선순위를 지정하는 열거형
-    /// </summary>
     public enum SortPriorities
     {
         None,           // 정렬 우선순위가 지정되지 않음
@@ -17,24 +14,9 @@ namespace TeamSuneat
         NotShuffleDeck, // 섞지 않는 덱 방식(무작위 정렬 옵션 있음)
     }
 
-    /// <summary>
-    /// PositionGroup 클래스는 게임 오브젝트의 자식 위치(Transform)를 관리하고,
-    /// 위치 정렬 전략에 따라 적절한 위치를 계산하여 반환하는 역할을 합니다.
-    /// XBehaviour는 MonoBehaviour를 상속받은 커스텀 베이스 클래스라고 가정합니다.
-    /// </summary>
     public partial class PositionGroup : XBehaviour
     {
-        // 포지션 그룹의 타입을 지정 (예: 대상(Target) 그룹 등)
-        public enum Types
-        {
-            None,
-            Target,
-        }
-
         #region Field
-
-        // 포지션 그룹의 타입 (예: 대상 그룹)
-        public Types Type;
 
         // 포지션 그룹에 대한 설명을 에디터에서 입력할 수 있도록 TextArea로 표시
         [TextArea]
@@ -49,9 +31,9 @@ namespace TeamSuneat
         [FoldoutGroup("#PositionGroup-Point")]
         public List<Transform> Children = new();
 
-        // 포지션 그룹을 식별하기 위한 키 값들 (각각 다른 용도의 이름)
-        [FoldoutGroup("#PositionGroup-Keys")] public HitmarkNames HitmarkName;
-        [FoldoutGroup("#PositionGroup-Keys")] public string HitmarkNameString;
+        // 포지션 그룹을 식별하기 위한 키 (PositionGroupManager에서 해당 키로 검색)
+        [FoldoutGroup("#PositionGroup-Keys")] public PositionGroupNames PositionGroupName;
+        [FoldoutGroup("#PositionGroup-Keys")] public string PositionGroupNameString;
 
         // 위치 정렬 우선순위를 지정하며, 기본은 무작위 정렬(Randomly)로 설정됨
         [FoldoutGroup("#PositionGroup-Sort")]
@@ -67,12 +49,9 @@ namespace TeamSuneat
         [SuffixLabel("무작위 정렬 순서 사용")]
         public bool UseRandomSortOrder;
 
-        // 에디터에서 자식 위치를 기즈모(Gizmo)로 표시할지 여부 및 다른 포지션 그룹과 연결할 수 있는 옵션
+        // 에디터에서 자식 위치를 기즈모(Gizmo)로 표시할지 여부
         [FoldoutGroup("#PositionGroup-Editor")]
         public bool ShowChildrenPositionInGizmo;
-
-        [FoldoutGroup("#PositionGroup-Editor")]
-        public PositionGroup LinkedPositionGroup;
 
         // 내부적으로 자식 Transform을 캐싱하는 리스트
         private List<Transform> _childrenPoints;
@@ -91,9 +70,6 @@ namespace TeamSuneat
             SetPositionGroupSortStrategy();
         }
 
-        /// <summary>
-        /// 자식 Transform을 초기화하는 메서드
-        /// </summary>
         private void InitializeChildren()
         {
             // 자식 오브젝트들을 Children 리스트에 추가
@@ -134,29 +110,19 @@ namespace TeamSuneat
             UnregisterFromManager();
         }
 
-        /// <summary>
-        /// 매니저에 포지션 그룹을 등록하는 메서드
-        /// </summary>
         private void RegisterToManager()
         {
-            // 각 키(Hitmark, FV, Blink) 중 설정된 값이 있으면 해당 키를 사용해 등록
-            if (HitmarkName != HitmarkNames.None)
+            if (PositionGroupName != PositionGroupNames.None)
             {
-                PositionGroupManager.Instance.Register(HitmarkName, this);
+                PositionGroupManager.Instance.Register(PositionGroupName, this);
             }
         }
 
-        /// <summary>
-        /// 매니저에서 포지션 그룹 등록을 해제하는 메서드
-        /// </summary>
         private void UnregisterFromManager()
         {
             PositionGroupManager.Instance.Unregister(this);
         }
 
-        /// <summary>
-        /// SortPriority 값에 따라 적절한 정렬 전략 객체를 생성 및 설정하는 메서드
-        /// </summary>
         private void SetPositionGroupSortStrategy()
         {
             switch (SortPriority)
@@ -187,9 +153,6 @@ namespace TeamSuneat
             }
         }
 
-        /// <summary>
-        /// 자식 오브젝트들을 Children 리스트에 추가하는 메서드
-        /// </summary>
         public void SetupChildren()
         {
             // 리스트 내 null 제거
@@ -208,17 +171,11 @@ namespace TeamSuneat
             }
         }
 
-        /// <summary>
-        /// 덱 정렬 전략의 내부 상태를 초기화하는 메서드
-        /// </summary>
         public void ClearPositionDeck()
         {
             _sortStrategy?.Clear();
         }
 
-        /// <summary>
-        /// 인덱스에 해당하는 자식의 위치(Vector3)를 반환 (인덱스 범위 체크 포함)
-        /// </summary>
         public Vector3 GetChildPosition(int index)
         {
             if (Children.IsValid())
@@ -235,9 +192,6 @@ namespace TeamSuneat
             return Vector3.zero;
         }
 
-        /// <summary>
-        /// 덱 방식 정렬일 경우, 덱을 구성하는 메서드 (Deck 또는 NotShuffleDeck 전용)
-        /// </summary>
         public void SetupDeck()
         {
             switch (SortPriority)
@@ -260,9 +214,6 @@ namespace TeamSuneat
             }
         }
 
-        /// <summary>
-        /// 주어진 기준 위치(originPosition)를 기준으로 정렬 전략에 따라 위치를 반환
-        /// </summary>
         public Vector3 GetPosition(Vector3 originPosition)
         {
             return _sortStrategy.GetPosition(originPosition, Children);
@@ -279,25 +230,16 @@ namespace TeamSuneat
             return Vector3.zero;
         }
 
-        /// <summary>
-        /// 주어진 기준 위치와 개수(positionCount)를 기반으로 위치 리스트를 반환
-        /// </summary>
         public List<Vector3> GetPositions(Vector3 originPosition, int positionCount)
         {
             return _sortStrategy.GetPositions(originPosition, Children, positionCount);
         }
 
-        /// <summary>
-        /// 주어진 기준 위치와 개수(positionCount)를 기반으로 무작위 섞인 위치 리스트를 반환
-        /// </summary>
         public List<Vector3> GetShufflePositions(Vector3 originPosition, int positionCount)
         {
             return _sortStrategy.GetShufflePositions(originPosition, Children, positionCount);
         }
 
-        /// <summary>
-        /// 모든 자식의 위치를 특정 point로 갱신하는 메서드 (예: 위치 초기화)
-        /// </summary>
         public void RefreshChildPoint(Vector3 point)
         {
             if (Children.IsValid())
@@ -309,18 +251,14 @@ namespace TeamSuneat
             }
         }
 
-        /// <summary>
-        /// 자식 오브젝트들의 SpriteRenderer를 비활성화하여, 게임 실행 시 보이지 않게 설정하는 메서드
-        /// </summary>
         private void DisableRenderers()
         {
-            // 자식 오브젝트에서 SpriteRenderer 컴포넌트를 모두 가져옴
-            SpriteRenderer[] _childrenRenderers = GetComponentsInChildren<SpriteRenderer>();
-            if (_childrenRenderers.IsValid())
+            SpriteRenderer[] childrenRenderers = GetComponentsInChildren<SpriteRenderer>();
+            if (childrenRenderers.IsValid())
             {
-                for (int i = 0; i < _childrenRenderers.Length; i++)
+                for (int i = 0; i < childrenRenderers.Length; i++)
                 {
-                    _childrenRenderers[i].enabled = false;
+                    childrenRenderers[i].enabled = false;
                 }
             }
         }

@@ -163,6 +163,11 @@ namespace TeamSuneat
             _animator.UpdateAnimatorTrigger(ANIMATOR_DASH_PARAMETER_ID, AnimatorParameters);
         }
 
+        public void PlayJumpAnimation()
+        {
+            _animator.UpdateAnimatorTrigger(ANIMATOR_JUMP_PARAMETER_ID, AnimatorParameters);
+        }
+
         public virtual bool PlayDamageAnimation()
         {
             if (_blockDamageAnimationWhileAttack && IsAttacking)

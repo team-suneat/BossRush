@@ -83,6 +83,8 @@ namespace TeamSuneat.Scenes
             CharacterManager.Instance.ClearMonsterAndAlliance();
             VitalManager.Instance.Clear();
             VFXManager.ClearNull();
+            PositionGroupManager.Instance.Clear();
+
             GameApp.Instance.SaveGameData();
 
             base.CleanupCurrentScene();

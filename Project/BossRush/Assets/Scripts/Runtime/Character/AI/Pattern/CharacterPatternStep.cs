@@ -1,4 +1,4 @@
-﻿using Sirenix.OdinInspector;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,12 +11,18 @@ namespace TeamSuneat
         [Title("#PatternStep")]
         public PatternStepNames StepName;
 
+        [Title("#Face")]
         [ShowIf("StepName", PatternStepNames.FaceDirectional)]
         public FacingDirections FacingDirection;
+
+        [ShowIf("StepName", PatternStepNames.FaceToPositionGroup)]
+        [SuffixLabel("목표 포지션 그룹의 이름")]
+        public PositionGroupNames FacePositionGroupName;
 
         [SuffixLabel("벽 충돌 거리")]
         public float FaceAgainstWallDistance;
 
+        [Title("#Order")]
         [SuffixLabel("랜덤 순서 사용")]
         public bool UseRandomOrder;
 
@@ -27,6 +33,7 @@ namespace TeamSuneat
         [SuffixLabel("순서 최대 인덱스")]
         public int OrderMaxIndex;
 
+        [Title("#Repeat")]
         [SuffixLabel("반복 사용")]
         public bool UseRepeat;
 
@@ -48,15 +55,49 @@ namespace TeamSuneat
 
         [HideInInspector] public int CurrentRepeatCount;
 
+        [Title("#Jump")]
+        [ShowIf("StepName", PatternStepNames.JumpToPositionGroup)]
+        [SuffixLabel("착지 포지션 그룹의 이름")]
+        public PositionGroupNames JumpPositionGroupName;
+
+        [FoldoutGroup("#String")]
+        public string StepNameString;
+
+        [FoldoutGroup("#String")]
+        public string FacingDirectionString;
+
+        [FoldoutGroup("#String")]
+        public string FacePositionGroupNameString;
+
+        [FoldoutGroup("#String")]
+        public string JumpPositionGroupNameString;
+
         [FoldoutGroup("#Event")]
         public UnityEvent OnFailureCallback;
 
-        //
+        private Coroutine _nextStepCoroutine;
 
         public bool IsCompleteStepRepeat => CurrentRepeatCount >= CurrentRepeatMaxCount;
         public MonsterCharacter Owner { get; private set; }
         public PatternSystem System { get; private set; }
         public CharacterPattern Pattern { get; private set; }
+
+        public override void AutoSetting()
+        {
+            base.AutoSetting();
+            StepNameString = StepName.ToString();
+            FacingDirectionString = FacingDirection.ToString();
+            FacePositionGroupNameString = FacePositionGroupName.ToString();
+            JumpPositionGroupNameString = JumpPositionGroupName.ToString();
+        }
+
+        private void OnValidate()
+        {
+            EnumEx.ConvertTo(ref StepName, StepNameString);
+            EnumEx.ConvertTo(ref FacingDirection, FacingDirectionString);
+            EnumEx.ConvertTo(ref FacePositionGroupName, FacePositionGroupNameString);
+            EnumEx.ConvertTo(ref JumpPositionGroupName, JumpPositionGroupNameString);
+        }
 
         public override void AutoNaming()
         {
@@ -135,7 +176,7 @@ namespace TeamSuneat
 
                 case PatternStepNames.Face:
                     {
-                        ExecuteFaceStep();
+                        ExecuteFaceToTargetStep();
 
                         ExecuteNextStep();
                     }
@@ -149,9 +190,29 @@ namespace TeamSuneat
                     }
                     break;
 
+                case PatternStepNames.FaceToPositionGroup:
+                    {
+                        ExecuteFaceToPositionGroupStep();
+
+                        ExecuteNextStep();
+                    }
+                    break;
+
                 case PatternStepNames.ChaseGround:
                     {
                         ExecuteChaseGroundStep();
+                    }
+                    break;
+
+                case PatternStepNames.JumpToTarget:
+                    {
+                        ExecuteJumpToTargetStep();
+                    }
+                    break;
+
+                case PatternStepNames.JumpToPositionGroup:
+                    {
+                        ExecuteJumpToPositionGroupStep();
                     }
                     break;
 
@@ -163,7 +224,7 @@ namespace TeamSuneat
 
                 case PatternStepNames.AttackWithFace:
                     {
-                        ExecuteFaceStep();
+                        ExecuteFaceToTargetStep();
                         ExecuteAttackStep();
                     }
                     break;
@@ -202,20 +263,25 @@ namespace TeamSuneat
             Log.Info(LogTags.Pattern, "{0}, 패턴의 다음 단계로 넘어갑니다. 단계: {1}", Pattern.Name.ToSelectString(), StepName.ToSelectString());
 
             System.ProcessNextStep();
+            _nextStepCoroutine = null;
         }
 
         #region Execute
 
         private void ExecuteNextStep()
         {
+            if (_nextStepCoroutine != null)
+            {
+                Log.Warning(LogTags.Pattern, "{0}, 이미 다음 단계를 진행 중입니다. 다음 단계를 진행할 수 없습니다.", Pattern.Name.ToSelectString());
+                return;
+            }
+
             Log.Info(LogTags.Pattern, "{0}, 패턴의 다음 단계를 진행합니다. 단계: {1}", Pattern.Name.ToSelectString(), StepName.ToSelectString());
-
             AddRepeatCount();
-
-            _ = CoroutineNextFrame(ProcessNextStep);
+            _nextStepCoroutine = CoroutineNextFrame(ProcessNextStep);
         }
 
-        private void ExecuteFaceStep()
+        private void ExecuteFaceToTargetStep()
         {
             if (Owner.TryFlip())
             {
@@ -246,6 +312,29 @@ namespace TeamSuneat
             }
         }
 
+        private void ExecuteFaceToPositionGroupStep()
+        {
+            if (FacePositionGroupName == PositionGroupNames.None)
+            {
+                Log.Warning(LogTags.Pattern, "{0}, FacePositionGroupName이 None입니다. FaceToPositionGroup 스텝을 건너뜁니다.",
+                    Pattern?.Name.ToSelectString() ?? "Unknown");
+                return;
+            }
+
+            PositionGroup positionGroup = PositionGroupManager.Instance.Find(FacePositionGroupName);
+            if (positionGroup == null)
+            {
+                Log.Warning(LogTags.Pattern, "{0}, 포지션 그룹을 찾을 수 없습니다. 그룹: {1}. FaceToPositionGroup 스텝을 건너뜁니다.",
+                    Pattern?.Name.ToSelectString() ?? "Unknown", FacePositionGroupName.ToSelectString());
+                return;
+            }
+
+            Vector3 targetPosition = positionGroup.GetPosition(Owner.position);
+            Log.Info(LogTags.Pattern, "{0}, 포지션 그룹 목표를 바라봅니다. 그룹: {1}",
+                Pattern?.Name.ToSelectString() ?? "Unknown", FacePositionGroupName.ToSelectString());
+            Owner.ForceFace(targetPosition);
+        }
+
         private void ExecuteChaseGroundStep()
         {
             if (Owner.Chase != null)
@@ -258,6 +347,62 @@ namespace TeamSuneat
                 Log.Warning(LogTags.Pattern, "{0}, Owner.Chase가 null입니다. 지상 추적 패턴을 실행할 수 없습니다.",
                     Pattern?.Name.ToSelectString() ?? "Unknown");
             }
+        }
+
+        private void ExecuteJumpToTargetStep()
+        {
+            if (!Owner.Physics.IsGrounded)
+            {
+                Log.Warning(LogTags.Pattern, "{0}, 지상이 아니어서 점프 스텝을 건너뜁니다. 다음 스텝으로 이동합니다.",
+                    Pattern?.Name.ToSelectString() ?? "Unknown");
+                ExecuteNextStep();
+                return;
+            }
+
+            if (Owner.TargetJump == null)
+            {
+                Log.Warning(LogTags.Pattern, "{0}, Owner.TargetJump가 null입니다. 점프 스텝을 실행할 수 없습니다. 다음 스텝으로 이동합니다.",
+                    Pattern?.Name.ToSelectString() ?? "Unknown");
+                ExecuteNextStep();
+                return;
+            }
+
+            Log.Info(LogTags.Pattern, "{0}, 타겟 방향 점프 패턴을 시작합니다.",
+                Pattern?.Name.ToSelectString() ?? "Unknown");
+
+            Owner.TargetJump.StartJumpToPattern(JumpDestinationType.OwnerTarget, PositionGroupNames.None, ExecuteNextStep);
+        }
+
+        private void ExecuteJumpToPositionGroupStep()
+        {
+            if (!Owner.Physics.IsGrounded)
+            {
+                Log.Warning(LogTags.Pattern, "{0}, 지상이 아니어서 점프 스텝을 건너뜁니다. 다음 스텝으로 이동합니다.",
+                    Pattern?.Name.ToSelectString() ?? "Unknown");
+                ExecuteNextStep();
+                return;
+            }
+
+            if (Owner.TargetJump == null)
+            {
+                Log.Warning(LogTags.Pattern, "{0}, Owner.TargetJump가 null입니다. 점프 스텝을 실행할 수 없습니다. 다음 스텝으로 이동합니다.",
+                    Pattern?.Name.ToSelectString() ?? "Unknown");
+                ExecuteNextStep();
+                return;
+            }
+
+            if (JumpPositionGroupName == PositionGroupNames.None)
+            {
+                Log.Warning(LogTags.Pattern, "{0}, JumpPositionGroupName이 None입니다. 점프 스텝을 건너뜁니다.",
+                    Pattern?.Name.ToSelectString() ?? "Unknown");
+                ExecuteNextStep();
+                return;
+            }
+
+            Log.Info(LogTags.Pattern, "{0}, 포지션 그룹 점프 패턴을 시작합니다. 그룹: {1}",
+                Pattern?.Name.ToSelectString() ?? "Unknown", JumpPositionGroupName.ToSelectString());
+
+            Owner.TargetJump.StartJumpToPattern(JumpDestinationType.PositionGroup, JumpPositionGroupName, ExecuteNextStep);
         }
 
         private void ExecuteAttackStep()

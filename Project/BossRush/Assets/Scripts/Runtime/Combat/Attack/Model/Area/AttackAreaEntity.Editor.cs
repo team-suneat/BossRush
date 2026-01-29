@@ -122,6 +122,36 @@ namespace TeamSuneat
             }
         }
 
+        [FoldoutGroup("#Custom Buttons", 1000)]
+        [Button("Offset을 LocalPosition에 반영 후 Offset 초기화", ButtonSizes.Medium)]
+        private void ApplyOffsetToLocalPositionAndReset()
+        {
+            if (_attackCollider == null)
+            {
+                _attackCollider = GetComponent<Collider2D>();
+                if (_attackCollider == null) return;
+            }
+
+            Vector2 offset = default;
+            if (_attackCollider is BoxCollider2D box)
+            {
+                offset = box.offset;
+                transform.localPosition += (Vector3)offset;
+                box.offset = Vector2.zero;
+            }
+            else if (_attackCollider is CircleCollider2D circle)
+            {
+                offset = circle.offset;
+                transform.localPosition += (Vector3)offset;
+                circle.offset = Vector2.zero;
+            }
+
+            if (offset != default)
+            {
+                UnityEditor.EditorUtility.SetDirty(gameObject);
+            }
+        }
+
 #endif
 
         #endregion Button

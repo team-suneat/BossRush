@@ -34,7 +34,7 @@ MonoBehaviour:
     _version: 3.33
     _category: Monster
     _comments: 
-    _translation: {x: 364, y: 106}
-    _zoomFactor: 0.6248299
+    _translation: {x: 59, y: -75}
+    _zoomFactor: 0.9705656
   _haltSerialization: 0
   _externalSerializationFile: {fileID: 0}

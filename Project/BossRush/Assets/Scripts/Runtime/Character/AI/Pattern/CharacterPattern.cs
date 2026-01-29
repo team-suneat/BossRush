@@ -10,9 +10,11 @@ namespace TeamSuneat
         public string Name;
 
         [Title("#Time")]
+        [InfoBox("패턴 재사용 대기 시간을 설정합니다.\n일정 값을 설정하여 같은 패턴을 사용하지 않도록 합니다.")]
         public float CooldownTime;
 
-        public float DelayTime;
+        [InfoBox("패턴 사용 후 다음 패턴 대기 시간을 설정합니다.\n0일 경우 즉시 다음 패턴으로 넘어갑니다.")]
+        public float WaitDuration;
 
         [ReadOnly] public bool IsCooldown;
         [ReadOnly] public bool IsWait;
@@ -21,6 +23,7 @@ namespace TeamSuneat
         public Order Order;
 
         [Title("#Probability")]
+        [Range(0f,1f)]
         public float ProbabilityToPicked = 1f;
 
         [Title("#Step")]
@@ -215,7 +218,7 @@ namespace TeamSuneat
 
         public void StartPatternWaitTime(UnityAction OnCompleted)
         {
-            if (DelayTime.IsZero())
+            if (WaitDuration.IsZero())
             {
                 Log.Info(LogTags.Pattern, "{0}, 대기 시간이 0이므로 즉시 완료 콜백을 실행합니다.", Name.ToSelectString());
                 OnCompleted?.Invoke();
@@ -232,15 +235,15 @@ namespace TeamSuneat
 
         private IEnumerator ProcessPatternWaitTime(UnityAction OnCompleted)
         {
-            Log.Info(LogTags.Pattern, "{0}, 패턴 사용 후 다음 패턴 대기를 시작합니다. 대기 시간: {1}", Name.ToSelectString(), DelayTime.ToSelectString());
+            Log.Info(LogTags.Pattern, "{0}, 패턴 사용 후 다음 패턴 대기를 시작합니다. 대기 시간: {1}", Name.ToSelectString(), WaitDuration.ToSelectString());
 
             IsWait = true;
 
-            yield return new WaitForSeconds(DelayTime);
+            yield return new WaitForSeconds(WaitDuration);
 
             IsWait = false;
 
-            Log.Info(LogTags.Pattern, "{0}, 패턴 사용 후 다음 패턴 대기를 종료합니다. 대기 시간: {1}", Name.ToSelectString(), DelayTime.ToSelectString());
+            Log.Info(LogTags.Pattern, "{0}, 패턴 사용 후 다음 패턴 대기를 종료합니다. 대기 시간: {1}", Name.ToSelectString(), WaitDuration.ToSelectString());
 
             OnCompleted?.Invoke();
 

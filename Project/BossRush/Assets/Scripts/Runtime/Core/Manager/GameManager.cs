@@ -23,7 +23,7 @@ namespace TeamSuneat
 
         private void OnDisable()
         {
-            TSInputManager.Instance.UnsubscribeEvents();
+            TSInputManager.Instance.UnsubscribeEvents();            
         }
 
         private void OnDestroy()

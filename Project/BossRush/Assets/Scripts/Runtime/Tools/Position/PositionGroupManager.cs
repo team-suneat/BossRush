@@ -1,58 +1,41 @@
-﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace TeamSuneat
 {
     public class PositionGroupManager : Singleton<PositionGroupManager>
     {
-        // 기존 PositionGroup용 multi-map
-        private readonly ListMultiMap<HitmarkNames, PositionGroup> _hitmarkPositionGroups = new();
-
-        // 추가: ParentPositionGroup용 multi-map
-        private readonly ListMultiMap<HitmarkNames, ParentPositionGroup> _parentHitmarkPositionGroups = new();
+        private readonly ListMultiMap<PositionGroupNames, PositionGroup> _positionGroups = new();
+        private readonly ListMultiMap<PositionGroupNames, ParentPositionGroup> _parentPositionGroups = new();
 
         #region Register
 
-        // 기존 PositionGroup 등록
-        public bool Register<T>(T keyName, PositionGroup positionGroup) where T : Enum
+        public bool Register(PositionGroupNames keyName, PositionGroup positionGroup)
         {
-            if (typeof(T) == typeof(HitmarkNames))
+            if (keyName == PositionGroupNames.None)
             {
-                HitmarkNames hitmarkName = EnumEx.ConvertTo<HitmarkNames>(keyName.ToString());
-                if (hitmarkName == HitmarkNames.None)
-                {
-                    return false;
-                }
-                if (!_hitmarkPositionGroups.ContainsKey(hitmarkName))
-                {
-                    _hitmarkPositionGroups.Add(hitmarkName, positionGroup);
-                    Log.Progress(LogTags.PositionGroup, "Hitmark({0}) PositionGroup 을 등록합니다.", hitmarkName.ToLogString());
-                    return true;
-                }
+                return false;
             }
-
+            if (!_positionGroups.ContainsKey(keyName))
+            {
+                _positionGroups.Add(keyName, positionGroup);
+                Log.Progress(LogTags.PositionGroup, "PositionGroup({0}) 을 등록합니다.", keyName.ToLogString());
+                return true;
+            }
             return false;
         }
 
-        // 추가: ParentPositionGroup 등록
-        public bool Register<T>(T keyName, ParentPositionGroup parentGroup) where T : Enum
+        public bool Register(PositionGroupNames keyName, ParentPositionGroup parentGroup)
         {
-            if (typeof(T) == typeof(HitmarkNames))
+            if (keyName == PositionGroupNames.None)
             {
-                HitmarkNames hitmarkName = EnumEx.ConvertTo<HitmarkNames>(keyName.ToString());
-                if (hitmarkName == HitmarkNames.None)
-                {
-                    return false;
-                }
-                if (!_parentHitmarkPositionGroups.ContainsKey(hitmarkName))
-                {
-                    _parentHitmarkPositionGroups.Add(hitmarkName, parentGroup);
-                    Log.Progress(LogTags.PositionGroup, "Hitmark({0}) ParentPositionGroup 을 등록합니다.", hitmarkName.ToLogString());
-                    return true;
-                }
+                return false;
             }
-
+            if (!_parentPositionGroups.ContainsKey(keyName))
+            {
+                _parentPositionGroups.Add(keyName, parentGroup);
+                Log.Progress(LogTags.PositionGroup, "ParentPositionGroup({0}) 을 등록합니다.", keyName.ToLogString());
+                return true;
+            }
             return false;
         }
 
@@ -60,46 +43,30 @@ namespace TeamSuneat
 
         #region Unregister
 
-        // 기존 PositionGroup 해제
         public bool Unregister(PositionGroup positionGroup)
         {
-            if (Unregister(positionGroup.HitmarkName, positionGroup))
+            if (positionGroup.PositionGroupName == PositionGroupNames.None)
             {
+                return false;
+            }
+            if (_positionGroups.ContainsKey(positionGroup.PositionGroupName))
+            {
+                _positionGroups.Remove(positionGroup.PositionGroupName, positionGroup);
                 return true;
             }
             return false;
         }
 
-        private bool Unregister(HitmarkNames key, PositionGroup positionGroup)
-        {
-            if (key != HitmarkNames.None)
-            {
-                if (_hitmarkPositionGroups.ContainsKey(key))
-                {
-                    _hitmarkPositionGroups.Remove(key, positionGroup);
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        // 추가: ParentPositionGroup 해제
         public bool Unregister(ParentPositionGroup parentGroup)
         {
-            bool result = false;
-            result |= Unregister(parentGroup.HitmarkName, parentGroup);
-            return result;
-        }
-
-        private bool Unregister(HitmarkNames key, ParentPositionGroup parentGroup)
-        {
-            if (key != HitmarkNames.None)
+            if (parentGroup.PositionGroupName == PositionGroupNames.None)
             {
-                if (_parentHitmarkPositionGroups.ContainsKey(key))
-                {
-                    _parentHitmarkPositionGroups.Remove(key, parentGroup);
-                    return true;
-                }
+                return false;
+            }
+            if (_parentPositionGroups.ContainsKey(parentGroup.PositionGroupName))
+            {
+                _parentPositionGroups.Remove(parentGroup.PositionGroupName, parentGroup);
+                return true;
             }
             return false;
         }
@@ -108,65 +75,22 @@ namespace TeamSuneat
 
         public void Clear()
         {
-            _hitmarkPositionGroups.Clear();
-            _parentHitmarkPositionGroups.Clear();
+            _positionGroups.Clear();
+            _parentPositionGroups.Clear();
         }
 
-        #region Find
-
-        // 기존 PositionGroup 검색
-
-        public PositionGroup Find(string key)
+        public PositionGroup Find(PositionGroupNames keyName)
         {
-            HitmarkNames hitmarkName = EnumEx.ConvertTo<HitmarkNames>(key);
-            if (hitmarkName != HitmarkNames.None)
+            if (_positionGroups.TryGetValue(keyName, out List<PositionGroup> list))
             {
-                PositionGroup positionGroup = Find(hitmarkName);
-                if (positionGroup != null)
+                for (int i = 0; i < list.Count; i++)
                 {
-                    return positionGroup;
-                }
-            }
-
-            Log.Error($"해당 키 값({key})으로 포지션 그룹을 찾을 수 없습니다.");
-            return null;
-        }
-
-        public PositionGroup Find(HitmarkNames hitmarkName, PositionGroup.Types type)
-        {
-            List<PositionGroup> hitmarkPositionGroup;
-            if (_hitmarkPositionGroups.TryGetValue(hitmarkName, out hitmarkPositionGroup))
-            {
-                for (int i = 0; i < hitmarkPositionGroup.Count; i++)
-                {
-                    PositionGroup item = hitmarkPositionGroup[i];
-                    if (item.Type == type)
-                    {
-                        return item;
-                    }
+                    PositionGroup item = list[i];
+                    return item;
                 }
             }
 
             return null;
         }
-
-        public PositionGroup Find(HitmarkNames hitmarkName)
-        {
-            return Find(hitmarkName, PositionGroup.Types.None);
-        }
-
-        // 추가: ParentPositionGroup 검색
-        public ParentPositionGroup FindParent(HitmarkNames hitmarkName)
-        {
-            List<ParentPositionGroup> parentHitmarkPositionGroupList;
-            if (_parentHitmarkPositionGroups.TryGetValue(hitmarkName, out parentHitmarkPositionGroupList))
-            {
-                // 여러 개 등록되어 있으면 첫 번째를 반환합니다.
-                return parentHitmarkPositionGroupList.FirstOrDefault();
-            }
-            return null;
-        }
-
-        #endregion Find
     }
 }

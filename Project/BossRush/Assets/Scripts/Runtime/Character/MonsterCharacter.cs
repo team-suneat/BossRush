@@ -1,4 +1,4 @@
-﻿namespace TeamSuneat
+namespace TeamSuneat
 {
     public class MonsterCharacter : Character
     {
@@ -8,6 +8,8 @@
 
         public PatternSystem Pattern { get; private set; }
 
+        public TargetJumpSystem TargetJump { get; private set; }
+
         public override LogTags LogTag => LogTags.Monster;
 
         protected override void Awake()
@@ -16,6 +18,7 @@
             Brain = GetComponent<AIBrain>();
             Chase = GetComponentInChildren<ChaseSystem>();
             Pattern = GetComponentInChildren<PatternSystem>();
+            TargetJump = GetComponentInChildren<TargetJumpSystem>();
         }
 
         public override void Initialize()
@@ -79,7 +82,8 @@
             if (Physics != null)
             {
                 // ForceVelocity가 적용 중일 때는 입력 무시
-                if (!Physics.IsDashing && !Physics.IsForceVelocity)
+                // 점프 중일 때도 입력 무시
+                if (!Physics.IsDashing && !Physics.IsForceVelocity && !Physics.IsJumping)
                 {
                     // 공격 중 이동 잠금 확인
                     bool isMovementLocked = CharacterAnimator != null && CharacterAnimator.IsMovementLocked;

@@ -21,7 +21,7 @@ namespace TeamSuneat
                 // 이동 상태
                 { CharacterState.Idle, new IdleState(this, _physics, _character) },
                 { CharacterState.Walk, new WalkState(this, _physics, _character) },
-                { CharacterState.Jumping, new JumpState(this, _physics, _character) },
+                { CharacterState.Jumping, new MonsterTargetJumpState(this, _physics, _character) },
                 { CharacterState.Falling, new FallingState(this, _physics, _character) },
                 { CharacterState.Dash, new DashState(this, _physics, _animator, _character) },
                 { CharacterState.Attack, new MonsterAttackState(this, _physics, _animator, _character) },

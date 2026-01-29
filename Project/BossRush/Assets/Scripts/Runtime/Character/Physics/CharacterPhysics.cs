@@ -55,6 +55,7 @@ namespace TeamSuneat
         public bool HasBufferedJump => _jump != null && _jump.HasBufferedJump;
         public bool IsKnockback => _knockback != null && _knockback.IsKnockback;
         public bool IsForceVelocity => _forceVelocity != null && _forceVelocity.IsProcessing;
+        public bool IsJumping => _core != null && _core.IsJumping;
 
         #endregion Ability 프로퍼티 위임
 

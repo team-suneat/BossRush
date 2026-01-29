@@ -6,46 +6,33 @@ namespace TeamSuneat
     public enum PatternStepNames
     {
         None,
-
-        ConditionalGround = 10,
-
+        ConditionalGround,
         ConditionalPlatform,
 
-        Face = 101,
-
+        Face,
         FaceDirectional,
+        FaceToPositionGroup,
 
         ChaseGround,
 
-        Dash = 201,
-
+        Dash,
         DashWithFace,
 
-        Jump = 211,
+        JumpToTarget,
+        JumpToPositionGroup,
 
-        DownJump,
-
-        UpDownJump,
-
-        JumpWithFace,
-
-        Flash = 221,
-
+        Flash,
         Blink,
 
-        Rise = 231,
+        Rise,
+        PathMove,
 
-        PathMove = 241,
-
-        Attack = 301,
-
+        Attack,
         AttackWithFace,
-
         AttackWithCheckArea,
 
-        Reload = 311,
+        Reload,
 
         Complete = 999,
     }
-
 }

@@ -19,7 +19,8 @@ MonoBehaviour:
   Monster: 0
   CharacterSpawn: 0
   CharacterState: 0
-  Pattern: 0
+  Pattern: 1
+  TargetJump: 1
   Animation: 0
   Attack: 0
   Buff: 0
