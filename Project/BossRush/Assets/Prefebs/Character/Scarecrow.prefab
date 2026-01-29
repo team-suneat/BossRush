@@ -125,7 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cooldownTimes: []
   _globalCooldownTime: 3
-  _attackableArea: {fileID: 3755986450878267297}
+  _attackableAreas: []
 --- !u!1 &2528712602095307911
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,7 +258,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c00aaa0efff88e14c884803a9eab8311, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -380,8 +380,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 084ab3f3be05d1542be46eb41eef64fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colliderSize: {x: 0.5, y: 1}
-  _autoSetupCollider: 1
   _groundCheckDistance: 0.1
   _groundLayerMask:
     serializedVersion: 2
@@ -414,10 +412,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2e090a6e375c0d44b8bf674fa5057ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _knockbackForce: 10
-  _knockbackDuration: 0.1
   _bounceMultiplier: 0.5
   _verticalRatio: 0.3
+  _minReflectedForce: 1
 --- !u!114 &3376072309716983176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -658,9 +655,9 @@ MonoBehaviour:
   AttackOnHitNonDamageableFeedback: {fileID: 0}
   AttackOnKillFeedback: {fileID: 0}
   AttackOnParryFeedback: {fileID: 0}
-  LateDamageHit: 0
   DisableColliderOnHit: 0
-  UseActiveColliderOnInit: 0
+  ActivateColliderOnBattleReady: 0
+  ToggleColliderOnHit: 0
   TargetLayerMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -816,9 +813,9 @@ MonoBehaviour:
   AttackOnHitNonDamageableFeedback: {fileID: 0}
   AttackOnKillFeedback: {fileID: 0}
   AttackOnParryFeedback: {fileID: 0}
-  LateDamageHit: 0
   DisableColliderOnHit: 0
-  UseActiveColliderOnInit: 0
+  ActivateColliderOnBattleReady: 0
+  ToggleColliderOnHit: 0
   TargetLayerMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -978,6 +975,7 @@ MonoBehaviour:
   _detectAreaType: 3
   _boxSize: {x: 3, y: 2}
   _radius: 0
+  _showGizmo: 1
 --- !u!1 &6172564968502640533
 GameObject:
   m_ObjectHideFlags: 0
@@ -1430,9 +1428,9 @@ MonoBehaviour:
   AttackOnHitNonDamageableFeedback: {fileID: 0}
   AttackOnKillFeedback: {fileID: 0}
   AttackOnParryFeedback: {fileID: 0}
-  LateDamageHit: 0
   DisableColliderOnHit: 0
-  UseActiveColliderOnInit: 0
+  ActivateColliderOnBattleReady: 0
+  ToggleColliderOnHit: 0
   TargetLayerMask:
     serializedVersion: 2
     m_Bits: 1024

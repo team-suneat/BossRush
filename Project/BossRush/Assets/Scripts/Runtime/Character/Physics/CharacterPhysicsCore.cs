@@ -31,7 +31,7 @@ namespace TeamSuneat
 
         public Vector2 RigidbodyVelocity => _rb != null ? _rb.linearVelocity : Vector2.zero;
         public Rigidbody2D Rigidbody => _rb;
-        
+
         // Character의 FacingDirection을 참조 (단일 소스)
         public int FacingDirection => _character != null ? _character.FacingDirection : 1;
 
@@ -128,6 +128,22 @@ namespace TeamSuneat
         public void PhysicsTick()
         {
             UpdateCollisionDetection();
+            ApplyLandingClamp();
+        }
+
+        private void ApplyLandingClamp()
+        {
+            if (IsKnockback || IsDashing || IsJumping)
+            {
+                return;
+            }
+
+            if (!IsGrounded || !IsCollideY || RigidbodyVelocity.y >= -0.1f)
+            {
+                return;
+            }
+
+            _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, 0f);
         }
 
         public void SetJumping(bool value)
