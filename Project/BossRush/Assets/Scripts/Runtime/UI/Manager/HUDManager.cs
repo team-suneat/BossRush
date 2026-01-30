@@ -14,6 +14,9 @@ namespace TeamSuneat.UserInterface
         [FoldoutGroup("HUD-Player")]
         [SerializeField] private HUDPlayer _playerHUD;
 
+        [FoldoutGroup("HUD-Boss")]
+        [SerializeField] private HUDBossGauge _bossHUD;
+
         public override void AutoGetComponents()
         {
             base.AutoGetComponents();
@@ -21,16 +24,19 @@ namespace TeamSuneat.UserInterface
             _hudCanvasGroupFader ??= GetComponentInChildren<UICanvasGroupFader>();
             _normalStageGroup ??= this.FindGameObject("2. Center Group/Normal Stage Group");
             _playerHUD ??= GetComponentInChildren<HUDPlayer>();
+            _bossHUD ??= GetComponentInChildren<HUDBossGauge>();
         }
 
         private void Awake()
         {
             SubscribeToPlayerEvents();
+            SubscribeToBossEvents();
         }
 
         private void OnDestroy()
         {
             UnsubscribeFromPlayerEvents();
+            UnsubscribeFromBossEvents();
         }
 
         private void SubscribeToPlayerEvents()
@@ -45,6 +51,18 @@ namespace TeamSuneat.UserInterface
             GlobalEvent.Unregister(GlobalEventType.PLAYER_CHARACTER_BATTLE_READY, OnPlayerBattleReady);
             GlobalEvent.Unregister(GlobalEventType.PLAYER_CHARACTER_DESPAWNED, OnPlayerDespawned);
             GlobalEvent.Unregister(GlobalEventType.PLAYER_CHARACTER_DEATH, OnPlayerDeath);
+        }
+
+        private void SubscribeToBossEvents()
+        {
+            GlobalEvent<BossCharacter>.Register(GlobalEventType.BOSS_CHARACTER_BATTLE_READY, OnBossBattleReady);
+            GlobalEvent<BossCharacter>.Register(GlobalEventType.BOSS_CHARACTER_DEATH, OnBossDeath);
+        }
+
+        private void UnsubscribeFromBossEvents()
+        {
+            GlobalEvent<BossCharacter>.Unregister(GlobalEventType.BOSS_CHARACTER_BATTLE_READY, OnBossBattleReady);
+            GlobalEvent<BossCharacter>.Unregister(GlobalEventType.BOSS_CHARACTER_DEATH, OnBossDeath);
         }
 
         private void OnPlayerBattleReady()
@@ -72,8 +90,20 @@ namespace TeamSuneat.UserInterface
             }
         }
 
-        public void OnBossDied()
+        private void OnBossBattleReady(BossCharacter boss)
         {
+            if (_bossHUD != null && boss != null)
+            {
+                _bossHUD.Bind(boss);
+            }
+        }
+
+        private void OnBossDeath(BossCharacter boss)
+        {
+            if (_bossHUD != null)
+            {
+                _bossHUD.Unbind();
+            }
         }
     }
 }
