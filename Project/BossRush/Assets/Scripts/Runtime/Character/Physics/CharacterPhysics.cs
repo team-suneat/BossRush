@@ -166,6 +166,11 @@ namespace TeamSuneat
             _dash?.RequestDash();
         }
 
+        public void ApplyKnockback(DamageResult damageResult)
+        {
+            _knockback?.ApplyKnockback(damageResult);
+        }
+
         public void ApplyKnockback(Vector2 direction, FVNames forceVelocityName)
         {
             _knockback?.ApplyKnockback(direction, forceVelocityName);

@@ -96,7 +96,6 @@ namespace TeamSuneat.Data
         [GUIColor("GetDirectionalTypeColor")]
         [EnableIf("IsChangingAsset")]
         [SuffixLabel("방향 타입")]
-        [InfoBox("넉백 FV는 방향 타입을 설정하지 않습니다.")]
         public FVDirectionalType DirectionalType = FVDirectionalType.None;
 
         [FoldoutGroup("#옵션")]

@@ -20,15 +20,48 @@ namespace TeamSuneat
 
         public bool IsKnockback => _forceVelocity != null && _forceVelocity.IsProcessingForName(FVNames.PlayerKnockback);
 
+        private Vector2 GetKnockbackDirectionFromDamageResult(DamageResult damageResult, FVNames fvName)
+        {
+            ForceVelocityAssetData fvAssetData = ScriptableDataManager.Instance?.FindForceVelocityClone(fvName);
+            FVDirectionalType directionalType = fvAssetData != null ? fvAssetData.DirectionalType : FVDirectionalType.AttackerFacing;
+            if (directionalType == FVDirectionalType.None)
+            {
+                directionalType = FVDirectionalType.AttackerFacing;
+            }
+
+            Character victim = GetComponentInParent<Character>();
+            switch (directionalType)
+            {
+                case FVDirectionalType.Facing:
+                    return victim != null && victim.IsFacingRight ? Vector2.right : Vector2.left;
+                case FVDirectionalType.Reverse:
+                    return victim != null && victim.IsFacingRight ? Vector2.left : Vector2.right;
+                case FVDirectionalType.AttackerFacing:
+                    return damageResult.Attacker.IsFacingRight ? Vector2.right : Vector2.left;
+                case FVDirectionalType.AttackerReverse:
+                    return damageResult.Attacker.IsFacingRight ? Vector2.left : Vector2.right;
+                case FVDirectionalType.RelativeToAttacker:
+                    return (transform.position.x - damageResult.Attacker.transform.position.x) >= 0f ? Vector2.right : Vector2.left;
+                default:
+                    return damageResult.Attacker.IsFacingRight ? Vector2.right : Vector2.left;
+            }
+        }
+
         private void Awake()
         {
             _physics = GetComponent<CharacterPhysicsCore>();
             _forceVelocity = GetComponent<CharacterForceVelocity>();
         }
 
-        public void ApplyKnockback(Vector2 direction)
+        public void ApplyKnockback(DamageResult damageResult)
         {
-            ApplyKnockback(direction, FVNames.PlayerKnockback);
+            if (damageResult == null) return;
+            if (damageResult.Asset == null || damageResult.Asset.DamageKnockbackFVName == FVNames.None) return;
+            if (damageResult.Attacker == null) return;
+
+            FVNames fvName = damageResult.Asset.DamageKnockbackFVName;
+            Vector2 direction = GetKnockbackDirectionFromDamageResult(damageResult, fvName);
+            ApplyKnockback(direction, fvName);
         }
 
         public void ApplyKnockback(Vector2 direction, FVNames forceVelocityName)

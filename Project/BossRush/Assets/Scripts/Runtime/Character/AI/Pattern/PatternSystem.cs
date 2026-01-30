@@ -402,6 +402,12 @@ namespace TeamSuneat
                 return;
             }
 
+            if (CurrentPatternStep != null && !CurrentPatternStep.CanInterruptStep)
+            {
+                Log.Info(LogTags.Pattern, "(System) 현재 스텝은 InterruptCurrentPattern으로 넘길 수 없습니다. Pattern: {0}, Step: {1}", CurrentPattern.Name, CurrentPatternStep.StepName);
+                return;
+            }
+
             SkipToNextStep();
             _isCurrentPatternInterrupted = true;
             Log.Info(LogTags.Pattern, "(System) 현재 패턴 스탭이 방해 넘어갑니다. Pattern: {0}", CurrentPattern.Name);

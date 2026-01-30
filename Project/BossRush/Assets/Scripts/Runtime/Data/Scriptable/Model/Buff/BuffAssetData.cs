@@ -1,5 +1,4 @@
 using Sirenix.OdinInspector;
-using UnityEngine;
 
 namespace TeamSuneat.Data
 {
@@ -108,20 +107,23 @@ namespace TeamSuneat.Data
             return clone;
         }
 
-#if UNITY_EDITOR
+        //
+
+        private bool _hasChangedWhiteRefreshAll = false;
 
         public bool RefreshWithoutSave()
         {
             _hasChangedWhiteRefreshAll = false;
 
-            UpdateIfChanged(ref TypeString, Type);
-            UpdateIfChanged(ref StatString, Stat);
-            UpdateIfChanged(ref StateString, State);
+            if (GameDefine.IS_EDITOR)
+            {
+                UpdateIfChanged(ref TypeString, Type);
+                UpdateIfChanged(ref StatString, Stat);
+                UpdateIfChanged(ref StateString, State);
+            }
 
             return _hasChangedWhiteRefreshAll;
         }
-
-        private bool _hasChangedWhiteRefreshAll = false;
 
         private void UpdateIfChanged<TEnum>(ref string target, TEnum newValue) where TEnum : System.Enum
         {
@@ -135,12 +137,15 @@ namespace TeamSuneat.Data
 
         private void TypeLog()
         {
+            if (!GameDefine.IS_EDITOR)
+            {
+                return;
+            }
+
             if (Type == BuffType.None)
             {
                 Log.Warning("BuffAssetData의 Type이 올바르지 않을 수 있습니다. Name:{0}, {1}", Name.ToLogString(), Type);
             }
         }
-
-#endif
     }
 }

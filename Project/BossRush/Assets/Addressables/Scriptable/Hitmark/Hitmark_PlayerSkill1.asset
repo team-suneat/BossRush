@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44a1fdb7a9d3e48429d7d49c64140db0, type: 3}
-  m_Name: Hitmark_Boss1Pattern3Attack
+  m_Name: Hitmark_PlayerSkill1
   m_EditorClassIdentifier: 
-  NameString: Boss1Pattern3Attack
+  NameString: PlayerSkill1
   Data:
     IsChangingAsset: 0
-    Name: 9
+    Name: 2
     AttackTargetType: 2
     EntityType: 2
     DamageType: 1
@@ -23,7 +23,7 @@ MonoBehaviour:
     ApplyToSelf: 0
     ApplyMultiplierToSelf: 0
     ExecutionConditionalTargetLifeRate: 0
-    FixedDamage: 2
+    FixedDamage: 4
     FixedDamageByLevel: 0
     LinkedDamageType: 0
     LinkedStateEffect: 0
@@ -33,30 +33,30 @@ MonoBehaviour:
     StopAttackAnimationOnResourceLack: 0
     UseResourceOnActivate: 0
     UseResourceOnApply: 0
-    UseResourceOnAttackSucceeded: 0
+    UseResourceOnAttackSucceeded: 1
     UseResourceOnAttackFailed: 0
     UseResourceOnInactive: 0
     UseResourceValue: 0
-    RestoreResourceValue: 0
-    ResourceConsumeType: 0
+    RestoreResourceValue: 0.1
+    ResourceConsumeType: 3
     ForceResourceConsume: 0
     IgnoreDeathByConsume: 0
     ConsumeDelayTime: 0
-    AttackFVName: 9
-    DamageKnockbackFVName: 13
-    ParryType: 2
-    ParryKnockbackType: 3
-    ParryKnockbackFVName: 13
-    HitFXPrefabName: fx_scarecrow_attack_success
+    AttackFVName: 0
+    DamageKnockbackFVName: 0
+    ParryType: 0
+    ParryKnockbackType: 0
+    ParryKnockbackFVName: 0
+    HitFXPrefabName: fx_player_attack_success
     DamageTypeString: Normal
     LinkedDamageTypeString: None
     LinkedStateEffectString: None
     NameOnHitString: 
     DiminishingTypeString: 
     AttackTargetTypeString: TargetOfOwner
-    ResourceConsumeTypeString: None
-    AttackFVNameString: Boss1Pattern3Attack
+    ResourceConsumeTypeString: FixedResource
+    AttackFVNameString: None
     DamageKnockbackFVNameString: 
-    ParryTypeString: CounterParryable
-    ParryKnockbackTypeString: Both
-    ParryKnockbackFVNameString: Boss1Pattern3Knockback
+    ParryTypeString: None
+    ParryKnockbackTypeString: None
+    ParryKnockbackFVNameString: None

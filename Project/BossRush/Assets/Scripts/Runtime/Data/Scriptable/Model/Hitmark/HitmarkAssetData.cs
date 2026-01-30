@@ -1,4 +1,4 @@
-﻿using Sirenix.OdinInspector;
+using Sirenix.OdinInspector;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -385,7 +385,7 @@ namespace TeamSuneat.Data
 
         private void ResourceConsumeTypeLog()
         {
-#if UNITY_EDITOR            
+#if UNITY_EDITOR
             if (ResourceConsumeType is VitalConsumeTypes.FixedResource or VitalConsumeTypes.FixedPulse)
             {
                 if (UseResourceValue is < 0f or > 1f)

@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using TeamSuneat.Scenes;
 using UnityEngine;
 
@@ -7,7 +8,12 @@ namespace TeamSuneat
     {
         [SerializeField] private Transform _spawnPoint;
         [SerializeField] private GameObject _playerPrefab;
+
+        [Title("#Respawn")]
+        [SuffixLabel("리스폰 사용")]
         [SerializeField] private bool _useRespawn;
+
+        [SuffixLabel("리스폰 지연 시간")]
         [SerializeField] private float _respawnDelayTime;
 
         private XScene _parentScene;
@@ -27,11 +33,11 @@ namespace TeamSuneat
             GlobalEvent.Unregister(GlobalEventType.PLAYER_CHARACTER_DESPAWNED, OnPlayerCharacterDespawned);
         }
 
-        void OnPlayerCharacterDespawned()
+        private void OnPlayerCharacterDespawned()
         {
             if (_useRespawn)
             {
-                CoroutineNextTimer(_respawnDelayTime, SpawnPlayer);
+                _ = CoroutineNextTimer(_respawnDelayTime, SpawnPlayer);
             }
         }
 

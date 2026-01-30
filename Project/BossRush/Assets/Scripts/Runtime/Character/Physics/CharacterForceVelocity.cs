@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using TeamSuneat.Data;
 using UnityEngine;
 
@@ -430,7 +429,6 @@ namespace TeamSuneat
 
             StopCurrentForceVelocity();
         }
-
 
         private void RestoreGravity()
         {

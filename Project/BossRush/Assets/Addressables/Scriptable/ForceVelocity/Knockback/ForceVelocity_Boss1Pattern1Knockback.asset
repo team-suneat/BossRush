@@ -15,7 +15,7 @@ MonoBehaviour:
   NameString: Boss1Pattern1Knockback
   Data:
     IsChangingAsset: 0
-    Name: 9
+    Name: 11
     Subject: 1
     IsDamage: 0
     IsPiercing: 0
@@ -23,15 +23,15 @@ MonoBehaviour:
     Stats: 
     Priority: 1
     Direction: 0
-    ForceVelocity: {x: 3, y: 0}
+    ForceVelocity: {x: 6, y: 0}
     Acceleration: {x: 0, y: 0}
-    Gravity: 0
+    Gravity: 1
     Friction: 0
     AirResist: 0
     AirResistFlyingMonster: 0
     Delay: 0
     Duration: 0.1
-    DirectionalType: 0
+    DirectionalType: 3
     GravityType: 1
     AccelerationType: 0
     FrictionType: 0
@@ -41,7 +41,7 @@ MonoBehaviour:
     ApplicationString: Overlap
     StatString: []
     DirectionString: None
-    DirectionalTypeString: None
+    DirectionalTypeString: AttackerFacing
     GravityTypeString: UseGravity
     AccelerationTypeString: None
     FrictionTypeString: None

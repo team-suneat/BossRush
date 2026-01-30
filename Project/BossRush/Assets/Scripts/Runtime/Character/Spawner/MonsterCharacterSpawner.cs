@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TeamSuneat
@@ -17,6 +17,13 @@ namespace TeamSuneat
         [SerializeField]
         [InfoBox("몬스터 스폰 시 플레이어 타겟을 자동 설정")]
         private bool _isAutoSetTargetOnSpawn;
+
+        [Title("#Respawn")]
+        [SuffixLabel("리스폰 사용")]
+        [SerializeField] private bool _useRespawn;
+
+        [SuffixLabel("리스폰 지연 시간")]
+        [SerializeField] private float _respawnDelayTime;
 
         #endregion Private Fields
 
@@ -46,6 +53,36 @@ namespace TeamSuneat
         }
 
         #endregion Properties
+
+        protected override void RegisterGlobalEvent()
+        {
+            base.RegisterGlobalEvent();
+            GlobalEvent<Character>.Register(GlobalEventType.MONSTER_CHARACTER_DEATH, OnMonsterCharacterDeath);
+        }
+
+        protected override void UnregisterGlobalEvent()
+        {
+            base.UnregisterGlobalEvent();
+            GlobalEvent<Character>.Unregister(GlobalEventType.MONSTER_CHARACTER_DEATH, OnMonsterCharacterDeath);
+        }
+
+        private void OnMonsterCharacterDeath(Character character)
+        {
+            if (character is not MonsterCharacter monster || SpawnedMonsters == null)
+            {
+                return;
+            }
+
+            if (!SpawnedMonsters.Remove(monster))
+            {
+                return;
+            }
+
+            if (_useRespawn)
+            {
+                _ = CoroutineNextTimer(_respawnDelayTime, () => SpawnMonster());
+            }
+        }
 
         #region Public Methods
 

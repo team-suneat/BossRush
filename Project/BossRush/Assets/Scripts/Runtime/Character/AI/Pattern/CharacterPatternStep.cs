@@ -22,6 +22,13 @@ namespace TeamSuneat
         [SuffixLabel("벽 충돌 거리")]
         public float FaceAgainstWallDistance;
 
+        [Title("#Interrupt")]
+        [SuffixLabel("InterruptCurrentPattern으로 스텝 넘기기 허용")]
+        [SerializeField]
+        private bool _canInterruptStep = true;
+
+        public bool CanInterruptStep => _canInterruptStep;
+
         [Title("#Order")]
         [SuffixLabel("랜덤 순서 사용")]
         public bool UseRandomOrder;

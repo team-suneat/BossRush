@@ -198,7 +198,7 @@ namespace TeamSuneat.Development
             GUILayout.EndVertical();
         }
 
-        private int _selectedLogTagIndex = -1;
+        private LogTags? _selectedLogTag = null;
 
         private void DrawLogTagSection()
         {
@@ -213,58 +213,76 @@ namespace TeamSuneat.Development
                 return;
             }
 
-            LogTags[] allTags = Enum.GetValues(typeof(LogTags))
-                .Cast<LogTags>()
-                .Where(tag => tag != LogTags.None)
-                .ToArray();
+            (string title, LogTags[] tags)[] groups = GetLogTagGroups();
 
-            // 각 태그의 표시 이름과 상태를 포함한 문자열 배열 생성
-            string[] tagDisplayNames = new string[allTags.Length];
-            for (int i = 0; i < allTags.Length; i++)
+            for (int g = 0; g < groups.Length; g++)
             {
-                LogTags tag = allTags[i];
-                string displayName = GetLogTagDisplayName(tag);
-                bool isEnabled = logSetting.Find(tag);
+                string groupTitle = groups[g].title;
+                LogTags[] groupTags = groups[g].tags;
 
-                // 상태에 따라 색상 표시
-                if (isEnabled)
+                if (groupTags.Length == 0)
                 {
-                    tagDisplayNames[i] = displayName.ToSelectString(); // 녹색
+                    continue;
                 }
-                else
+
+                _gui.DrawTitleLabel(groupTitle, useWidth: false, useHeight: true);
+                GUILayout.Space(3);
+
+                string[] tagDisplayNames = new string[groupTags.Length];
+                for (int i = 0; i < groupTags.Length; i++)
                 {
-                    tagDisplayNames[i] = displayName.ToDisableString(); // 회색
+                    LogTags tag = groupTags[i];
+                    string displayName = GetLogTagDisplayName(tag);
+                    bool isEnabled = logSetting.Find(tag);
+
+                    if (isEnabled)
+                    {
+                        tagDisplayNames[i] = displayName.ToSelectString();
+                    }
+                    else
+                    {
+                        tagDisplayNames[i] = displayName.ToDisableString();
+                    }
                 }
+
+                int selectedIndexInGroup = -1;
+                if (_selectedLogTag.HasValue)
+                {
+                    for (int i = 0; i < groupTags.Length; i++)
+                    {
+                        if (groupTags[i] == _selectedLogTag.Value)
+                        {
+                            selectedIndexInGroup = i;
+                            break;
+                        }
+                    }
+                }
+
+                int newSelectedIndex = _gui.DrawSelectionGrid(selectedIndexInGroup, tagDisplayNames, 4, useWidth: true, useHeight: true);
+
+                if (newSelectedIndex >= 0 && newSelectedIndex < groupTags.Length && newSelectedIndex != selectedIndexInGroup)
+                {
+                    LogTags selectedTag = groupTags[newSelectedIndex];
+                    bool isEnabled = logSetting.Find(selectedTag);
+
+                    if (isEnabled)
+                    {
+                        logSetting.SwitchOff(selectedTag);
+                    }
+                    else
+                    {
+                        logSetting.SwitchOn(selectedTag);
+                    }
+                    logSetting.Refresh();
+                    _selectedLogTag = null;
+                }
+                else if (newSelectedIndex >= 0 && newSelectedIndex < groupTags.Length)
+                {
+                    _selectedLogTag = groupTags[newSelectedIndex];
+                }
+
+                GUILayout.Space(5);
             }
-
-            // SelectionGrid로 표시 (3열로 배치)
-            int newSelectedIndex = _gui.DrawSelectionGrid(_selectedLogTagIndex, tagDisplayNames, 4, useWidth: true, useHeight: true);
-
-            // 선택된 태그가 있으면 토글
-            if (newSelectedIndex >= 0 && newSelectedIndex < allTags.Length && newSelectedIndex != _selectedLogTagIndex)
-            {
-                LogTags selectedTag = allTags[newSelectedIndex];
-                bool isEnabled = logSetting.Find(selectedTag);
-
-                if (isEnabled)
-                {
-                    logSetting.SwitchOff(selectedTag);
-                }
-                else
-                {
-                    logSetting.SwitchOn(selectedTag);
-                }
-                logSetting.Refresh();
-
-                // 선택을 해제하여 다음 클릭에도 반응하도록 함
-                _selectedLogTagIndex = -1;
-            }
-            else
-            {
-                _selectedLogTagIndex = newSelectedIndex;
-            }
-
-            GUILayout.Space(5);
 
             GUILayout.BeginHorizontal();
             _gui.DrawButton("All On", () =>
@@ -281,6 +299,29 @@ namespace TeamSuneat.Development
             GUILayout.EndHorizontal();
 
             GUILayout.EndVertical();
+        }
+
+        private (string title, LogTags[] tags)[] GetLogTagGroups()
+        {
+            return new (string title, LogTags[] tags)[]
+            {
+                ("Core", new LogTags[] { LogTags.Detect, LogTags.Physics }),
+                ("Character", new LogTags[] { LogTags.Character, LogTags.Player, LogTags.Monster, LogTags.CharacterSpawn, LogTags.CharacterState, LogTags.Pattern, LogTags.TargetJump }),
+                ("Character-Renderer", new LogTags[] { LogTags.Animation }),
+                ("Character-Battle", new LogTags[] { LogTags.Attack, LogTags.BattleResource, LogTags.Damage, LogTags.Effect, LogTags.Stat, LogTags.Vital, LogTags.Buff, LogTags.Charm }),
+                ("Skill", new LogTags[] { LogTags.Skill }),
+                ("Item", new LogTags[] { LogTags.Currency }),
+                ("Game-Data", new LogTags[] { LogTags.GameData, LogTags.GameData_Stage, LogTags.GameData_Weapon, LogTags.GameData_Accessory }),
+                ("Data", new LogTags[] { LogTags.GamePref, LogTags.JsonData, LogTags.Resource, LogTags.ScriptableData, LogTags.Path }),
+                ("Setting", new LogTags[] { LogTags.Setting, LogTags.Video, LogTags.Audio, LogTags.Camera, LogTags.Global }),
+                ("Input", new LogTags[] { LogTags.Input, LogTags.Input_ButtonState, LogTags.Input_Command }),
+                ("Stage", new LogTags[] { LogTags.Stage, LogTags.Scene }),
+                ("Time", new LogTags[] { LogTags.Time }),
+                ("MapObject", new LogTags[] { LogTags.PositionGroup }),
+                ("String", new LogTags[] { LogTags.String, LogTags.Font }),
+                ("UI", new LogTags[] { LogTags.UI, LogTags.UI_Button, LogTags.UI_Gauge, LogTags.UI_Toggle, LogTags.UI_Page, LogTags.UI_Notice, LogTags.UI_Popup, LogTags.UI_Details, LogTags.UI_Skill, LogTags.UI_SelectEvent, LogTags.UI_Shortcut }),
+                ("Timeline", new LogTags[] { LogTags.Timeline })
+            };
         }
 
         private string GetLogTagDisplayName(LogTags tag)
@@ -304,8 +345,13 @@ namespace TeamSuneat.Development
                 LogTags.UI_Details => "UI_Details",
                 LogTags.UI_Skill => "UI_Skill",
                 LogTags.UI_SelectEvent => "UI_Select",
+                LogTags.UI_Shortcut => "UI_Shortcut",
                 LogTags.Charm => "Charm",
                 LogTags.TargetJump => "TargetJump",
+                LogTags.GamePref => "GamePref",
+                LogTags.JsonData => "JsonData",
+                LogTags.ScriptableData => "Scriptable",
+                LogTags.GameData => "GameData",
                 _ => tag.ToString()
             };
         }

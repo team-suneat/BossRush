@@ -75,6 +75,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 11e5efa9c6f1e5b46be20333340e5c99
+    m_Address: Assets/Addressables/Scriptable/ForceVelocity/Knockback/ForceVelocity_PlayerKnockback.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1264165fed5027e4e99f8b4f1bde0c05
     m_Address: Assets/Addressables/Scriptable/ForceVelocity/ForceVelocity_PlayerDash.asset
     m_ReadOnly: 0
@@ -118,7 +124,7 @@ MonoBehaviour:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2c2acb9e723c32943ae7d1ea5116eeca
-    m_Address: Assets/Addressables/Scriptable/ForceVelocity/ForceVelocity_Boss1Pattern3Knockback.asset
+    m_Address: Assets/Addressables/Scriptable/ForceVelocity/Knockback/ForceVelocity_Boss1Pattern3Knockback.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -130,7 +136,7 @@ MonoBehaviour:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3281edcadbc74e04bbe46c2f6641d1ad
-    m_Address: Assets/Addressables/Scriptable/ForceVelocity/ForceVelocity_Boss1Pattern4Knockback.asset
+    m_Address: Assets/Addressables/Scriptable/ForceVelocity/Knockback/ForceVelocity_Boss1Pattern4Knockback.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -166,7 +172,7 @@ MonoBehaviour:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 55b288ab5d5af294b817ebc35c3f3414
-    m_Address: Assets/Addressables/Scriptable/ForceVelocity/ForceVelocity_ContactAttackKnockback.asset
+    m_Address: Assets/Addressables/Scriptable/ForceVelocity/Knockback/ForceVelocity_ContactAttackKnockback.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -214,7 +220,7 @@ MonoBehaviour:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 759ae7e702e285f45a8b30dba5d29dcf
-    m_Address: Assets/Addressables/Scriptable/ForceVelocity/ForceVelocity_Boss1Pattern2Knockback.asset
+    m_Address: Assets/Addressables/Scriptable/ForceVelocity/Knockback/ForceVelocity_Boss1Pattern2Knockback.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -298,7 +304,7 @@ MonoBehaviour:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a2c05bc19cea3c64a9198ad2812dd125
-    m_Address: Assets/Addressables/Scriptable/ForceVelocity/ForceVelocity_Boss1Pattern1Knockback.asset
+    m_Address: Assets/Addressables/Scriptable/ForceVelocity/Knockback/ForceVelocity_Boss1Pattern1Knockback.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable
@@ -413,6 +419,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: eb6f1547e51b6324780ef7d2046290b2
     m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_ScarecrowAttack3.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f1c6a4f2e9e1ccf4d9ee7fe5cd083c6f
+    m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_PlayerSkill1.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - Scriptable

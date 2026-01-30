@@ -1,5 +1,4 @@
 using Sirenix.OdinInspector;
-using TeamSuneat;
 using UnityEngine;
 
 namespace TeamSuneat.Data
@@ -97,15 +96,16 @@ namespace TeamSuneat.Data
             return clone;
         }
 
-#if UNITY_EDITOR
-
         public bool RefreshWithoutSave()
         {
             _hasChangedWhiteRefreshAll = false;
-
-            UpdateIfChanged(ref TypeString, Type);
-            UpdateIfChanged(ref ApplicationTypeString, ApplicationType);
-            UpdateIfChanged(ref SkillNameString, SkillName);
+            
+            if (GameDefine.IS_EDITOR)
+            {
+                UpdateIfChanged(ref TypeString, Type);
+                UpdateIfChanged(ref ApplicationTypeString, ApplicationType);
+                UpdateIfChanged(ref SkillNameString, SkillName);
+            }
 
             return _hasChangedWhiteRefreshAll;
         }
@@ -124,11 +124,21 @@ namespace TeamSuneat.Data
 
         private bool HasSkillApplication()
         {
+            if (!GameDefine.IS_EDITOR)
+            {
+                return false;
+            }
+
             return IsChangingAsset && (ApplicationType & CharmApplicationType.Skill) != 0;
         }
 
         private void TypeLog()
         {
+            if (!GameDefine.IS_EDITOR)
+            {
+                return;
+            }
+
             if (Type == CharmType.None)
             {
                 Log.Warning("CharmAssetData의 Type이 올바르지 않을 수 있습니다. Name:{0}, {1}", Name.ToLogString(), Type);
@@ -138,7 +148,5 @@ namespace TeamSuneat.Data
                 Log.Warning("CharmAssetData의 ApplicationType이 올바르지 않을 수 있습니다. Name:{0}, {1}", Name.ToLogString(), ApplicationType);
             }
         }
-
-#endif
     }
 }

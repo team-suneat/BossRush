@@ -1,5 +1,4 @@
 using Sirenix.OdinInspector;
-using TeamSuneat.Data;
 using UnityEngine;
 
 namespace TeamSuneat
@@ -8,17 +7,17 @@ namespace TeamSuneat
     {
         [FoldoutGroup("#Attack Ready VFX")]
         [SerializeField]
-        [SuffixLabel("패링 가능한 공격 준비 VFX")]
+        [SuffixLabel("패링 가능 공격 준비 VFX")]
         private GameObject _parryableAttackReadyVFX;
 
         [FoldoutGroup("#Attack Ready VFX")]
         [SerializeField]
-        [SuffixLabel("패링 가능한 공격 준비 VFX (패링시 스턴)")]
-        private GameObject _parryableWithStunAttackReadyVFX;
+        [SuffixLabel("기술 패링 가능 공격 준비 VFX")]
+        private GameObject _counterParryableAttackReadyVFX;
 
         [FoldoutGroup("#Attack Ready VFX")]
         [SerializeField]
-        [SuffixLabel("패링 불가능한 공격 준비 VFX")]
+        [SuffixLabel("패링 불가 공격 준비 VFX")]
         private GameObject _unparryableAttackReadyVFX;
 
         [FoldoutGroup("#Attack Ready VFX")]
@@ -29,20 +28,23 @@ namespace TeamSuneat
         // 애니메이션 이벤트로 호출됩니다. hitmarkName을 통해 패링 타입을 자동 판단하여 VFX를 생성합니다.
         private void SpawnAttackReadyVFX(string hitmarkNameString = "")
         {
-            if (_character == null || _character.Attack == null) return;
+            if (_character == null || _character.Attack == null)
+            {
+                return;
+            }
 
             ParryTypes parryType = DetermineParryType(hitmarkNameString);
             SpawnAttackReadyVFXInternal(parryType);
         }
 
-        // 애니메이션 이벤트로 호출됩니다. 패링 가능한 공격 준비 VFX를 생성합니다.
+        // 애니메이션 이벤트로 호출됩니다. 패링 가능 공격 준비 VFX를 생성합니다.
         private void SpawnParryableAttackReadyVFX()
         {
             SpawnAttackReadyVFXInternal(ParryTypes.Parryable);
         }
 
-        // 애니메이션 이벤트로 호출됩니다. 패링 가능한 공격 준비 VFX를 생성합니다 (패링시 스턴).
-        private void SpawnParryableWithStunAttackReadyVFX()
+        // 애니메이션 이벤트로 호출됩니다. 기술 패링 가능 공격 준비 VFX를 생성합니다.
+        private void SpawnCounterParryableAttackReadyVFX()
         {
             SpawnAttackReadyVFXInternal(ParryTypes.CounterParryable);
         }
@@ -55,23 +57,43 @@ namespace TeamSuneat
 
         private ParryTypes DetermineParryType(string hitmarkNameString)
         {
-            if (string.IsNullOrEmpty(hitmarkNameString)) return ParryTypes.Parryable;
+            if (string.IsNullOrEmpty(hitmarkNameString))
+            {
+                return ParryTypes.Parryable;
+            }
 
             HitmarkNames hitmarkName = DataConverter.ToEnum<HitmarkNames>(hitmarkNameString);
-            if (hitmarkName == HitmarkNames.None) return ParryTypes.Parryable;
+            if (hitmarkName == HitmarkNames.None)
+            {
+                return ParryTypes.None;
+            }
 
             AttackEntity attackEntity = _character.Attack.FindEntity(hitmarkName);
-            if (attackEntity == null || attackEntity.AssetData == null) return ParryTypes.Parryable;
+            if (attackEntity == null || attackEntity.AssetData == null)
+            {
+                return ParryTypes.None;
+            }
 
             return attackEntity.AssetData.ParryType;
         }
 
         private void SpawnAttackReadyVFXInternal(ParryTypes parryType)
         {
-            if (_character == null) return;
+            if (_character == null)
+            {
+                return;
+            }
+
+            if (parryType == ParryTypes.None)
+            {
+                return;
+            }
 
             GameObject vfxPrefab = GetVFXPrefabByParryType(parryType);
-            if (vfxPrefab == null) return;
+            if (vfxPrefab == null)
+            {
+                return;
+            }
 
             Vector3 spawnPosition = _vfxSpawnPoint != null ? _vfxSpawnPoint.position : _character.transform.position;
             VFXManager.Spawn(vfxPrefab, spawnPosition, true);
@@ -79,20 +101,13 @@ namespace TeamSuneat
 
         private GameObject GetVFXPrefabByParryType(ParryTypes parryType)
         {
-            switch (parryType)
+            return parryType switch
             {
-                case ParryTypes.Parryable:
-                    return _parryableAttackReadyVFX;
-
-                case ParryTypes.CounterParryable:
-                    return _parryableWithStunAttackReadyVFX;
-
-                case ParryTypes.Unparryable:
-                    return _unparryableAttackReadyVFX;
-
-                default:
-                    return _parryableAttackReadyVFX;
-            }
+                ParryTypes.Parryable => _parryableAttackReadyVFX,
+                ParryTypes.CounterParryable => _counterParryableAttackReadyVFX,
+                ParryTypes.Unparryable => _unparryableAttackReadyVFX,
+                _ => null,
+            };
         }
     }
 }

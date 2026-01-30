@@ -108,7 +108,7 @@ Transform:
   m_GameObject: {fileID: 232549093273864208}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.2886608, y: 0.003688097, z: 0}
+  m_LocalPosition: {x: 2.6, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -158,7 +158,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 6.5066876, y: 3.9398665}
+  m_Size: {x: 4, y: 3.9}
   m_EdgeRadius: 0
 --- !u!114 &1793986157857152955
 MonoBehaviour:
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff2f6f645dc9924082dc15947d6b2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 8
+  Name: 104
   NameString: Boss1Pattern2Attack
   Owner: {fileID: 621528978702120020}
   Vital: {fileID: 0}
@@ -199,7 +199,7 @@ MonoBehaviour:
   AreaTime: 1
   InitialApplyDelay: 0
   ActiveFrameCount: 0
-  ActiveDuration: 0.5
+  ActiveDuration: 0.2
   UseIntervalActive: 0
   ActiveTime: 0
   ActiveInterval: 0.02
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff2f6f645dc9924082dc15947d6b2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 9
+  Name: 105
   NameString: Boss1Pattern3Attack
   Owner: {fileID: 621528978702120020}
   Vital: {fileID: 0}
@@ -335,6 +335,71 @@ MonoBehaviour:
   StatNameOfActiveDuration: 0
   StatNameOfActiveDurationString: 
   ChainLightning: {fileID: 0}
+--- !u!1 &500309627190654490
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 375786320371920985}
+  - component: {fileID: 6080890143399251246}
+  m_Layer: 0
+  m_Name: Step (FaceToPositionGroup)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &375786320371920985
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500309627190654490}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8296462816302655606}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6080890143399251246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500309627190654490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba50a4ae1187b2d47b236281bd2cd612, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StepName: 5
+  FacingDirection: 0
+  FacePositionGroupName: 1
+  FaceAgainstWallDistance: 0
+  _canInterruptStep: 0
+  UseRandomOrder: 0
+  OrderIndex: 0
+  OrderMaxIndex: 0
+  UseRepeat: 0
+  CurrentRepeatMaxCount: 0
+  UseRandomRepeat: 0
+  RepeatMinCount: 0
+  RepeatMaxCount: 0
+  JumpPositionGroupName: 0
+  StepNameString: FaceToPositionGroup
+  FacingDirectionString: Left
+  FacePositionGroupNameString: Boss1Pattern4JumpLand
+  JumpPositionGroupNameString: None
+  OnFailureCallback:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &563723685378173872
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,6 +448,7 @@ MonoBehaviour:
   FacingDirection: 0
   FacePositionGroupName: 0
   FaceAgainstWallDistance: 0
+  _canInterruptStep: 0
   UseRandomOrder: 0
   OrderIndex: 0
   OrderMaxIndex: 0
@@ -393,6 +459,71 @@ MonoBehaviour:
   RepeatMaxCount: 0
   JumpPositionGroupName: 0
   StepNameString: Complete
+  FacingDirectionString: Left
+  FacePositionGroupNameString: None
+  JumpPositionGroupNameString: None
+  OnFailureCallback:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!1 &930393226083652313
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 477889395010176237}
+  - component: {fileID: 2914249434802311718}
+  m_Layer: 0
+  m_Name: Step (Face)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &477889395010176237
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930393226083652313}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 291996139518661364}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2914249434802311718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930393226083652313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba50a4ae1187b2d47b236281bd2cd612, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StepName: 3
+  FacingDirection: 0
+  FacePositionGroupName: 0
+  FaceAgainstWallDistance: 0
+  _canInterruptStep: 0
+  UseRandomOrder: 0
+  OrderIndex: 0
+  OrderMaxIndex: 0
+  UseRepeat: 0
+  CurrentRepeatMaxCount: 0
+  UseRandomRepeat: 0
+  RepeatMinCount: 0
+  RepeatMaxCount: 0
+  JumpPositionGroupName: 0
+  StepNameString: Face
   FacingDirectionString: Left
   FacePositionGroupNameString: None
   JumpPositionGroupNameString: None
@@ -539,6 +670,7 @@ MonoBehaviour:
   FacingDirection: 0
   FacePositionGroupName: 0
   FaceAgainstWallDistance: 0
+  _canInterruptStep: 0
   UseRandomOrder: 0
   OrderIndex: 2
   OrderMaxIndex: 0
@@ -603,6 +735,7 @@ MonoBehaviour:
   FacingDirection: 0
   FacePositionGroupName: 0
   FaceAgainstWallDistance: 0
+  _canInterruptStep: 0
   UseRandomOrder: 0
   OrderIndex: 0
   OrderMaxIndex: 0
@@ -770,7 +903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff2f6f645dc9924082dc15947d6b2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 11
+  Name: 999
   NameString: ContactAttack
   Owner: {fileID: 621528978702120020}
   Vital: {fileID: 0}
@@ -910,6 +1043,7 @@ MonoBehaviour:
   FacingDirection: 0
   FacePositionGroupName: 0
   FaceAgainstWallDistance: 0
+  _canInterruptStep: 0
   UseRandomOrder: 0
   OrderIndex: 3
   OrderMaxIndex: 0
@@ -920,6 +1054,71 @@ MonoBehaviour:
   RepeatMaxCount: 0
   JumpPositionGroupName: 0
   StepNameString: Attack
+  FacingDirectionString: Left
+  FacePositionGroupNameString: None
+  JumpPositionGroupNameString: None
+  OnFailureCallback:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!1 &1891162464609641023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5322725165108382210}
+  - component: {fileID: 4869036609457948008}
+  m_Layer: 0
+  m_Name: Step (Face)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5322725165108382210
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1891162464609641023}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6762169201033801676}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4869036609457948008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1891162464609641023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba50a4ae1187b2d47b236281bd2cd612, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StepName: 3
+  FacingDirection: 0
+  FacePositionGroupName: 0
+  FaceAgainstWallDistance: 0
+  _canInterruptStep: 0
+  UseRandomOrder: 0
+  OrderIndex: 0
+  OrderMaxIndex: 0
+  UseRepeat: 0
+  CurrentRepeatMaxCount: 0
+  UseRandomRepeat: 0
+  RepeatMinCount: 0
+  RepeatMaxCount: 0
+  JumpPositionGroupName: 0
+  StepNameString: Face
   FacingDirectionString: Left
   FacePositionGroupNameString: None
   JumpPositionGroupNameString: None
@@ -974,6 +1173,7 @@ MonoBehaviour:
   FacingDirection: 0
   FacePositionGroupName: 0
   FaceAgainstWallDistance: 0
+  _canInterruptStep: 0
   UseRandomOrder: 0
   OrderIndex: 0
   OrderMaxIndex: 0
@@ -1039,7 +1239,7 @@ MonoBehaviour:
   _name: "\uAE30\uC220 \uD328\uB9C1 \uACF5\uACA9 \uD328\uD134"
   _cooldownTime: 0.02
   _waitDuration: 1.09
-  _probabilityToPicked: 0.2
+  _probabilityToPicked: 0.1
 --- !u!1 &2528712602095307911
 GameObject:
   m_ObjectHideFlags: 0
@@ -1565,6 +1765,7 @@ MonoBehaviour:
   FacingDirection: 0
   FacePositionGroupName: 0
   FaceAgainstWallDistance: 0
+  _canInterruptStep: 0
   UseRandomOrder: 0
   OrderIndex: 0
   OrderMaxIndex: 0
@@ -1629,6 +1830,7 @@ MonoBehaviour:
   FacingDirection: 0
   FacePositionGroupName: 0
   FaceAgainstWallDistance: 0
+  _canInterruptStep: 0
   UseRandomOrder: 0
   OrderIndex: 0
   OrderMaxIndex: 0
@@ -1737,6 +1939,7 @@ MonoBehaviour:
   FacingDirection: 0
   FacePositionGroupName: 0
   FaceAgainstWallDistance: 0
+  _canInterruptStep: 0
   UseRandomOrder: 0
   OrderIndex: 0
   OrderMaxIndex: 0
@@ -1801,6 +2004,7 @@ MonoBehaviour:
   FacingDirection: 0
   FacePositionGroupName: 0
   FaceAgainstWallDistance: 0
+  _canInterruptStep: 0
   UseRandomOrder: 0
   OrderIndex: 0
   OrderMaxIndex: 0
@@ -1908,7 +2112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff2f6f645dc9924082dc15947d6b2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 6
+  Name: 102
   NameString: Boss1Pattern1Attack2
   Owner: {fileID: 621528978702120020}
   Vital: {fileID: 0}
@@ -1974,6 +2178,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 477889395010176237}
   - {fileID: 7616614244187720541}
   - {fileID: 4099146014365758308}
   m_Father: {fileID: 8407868039474879495}
@@ -1993,7 +2198,7 @@ MonoBehaviour:
   _name: "3\uC5F0\uC18D \uACF5\uACA9 \uD328\uD134"
   _cooldownTime: 0.02
   _waitDuration: 2.17
-  _probabilityToPicked: 0.2
+  _probabilityToPicked: 0.4
 --- !u!1 &4525691892929354126
 GameObject:
   m_ObjectHideFlags: 0
@@ -2005,7 +2210,7 @@ GameObject:
   - component: {fileID: 3541475321450536710}
   - component: {fileID: 6789802805221604557}
   m_Layer: 20
-  m_Name: AttackableArea (3)
+  m_Name: AttackableArea (Pattern4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2090,6 +2295,7 @@ MonoBehaviour:
   FacingDirection: 0
   FacePositionGroupName: 2
   FaceAgainstWallDistance: 0
+  _canInterruptStep: 0
   UseRandomOrder: 0
   OrderIndex: 0
   OrderMaxIndex: 0
@@ -2307,7 +2513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff2f6f645dc9924082dc15947d6b2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 5
+  Name: 101
   NameString: Boss1Pattern1Attack1
   Owner: {fileID: 621528978702120020}
   Vital: {fileID: 0}
@@ -2530,7 +2736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff2f6f645dc9924082dc15947d6b2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 10
+  Name: 106
   NameString: Boss1Pattern4Attack
   Owner: {fileID: 621528978702120020}
   Vital: {fileID: 0}
@@ -2645,6 +2851,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5322725165108382210}
   - {fileID: 5507481741422245267}
   - {fileID: 547291897023309811}
   m_Father: {fileID: 8407868039474879495}
@@ -2676,7 +2883,7 @@ GameObject:
   - component: {fileID: 2602819688682106228}
   - component: {fileID: 8601717863427427112}
   m_Layer: 20
-  m_Name: AttackableArea (2)
+  m_Name: AttackableArea (Pattern3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2724,7 +2931,7 @@ GameObject:
   - component: {fileID: 8930137559443295240}
   - component: {fileID: 3755986450878267297}
   m_Layer: 20
-  m_Name: AttackableArea (0)
+  m_Name: AttackableArea (Pattern1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2950,6 +3157,7 @@ MonoBehaviour:
   FacingDirection: 0
   FacePositionGroupName: 0
   FaceAgainstWallDistance: 0
+  _canInterruptStep: 0
   UseRandomOrder: 0
   OrderIndex: 0
   OrderMaxIndex: 0
@@ -2996,6 +3204,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 375786320371920985}
   - {fileID: 7145494472061484664}
   - {fileID: 3888767078483987151}
   - {fileID: 5093833467233254059}
@@ -3017,7 +3226,7 @@ MonoBehaviour:
   _name: "\uD328\uB9C1 \uBD88\uAC00 \uC810\uD504 \uACF5\uACA9 \uD328\uD134"
   _cooldownTime: 0.02
   _waitDuration: 2.26
-  _probabilityToPicked: 0.2
+  _probabilityToPicked: 0.1
 --- !u!1 &7673553204906463162
 GameObject:
   m_ObjectHideFlags: 0
@@ -3115,6 +3324,7 @@ MonoBehaviour:
   FacingDirection: 0
   FacePositionGroupName: 0
   FaceAgainstWallDistance: 0
+  _canInterruptStep: 1
   UseRandomOrder: 0
   OrderIndex: 1
   OrderMaxIndex: 0
@@ -3320,7 +3530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parryableAttackReadyVFX: {fileID: 833724591910656553, guid: 5b751d22f20f4bc4fb47b6cbcb5f911c, type: 3}
-  _parryableWithStunAttackReadyVFX: {fileID: 833724591910656553, guid: 2c920937c34bcba41b6f797220cedfa1, type: 3}
+  _counterParryableAttackReadyVFX: {fileID: 120344989395291519, guid: b0eee69d5ae6b3446817fec3c388053f, type: 3}
   _unparryableAttackReadyVFX: {fileID: 833724591910656553, guid: ea8d1438c7f8f1947af3f4bc864368c4, type: 3}
   _vfxSpawnPoint: {fileID: 5333217155316105721}
 --- !u!114 &1105992736235353021
@@ -3362,7 +3572,7 @@ GameObject:
   - component: {fileID: 1662582450165088621}
   - component: {fileID: 6281077656967945572}
   m_Layer: 20
-  m_Name: AttackableArea (1)
+  m_Name: AttackableArea (Pattern2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3377,7 +3587,7 @@ Transform:
   m_GameObject: {fileID: 8875021917511474669}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.2886608, y: 0.003688097, z: 0}
+  m_LocalPosition: {x: 5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3396,9 +3606,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _detectAreaType: 3
-  _boxSize: {x: 6.5066876, y: 3.9398665}
+  _boxSize: {x: 7, y: 4}
   _radius: 0
-  _showGizmo: 1
+  _showGizmo: 0
 --- !u!1 &8956792543618927517
 GameObject:
   m_ObjectHideFlags: 0
@@ -3490,7 +3700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff2f6f645dc9924082dc15947d6b2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 7
+  Name: 103
   NameString: Boss1Pattern1Attack3
   Owner: {fileID: 621528978702120020}
   Vital: {fileID: 0}

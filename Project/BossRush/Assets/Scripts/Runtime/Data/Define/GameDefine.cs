@@ -2,6 +2,18 @@
 {
     public class GameDefine
     {
+        public static bool IS_EDITOR
+        {
+            get
+            {
+#if UNITY_EDITOR
+                return true;
+#endif
+
+                return false;
+            }
+        }
+
         public static bool IS_DEVELOPMENT_BUILD
         {
             get
