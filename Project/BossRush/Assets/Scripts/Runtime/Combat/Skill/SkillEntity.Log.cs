@@ -2,7 +2,7 @@ namespace TeamSuneat
 {
     public partial class SkillEntity : XBehaviour
     {
-        private string FormatEntityLog(string content)
+        private string LogFormat(string content)
         {
             if (Owner != null)
             {
@@ -16,7 +16,7 @@ namespace TeamSuneat
         {
             if (Log.LevelProgress)
             {
-                Log.Progress(LogTags.Skill, FormatEntityLog(content));
+                Log.Progress(LogTags.Skill, LogFormat(content));
             }
         }
 
@@ -24,7 +24,7 @@ namespace TeamSuneat
         {
             if (Log.LevelInfo)
             {
-                Log.Info(LogTags.Skill, FormatEntityLog(content));
+                Log.Info(LogTags.Skill, LogFormat(content));
             }
         }
 
@@ -32,7 +32,7 @@ namespace TeamSuneat
         {
             if (Log.LevelWarning)
             {
-                Log.Warning(LogTags.Skill, FormatEntityLog(content));
+                Log.Warning(LogTags.Skill, LogFormat(content));
             }
         }
 
@@ -40,7 +40,7 @@ namespace TeamSuneat
         {
             if (Log.LevelError)
             {
-                Log.Error(LogTags.Skill, FormatEntityLog(content));
+                Log.Error(LogTags.Skill, LogFormat(content));
             }
         }
 
@@ -48,7 +48,7 @@ namespace TeamSuneat
         {
             if (Log.LevelProgress)
             {
-                string formattedContent = FormatEntityLog(string.Format(format, args));
+                string formattedContent = LogFormat(string.Format(format, args));
                 Log.Progress(LogTags.Skill, formattedContent);
             }
         }
@@ -57,7 +57,7 @@ namespace TeamSuneat
         {
             if (Log.LevelInfo)
             {
-                string formattedContent = FormatEntityLog(string.Format(format, args));
+                string formattedContent = LogFormat(string.Format(format, args));
                 Log.Info(LogTags.Skill, formattedContent);
             }
         }
@@ -66,7 +66,7 @@ namespace TeamSuneat
         {
             if (Log.LevelWarning)
             {
-                string formattedContent = FormatEntityLog(string.Format(format, args));
+                string formattedContent = LogFormat(string.Format(format, args));
                 Log.Warning(LogTags.Skill, formattedContent);
             }
         }
@@ -75,7 +75,7 @@ namespace TeamSuneat
         {
             if (Log.LevelError)
             {
-                string formattedContent = FormatEntityLog(string.Format(format, args));
+                string formattedContent = LogFormat(string.Format(format, args));
                 Log.Error(LogTags.Skill, formattedContent);
             }
         }

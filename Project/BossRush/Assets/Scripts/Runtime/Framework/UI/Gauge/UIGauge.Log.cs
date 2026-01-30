@@ -4,7 +4,7 @@ namespace TeamSuneat.UserInterface
     {
         #region Log
 
-        private string FormatEntityLog(string content)
+        private string LogFormat(string content)
         {
             return string.Format("{0}, {1}", this.GetHierarchyName(), content);
         }
@@ -13,7 +13,7 @@ namespace TeamSuneat.UserInterface
         {
             if (Log.LevelProgress)
             {
-                Log.Progress(LogTags.UI_Gauge, FormatEntityLog(content));
+                Log.Progress(LogTags.UI_Gauge, LogFormat(content));
             }
         }
 
@@ -21,7 +21,7 @@ namespace TeamSuneat.UserInterface
         {
             if (Log.LevelProgress)
             {
-                string formattedContent = FormatEntityLog(string.Format(format, args));
+                string formattedContent = LogFormat(string.Format(format, args));
                 Log.Progress(LogTags.UI_Gauge, formattedContent);
             }
         }
@@ -30,7 +30,7 @@ namespace TeamSuneat.UserInterface
         {
             if (Log.LevelInfo)
             {
-                Log.Info(LogTags.UI_Gauge, FormatEntityLog(content));
+                Log.Info(LogTags.UI_Gauge, LogFormat(content));
             }
         }
 
@@ -38,7 +38,7 @@ namespace TeamSuneat.UserInterface
         {
             if (Log.LevelInfo)
             {
-                string formattedContent = FormatEntityLog(string.Format(format, args));
+                string formattedContent = LogFormat(string.Format(format, args));
                 Log.Info(LogTags.UI_Gauge, formattedContent);
             }
         }
@@ -47,7 +47,7 @@ namespace TeamSuneat.UserInterface
         {
             if (Log.LevelWarning)
             {
-                Log.Warning(LogTags.UI_Gauge, FormatEntityLog(content));
+                Log.Warning(LogTags.UI_Gauge, LogFormat(content));
             }
         }
 
@@ -55,7 +55,7 @@ namespace TeamSuneat.UserInterface
         {
             if (Log.LevelWarning)
             {
-                string formattedContent = FormatEntityLog(string.Format(format, args));
+                string formattedContent = LogFormat(string.Format(format, args));
                 Log.Warning(LogTags.UI_Gauge, formattedContent);
             }
         }
@@ -64,7 +64,7 @@ namespace TeamSuneat.UserInterface
         {
             if (Log.LevelError)
             {
-                Log.Error(FormatEntityLog(content));
+                Log.Error(LogFormat(content));
             }
         }
 
@@ -72,7 +72,7 @@ namespace TeamSuneat.UserInterface
         {
             if (Log.LevelError)
             {
-                string formattedContent = FormatEntityLog(string.Format(format, args));
+                string formattedContent = LogFormat(string.Format(format, args));
                 Log.Error(formattedContent);
             }
         }

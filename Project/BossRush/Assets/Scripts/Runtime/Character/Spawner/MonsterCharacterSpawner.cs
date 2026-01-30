@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace TeamSuneat
@@ -12,6 +13,10 @@ namespace TeamSuneat
 
         [SerializeField]
         private GameObject _monsterPrefab;
+
+        [SerializeField]
+        [InfoBox("몬스터 스폰 시 플레이어 타겟을 자동 설정")]
+        private bool _isAutoSetTargetOnSpawn;
 
         #endregion Private Fields
 
@@ -74,7 +79,24 @@ namespace TeamSuneat
             monster.Initialize();
             SpawnedMonsters.Add(monster);
 
+            AutoSetTargetOnSpawn(monster);
+
             return monster;
+        }
+
+        private void AutoSetTargetOnSpawn(MonsterCharacter monster)
+        {
+            if (monster == null || !_isAutoSetTargetOnSpawn)
+            {
+                return;
+            }
+
+            PlayerCharacter player = CharacterManager.Instance.Player;
+            if (player != null)
+            {
+                Log.Info(LogTags.CharacterSpawn, "몬스터 스폰 시 플레이어 타겟을 자동 설정합니다. 몬스터: {0}, 플레이어: {1}", monster.Name.ToLogString(), player.Name.ToLogString());
+                monster.SetTarget(player);
+            }
         }
 
         public void CleanupAllMonsters()

@@ -28,7 +28,7 @@ namespace TeamSuneat
 
         // 기본 로깅 메서드
 
-        private string FormatEntityLog(string content)
+        private string LogFormat(string content)
         {
             if (HitmarkAssetData == null)
             {
@@ -46,7 +46,7 @@ namespace TeamSuneat
             }
 
             string content = args.Length > 0 ? string.Format(format, args) : format;
-            Log.Progress(LogTags.Damage, FormatEntityLog(content));
+            Log.Progress(LogTags.Damage, LogFormat(content));
         }
 
         protected virtual void LogInfo(string format, params object[] args)
@@ -57,7 +57,7 @@ namespace TeamSuneat
             }
 
             string content = args.Length > 0 ? string.Format(format, args) : format;
-            Log.Info(LogTags.Damage, FormatEntityLog(content));
+            Log.Info(LogTags.Damage, LogFormat(content));
         }
 
         protected virtual void LogWarning(string format, params object[] args)
@@ -68,7 +68,7 @@ namespace TeamSuneat
             }
 
             string content = args.Length > 0 ? string.Format(format, args) : format;
-            Log.Warning(LogTags.Damage, FormatEntityLog(content));
+            Log.Warning(LogTags.Damage, LogFormat(content));
         }
 
         protected virtual void LogError(string format, params object[] args)
@@ -79,7 +79,7 @@ namespace TeamSuneat
             }
 
             string content = args.Length > 0 ? string.Format(format, args) : format;
-            Log.Error(LogTags.Damage, FormatEntityLog(content));
+            Log.Error(LogTags.Damage, LogFormat(content));
         }
 
         // DamageCalculator 로깅

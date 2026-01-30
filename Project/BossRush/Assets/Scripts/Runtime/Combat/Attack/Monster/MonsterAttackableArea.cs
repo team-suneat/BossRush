@@ -1,8 +1,8 @@
 ﻿using Sirenix.OdinInspector;
+using System.Diagnostics;
 using UnityEngine;
 
 #if UNITY_EDITOR
-
 
 #endif
 
@@ -70,6 +70,28 @@ namespace TeamSuneat
             else if (_detectAreaType == DetectAreaTypes.Box)
             {
                 GizmoEx.DrawGizmoRectangle(position, _boxSize);
+            }
+        }
+
+        [FoldoutGroup("#Buttons", 999)]
+        [Button(ButtonSizes.Medium)]
+        [Conditional("UNITY_EDITOR")]
+        private void AutoSetSizeAndOffset()
+        {
+            var entity = GetComponentInParent<AttackAreaEntity>();
+            if (entity != null)
+            {
+                transform.position = entity.position;
+                var boxCollider = entity.GetComponent<BoxCollider2D>();
+                if (boxCollider != null)
+                {
+                    _boxSize = boxCollider.size;
+                }
+                var circleCollider = entity.GetComponent<CircleCollider2D>();
+                if (circleCollider != null)
+                {
+                    _radius = circleCollider.radius;
+                }
             }
         }
 

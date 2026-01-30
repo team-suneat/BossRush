@@ -9,7 +9,7 @@
             _ownerCharacter = owner;
         }
 
-        private string FormatEntityLog(string content)
+        private string LogFormat(string content)
         {
             return string.Format("{0}, {1}", _ownerCharacter.Name.ToLogString(), content);
         }
@@ -18,7 +18,7 @@
         {
             if (Log.LevelProgress)
             {
-                Log.Progress(LogTags.Animation, FormatEntityLog(content));
+                Log.Progress(LogTags.Animation, LogFormat(content));
             }
         }
 
@@ -26,7 +26,7 @@
         {
             if (Log.LevelProgress)
             {
-                string formattedContent = FormatEntityLog(string.Format(format, args));
+                string formattedContent = LogFormat(string.Format(format, args));
                 Log.Progress(LogTags.Animation, formattedContent);
             }
         }
@@ -35,7 +35,7 @@
         {
             if (Log.LevelInfo)
             {
-                Log.Info(LogTags.Animation, FormatEntityLog(content));
+                Log.Info(LogTags.Animation, LogFormat(content));
             }
         }
 
@@ -43,7 +43,7 @@
         {
             if (Log.LevelInfo)
             {
-                string formattedContent = FormatEntityLog(string.Format(format, args));
+                string formattedContent = LogFormat(string.Format(format, args));
                 Log.Info(LogTags.Animation, formattedContent);
             }
         }
@@ -52,7 +52,7 @@
         {
             if (Log.LevelWarning)
             {
-                Log.Warning(LogTags.Animation, FormatEntityLog(content));
+                Log.Warning(LogTags.Animation, LogFormat(content));
             }
         }
 
@@ -60,7 +60,7 @@
         {
             if (Log.LevelWarning)
             {
-                string formattedContent = FormatEntityLog(string.Format(format, args));
+                string formattedContent = LogFormat(string.Format(format, args));
                 Log.Warning(LogTags.Animation, formattedContent);
             }
         }
@@ -69,7 +69,7 @@
         {
             if (Log.LevelError)
             {
-                Log.Error(LogTags.Animation, FormatEntityLog(content));
+                Log.Error(LogTags.Animation, LogFormat(content));
             }
         }
 
@@ -77,7 +77,7 @@
         {
             if (Log.LevelError)
             {
-                string formattedContent = FormatEntityLog(string.Format(format, args));
+                string formattedContent = LogFormat(string.Format(format, args));
                 Log.Error(LogTags.Animation, formattedContent);
             }
         }

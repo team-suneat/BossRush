@@ -126,7 +126,7 @@ namespace TeamSuneat
         public void Lock()
         {
             IsLocked = true;
-            Log.Info(LogTags.Pattern, "패턴 페이즈를 잠금합니다. {0}", Index);
+            Log.Info(LogTags.Pattern, "(Phase) 패턴 페이즈를 잠금합니다. {0}", Index);
         }
 
         public void Unlock()
@@ -137,27 +137,9 @@ namespace TeamSuneat
             }
 
             IsLocked = false;
-
             OnUnlockCallback?.Invoke();
 
-            SendGlobalEvent();
-
-            Log.Info(LogTags.Pattern, "패턴 페이즈를 잠금해제합니다. {0}", Index);
-        }
-
-        public void SendGlobalEvent()
-        {
-            if (Boss == null || _maxPhase != Index)
-            {
-                return;
-            }
-
-            if (Mathf.Approximately(ConditionHealthRate, 1f))
-            {
-                return;
-            }
-
-            // GlobalEvent<BossCharacter>.Send(GlobalEventType.BOSS_CHARACTER_PATTERN_PHASE_CHANGED, Boss);
+            Log.Info(LogTags.Pattern, "(Phase) 패턴 페이즈를 잠금해제합니다. {0}", Index);
         }
     }
 }

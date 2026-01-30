@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace TeamSuneat
 {
@@ -23,99 +23,53 @@ namespace TeamSuneat
             // (입력 레벨에서 이미 threshold 필터링이 적용됨)
             if (Mathf.Abs(Command.HorizontalInput) > 0f)
             {
-                // 모델 방향을 먼저 업데이트
                 FacingDirections facingDirection = Command.HorizontalInput > 0
                     ? FacingDirections.Right
                     : FacingDirections.Left;
 
                 Face(facingDirection);
-
-                // Face() 호출 후 FacingDirection을 입력 방향과 동기화
-                // (Face()는 모델의 실제 방향을 기준으로 Flip하므로, FacingDirection도 업데이트 필요)
-                int targetDirection = Command.HorizontalInput > 0 ? 1 : -1;
-                SetFacingDirection(targetDirection);
-            }
-        }
-
-        //
-
-        public void Face(Vector3 targetPosition)
-        {
-            if (IsFacingRight)
-            {
-                if (position.x > targetPosition.x)
-                {
-                    LogProgress("목표 방향을 바라봅니다. Left");
-                    TryFlip();
-                }
-            }
-            else
-            {
-                if (position.x < targetPosition.x)
-                {
-                    LogProgress("목표 방향을 바라봅니다. Right");
-                    TryFlip();
-                }
+                SetFacingDirection(facingDirection == FacingDirections.Right ? 1 : -1);
             }
         }
 
         public void Face(FacingDirections facingDirection)
         {
-            // 모델의 실제 방향을 기준으로 판단 (IsFacingRight는 모델의 localScale.x 기반)
             bool shouldFaceRight = facingDirection == FacingDirections.Right;
-            bool currentlyFacingRight = IsFacingRight;
-
-            if (currentlyFacingRight != shouldFaceRight)
+            if (IsFacingRight == shouldFaceRight)
             {
-                if (TryFlip())
-                {
-                    LogProgress("목표 방향을 바라봅니다. {0}", facingDirection.ToString());
-                }
+                return;
+            }
+
+            if (TryFlip())
+            {
+                LogProgress("(Face) 목표 방향을 바라봅니다. {0}", facingDirection.ToString());
             }
         }
 
         public void ForceFace(Vector3 targetPosition)
         {
-            if (IsFacingRight)
+            bool needFlip = (IsFacingRight && position.x > targetPosition.x)
+                || (!IsFacingRight && position.x < targetPosition.x);
+            if (!needFlip)
             {
-                if (position.x > targetPosition.x)
-                {
-                    LogProgress("강제로 목표 방향을 바라봅니다. Left");
-
-                    ForceFlip();
-                }
+                return;
             }
-            else
-            {
-                if (position.x < targetPosition.x)
-                {
-                    LogProgress("강제로 목표 방향을 바라봅니다. Right");
 
-                    ForceFlip();
-                }
-            }
+            LogProgress("(Face) 강제로 목표 방향을 바라봅니다. {0}", IsFacingRight ? "Left" : "Right");
+            ForceFlip();
         }
 
         public void ForceFace(FacingDirections facingDirection)
         {
-            if (IsFacingRight)
+            bool needFlip = (IsFacingRight && facingDirection == FacingDirections.Left)
+                || (!IsFacingRight && facingDirection == FacingDirections.Right);
+            if (!needFlip)
             {
-                if (facingDirection == FacingDirections.Left)
-                {
-                    LogProgress("목표 방향을 바라봅니다. Left");
-
-                    ForceFlip();
-                }
+                return;
             }
-            else
-            {
-                if (facingDirection == FacingDirections.Right)
-                {
-                    LogProgress("목표 방향을 바라봅니다. Right");
 
-                    ForceFlip();
-                }
-            }
+            LogProgress("(Face) 목표 방향을 바라봅니다. {0}", facingDirection.ToString());
+            ForceFlip();
         }
 
         public void FaceToTarget()
@@ -125,157 +79,73 @@ namespace TeamSuneat
                 return;
             }
 
-            if (IsFacingRight)
-            {
-                if (position.x > Target.position.x)
-                {
-                    LogProgress("목표를 바라봅니다. Left");
-
-                    TryFlip();
-                }
-            }
-            else
-            {
-                if (position.x < Target.position.x)
-                {
-                    LogProgress("목표를 바라봅니다. Right");
-
-                    TryFlip();
-                }
-            }
-        }
-
-        public void FaceOppositeTarget()
-        {
-            if (Target != null)
-            {
-                if (IsFacingRight)
-                {
-                    if (position.x < Target.position.x)
-                    {
-                        LogProgress("목표를 바라보지 않습니다. Right");
-
-                        TryFlip();
-                    }
-                }
-                else
-                {
-                    if (position.x > Target.position.x)
-                    {
-                        LogProgress("목표를 바라보지 않습니다. Left");
-
-                        TryFlip();
-                    }
-                }
-            }
-        }
-
-        public void CompelFaceTarget()
-        {
-            if (Target == null)
+            bool needFlip = (IsFacingRight && position.x > Target.position.x)
+                || (!IsFacingRight && position.x < Target.position.x);
+            if (!needFlip)
             {
                 return;
             }
 
-            if (IsFacingRight)
+            if (TryFlip())
             {
-                if (position.x > Target.position.x)
-                {
-                    LogProgress("목표를 강제로 바라봅니다. Left");
-
-                    ForceFlip();
-                }
-            }
-            else
-            {
-                if (position.x < Target.position.x)
-                {
-                    LogProgress("목표를 강제로 바라봅니다. Right");
-
-                    ForceFlip();
-                }
+                LogProgress("(Face) 목표를 바라봅니다. {0}", IsFacingRight ? "Left" : "Right");
             }
         }
 
         public bool TryFlip()
         {
-            // ForceVelocity가 적용 중일 때는 방향 전환 차단
             if (Physics != null && Physics.IsForceVelocity)
             {
-                LogWarning("ForceVelocity 적용 중에는 캐릭터를 반전시킬 수 없습니다.");
+                LogWarning("(Face) ForceVelocity 적용 중에는 캐릭터를 반전시킬 수 없습니다.");
                 return false;
             }
 
-            if (CanFlip)
+            if (!CanFlip)
             {
-                FlipModel();
-                SyncFacingDirection();
-
-                LogProgress("캐릭터를 반전시킵니다. IsFacingRight: {0}", IsFacingRight.ToBoolString());
-
-                return true;
-            }
-            else
-            {
-                LogWarning("캐릭터를 반전시킬 수 없습니다. 반전을 허용하지 않습니다.");
-
+                LogWarning("(Face) 캐릭터를 반전시킬 수 없습니다. 반전을 허용하지 않습니다.");
                 return false;
             }
+
+            FlipModel();
+            SyncFacingDirection();
+            LogProgress("(Face) 캐릭터를 반전시킵니다. IsFacingRight: {0}", IsFacingRight.ToBoolString());
+            return true;
         }
 
         public void ForceFlip()
         {
             FlipModel();
             SyncFacingDirection();
-
-            LogProgress("캐릭터를 강제로 반전시킵니다. IsFacingRight: {0}", IsFacingRight.ToBoolString());
+            LogProgress("(Face) 캐릭터를 강제로 반전시킵니다. IsFacingRight: {0}", IsFacingRight.ToBoolString());
         }
 
         private void SyncFacingDirection()
         {
-            // FacingDirection을 IsFacingRight와 동기화
-            // FlipModel()에서 이미 FacingDirection이 업데이트되므로 여기서는 불필요
-            // 하지만 방어적 프로그래밍을 위해 유지
             SetFacingDirection(IsFacingRight ? 1 : -1);
         }
 
         public void FlipModel()
         {
-            if (CharacterModel != null)
+            if (CharacterModel == null)
             {
-                Vector3 flipValue = new(-1, 1, 1);
-                CharacterModel.transform.localScale = Vector3.Scale(CharacterModel.transform.localScale, flipValue);
+                return;
+            }
 
-                // FlipModel() 호출 시 FacingDirection을 모델의 실제 방향과 동기화
-                // IsFacingRight는 모델의 localScale.x를 기반으로 계산되므로 순환 참조 없음
-                SetFacingDirection(IsFacingRight ? 1 : -1);
-            }
-        }
-
-        protected void ForceSpawnDirection()
-        {
-            if (DirectionOnSpawn == FacingDirections.Left)
-            {
-                Face(FacingDirections.Left);
-            }
-            else if (DirectionOnSpawn == FacingDirections.Right)
-            {
-                Face(FacingDirections.Right);
-            }
+            Vector3 flipValue = new(-1, 1, 1);
+            CharacterModel.transform.localScale = Vector3.Scale(CharacterModel.transform.localScale, flipValue);
+            SetFacingDirection(IsFacingRight ? 1 : -1);
         }
 
         public void LockFlip()
         {
             CanFlip = false;
-
-            LogProgress("캐릭터의 반전을 허용하지 않습니다.");
+            LogProgress("(Face) 캐릭터의 반전을 허용하지 않습니다.");
         }
 
         public void UnlockFlip()
         {
             CanFlip = true;
-
-            LogProgress("캐릭터의 반전을 허용합니다.");
+            LogProgress("(Face) 캐릭터의 반전을 허용합니다.");
         }
     }
 }

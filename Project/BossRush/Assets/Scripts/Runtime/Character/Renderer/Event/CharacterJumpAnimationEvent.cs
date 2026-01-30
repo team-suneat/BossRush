@@ -16,9 +16,9 @@ namespace TeamSuneat
         [SerializeField] private GameObject _dustVFXPrefab;
 
         [FoldoutGroup("#Buttons", 999)]
-        [Button("Auto Setting", ButtonSizes.Medium)]
+        [Button(ButtonSizes.Medium)]
         [Conditional("UNITY_EDITOR")]
-        private void AutoSetting()
+        private void AutoJumpSetting()
         {
             if (_jumpForceVelocityNames != null)
             {

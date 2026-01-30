@@ -138,7 +138,7 @@ namespace TeamSuneat
             if (UseRepeat && UseRandomRepeat)
             {
                 CurrentRepeatMaxCount = RandomEx.Range(RepeatMinCount - 1, RepeatMaxCount);
-                Log.Info(LogTags.Pattern, "{0}, 랜덤 반복 횟수 설정. 최소: {1}, 최대: {2}, 설정된 값: {3}",
+                Log.Info(LogTags.Pattern, "(Step) {0}, 랜덤 반복 횟수 설정. 최소: {1}, 최대: {2}, 설정된 값: {3}",
                     Pattern?.Name.ToSelectString() ?? "Unknown", RepeatMinCount, RepeatMaxCount, CurrentRepeatMaxCount);
             }
         }
@@ -157,7 +157,7 @@ namespace TeamSuneat
                 return;
             }
 
-            Log.Info(LogTags.Pattern, "{0}, 패턴을 진행합니다. 단계:{1}, 순서: {2}", Pattern.Name.ToSelectString(), StepName.ToSelectString(), OrderIndex.ToSelectString());
+            Log.Info(LogTags.Pattern, "(Step) {0}, 패턴을 진행합니다. 단계:{1}, 순서: {2}", Pattern.Name.ToSelectString(), StepName.ToSelectString(), OrderIndex.ToSelectString());
 
             switch (StepName)
             {
@@ -253,7 +253,7 @@ namespace TeamSuneat
         {
             CurrentRepeatCount = 0;
 
-            Log.Info(LogTags.Pattern, "{0}, 패턴의 반복 횟수를 초기화합니다. 단계: {1}", Pattern.Name.ToSelectString(), StepName.ToSelectString());
+            Log.Info(LogTags.Pattern, "(Step) {0}, 패턴의 반복 횟수를 초기화합니다. 단계: {1}", Pattern.Name.ToSelectString(), StepName.ToSelectString());
         }
 
         protected void AddRepeatCount()
@@ -267,12 +267,12 @@ namespace TeamSuneat
                 CurrentRepeatCount++;
             }
 
-            Log.Info(LogTags.Pattern, "{0}, 패턴의 반복 횟수를 설정합니다. 단계: {1}", Pattern.Name.ToSelectString(), StepName.ToSelectString());
+            Log.Info(LogTags.Pattern, "(Step) {0}, 패턴의 반복 횟수를 설정합니다. 단계: {1}", Pattern.Name.ToSelectString(), StepName.ToSelectString());
         }
 
         protected void ProcessNextStep()
         {
-            Log.Info(LogTags.Pattern, "{0}, 패턴의 다음 단계로 넘어갑니다. 단계: {1}", Pattern.Name.ToSelectString(), StepName.ToSelectString());
+            Log.Info(LogTags.Pattern, "(Step) {0}, 패턴의 다음 단계로 넘어갑니다. 단계: {1}", Pattern.Name.ToSelectString(), StepName.ToSelectString());
 
             System.ProcessNextStep();
             _nextStepCoroutine = null;
@@ -280,7 +280,7 @@ namespace TeamSuneat
 
         protected void SkipToNextStep()
         {
-            Log.Info(LogTags.Pattern, "{0}, 패턴 스텝을 건너뛰고 다음 단계로 이동합니다. 단계: {1}", Pattern.Name.ToSelectString(), StepName.ToSelectString());
+            Log.Info(LogTags.Pattern, "(Step) {0}, 패턴 스텝을 건너뛰고 다음 단계로 이동합니다. 단계: {1}", Pattern.Name.ToSelectString(), StepName.ToSelectString());
 
             System.SkipToNextStep();
             _nextStepCoroutine = null;
@@ -296,7 +296,7 @@ namespace TeamSuneat
                 return;
             }
 
-            Log.Info(LogTags.Pattern, "{0}, 패턴의 다음 단계를 진행합니다. 단계: {1}", Pattern.Name.ToSelectString(), StepName.ToSelectString());
+            Log.Info(LogTags.Pattern, "(Step) {0}, 패턴의 다음 단계를 진행합니다. 단계: {1}", Pattern.Name.ToSelectString(), StepName.ToSelectString());
             AddRepeatCount();
             _nextStepCoroutine = CoroutineNextFrame(ProcessNextStep);
         }
@@ -305,14 +305,14 @@ namespace TeamSuneat
         {
             if (Owner.TryFlip())
             {
-                Log.Info(LogTags.Pattern, "{0}, 타겟을 향해 방향을 전환합니다.", Pattern?.Name.ToSelectString() ?? "Unknown");
+                Log.Info(LogTags.Pattern, "(Step) {0}, 타겟을 향해 방향을 전환합니다.", Pattern?.Name.ToSelectString() ?? "Unknown");
                 Owner.FaceToTarget();
             }
 
             if (CheckAgainstWall(FaceAgainstWallDistance))
             {
                 FacingDirections direction = Owner.IsFacingRight ? FacingDirections.Right : FacingDirections.Left;
-                Log.Info(LogTags.Pattern, "{0}, 벽에 부딪혀 방향을 강제로 변경합니다. 거리: {1}, 방향: {2}",
+                Log.Info(LogTags.Pattern, "(Step) {0}, 벽에 부딪혀 방향을 강제로 변경합니다. 거리: {1}, 방향: {2}",
                     Pattern?.Name.ToSelectString() ?? "Unknown", FaceAgainstWallDistance, direction);
                 Owner.ForceFace(direction);
             }
@@ -322,12 +322,12 @@ namespace TeamSuneat
         {
             if (FacingDirection == FacingDirections.Left)
             {
-                Log.Info(LogTags.Pattern, "{0}, 왼쪽 방향으로 강제 전환합니다.", Pattern?.Name.ToSelectString() ?? "Unknown");
+                Log.Info(LogTags.Pattern, "(Step) {0}, 왼쪽 방향으로 강제 전환합니다.", Pattern?.Name.ToSelectString() ?? "Unknown");
                 Owner.ForceFace(FacingDirections.Left);
             }
             else if (FacingDirection == FacingDirections.Right)
             {
-                Log.Info(LogTags.Pattern, "{0}, 오른쪽 방향으로 강제 전환합니다.", Pattern?.Name.ToSelectString() ?? "Unknown");
+                Log.Info(LogTags.Pattern, "(Step) {0}, 오른쪽 방향으로 강제 전환합니다.", Pattern?.Name.ToSelectString() ?? "Unknown");
                 Owner.ForceFace(FacingDirections.Right);
             }
         }
@@ -350,7 +350,7 @@ namespace TeamSuneat
             }
 
             Vector3 targetPosition = positionGroup.GetPosition(Owner.position);
-            Log.Info(LogTags.Pattern, "{0}, 포지션 그룹 목표를 바라봅니다. 그룹: {1}",
+            Log.Info(LogTags.Pattern, "(Step) {0}, 포지션 그룹 목표를 바라봅니다. 그룹: {1}",
                 Pattern?.Name.ToSelectString() ?? "Unknown", FacePositionGroupName.ToSelectString());
             Owner.ForceFace(targetPosition);
         }
@@ -359,7 +359,7 @@ namespace TeamSuneat
         {
             if (Owner.Chase != null)
             {
-                Log.Info(LogTags.Pattern, "{0}, 지상 추적 패턴을 시작합니다.", Pattern?.Name.ToSelectString() ?? "Unknown");
+                Log.Info(LogTags.Pattern, "(Step) {0}, 지상 추적 패턴을 시작합니다.", Pattern?.Name.ToSelectString() ?? "Unknown");
                 Owner.Chase.StartChaseGroundPattern(ExecuteNextStep);
             }
             else
@@ -387,7 +387,7 @@ namespace TeamSuneat
                 return;
             }
 
-            Log.Info(LogTags.Pattern, "{0}, 타겟 방향 점프 패턴을 시작합니다.",
+            Log.Info(LogTags.Pattern, "(Step) {0}, 타겟 방향 점프 패턴을 시작합니다.",
                 Pattern?.Name.ToSelectString() ?? "Unknown");
 
             Owner.TargetJump.StartJumpToPattern(JumpDestinationType.OwnerTarget, PositionGroupNames.None, ExecuteNextStep);
@@ -419,7 +419,7 @@ namespace TeamSuneat
                 return;
             }
 
-            Log.Info(LogTags.Pattern, "{0}, 포지션 그룹 점프 패턴을 시작합니다. 그룹: {1}",
+            Log.Info(LogTags.Pattern, "(Step) {0}, 포지션 그룹 점프 패턴을 시작합니다. 그룹: {1}",
                 Pattern?.Name.ToSelectString() ?? "Unknown", JumpPositionGroupName.ToSelectString());
 
             Owner.TargetJump.StartJumpToPattern(JumpDestinationType.PositionGroup, JumpPositionGroupName, ExecuteNextStep);
@@ -431,7 +431,7 @@ namespace TeamSuneat
 
             if (Owner.StateMachine is MonsterStateMachine monsterStateMachine)
             {
-                Log.Info(LogTags.Pattern, "{0}, 공격 패턴을 실행합니다. StepOrder: {1}",
+                Log.Info(LogTags.Pattern, "(Step) {0}, 공격 패턴을 실행합니다. StepOrder: {1}",
                     Pattern?.Name.ToSelectString() ?? "Unknown", stepOrder);
                 monsterStateMachine.SetAttackOrder(new List<int> { stepOrder });
                 Owner.Command.SetAttackPressed(true);
@@ -454,7 +454,7 @@ namespace TeamSuneat
 
             if (!Owner.Attack.CheckTargetInAttackableArea(OrderIndex))
             {
-                Log.Info(LogTags.Pattern, "{0}, 공격 가능 범위에 타겟이 없습니다. 다음 스텝으로 이동합니다. OrderIndex: {1}",
+                Log.Info(LogTags.Pattern, "(Step) {0}, 공격 가능 범위에 타겟이 없습니다. 다음 스텝으로 이동합니다. OrderIndex: {1}",
                     Pattern?.Name.ToSelectString() ?? "Unknown", OrderIndex);
                 SkipToNextStep();
                 return;
@@ -464,7 +464,7 @@ namespace TeamSuneat
 
             if (Owner.StateMachine is MonsterStateMachine monsterStateMachine)
             {
-                Log.Info(LogTags.Pattern, "{0}, 공격 범위 체크 패턴을 실행합니다. StepOrder: {1}, OrderIndex: {2}",
+                Log.Info(LogTags.Pattern, "(Step) {0}, 공격 범위 체크 패턴을 실행합니다. StepOrder: {1}, OrderIndex: {2}",
                     Pattern?.Name.ToSelectString() ?? "Unknown", stepOrder, OrderIndex);
                 monsterStateMachine.SetAttackOrder(new List<int> { stepOrder });
                 Owner.Command.SetAttackPressed(true);
@@ -480,13 +480,13 @@ namespace TeamSuneat
         {
             if (Owner.Physics.IsOnOneWayPlatform)
             {
-                Log.Info(LogTags.Pattern, "{0}, 일방향 플랫폼 위에 있어 다음 스텝으로 이동합니다.",
+                Log.Info(LogTags.Pattern, "(Step) {0}, 일방향 플랫폼 위에 있어 다음 스텝으로 이동합니다.",
                     Pattern?.Name.ToSelectString() ?? "Unknown");
                 SkipToNextStep();
                 return false;
             }
 
-            Log.Info(LogTags.Pattern, "{0}, 지면 조건을 만족합니다. 패턴을 계속 진행합니다.",
+            Log.Info(LogTags.Pattern, "(Step) {0}, 지면 조건을 만족합니다. 패턴을 계속 진행합니다.",
                 Pattern?.Name.ToSelectString() ?? "Unknown");
             return true;
         }
@@ -495,13 +495,13 @@ namespace TeamSuneat
         {
             if (Owner.Physics.IsOnOneWayPlatform)
             {
-                Log.Info(LogTags.Pattern, "{0}, 일방향 플랫폼 위에 있어 다음 스텝으로 이동합니다.",
+                Log.Info(LogTags.Pattern, "(Step) {0}, 일방향 플랫폼 위에 있어 다음 스텝으로 이동합니다.",
                     Pattern?.Name.ToSelectString() ?? "Unknown");
                 SkipToNextStep();
                 return false;
             }
 
-            Log.Info(LogTags.Pattern, "{0}, 플랫폼 조건을 만족합니다. 패턴을 계속 진행합니다.",
+            Log.Info(LogTags.Pattern, "(Step) {0}, 플랫폼 조건을 만족합니다. 패턴을 계속 진행합니다.",
                 Pattern?.Name.ToSelectString() ?? "Unknown");
             return true;
         }
