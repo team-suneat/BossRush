@@ -43,8 +43,8 @@ MonoBehaviour:
     IgnoreDeathByConsume: 0
     ConsumeDelayTime: 0
     AttackFVName: 6
-    DamageKnockbackFVName: 11
-    ParryType: 3
+    DamageKnockbackFVName: 13
+    ParryType: 2
     ParryKnockbackType: 3
     ParryKnockbackFVName: 13
     HitFXPrefabName: fx_scarecrow_attack_success
@@ -57,6 +57,6 @@ MonoBehaviour:
     ResourceConsumeTypeString: None
     AttackFVNameString: Boss1Pattern1Attack3
     DamageKnockbackFVNameString: 
-    ParryTypeString: Unparryable
+    ParryTypeString: CounterParryable
     ParryKnockbackTypeString: Both
     ParryKnockbackFVNameString: Boss1Pattern3Knockback

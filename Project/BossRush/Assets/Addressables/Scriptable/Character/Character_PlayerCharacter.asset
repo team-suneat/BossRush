@@ -19,12 +19,15 @@ MonoBehaviour:
     SuperArmor: 0
     IsFlying: 0
     Stats:
+    - Name: 2
+      Value: 5
+      NameAsString: Life
+    - Name: 7
+      Value: 3
+      NameAsString: Mana
     - Name: 1
       Value: 1
       NameAsString: Attack
-    - Name: 2
-      Value: 3
-      NameAsString: Life
     - Name: 3
       Value: 1
       NameAsString: AttackSpeed
@@ -37,6 +40,3 @@ MonoBehaviour:
     - Name: 6
       Value: 1
       NameAsString: MoveSpeedMulti
-    - Name: 7
-      Value: 3
-      NameAsString: Mana

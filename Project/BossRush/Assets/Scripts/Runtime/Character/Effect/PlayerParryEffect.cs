@@ -80,6 +80,7 @@ namespace TeamSuneat
             SpawnVFX(data.AttackPosition);
 
             ApplyParryPenaltyToAttacker(data.Attacker, data.ParryType);
+            ApplyPatternInterruptToAttacker(data.Attacker);
             ApplyPulseReward();
             ApplySound();
             ApplySlowMotion();
@@ -99,7 +100,7 @@ namespace TeamSuneat
 
         private void ApplyParryPenaltyToAttacker(Character attacker, ParryTypes parryType)
         {
-            if (parryType == ParryTypes.ParryableWithStun)
+            if (parryType == ParryTypes.CounterParryable)
             {
                 if (attacker != null && attacker.Buff != null)
                 {
@@ -114,6 +115,14 @@ namespace TeamSuneat
                     // 공격자에게 경직 적용
                     attacker.CharacterAnimator.PlayKnockbackAnimation();
                 }
+            }
+        }
+
+        private void ApplyPatternInterruptToAttacker(Character attacker)
+        {
+            if (attacker is MonsterCharacter monster)
+            {
+                monster.Pattern?.InterruptCurrentPattern();
             }
         }
 

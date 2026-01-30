@@ -43,7 +43,7 @@ MonoBehaviour:
     IgnoreDeathByConsume: 0
     ConsumeDelayTime: 0
     AttackFVName: 10
-    DamageKnockbackFVName: 0
+    DamageKnockbackFVName: 14
     ParryType: 3
     ParryKnockbackType: 0
     ParryKnockbackFVName: 0

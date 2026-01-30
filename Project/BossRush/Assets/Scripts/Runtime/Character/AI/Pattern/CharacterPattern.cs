@@ -1,4 +1,4 @@
-﻿using Sirenix.OdinInspector;
+using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,24 +7,28 @@ namespace TeamSuneat
 {
     public class CharacterPattern : XBehaviour
     {
-        public string Name;
+        [SerializeField] private string _name;
 
         [Title("#Time")]
         [InfoBox("패턴 재사용 대기 시간을 설정합니다.\n일정 값을 설정하여 같은 패턴을 사용하지 않도록 합니다.")]
-        public float CooldownTime;
+        [SerializeField] private float _cooldownTime;
 
         [InfoBox("패턴 사용 후 다음 패턴 대기 시간을 설정합니다.\n0일 경우 즉시 다음 패턴으로 넘어갑니다.")]
-        public float WaitDuration;
-
-        [ReadOnly] public bool IsCooldown;
-        [ReadOnly] public bool IsWait;
+        [SerializeField] private float _waitDuration;
 
         [Title("#Probability")]
         [Range(0f, 1f)]
-        public float ProbabilityToPicked = 1f;
+        [SerializeField] private float _probabilityToPicked = 1f;
+
+        public string Name => _name;
+        public float CooldownTime => _cooldownTime;
+        public float WaitDuration => _waitDuration;
+        public bool IsCooldown { get; private set; }
+        public bool IsWait { get; private set; }
+        public float ProbabilityToPicked => _probabilityToPicked;
 
         private CharacterPatternStep[] _patternSteps;
-        private Order _patternOrder = new Order();
+        private Order _patternOrder = new();
         private Coroutine _cooldownCoroutine;
         private Coroutine _waitCoroutine;
 
@@ -33,7 +37,7 @@ namespace TeamSuneat
             _patternSteps = GetComponentsInChildren<CharacterPatternStep>();
         }
 
-        public CharacterPatternStep GetStep()
+        public CharacterPatternStep GetCurrentStep()
         {
             if (_patternSteps != null)
             {
@@ -55,29 +59,18 @@ namespace TeamSuneat
             return null;
         }
 
-        public PatternStepNames GetStepName()
+        public PatternStepNames GetCurrentStepName()
         {
-            if (_patternSteps != null)
+            CharacterPatternStep CurrentStep = GetCurrentStep();
+            if (CurrentStep == null)
             {
-                if (_patternSteps.Length > _patternOrder.Current)
-                {
-                    return _patternSteps[_patternOrder.Current].StepName;
-                }
-                else
-                {
-                    Log.Warning(LogTags.Pattern, "{0}, Step 인덱스가 범위를 벗어났습니다. Current: {1}, Steps.Length: {2}",
-                        Name.ToSelectString(), _patternOrder.Current, _patternSteps.Length);
-                }
-            }
-            else
-            {
-                Log.Warning(LogTags.Pattern, "{0}, Steps가 null입니다. StepName을 가져올 수 없습니다.", Name.ToSelectString());
+                return PatternStepNames.None;
             }
 
-            return PatternStepNames.None;
+            return CurrentStep.StepName;
         }
 
-        public int GetStepOrder()
+        public int GetCurrentStepOrder()
         {
             if (_patternSteps != null)
             {
@@ -111,18 +104,22 @@ namespace TeamSuneat
             return 0;
         }
 
-        public void FirstStep()
+        //
+
+        public void MoveToFirstStep()
         {
             Log.Info(LogTags.Pattern, "{0}, 첫 번째 스텝으로 이동합니다.", Name.ToSelectString());
             _patternOrder.First();
         }
 
-        public void NextStep()
+        public void MoveToNextStep()
         {
             bool hasNext = _patternOrder.Next();
             Log.Info(LogTags.Pattern, "{0}, 다음 스텝으로 이동합니다. Current: {1}, HasNext: {2}",
                 Name.ToSelectString(), _patternOrder.Current, hasNext);
         }
+
+        //
 
         public void RefreshOrderMax()
         {
@@ -137,13 +134,15 @@ namespace TeamSuneat
             }
         }
 
-        public void StartPatternCooldownTime()
+        //
+
+        public void StartCooldown()
         {
             if (CooldownTime > 0f)
             {
                 if (_cooldownCoroutine == null)
                 {
-                    _cooldownCoroutine = StartXCoroutine(ProcessPatternCooldownTime());
+                    _cooldownCoroutine = StartXCoroutine(ProcessCooldown());
                 }
                 else
                 {
@@ -152,7 +151,7 @@ namespace TeamSuneat
             }
         }
 
-        public void StopPatternCooldownTime()
+        public void StopCooldown()
         {
             if (_cooldownCoroutine != null)
             {
@@ -162,7 +161,7 @@ namespace TeamSuneat
             StopXCoroutine(ref _cooldownCoroutine);
         }
 
-        private IEnumerator ProcessPatternCooldownTime()
+        private IEnumerator ProcessCooldown()
         {
             Log.Info(LogTags.Pattern, "{0}, 패턴의 재사용 대기를 시작합니다. 대기 시간: {1}", Name.ToSelectString(), CooldownTime.ToSelectString());
 
@@ -177,7 +176,9 @@ namespace TeamSuneat
             _cooldownCoroutine = null;
         }
 
-        public void StartPatternWaitTime(UnityAction OnCompleted)
+        //
+
+        public void StartWait(UnityAction OnCompleted)
         {
             if (WaitDuration.IsZero())
             {
@@ -186,15 +187,15 @@ namespace TeamSuneat
                 return;
             }
 
-            _waitCoroutine = StartXCoroutine(ProcessPatternWaitTime(OnCompleted));
+            _waitCoroutine = StartXCoroutine(ProcessWait(OnCompleted));
         }
 
-        private void StopPatternWaitTime()
+        private void StopWait()
         {
             StopXCoroutine(ref _waitCoroutine);
         }
 
-        private IEnumerator ProcessPatternWaitTime(UnityAction OnCompleted)
+        private IEnumerator ProcessWait(UnityAction OnCompleted)
         {
             Log.Info(LogTags.Pattern, "{0}, 패턴 사용 후 다음 패턴 대기를 시작합니다. 대기 시간: {1}", Name.ToSelectString(), WaitDuration.ToSelectString());
 

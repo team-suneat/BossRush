@@ -410,6 +410,11 @@ namespace TeamSuneat
                 return false;
             }
 
+            if (Vital.Owner is BossCharacter)
+            {
+                return false;
+            }
+
             return Vital.Owner.CharacterAnimator.PlayDamageAnimation();
         }
 

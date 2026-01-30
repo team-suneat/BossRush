@@ -1,16 +1,16 @@
 using System.Collections.Generic;
+using System.Text;
 
 namespace TeamSuneat
 {
     public class PatternSystem : XBehaviour
     {
         private List<CharacterPattern> _usablePatterns = new();
-
         private int _maxPhase = -1;
         private MonsterCharacter _owner;
         private CharacterPhase[] _phases;
-        private Gacha _gacha = new Gacha();
-        private Order _patternOrder = new Order();
+        private Gacha _gacha = new();
+        private Order _patternOrder = new();
 
         private CharacterPattern CurrentPattern
         {
@@ -18,13 +18,13 @@ namespace TeamSuneat
             {
                 if (!_usablePatterns.IsValid())
                 {
-                    Log.Warning(LogTags.Pattern, "사용 가능한 패턴 리스트가 유효하지 않습니다.");
+                    Log.Warning(LogTags.Pattern, "(System) 사용 가능한 패턴 리스트가 유효하지 않습니다.");
                     return null;
                 }
 
                 if (_usablePatterns.Count <= _patternOrder.Current)
                 {
-                    Log.Warning(LogTags.Pattern, "패턴 순서가 범위를 벗어났습니다. Current: {0}, Count: {1}. 순서를 0으로 초기화합니다.", _patternOrder.Current, _usablePatterns.Count);
+                    Log.Warning(LogTags.Pattern, "(System) 패턴 순서가 범위를 벗어났습니다. Current: {0}, Count: {1}. 순서를 0으로 초기화합니다.", _patternOrder.Current, _usablePatterns.Count);
                     _patternOrder.Set(0);
                 }
 
@@ -32,15 +32,30 @@ namespace TeamSuneat
             }
         }
 
-        private CharacterPatternStep CurrentPatternStep => CurrentPattern != null ? CurrentPattern.GetStep() : null;
+        private CharacterPatternStep CurrentPatternStep
+        {
+            get
+            {
+                CharacterPattern currentPattern = CurrentPattern;
+                if (currentPattern != null)
+                {
+                    return currentPattern.GetCurrentStep();
+                }
+                return null;
+            }
+        }
 
         public bool IsStartPattern { get; protected set; }
+
+        private bool _isCurrentPatternInterrupted;
+
+        #region Unity Lifecycle
 
         private void Awake()
         {
             _owner = this.FindFirstParentComponent<MonsterCharacter>();
             _phases = GetComponentsInChildren<CharacterPhase>();
-            Log.Info(LogTags.Pattern, "PatternSystem 초기화 완료. Phase 개수: {0}", _phases?.Length ?? 0);
+            Log.Info(LogTags.Pattern, "(System) PatternSystem 초기화 완료. Phase 개수: {0}", _phases?.Length ?? 0);
         }
 
         protected override void OnStart()
@@ -52,21 +67,27 @@ namespace TeamSuneat
 
         private void OnDrawGizmos()
         {
-            if (CurrentPatternStep != null)
+            if (CurrentPatternStep == null)
             {
-                GizmoEx.DrawText(
-                    $"StepName: {CurrentPatternStep.StepName}\n" +
-                    $"OrderIndex: {CurrentPatternStep.OrderIndex}\n" +
-                    $"IsStartPattern: {IsStartPattern}\n",
-                transform.position);
+                return;
             }
+
+            var sb = new StringBuilder();
+            sb.Append("StepName: ").Append(CurrentPatternStep.StepName).Append("\n");
+            sb.Append("OrderIndex: ").Append(CurrentPatternStep.OrderIndex).Append("\n");
+            sb.Append("IsStartPattern: ").Append(IsStartPattern).Append("\n");
+            GizmoEx.DrawText(sb.ToString(), transform.position);
         }
+
+        #endregion Unity Lifecycle
+
+        #region 초기화 및 패턴 로드
 
         private void SetPatternProbabilities()
         {
             if (_phases == null)
             {
-                Log.Warning(LogTags.Pattern, "Phases가 null입니다. 패턴 확률을 설정할 수 없습니다.");
+                Log.Warning(LogTags.Pattern, "(System) Phases가 null입니다. 패턴 확률을 설정할 수 없습니다.");
                 return;
             }
 
@@ -78,7 +99,7 @@ namespace TeamSuneat
                 CharacterPhase currentPhase = _phases[i];
                 if (currentPhase == null)
                 {
-                    Log.Warning(LogTags.Pattern, "Phase[{0}]가 null입니다.", i);
+                    Log.Warning(LogTags.Pattern, "(System) Phase[{0}]가 null입니다.", i);
                     continue;
                 }
 
@@ -102,11 +123,11 @@ namespace TeamSuneat
                 {
                     _gacha.Add(patternProbabilities[i], i);
                 }
-                Log.Info(LogTags.Pattern, "패턴 확률 설정 완료. 전체 패턴 개수: {0}", patternCount);
+                Log.Info(LogTags.Pattern, "(System) 패턴 확률 설정 완료. 전체 패턴 개수: {0}", patternCount);
             }
             else
             {
-                Log.Warning(LogTags.Pattern, "설정할 패턴이 없습니다. 가챠 값을 유지합니다.");
+                Log.Warning(LogTags.Pattern, "(System) 설정할 패턴이 없습니다. 가챠 값을 유지합니다.");
             }
         }
 
@@ -134,27 +155,27 @@ namespace TeamSuneat
         {
             if (_phases == null)
             {
-                Log.Warning(LogTags.Pattern, "Phases가 null입니다. 패턴을 로드할 수 없습니다.");
+                Log.Warning(LogTags.Pattern, "(System) Phases가 null입니다. 패턴을 로드할 수 없습니다.");
                 return;
             }
 
             if (_owner == null)
             {
-                Log.Error(LogTags.Pattern, "Owner가 null입니다.");
+                Log.Error(LogTags.Pattern, "(System) Owner가 null입니다.");
                 return;
             }
 
             float healthRate = _owner.MyVital?.GetRate(VitalResourceTypes.Life) ?? -1f;
-            Log.Info(LogTags.Pattern, "패턴 로드 시작. Owner 체력 비율: {0}", healthRate);
+            Log.Info(LogTags.Pattern, "(System) 패턴 로드 시작. Owner 체력 비율: {0}", healthRate);
 
             int maxPhase = GetMaxPhase();
             if (_maxPhase >= maxPhase)
             {
-                Log.Info(LogTags.Pattern, "이미 최대 페이즈({0})에 도달했습니다. 패턴 로드를 건너뜁니다.", _maxPhase);
+                Log.Info(LogTags.Pattern, "(System) 이미 최대 페이즈({0})에 도달했습니다. 패턴 로드를 건너뜁니다.", _maxPhase);
                 return;
             }
 
-            Log.Info(LogTags.Pattern, "패턴 로드 시작. 이전 MaxPhase: {0}, 새 MaxPhase: {1}", _maxPhase, maxPhase);
+            Log.Info(LogTags.Pattern, "(System) 패턴 로드 시작. 이전 MaxPhase: {0}, 새 MaxPhase: {1}", _maxPhase, maxPhase);
 
             _maxPhase = maxPhase;
 
@@ -167,29 +188,27 @@ namespace TeamSuneat
 
                 _phases[i].SetMaxPhase(maxPhase);
 
-                Log.Info(LogTags.Pattern, "Phase[{0}]: IsLocked={1}, ConditionHealthRate={2}, PatternCount={3}",
+                Log.Info(LogTags.Pattern, "(System) Phase[{0}]: IsLocked={1}, ConditionHealthRate={2}, PatternCount={3}",
                     i, _phases[i].IsLocked, _phases[i].ConditionHealthRate, _phases[i].PatternLength);
 
                 if (_phases[i].TryLock())
                 {
-                    Log.Info(LogTags.Pattern, "Phase[{0}] 잠금 처리됨", i);
                     _phases[i].Lock();
                     RemoveUsablePattern(_phases[i].Patterns);
                 }
                 else if (_phases[i].TryUnlock(_owner))
                 {
-                    Log.Info(LogTags.Pattern, "Phase[{0}] 잠금 해제됨", i);
                     _phases[i].Unlock();
                     AddUsablePattern(_phases[i].Patterns);
                 }
                 else
                 {
-                    Log.Warning(LogTags.Pattern, "Phase[{0}] 잠금/해제 조건을 만족하지 않음", i);
+                    Log.Warning(LogTags.Pattern, "(System) Phase[{0}] 잠금/해제 조건을 만족하지 않음", i);
                 }
             }
 
             LoadPatternProbabilityToPicked();
-            Log.Info(LogTags.Pattern, "패턴 로드 완료. 사용 가능한 패턴 개수: {0}", _usablePatterns.Count);
+            Log.Info(LogTags.Pattern, "(System) 패턴 로드 완료. 사용 가능한 패턴 개수: {0}", _usablePatterns.Count);
         }
 
         private int GetMaxPhase()
@@ -211,7 +230,7 @@ namespace TeamSuneat
                 }
             }
 
-            Log.Info(LogTags.Pattern, "최대 페이즈 계산 완료: {0}", maxPhase);
+            Log.Info(LogTags.Pattern, "(System) 최대 페이즈 계산 완료: {0}", maxPhase);
             return maxPhase;
         }
 
@@ -227,7 +246,7 @@ namespace TeamSuneat
                 if (patterns[i] != null && !_usablePatterns.Contains(patterns[i]))
                 {
                     _usablePatterns.Add(patterns[i]);
-                    Log.Info(LogTags.Pattern, "사용하는 패턴을 삭제합니다. Name: {0}", patterns[i].Name);
+                    Log.Info(LogTags.Pattern, "(System) 사용 가능한 패턴을 추가합니다. Name: {0}", patterns[i].Name);
                 }
             }
 
@@ -249,7 +268,7 @@ namespace TeamSuneat
                 if (patterns[i] != null && _usablePatterns.Contains(patterns[i]))
                 {
                     _usablePatterns.Remove(patterns[i]);
-                    Log.Info(LogTags.Pattern, "사용하지 않는 패턴을 삭제합니다. Name: {0}", patterns[i].Name);
+                    Log.Info(LogTags.Pattern, "(System) 사용하지 않는 패턴을 삭제합니다. Name: {0}", patterns[i].Name);
                 }
             }
 
@@ -259,31 +278,19 @@ namespace TeamSuneat
             }
         }
 
-        public void StartPattern()
-        {
-            IsStartPattern = true;
+        #endregion 초기화 및 패턴 로드
 
-            if (CurrentPattern != null)
-            {
-                Log.Info(LogTags.Pattern, "패턴을 시작합니다. Order: {0}, Name: {1}", _patternOrder.Current, CurrentPattern.Name);
-            }
-            else
-            {
-                Log.Warning(LogTags.Pattern, "패턴을 시작할 수 없습니다. Order: {0}", _patternOrder.Current);
-            }
-
-            ProcessStep();
-        }
+        #region 패턴 선정 및 시작
 
         public void PickPattern()
         {
             if (CurrentPattern == null)
             {
-                Log.Warning(LogTags.Pattern, "현재 패턴이 null입니다. 패턴을 선정할 수 없습니다.");
+                Log.Warning(LogTags.Pattern, "(System) 현재 패턴이 null입니다. 패턴을 선정할 수 없습니다.");
                 return;
             }
 
-            CurrentPattern.FirstStep();
+            CurrentPattern.MoveToFirstStep();
 
             if (_gacha != null)
             {
@@ -301,7 +308,7 @@ namespace TeamSuneat
 
                 if (cooldownCount > 0)
                 {
-                    Log.Info(LogTags.Pattern, "쿨다운 중인 패턴 개수: {0}", cooldownCount);
+                    Log.Info(LogTags.Pattern, "(System) 쿨다운 중인 패턴 개수: {0}", cooldownCount);
                 }
 
                 if (!_gacha.CheckLockAll())
@@ -311,22 +318,46 @@ namespace TeamSuneat
                 }
                 else
                 {
-                    Log.Warning(LogTags.Pattern, "모든 패턴이 잠겨있습니다. 패턴을 선정할 수 없습니다.");
+                    Log.Warning(LogTags.Pattern, "(System) 모든 패턴이 잠겨있습니다. 패턴을 선정할 수 없습니다.");
                 }
             }
             else
             {
-                Log.Info(LogTags.Pattern, "가챠가 null입니다. 순서대로 패턴을 선택합니다.");
+                Log.Info(LogTags.Pattern, "(System) 가챠가 null입니다. 순서대로 패턴을 선택합니다.");
                 _patternOrder.Shuffle();
             }
 
             IsStartPattern = false;
+        }
 
-            if (CurrentPattern != null && CurrentPatternStep != null)
+        public void StartPattern()
+        {
+            IsStartPattern = true;
+
+            if (CurrentPattern != null)
             {
-                Log.Info(LogTags.Pattern, "패턴을 선정합니다. Order: {0}, Pattern: {1}, Step: {2}",
-                    _patternOrder.Current, CurrentPattern.Name, CurrentPatternStep.StepName);
+                Log.Info(LogTags.Pattern, "(System) 패턴을 시작합니다. Order: {0}, Name: {1}", _patternOrder.Current, CurrentPattern.Name);
             }
+            else
+            {
+                Log.Warning(LogTags.Pattern, "(System) 패턴을 시작할 수 없습니다. Order: {0}", _patternOrder.Current);
+            }
+
+            ProcessStep();
+        }
+
+        #endregion 패턴 선정 및 시작
+
+        #region 스텝 실행
+
+        public void ProcessStep()
+        {
+            if (CurrentPatternStep == null)
+            {
+                return;
+            }
+
+            CurrentPatternStep.ProcessStep();
         }
 
         public void NextStep()
@@ -338,24 +369,8 @@ namespace TeamSuneat
 
             if (CurrentPatternStep.IsCompleteStepRepeat)
             {
-                Log.Info(LogTags.Pattern, "다음 스텝으로 이동. 현재 스텝: {0}", CurrentPatternStep.StepName);
-                CurrentPattern.NextStep();
+                CurrentPattern.MoveToNextStep();
             }
-            else
-            {
-                Log.Info(LogTags.Pattern, "스텝을 반복합니다. 현재 스텝: {0}, 반복 횟수: {1}/{2}", CurrentPatternStep.StepName, CurrentPatternStep.CurrentRepeatCount, CurrentPatternStep.CurrentRepeatMaxCount);             
-            }
-        }
-
-        public void ProcessStep()
-        {
-            if (CurrentPatternStep == null)
-            {
-                return;
-            }
-
-            Log.Info(LogTags.Pattern, "스텝 처리. Pattern: {0}, Step: {1}", CurrentPattern.Name, CurrentPatternStep.StepName);
-            CurrentPatternStep.ProcessStep();
         }
 
         public void ProcessNextStep()
@@ -364,6 +379,10 @@ namespace TeamSuneat
             ProcessStep();
         }
 
+        #endregion 스텝 실행
+
+        #region 스텝 제어
+
         public void SkipToNextStep()
         {
             if (CurrentPatternStep == null)
@@ -371,9 +390,51 @@ namespace TeamSuneat
                 return;
             }
 
-            Log.Info(LogTags.Pattern, "스텝을 건너뛰고 다음으로 이동. 현재 스텝: {0}", CurrentPatternStep.StepName);
-            CurrentPattern.NextStep();
+            CurrentPatternStep.ResetCurrentRepeatCount();
+            CurrentPattern.MoveToNextStep();
             ProcessStep();
         }
+
+        public void InterruptCurrentPattern()
+        {
+            if (CurrentPattern == null)
+            {
+                return;
+            }
+
+            SkipToNextStep();
+            _isCurrentPatternInterrupted = true;
+            Log.Info(LogTags.Pattern, "(System) 현재 패턴 스탭이 방해 넘어갑니다. Pattern: {0}", CurrentPattern.Name);
+        }
+
+        #endregion 스텝 제어
+
+        #region 콜백
+
+        public void OnAttackStateExited()
+        {
+            if (_isCurrentPatternInterrupted)
+            {
+                _isCurrentPatternInterrupted = false;
+                return;
+            }
+
+            if (CurrentPatternStep == null)
+            {
+                return;
+            }
+
+            if (CurrentPatternStep.IsCompleteStepRepeat)
+            {
+                CurrentPattern.MoveToNextStep();
+                ProcessStep();
+            }
+            else
+            {
+                CurrentPatternStep.ExecuteNextStep();  // AddRepeatCount + 다음 프레임에 ProcessNextStep 예약
+            }
+        }
+
+        #endregion 콜백
     }
 }

@@ -664,7 +664,7 @@ GameObject:
   - component: {fileID: 573533737}
   - component: {fileID: 573533738}
   m_Layer: 0
-  m_Name: Position Group(Boss1Pattern3JumpLand)
+  m_Name: Position Group(Boss1Pattern4JumpLand)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -705,7 +705,7 @@ MonoBehaviour:
   - {fileID: 279361281}
   - {fileID: 1521724609}
   PositionGroupName: 1
-  PositionGroupNameString: Boss1Pattern3JumpLand
+  PositionGroupNameString: Boss1Pattern4JumpLand
   SortPriority: 2
   IgnoreLastDeckPosition: 0
   UseRandomSortOrder: 0
@@ -2235,10 +2235,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 13.5, y: 6}
-      - {x: -13.5, y: 6}
-      - {x: -13.5, y: -6}
-      - {x: 13.5, y: -6}
+    - - {x: 10.5, y: 6}
+      - {x: -10.5, y: 6}
+      - {x: -10.5, y: -6}
+      - {x: 10.5, y: -6}
   m_UseDelaunayMesh: 0
 --- !u!4 &1772995395
 Transform:
@@ -2267,7 +2267,7 @@ GameObject:
   - component: {fileID: 1830102458}
   - component: {fileID: 1830102457}
   m_Layer: 0
-  m_Name: Position Group(Boss1Pattern3FaceToPositionGroup)
+  m_Name: Position Group(Boss1Pattern4FaceToPositionGroup)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2329,7 +2329,7 @@ MonoBehaviour:
   - {fileID: 1484381027}
   - {fileID: 2057650163}
   PositionGroupName: 2
-  PositionGroupNameString: Boss1Pattern3FaceToPositionGroup
+  PositionGroupNameString: Boss1Pattern4FaceToPositionGroup
   SortPriority: 2
   IgnoreLastDeckPosition: 0
   UseRandomSortOrder: 0

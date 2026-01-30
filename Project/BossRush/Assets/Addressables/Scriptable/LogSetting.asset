@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: LogSetting
   m_EditorClassIdentifier: 
   Detect: 0
-  Physics: 1
+  Physics: 0
   Character: 0
   Player: 0
   Monster: 0
   CharacterSpawn: 0
   CharacterState: 0
-  Pattern: 0
+  Pattern: 1
   TargetJump: 0
   Animation: 0
   Attack: 0

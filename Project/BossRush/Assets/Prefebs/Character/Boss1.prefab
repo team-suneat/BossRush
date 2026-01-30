@@ -46,20 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 772b81523a2d14447b3d33c41f4e604d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: "\uD398\uC774\uC988 1 - 3\uC5F0\uC18D \uC810\uD504 \uACF5\uACA9"
-  CooldownTime: 0.02
-  WaitDuration: 1.34
-  IsCooldown: 0
-  IsWait: 0
-  Order:
-    _isCircular: 0
-    _min: 0
-    _max: 1
-    _current: 0
-  ProbabilityToPicked: 0.25
-  Steps:
-  - {fileID: 2740005677277624331}
-  - {fileID: 5375265686855639819}
+  _name: "3\uC5F0\uC18D \uC810\uD504 \uD328\uD134 (\uD328\uB9C1\uC2DC \uC911\uB2E8)"
+  _cooldownTime: 0.02
+  _waitDuration: 5
+  _probabilityToPicked: 0.2
 --- !u!1 &205437105075656770
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,7 +346,7 @@ GameObject:
   - component: {fileID: 4099146014365758308}
   - component: {fileID: 7388046718793516819}
   m_Layer: 0
-  m_Name: Step (Complete 0)
+  m_Name: Step (Complete)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -401,7 +391,6 @@ MonoBehaviour:
   UseRandomRepeat: 0
   RepeatMinCount: 0
   RepeatMaxCount: 0
-  CurrentRepeatCount: 0
   JumpPositionGroupName: 0
   StepNameString: Complete
   FacingDirectionString: Left
@@ -443,7 +432,7 @@ Transform:
   - {fileID: 1281277992954720282}
   - {fileID: 7745394217889296297}
   - {fileID: 2088006746063314107}
-  m_Father: {fileID: 3261457281909928430}
+  m_Father: {fileID: 2828056905606259147}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4167594173194374041
 MonoBehaviour:
@@ -513,7 +502,7 @@ GameObject:
   - component: {fileID: 8898684809952323589}
   - component: {fileID: 5374503065698002270}
   m_Layer: 0
-  m_Name: Step (AttackWithCheckArea 3)
+  m_Name: Step (AttackWithCheckArea 2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -551,14 +540,13 @@ MonoBehaviour:
   FacePositionGroupName: 0
   FaceAgainstWallDistance: 0
   UseRandomOrder: 0
-  OrderIndex: 3
+  OrderIndex: 2
   OrderMaxIndex: 0
   UseRepeat: 0
   CurrentRepeatMaxCount: 0
   UseRandomRepeat: 0
   RepeatMinCount: 0
   RepeatMaxCount: 0
-  CurrentRepeatCount: 0
   JumpPositionGroupName: 0
   StepNameString: AttackWithCheckArea
   FacingDirectionString: Left
@@ -578,7 +566,7 @@ GameObject:
   - component: {fileID: 7777439557311044516}
   - component: {fileID: 9083502333547290335}
   m_Layer: 0
-  m_Name: Step (Complete 0)
+  m_Name: Step (Complete)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -623,7 +611,6 @@ MonoBehaviour:
   UseRandomRepeat: 0
   RepeatMinCount: 0
   RepeatMaxCount: 0
-  CurrentRepeatCount: 0
   JumpPositionGroupName: 0
   StepNameString: Complete
   FacingDirectionString: Left
@@ -855,8 +842,8 @@ Transform:
   m_Children:
   - {fileID: 291996139518661364}
   - {fileID: 3792864291693766514}
-  - {fileID: 8296462816302655606}
   - {fileID: 9095592225516676998}
+  - {fileID: 8296462816302655606}
   - {fileID: 6762169201033801676}
   m_Father: {fileID: 4312219340620469151}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -890,7 +877,7 @@ GameObject:
   - component: {fileID: 5093833467233254059}
   - component: {fileID: 3425876299677671618}
   m_Layer: 0
-  m_Name: Step (Attack 2)
+  m_Name: Step (Attack 3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -928,14 +915,13 @@ MonoBehaviour:
   FacePositionGroupName: 0
   FaceAgainstWallDistance: 0
   UseRandomOrder: 0
-  OrderIndex: 2
+  OrderIndex: 3
   OrderMaxIndex: 0
   UseRepeat: 0
   CurrentRepeatMaxCount: 0
   UseRandomRepeat: 0
   RepeatMinCount: 0
   RepeatMaxCount: 0
-  CurrentRepeatCount: 0
   JumpPositionGroupName: 0
   StepNameString: Attack
   FacingDirectionString: Left
@@ -955,7 +941,7 @@ GameObject:
   - component: {fileID: 7145494472061484664}
   - component: {fileID: 2788128771688974225}
   m_Layer: 0
-  m_Name: Step (JumpToPositionGroup 0)
+  m_Name: Step (JumpToPositionGroup)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1000,12 +986,11 @@ MonoBehaviour:
   UseRandomRepeat: 0
   RepeatMinCount: 0
   RepeatMaxCount: 0
-  CurrentRepeatCount: 0
   JumpPositionGroupName: 1
   StepNameString: JumpToPositionGroup
   FacingDirectionString: Left
   FacePositionGroupNameString: None
-  JumpPositionGroupNameString: Boss1Pattern3JumpLand
+  JumpPositionGroupNameString: Boss1Pattern4JumpLand
   OnFailureCallback:
     m_PersistentCalls:
       m_Calls: []
@@ -1020,7 +1005,7 @@ GameObject:
   - component: {fileID: 9095592225516676998}
   - component: {fileID: 1548436421312018155}
   m_Layer: 0
-  m_Name: Pattern (3)
+  m_Name: Pattern (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1055,20 +1040,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 772b81523a2d14447b3d33c41f4e604d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: "\uD398\uC774\uC988 1 - \uAE30\uC220 \uD328\uB9C1 \uACF5\uACA9"
-  CooldownTime: 0.02
-  WaitDuration: 1.06
-  IsCooldown: 0
-  IsWait: 0
-  Order:
-    _isCircular: 0
-    _min: 0
-    _max: 1
-    _current: 0
-  ProbabilityToPicked: 0
-  Steps:
-  - {fileID: 5374503065698002270}
-  - {fileID: 9083502333547290335}
+  _name: "\uAE30\uC220 \uD328\uB9C1 \uACF5\uACA9 \uD328\uD134"
+  _cooldownTime: 0.02
+  _waitDuration: 5
+  _probabilityToPicked: 0.2
 --- !u!1 &2528712602095307911
 GameObject:
   m_ObjectHideFlags: 0
@@ -1233,7 +1208,6 @@ Transform:
   - {fileID: 3983054896381727412}
   - {fileID: 5752919124375933058}
   - {fileID: 4750677680634852237}
-  - {fileID: 8349551235745071463}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &4702711960246884916
@@ -1603,7 +1577,6 @@ MonoBehaviour:
   UseRandomRepeat: 0
   RepeatMinCount: 0
   RepeatMaxCount: 0
-  CurrentRepeatCount: 0
   JumpPositionGroupName: 0
   StepNameString: AttackWithCheckArea
   FacingDirectionString: Left
@@ -1623,7 +1596,7 @@ GameObject:
   - component: {fileID: 8582000355653155915}
   - component: {fileID: 2038201562409382727}
   m_Layer: 0
-  m_Name: Step (Complete 0)
+  m_Name: Step (Complete)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1668,7 +1641,6 @@ MonoBehaviour:
   UseRandomRepeat: 0
   RepeatMinCount: 0
   RepeatMaxCount: 0
-  CurrentRepeatCount: 0
   JumpPositionGroupName: 0
   StepNameString: Complete
   FacingDirectionString: Left
@@ -1732,7 +1704,7 @@ GameObject:
   - component: {fileID: 547291897023309811}
   - component: {fileID: 6178378166138537418}
   m_Layer: 0
-  m_Name: Step (Complete 0)
+  m_Name: Step (Complete)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1777,7 +1749,6 @@ MonoBehaviour:
   UseRandomRepeat: 0
   RepeatMinCount: 0
   RepeatMaxCount: 0
-  CurrentRepeatCount: 0
   JumpPositionGroupName: 0
   StepNameString: Complete
   FacingDirectionString: Left
@@ -1797,7 +1768,7 @@ GameObject:
   - component: {fileID: 5507481741422245267}
   - component: {fileID: 4554784238884704067}
   m_Layer: 0
-  m_Name: Step (JumpToTarget 0)
+  m_Name: Step (JumpToTarget)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1842,7 +1813,6 @@ MonoBehaviour:
   UseRandomRepeat: 0
   RepeatMinCount: 0
   RepeatMaxCount: 0
-  CurrentRepeatCount: 0
   JumpPositionGroupName: 0
   StepNameString: JumpToTarget
   FacingDirectionString: Left
@@ -2024,20 +1994,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 772b81523a2d14447b3d33c41f4e604d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: "\uD398\uC774\uC988 1 - 3\uC5F0\uC18D \uACF5\uACA9"
-  CooldownTime: 0.02
-  WaitDuration: 2.17
-  IsCooldown: 0
-  IsWait: 0
-  Order:
-    _isCircular: 0
-    _min: 0
-    _max: 1
-    _current: 0
-  ProbabilityToPicked: 0.25
-  Steps:
-  - {fileID: 2973076621653177930}
-  - {fileID: 7388046718793516819}
+  _name: "3\uC5F0\uC18D \uACF5\uACA9 \uD328\uD134"
+  _cooldownTime: 0.02
+  _waitDuration: 5
+  _probabilityToPicked: 0.2
 --- !u!1 &4525691892929354126
 GameObject:
   m_ObjectHideFlags: 0
@@ -2097,7 +2057,7 @@ GameObject:
   - component: {fileID: 3888767078483987151}
   - component: {fileID: 1156885559627359544}
   m_Layer: 0
-  m_Name: Step (FaceToPositionGroup 0)
+  m_Name: Step (FaceToPositionGroup)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2142,11 +2102,10 @@ MonoBehaviour:
   UseRandomRepeat: 0
   RepeatMinCount: 0
   RepeatMaxCount: 0
-  CurrentRepeatCount: 0
   JumpPositionGroupName: 0
   StepNameString: FaceToPositionGroup
   FacingDirectionString: Left
-  FacePositionGroupNameString: Boss1Pattern3FaceToPositionGroup
+  FacePositionGroupNameString: Boss1Pattern4FaceToPositionGroup
   JumpPositionGroupNameString: None
   OnFailureCallback:
     m_PersistentCalls:
@@ -2182,6 +2141,7 @@ Transform:
   m_Children:
   - {fileID: 4312219340620469151}
   - {fileID: 164146097516395150}
+  - {fileID: 8349551235745071463}
   m_Father: {fileID: 3261457281909928430}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4942368222365858670
@@ -2705,20 +2665,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 772b81523a2d14447b3d33c41f4e604d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: "\uD398\uC774\uC988 1 - \uD50C\uB808\uC774\uC5B4\uB85C \uC810\uD504"
-  CooldownTime: 0.02
-  WaitDuration: 1.5
-  IsCooldown: 0
-  IsWait: 0
-  Order:
-    _isCircular: 0
-    _min: 0
-    _max: 1
-    _current: 0
-  ProbabilityToPicked: 0.25
-  Steps:
-  - {fileID: 4554784238884704067}
-  - {fileID: 6178378166138537418}
+  _name: "\uC810\uD504 \uD328\uD134"
+  _cooldownTime: 0.02
+  _waitDuration: 1
+  _probabilityToPicked: 0.2
 --- !u!1 &6028425113610153870
 GameObject:
   m_ObjectHideFlags: 0
@@ -3015,7 +2965,7 @@ GameObject:
   - component: {fileID: 7251991786523116388}
   - component: {fileID: 5375265686855639819}
   m_Layer: 0
-  m_Name: Step (Complete 0)
+  m_Name: Step (Complete)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3060,7 +3010,6 @@ MonoBehaviour:
   UseRandomRepeat: 0
   RepeatMinCount: 0
   RepeatMaxCount: 0
-  CurrentRepeatCount: 0
   JumpPositionGroupName: 0
   StepNameString: Complete
   FacingDirectionString: Left
@@ -3080,7 +3029,7 @@ GameObject:
   - component: {fileID: 8296462816302655606}
   - component: {fileID: 3989028084591200867}
   m_Layer: 0
-  m_Name: Pattern (2)
+  m_Name: Pattern (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3117,22 +3066,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 772b81523a2d14447b3d33c41f4e604d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: "\uD398\uC774\uC988 1 - \uD328\uB9C1 \uBD88\uAC00 \uC810\uD504 \uACF5\uACA9"
-  CooldownTime: 0.02
-  WaitDuration: 1.06
-  IsCooldown: 0
-  IsWait: 0
-  Order:
-    _isCircular: 0
-    _min: 0
-    _max: 3
-    _current: 0
-  ProbabilityToPicked: 0.25
-  Steps:
-  - {fileID: 2788128771688974225}
-  - {fileID: 1156885559627359544}
-  - {fileID: 3425876299677671618}
-  - {fileID: 2038201562409382727}
+  _name: "\uD328\uB9C1 \uBD88\uAC00 \uC810\uD504 \uACF5\uACA9 \uD328\uD134"
+  _cooldownTime: 0.02
+  _waitDuration: 5
+  _probabilityToPicked: 0.2
 --- !u!1 &7673553204906463162
 GameObject:
   m_ObjectHideFlags: 0
@@ -3238,7 +3175,6 @@ MonoBehaviour:
   UseRandomRepeat: 0
   RepeatMinCount: 0
   RepeatMaxCount: 0
-  CurrentRepeatCount: 0
   JumpPositionGroupName: 0
   StepNameString: AttackWithFace
   FacingDirectionString: Left
@@ -3463,8 +3399,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c3f6430ae8fbf048ad11f8210780f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dustVFXPrefab: {fileID: 0}
   _jumpForceVelocityNames: 07000000
+  _jumpForceVelocityNamesString:
+  - Boss1Pattern2Jump
+  _dustVFXPrefab: {fileID: 0}
 --- !u!1 &8875021917511474669
 GameObject:
   m_ObjectHideFlags: 0

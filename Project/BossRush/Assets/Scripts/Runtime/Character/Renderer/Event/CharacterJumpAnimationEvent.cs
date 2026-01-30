@@ -1,15 +1,35 @@
+using Sirenix.OdinInspector;
+using System.Diagnostics;
 using UnityEngine;
 
 namespace TeamSuneat
 {
     public class CharacterJumpAnimationEvent : MonoBehaviour
     {
-        [SerializeField]
-        private GameObject _dustVFXPrefab;
         private Character _character;
 
-        [SerializeField]
-        private FVNames[] _jumpForceVelocityNames;
+        [Title("#ForceVelocity")]
+        [SerializeField] private FVNames[] _jumpForceVelocityNames;
+        [SerializeField] private string[] _jumpForceVelocityNamesString;
+
+        [Title("#VFX")]
+        [SerializeField] private GameObject _dustVFXPrefab;
+
+        [FoldoutGroup("#Buttons", 999)]
+        [Button("Auto Setting", ButtonSizes.Medium)]
+        [Conditional("UNITY_EDITOR")]
+        private void AutoSetting()
+        {
+            if (_jumpForceVelocityNames != null)
+            {
+                _jumpForceVelocityNamesString = _jumpForceVelocityNames.ToStringArray();
+            }
+        }
+
+        private void OnValidate()
+        {
+            EnumEx.ConvertTo(ref _jumpForceVelocityNames, _jumpForceVelocityNamesString);
+        }
 
         private void Awake()
         {

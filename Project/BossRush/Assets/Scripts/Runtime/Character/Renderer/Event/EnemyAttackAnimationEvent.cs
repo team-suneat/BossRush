@@ -44,7 +44,7 @@ namespace TeamSuneat
         // 애니메이션 이벤트로 호출됩니다. 패링 가능한 공격 준비 VFX를 생성합니다 (패링시 스턴).
         private void SpawnParryableWithStunAttackReadyVFX()
         {
-            SpawnAttackReadyVFXInternal(ParryTypes.ParryableWithStun);
+            SpawnAttackReadyVFXInternal(ParryTypes.CounterParryable);
         }
 
         // 애니메이션 이벤트로 호출됩니다. 패링 불가능한 공격 준비 VFX를 생성합니다.
@@ -84,7 +84,7 @@ namespace TeamSuneat
                 case ParryTypes.Parryable:
                     return _parryableAttackReadyVFX;
 
-                case ParryTypes.ParryableWithStun:
+                case ParryTypes.CounterParryable:
                     return _parryableWithStunAttackReadyVFX;
 
                 case ParryTypes.Unparryable:

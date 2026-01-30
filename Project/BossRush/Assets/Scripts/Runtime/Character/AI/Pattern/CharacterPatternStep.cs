@@ -53,7 +53,7 @@ namespace TeamSuneat
         [SuffixLabel("무작위 반복 최대 횟수")]
         public int RepeatMaxCount;
 
-        [HideInInspector] public int CurrentRepeatCount;
+        public int CurrentRepeatCount { get; private set; }
 
         [Title("#Jump")]
         [ShowIf("StepName", PatternStepNames.JumpToPositionGroup)]
@@ -93,17 +93,22 @@ namespace TeamSuneat
 
         private void OnValidate()
         {
-            EnumEx.ConvertTo(ref StepName, StepNameString);
-            EnumEx.ConvertTo(ref FacingDirection, FacingDirectionString);
-            EnumEx.ConvertTo(ref FacePositionGroupName, FacePositionGroupNameString);
-            EnumEx.ConvertTo(ref JumpPositionGroupName, JumpPositionGroupNameString);
+            _ = EnumEx.ConvertTo(ref StepName, StepNameString);
+            _ = EnumEx.ConvertTo(ref FacingDirection, FacingDirectionString);
+            _ = EnumEx.ConvertTo(ref FacePositionGroupName, FacePositionGroupNameString);
+            _ = EnumEx.ConvertTo(ref JumpPositionGroupName, JumpPositionGroupNameString);
         }
 
         public override void AutoNaming()
         {
-            string gameObjectName = string.Format("Step ({0} {1})", StepName.ToString(), OrderIndex);
-
-            SetGameObjectName(gameObjectName);
+            if (StepName is PatternStepNames.Attack or PatternStepNames.AttackWithFace or PatternStepNames.AttackWithCheckArea)
+            {
+                SetGameObjectName($"Step ({StepName} {OrderIndex})");
+            }
+            else
+            {
+                SetGameObjectName($"Step ({StepName})");
+            }
         }
 
         private void Awake()
@@ -160,7 +165,7 @@ namespace TeamSuneat
                     {
                         if (ExecuteConditionalGroundStep())
                         {
-                            Pattern.StartPatternWaitTime(System.PickPattern);
+                            Pattern.StartWait(System.PickPattern);
                         }
                     }
                     break;
@@ -169,7 +174,7 @@ namespace TeamSuneat
                     {
                         if (ExecuteConditionalPlatformStep())
                         {
-                            Pattern.StartPatternWaitTime(System.PickPattern);
+                            Pattern.StartWait(System.PickPattern);
                         }
                     }
                     break;
@@ -237,11 +242,18 @@ namespace TeamSuneat
 
                 case PatternStepNames.Complete:
                     {
-                        Pattern.StartPatternCooldownTime();
-                        Pattern.StartPatternWaitTime(System.PickPattern);
+                        Pattern.StartCooldown();
+                        Pattern.StartWait(System.PickPattern);
                     }
                     break;
             }
+        }
+
+        public void ResetCurrentRepeatCount()
+        {
+            CurrentRepeatCount = 0;
+
+            Log.Info(LogTags.Pattern, "{0}, 패턴의 반복 횟수를 초기화합니다. 단계: {1}", Pattern.Name.ToSelectString(), StepName.ToSelectString());
         }
 
         protected void AddRepeatCount()
@@ -276,7 +288,7 @@ namespace TeamSuneat
 
         #region Execute
 
-        private void ExecuteNextStep()
+        public void ExecuteNextStep()
         {
             if (_nextStepCoroutine != null)
             {
@@ -415,7 +427,7 @@ namespace TeamSuneat
 
         private void ExecuteAttackStep()
         {
-            int stepOrder = Pattern.GetStepOrder();
+            int stepOrder = Pattern.GetCurrentStepOrder();
 
             if (Owner.StateMachine is MonsterStateMachine monsterStateMachine)
             {
@@ -448,7 +460,7 @@ namespace TeamSuneat
                 return;
             }
 
-            int stepOrder = Pattern.GetStepOrder();
+            int stepOrder = Pattern.GetCurrentStepOrder();
 
             if (Owner.StateMachine is MonsterStateMachine monsterStateMachine)
             {
@@ -500,8 +512,6 @@ namespace TeamSuneat
         {
             OnFailureCallback?.Invoke();
         }
-
-        private readonly Coroutine _commandCoroutine;
 
         private void StartExecuteCommand(CharacterCommand command)
         {

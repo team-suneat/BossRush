@@ -8,13 +8,13 @@ namespace TeamSuneat
         None,
 
         /// <summary>
-        /// 보스 1 패턴 3 패링 불가 공격의 점프 착지 포지션 그룹
+        /// 첫 번째 보스의 네 번째 패턴 - 패링 불가 공격 (점프 + 공격) 착지 포지션 그룹
         /// </summary>
-        Boss1Pattern3JumpLand,
+        Boss1Pattern4JumpLand,
 
         /// <summary>
-        /// 보스 1 패턴 3 패링 불가 공격의 바라보는 목표 포지션 그룹
+        /// 첫 번째 보스의 네 번째 패턴 - 패링 불가 공격 (점프 + 공격) 바라보는 목표 포지션 그룹
         /// </summary>
-        Boss1Pattern3FaceToPositionGroup,
+        Boss1Pattern4FaceToPositionGroup,
     }
 }

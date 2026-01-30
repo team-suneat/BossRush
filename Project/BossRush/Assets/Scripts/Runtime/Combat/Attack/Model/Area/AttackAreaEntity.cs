@@ -180,7 +180,10 @@ namespace TeamSuneat
 
         private IEnumerator ToggleColliderForReentry()
         {
-            if (_attackCollider == null) yield break;
+            if (_attackCollider == null)
+            {
+                yield break;
+            }
 
             // 충돌체 비활성화
             DeactivateCollider();
@@ -192,8 +195,6 @@ namespace TeamSuneat
             ActivateCollider();
             _toggleColliderCoroutine = null;
         }
-
-
 
         public override void Activate()
         {
@@ -407,10 +408,7 @@ namespace TeamSuneat
                     // 충돌체 토글 시 무시 목록을 클리어하여 재충돌을 허용
                     ClearIgnoringObjects();
 
-                    if (_toggleColliderCoroutine == null)
-                    {
-                        _toggleColliderCoroutine = StartXCoroutine(ToggleColliderForReentry());
-                    }
+                    _toggleColliderCoroutine ??= StartXCoroutine(ToggleColliderForReentry());
                 }
                 else if (UseIgnoreHitTarget)
                 {
@@ -462,7 +460,7 @@ namespace TeamSuneat
             }
 
             // 패링 불가능한 공격인지 확인
-            if (parryType == ParryTypes.Unparryable)
+            if (parryType != ParryTypes.Parryable)
             {
                 return false;
             }
@@ -473,12 +471,10 @@ namespace TeamSuneat
                 return false;
             }
 
-            // 공격 위치 계산
-            Vector3 attackPosition = _attackCollider != null
-                ? _attackCollider.transform.position
-                : transform.position;
+            // 공격자 위치 계산
+            Vector3 attackPosition = Owner != null ? Owner.position : position;
 
-            // 피격자가 공격 방향을 바라보고 있는지 확인
+            // 피격자가 공격자를 바라보고 있는지 확인
             Vector3 targetPosition = targetCharacter.transform.position;
             bool isAttackRight = attackPosition.x > targetPosition.x;
             if (targetCharacter.IsFacingRight != isAttackRight)

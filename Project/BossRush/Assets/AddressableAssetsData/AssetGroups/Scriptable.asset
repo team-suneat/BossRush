@@ -129,6 +129,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3281edcadbc74e04bbe46c2f6641d1ad
+    m_Address: Assets/Addressables/Scriptable/ForceVelocity/ForceVelocity_Boss1Pattern4Knockback.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3377b6e0f9ae96a4ca59b750b38be2b3
     m_Address: Assets/Addressables/Scriptable/Hitmark/Hitmark_FirstBossAttack3.asset
     m_ReadOnly: 0

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace TeamSuneat
@@ -111,8 +111,7 @@ namespace TeamSuneat
             MonsterCharacter enemy = _owner as MonsterCharacter;
             if (enemy != null && enemy.Pattern != null)
             {
-                enemy.Pattern.NextStep();
-                enemy.Pattern.ProcessStep();
+                enemy.Pattern.OnAttackStateExited();
             }
         }
 

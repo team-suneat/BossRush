@@ -10,9 +10,9 @@ namespace TeamSuneat
         Parryable,
 
         /// <summary>
-        /// 패링 가능 (패링시 스턴)
+        /// 반격 패링 가능 (스킬 패링 성공 시 공격자 기절)
         /// </summary>
-        ParryableWithStun,
+        CounterParryable,
 
         /// <summary>
         /// 패링 불가
