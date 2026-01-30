@@ -19,71 +19,32 @@ namespace TeamSuneat
         [ReadOnly] public bool IsCooldown;
         [ReadOnly] public bool IsWait;
 
-        [Title("#Order")]
-        public Order Order;
-
         [Title("#Probability")]
-        [Range(0f,1f)]
+        [Range(0f, 1f)]
         public float ProbabilityToPicked = 1f;
 
-        [Title("#Step")]
-        public CharacterPatternStep[] Steps;
-
+        private CharacterPatternStep[] _patternSteps;
+        private Order _patternOrder = new Order();
         private Coroutine _cooldownCoroutine;
         private Coroutine _waitCoroutine;
 
-        public override void AutoSetting()
+        private void Awake()
         {
-            base.AutoSetting();
-
-            RefreshOrderMax();
-
-            if (Steps != null)
-            {
-                Log.Info(LogTags.Pattern, "{0}, AutoSetting 시작. Steps 개수: {1}", Name.ToSelectString(), Steps.Length);
-                for (int i = 0; i < Steps.Length; i++)
-                {
-                    Steps[i].AutoSetting();
-                }
-            }
-            else
-            {
-                Log.Warning(LogTags.Pattern, "{0}, Steps가 null입니다. AutoSetting을 수행할 수 없습니다.", Name.ToSelectString());
-            }
-        }
-
-        public override void AutoGetComponents()
-        {
-            base.AutoGetComponents();
-
-            Steps = GetComponentsInChildren<CharacterPatternStep>();
-
-            if (Steps != null)
-            {
-                Log.Info(LogTags.Pattern, "{0}, AutoGetComponents 완료. Steps 개수: {1}", Name.ToSelectString(), Steps.Length);
-                for (int i = 0; i < Steps.Length; i++)
-                {
-                    Steps[i].AutoGetComponents();
-                }
-            }
-            else
-            {
-                Log.Warning(LogTags.Pattern, "{0}, Steps를 찾을 수 없습니다. AutoGetComponents를 수행할 수 없습니다.", Name.ToSelectString());
-            }
+            _patternSteps = GetComponentsInChildren<CharacterPatternStep>();
         }
 
         public CharacterPatternStep GetStep()
         {
-            if (Steps != null)
+            if (_patternSteps != null)
             {
-                if (Steps.Length > Order.Current)
+                if (_patternSteps.Length > _patternOrder.Current)
                 {
-                    return Steps[Order.Current];
+                    return _patternSteps[_patternOrder.Current];
                 }
                 else
                 {
-                    Log.Warning(LogTags.Pattern, "{0}, Step 인덱스가 범위를 벗어났습니다. Current: {1}, Steps.Length: {2}", 
-                        Name.ToSelectString(), Order.Current, Steps.Length);
+                    Log.Warning(LogTags.Pattern, "{0}, Step 인덱스가 범위를 벗어났습니다. Current: {1}, Steps.Length: {2}",
+                        Name.ToSelectString(), _patternOrder.Current, _patternSteps.Length);
                 }
             }
             else
@@ -96,16 +57,16 @@ namespace TeamSuneat
 
         public PatternStepNames GetStepName()
         {
-            if (Steps != null)
+            if (_patternSteps != null)
             {
-                if (Steps.Length > Order.Current)
+                if (_patternSteps.Length > _patternOrder.Current)
                 {
-                    return Steps[Order.Current].StepName;
+                    return _patternSteps[_patternOrder.Current].StepName;
                 }
                 else
                 {
-                    Log.Warning(LogTags.Pattern, "{0}, Step 인덱스가 범위를 벗어났습니다. Current: {1}, Steps.Length: {2}", 
-                        Name.ToSelectString(), Order.Current, Steps.Length);
+                    Log.Warning(LogTags.Pattern, "{0}, Step 인덱스가 범위를 벗어났습니다. Current: {1}, Steps.Length: {2}",
+                        Name.ToSelectString(), _patternOrder.Current, _patternSteps.Length);
                 }
             }
             else
@@ -118,28 +79,28 @@ namespace TeamSuneat
 
         public int GetStepOrder()
         {
-            if (Steps != null)
+            if (_patternSteps != null)
             {
-                int currentOrder = Order.Current;
+                int currentOrder = _patternOrder.Current;
 
-                if (Steps.Length > currentOrder)
+                if (_patternSteps.Length > currentOrder)
                 {
-                    if (Steps[currentOrder].UseRandomOrder)
+                    if (_patternSteps[currentOrder].UseRandomOrder)
                     {
-                        int randomOrder = RandomEx.Range(0, Steps[currentOrder].OrderMaxIndex);
-                        Log.Info(LogTags.Pattern, "{0}, 랜덤 순서를 사용합니다. 범위: 0~{1}, 선택된 값: {2}", 
-                            Name.ToSelectString(), Steps[currentOrder].OrderMaxIndex, randomOrder);
+                        int randomOrder = RandomEx.Range(0, _patternSteps[currentOrder].OrderMaxIndex);
+                        Log.Info(LogTags.Pattern, "{0}, 랜덤 순서를 사용합니다. 범위: 0~{1}, 선택된 값: {2}",
+                            Name.ToSelectString(), _patternSteps[currentOrder].OrderMaxIndex, randomOrder);
                         return randomOrder;
                     }
                     else
                     {
-                        return Steps[currentOrder].OrderIndex;
+                        return _patternSteps[currentOrder].OrderIndex;
                     }
                 }
                 else
                 {
-                    Log.Warning(LogTags.Pattern, "{0}, Step 인덱스가 범위를 벗어났습니다. Current: {1}, Steps.Length: {2}", 
-                        Name.ToSelectString(), currentOrder, Steps.Length);
+                    Log.Warning(LogTags.Pattern, "{0}, Step 인덱스가 범위를 벗어났습니다. Current: {1}, Steps.Length: {2}",
+                        Name.ToSelectString(), currentOrder, _patternSteps.Length);
                 }
             }
             else
@@ -153,22 +114,22 @@ namespace TeamSuneat
         public void FirstStep()
         {
             Log.Info(LogTags.Pattern, "{0}, 첫 번째 스텝으로 이동합니다.", Name.ToSelectString());
-            Order.First();
+            _patternOrder.First();
         }
 
         public void NextStep()
         {
-            bool hasNext = Order.Next();
-            Log.Info(LogTags.Pattern, "{0}, 다음 스텝으로 이동합니다. Current: {1}, HasNext: {2}", 
-                Name.ToSelectString(), Order.Current, hasNext);
+            bool hasNext = _patternOrder.Next();
+            Log.Info(LogTags.Pattern, "{0}, 다음 스텝으로 이동합니다. Current: {1}, HasNext: {2}",
+                Name.ToSelectString(), _patternOrder.Current, hasNext);
         }
 
         public void RefreshOrderMax()
         {
-            if (Steps != null && Steps.Length > 0)
+            if (_patternSteps != null && _patternSteps.Length > 0)
             {
-                Order.SetMax(Steps.Length - 1);
-                Log.Info(LogTags.Pattern, "{0}, Order 최대값을 갱신합니다. Max: {1}", Name.ToSelectString(), Steps.Length - 1);
+                _patternOrder.SetMax(_patternSteps.Length - 1);
+                Log.Info(LogTags.Pattern, "{0}, Order 최대값을 갱신합니다. Max: {1}", Name.ToSelectString(), _patternSteps.Length - 1);
             }
             else
             {

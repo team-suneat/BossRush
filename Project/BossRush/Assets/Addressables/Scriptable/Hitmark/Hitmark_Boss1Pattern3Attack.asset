@@ -46,7 +46,7 @@ MonoBehaviour:
     DamageKnockbackFVName: 11
     ParryType: 3
     ParryKnockbackType: 3
-    ParryKnockbackFVName: 12
+    ParryKnockbackFVName: 13
     HitFXPrefabName: fx_scarecrow_attack_success
     DamageTypeString: Normal
     LinkedDamageTypeString: None

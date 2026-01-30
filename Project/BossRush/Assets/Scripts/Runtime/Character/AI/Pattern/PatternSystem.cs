@@ -46,6 +46,7 @@ namespace TeamSuneat
         protected override void OnStart()
         {
             base.OnStart();
+
             SetPatternProbabilities();
         }
 
@@ -87,13 +88,13 @@ namespace TeamSuneat
                     CharacterPattern currentPattern = currentPhase.Patterns[j];
                     if (currentPattern != null)
                     {
+                        currentPattern.RefreshOrderMax();
                         patternProbabilities.Add(currentPattern.ProbabilityToPicked);
                     }
                 }
             }
 
             _patternOrder.SetMax(patternCount);
-
             if (patternProbabilities.Count > 0 && _gacha != null)
             {
                 _gacha.Clear();
@@ -226,7 +227,7 @@ namespace TeamSuneat
                 if (patterns[i] != null && !_usablePatterns.Contains(patterns[i]))
                 {
                     _usablePatterns.Add(patterns[i]);
-                    Log.Info(LogTags.Pattern, "사용하는 패턴을 추가합니다. Order: {0}, Name: {1}", patterns[i].Order, patterns[i].Name);
+                    Log.Info(LogTags.Pattern, "사용하는 패턴을 삭제합니다. Name: {0}", patterns[i].Name);
                 }
             }
 
@@ -248,7 +249,7 @@ namespace TeamSuneat
                 if (patterns[i] != null && _usablePatterns.Contains(patterns[i]))
                 {
                     _usablePatterns.Remove(patterns[i]);
-                    Log.Info(LogTags.Pattern, "사용하지 않는 패턴을 삭제합니다. Order: {0}, Name: {1}", patterns[i].Order, patterns[i].Name);
+                    Log.Info(LogTags.Pattern, "사용하지 않는 패턴을 삭제합니다. Name: {0}", patterns[i].Name);
                 }
             }
 
@@ -340,6 +341,10 @@ namespace TeamSuneat
                 Log.Info(LogTags.Pattern, "다음 스텝으로 이동. 현재 스텝: {0}", CurrentPatternStep.StepName);
                 CurrentPattern.NextStep();
             }
+            else
+            {
+                Log.Info(LogTags.Pattern, "스텝을 반복합니다. 현재 스텝: {0}, 반복 횟수: {1}/{2}", CurrentPatternStep.StepName, CurrentPatternStep.CurrentRepeatCount, CurrentPatternStep.CurrentRepeatMaxCount);             
+            }
         }
 
         public void ProcessStep()
@@ -356,6 +361,18 @@ namespace TeamSuneat
         public void ProcessNextStep()
         {
             NextStep();
+            ProcessStep();
+        }
+
+        public void SkipToNextStep()
+        {
+            if (CurrentPatternStep == null)
+            {
+                return;
+            }
+
+            Log.Info(LogTags.Pattern, "스텝을 건너뛰고 다음으로 이동. 현재 스텝: {0}", CurrentPatternStep.StepName);
+            CurrentPattern.NextStep();
             ProcessStep();
         }
     }

@@ -10,29 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41d55d7fd76831a41bb643a1b85440b9, type: 3}
-  m_Name: ForceVelocity_Boss1Pattern2Attack
+  m_Name: ForceVelocity_Boss1Pattern2Jump
   m_EditorClassIdentifier: 
-  NameString: Boss1Pattern2Attack
+  NameString: Boss1Pattern2Jump
   Data:
     IsChangingAsset: 0
-    Name: 8
+    Name: 7
     Subject: 1
     IsDamage: 0
     IsPiercing: 0
     Application: 1
     Stats: 
-    Priority: 1
+    Priority: 0
     Direction: 1
-    ForceVelocity: {x: 29, y: 0}
+    ForceVelocity: {x: 1, y: 4}
     Acceleration: {x: 0, y: 0}
-    Gravity: 1
+    Gravity: 0
     Friction: 0
     AirResist: 0
     AirResistFlyingMonster: 0
     Delay: 0
     Duration: 0.2
     DirectionalType: 1
-    GravityType: 1
+    GravityType: 0
     AccelerationType: 0
     FrictionType: 0
     StopOnCollisionType: 0
@@ -42,7 +42,7 @@ MonoBehaviour:
     StatString: []
     DirectionString: Face
     DirectionalTypeString: Facing
-    GravityTypeString: UseGravity
+    GravityTypeString: None
     AccelerationTypeString: None
     FrictionTypeString: None
     StopOnCollisionTypeString: None

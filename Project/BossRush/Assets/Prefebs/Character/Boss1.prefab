@@ -52,11 +52,11 @@ MonoBehaviour:
   IsCooldown: 0
   IsWait: 0
   Order:
-    _isCircular: 1
+    _isCircular: 0
     _min: 0
     _max: 1
     _current: 0
-  ProbabilityToPicked: 0
+  ProbabilityToPicked: 0.25
   Steps:
   - {fileID: 2740005677277624331}
   - {fileID: 5375265686855639819}
@@ -1055,13 +1055,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 772b81523a2d14447b3d33c41f4e604d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: "\uD398\uC774\uC988 1 - \uB3CC\uC9C4 \uACF5\uACA9"
+  Name: "\uD398\uC774\uC988 1 - \uAE30\uC220 \uD328\uB9C1 \uACF5\uACA9"
   CooldownTime: 0.02
   WaitDuration: 1.06
   IsCooldown: 0
   IsWait: 0
   Order:
-    _isCircular: 1
+    _isCircular: 0
     _min: 0
     _max: 1
     _current: 0
@@ -2030,11 +2030,11 @@ MonoBehaviour:
   IsCooldown: 0
   IsWait: 0
   Order:
-    _isCircular: 1
+    _isCircular: 0
     _min: 0
     _max: 1
     _current: 0
-  ProbabilityToPicked: 0
+  ProbabilityToPicked: 0.25
   Steps:
   - {fileID: 2973076621653177930}
   - {fileID: 7388046718793516819}
@@ -2711,11 +2711,11 @@ MonoBehaviour:
   IsCooldown: 0
   IsWait: 0
   Order:
-    _isCircular: 1
+    _isCircular: 0
     _min: 0
     _max: 1
     _current: 0
-  ProbabilityToPicked: 0
+  ProbabilityToPicked: 0.25
   Steps:
   - {fileID: 4554784238884704067}
   - {fileID: 6178378166138537418}
@@ -3123,13 +3123,14 @@ MonoBehaviour:
   IsCooldown: 0
   IsWait: 0
   Order:
-    _isCircular: 1
+    _isCircular: 0
     _min: 0
-    _max: 1
+    _max: 3
     _current: 0
-  ProbabilityToPicked: 1
+  ProbabilityToPicked: 0.25
   Steps:
   - {fileID: 2788128771688974225}
+  - {fileID: 1156885559627359544}
   - {fileID: 3425876299677671618}
   - {fileID: 2038201562409382727}
 --- !u!1 &7673553204906463162
@@ -3192,7 +3193,7 @@ GameObject:
   - component: {fileID: 8389389166756151824}
   - component: {fileID: 2740005677277624331}
   m_Layer: 0
-  m_Name: Step (AttackWithCheckArea 1)
+  m_Name: Step (AttackWithFace 1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3225,21 +3226,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba50a4ae1187b2d47b236281bd2cd612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StepName: 17
+  StepName: 16
   FacingDirection: 0
   FacePositionGroupName: 0
   FaceAgainstWallDistance: 0
   UseRandomOrder: 0
   OrderIndex: 1
   OrderMaxIndex: 0
-  UseRepeat: 0
-  CurrentRepeatMaxCount: 0
+  UseRepeat: 1
+  CurrentRepeatMaxCount: 3
   UseRandomRepeat: 0
   RepeatMinCount: 0
   RepeatMaxCount: 0
   CurrentRepeatCount: 0
   JumpPositionGroupName: 0
-  StepNameString: AttackWithCheckArea
+  StepNameString: AttackWithFace
   FacingDirectionString: Left
   FacePositionGroupNameString: None
   JumpPositionGroupNameString: None
@@ -3463,6 +3464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dustVFXPrefab: {fileID: 0}
+  _jumpForceVelocityNames: 07000000
 --- !u!1 &8875021917511474669
 GameObject:
   m_ObjectHideFlags: 0

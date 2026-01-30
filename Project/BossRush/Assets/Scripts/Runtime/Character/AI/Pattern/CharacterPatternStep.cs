@@ -266,6 +266,14 @@ namespace TeamSuneat
             _nextStepCoroutine = null;
         }
 
+        protected void SkipToNextStep()
+        {
+            Log.Info(LogTags.Pattern, "{0}, 패턴 스텝을 건너뛰고 다음 단계로 이동합니다. 단계: {1}", Pattern.Name.ToSelectString(), StepName.ToSelectString());
+
+            System.SkipToNextStep();
+            _nextStepCoroutine = null;
+        }
+
         #region Execute
 
         private void ExecuteNextStep()
@@ -436,7 +444,7 @@ namespace TeamSuneat
             {
                 Log.Info(LogTags.Pattern, "{0}, 공격 가능 범위에 타겟이 없습니다. 다음 스텝으로 이동합니다. OrderIndex: {1}",
                     Pattern?.Name.ToSelectString() ?? "Unknown", OrderIndex);
-                ProcessNextStep();
+                SkipToNextStep();
                 return;
             }
 
@@ -462,7 +470,7 @@ namespace TeamSuneat
             {
                 Log.Info(LogTags.Pattern, "{0}, 일방향 플랫폼 위에 있어 다음 스텝으로 이동합니다.",
                     Pattern?.Name.ToSelectString() ?? "Unknown");
-                ProcessNextStep();
+                SkipToNextStep();
                 return false;
             }
 
@@ -477,7 +485,7 @@ namespace TeamSuneat
             {
                 Log.Info(LogTags.Pattern, "{0}, 일방향 플랫폼 위에 있어 다음 스텝으로 이동합니다.",
                     Pattern?.Name.ToSelectString() ?? "Unknown");
-                ProcessNextStep();
+                SkipToNextStep();
                 return false;
             }
 

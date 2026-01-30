@@ -13,6 +13,7 @@ namespace TeamSuneat
             public bool IsParrying;
             public bool IsStunned;
             public bool IsBlockDeathAnimation;
+            public bool IsJumping;
 
             public void Reset()
             {
@@ -22,6 +23,7 @@ namespace TeamSuneat
                 IsParrying = false;
                 IsStunned = false;
                 IsBlockDeathAnimation = false;
+                IsJumping = false;
             }
         }
 
@@ -35,6 +37,7 @@ namespace TeamSuneat
         public virtual bool IsCasting => false;
         public bool IsStunned => _stateFlags.IsStunned;
         public bool IsBlockDeathAnimation => _stateFlags.IsBlockDeathAnimation;
+        public bool IsJumping => _stateFlags.IsJumping;
 
         // 내부 상태 변경 메서드 (필요 시 부가 로직 추가 가능)
         protected void SetAttacking(bool value)
@@ -101,6 +104,14 @@ namespace TeamSuneat
         protected void SetBlockDeathAnimation(bool value)
         {
             _stateFlags.IsBlockDeathAnimation = value;
+        }
+
+        protected void SetJumping(bool value)
+        {
+            if (_stateFlags.IsJumping != value)
+            {
+                _stateFlags.IsJumping = value;
+            }
         }
     }
 }

@@ -33,7 +33,6 @@ MonoBehaviour:
     StopAttackAnimationOnResourceLack: 0
     UseResourceOnActivate: 0
     UseResourceOnApply: 0
-    UseResourceOnAttack: 0
     UseResourceOnAttackSucceeded: 0
     UseResourceOnAttackFailed: 0
     UseResourceOnInactive: 0
@@ -43,7 +42,7 @@ MonoBehaviour:
     ForceResourceConsume: 0
     IgnoreDeathByConsume: 0
     ConsumeDelayTime: 0
-    AttackFVName: 8
+    AttackFVName: 10
     DamageKnockbackFVName: 0
     ParryType: 3
     ParryKnockbackType: 0

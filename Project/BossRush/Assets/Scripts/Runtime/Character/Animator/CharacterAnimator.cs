@@ -228,6 +228,10 @@ namespace TeamSuneat
             {
                 OnAnimatorDashStateEnter();
             }
+            else if (IsJumpReadyState(stateInfo))
+            {
+                OnAnimatorJumpStateEnter();
+            }
             else if (CheckStateNames(stateInfo, "Damage", "DamageGround"))
             {
                 OnAnimatorDamageStateEnter();
@@ -265,6 +269,10 @@ namespace TeamSuneat
             else if (CheckStateNames(stateInfo, "Dash"))
             {
                 OnAnimatorDashStateExit();
+            }
+            else if (IsLandingState(stateInfo))
+            {
+                OnAnimatorJumpStateExit();
             }
             else if (CheckStateNames(stateInfo, "Damage", "DamageGround"))
             {

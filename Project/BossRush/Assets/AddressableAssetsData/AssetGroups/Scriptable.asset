@@ -147,6 +147,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Scriptable
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3e90ee5bbf31d9c4c91e4f049bcc89ef
+    m_Address: Assets/Addressables/Scriptable/ForceVelocity/ForceVelocity_Boss1Pattern2Jump.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scriptable
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4befd4946054ad94a9d051b3b8305115
     m_Address: Assets/Addressables/Scriptable/Charm/4. Counter/Charm_ParryStrike.asset
     m_ReadOnly: 0

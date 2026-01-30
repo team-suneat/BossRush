@@ -15,7 +15,10 @@ namespace TeamSuneat
         Boss1Pattern1Attack1,
         Boss1Pattern1Attack2,
         Boss1Pattern1Attack3,
+
+        Boss1Pattern2Jump,
         Boss1Pattern2Attack,
+        
         Boss1Pattern3Attack,
         Boss1Pattern4Attack,
 
