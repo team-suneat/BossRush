@@ -15,7 +15,7 @@ MonoBehaviour:
   NameString: Boss1Pattern3Attack
   Data:
     IsChangingAsset: 0
-    Name: 9
+    Name: 105
     AttackTargetType: 2
     EntityType: 2
     DamageType: 1
@@ -45,7 +45,7 @@ MonoBehaviour:
     AttackFVName: 9
     DamageKnockbackFVName: 13
     ParryType: 2
-    ParryKnockbackType: 3
+    ParryKnockbackType: 2
     ParryKnockbackFVName: 13
     HitFXPrefabName: fx_scarecrow_attack_success
     DamageTypeString: Normal
@@ -58,5 +58,5 @@ MonoBehaviour:
     AttackFVNameString: Boss1Pattern3Attack
     DamageKnockbackFVNameString: 
     ParryTypeString: CounterParryable
-    ParryKnockbackTypeString: Both
+    ParryKnockbackTypeString: Attacker
     ParryKnockbackFVNameString: Boss1Pattern3Knockback

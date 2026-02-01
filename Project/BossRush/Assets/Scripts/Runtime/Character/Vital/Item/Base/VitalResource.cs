@@ -289,7 +289,7 @@ namespace TeamSuneat
             }
         }
 
-        private void NotifyValueChanged()
+        protected void NotifyValueChanged()
         {
             OnValueChanged?.Invoke(Current, Max);
         }

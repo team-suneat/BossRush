@@ -34,6 +34,7 @@ namespace TeamSuneat
             Life?.Initialize();
             Mana?.Initialize();
             Barrier?.Initialize();
+            Poise?.Initialize();
 
             RegisterVital();
         }
@@ -465,6 +466,13 @@ namespace TeamSuneat
                         return Pulse.Current;
                     }
                     break;
+
+                case VitalResourceTypes.Poise:
+                    if (Poise != null)
+                    {
+                        return Poise.Current;
+                    }
+                    break;
             }
 
             LogErrorFindCurrentResource(resourceType);
@@ -530,6 +538,13 @@ namespace TeamSuneat
                         return Pulse.Max;
                     }
                     break;
+
+                case VitalResourceTypes.Poise:
+                    if (Poise != null)
+                    {
+                        return Poise.Max;
+                    }
+                    break;
             }
 
             return 0f;
@@ -592,6 +607,13 @@ namespace TeamSuneat
                     if (Pulse != null)
                     {
                         return Pulse.Rate;
+                    }
+                    break;
+
+                case VitalResourceTypes.Poise:
+                    if (Poise != null)
+                    {
+                        return Poise.Rate;
                     }
                     break;
             }

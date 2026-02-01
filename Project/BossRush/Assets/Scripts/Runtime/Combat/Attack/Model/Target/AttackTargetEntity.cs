@@ -14,7 +14,7 @@ namespace TeamSuneat
         [FoldoutGroup("#AttackTargetEntity-Times")]
         public float AttackRestTime;
 
-        [FoldoutGroup("#AttackTargetEntity-Decrescence Damage")]
+        [FoldoutGroup("#AttackTargetEntity-Times")]
         public int AdditionalHitCount;
 
         private bool _isRest;

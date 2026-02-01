@@ -56,11 +56,11 @@ namespace TeamSuneat
 
                     if (Input.GetKeyDown(KeyCode.H))
                     {
-                        CharacterManager.Instance.Player.MyVital.Heal(1);
+                        CharacterManager.Instance.Player?.MyVital.Heal(1);
                     }
                     if (Input.GetKeyDown(KeyCode.M))
                     {
-                        CharacterManager.Instance.Player.MyVital.RestoreMana(1);
+                        CharacterManager.Instance.Player?.MyVital.RestoreMana(1);
                     }
                 }
             }

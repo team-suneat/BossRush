@@ -22,29 +22,29 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: -8152050640633876647, guid: 9d9ea72345e4f33449b51954ea03cb6c, type: 3}
-    - time: 0.083333336
+    - time: 0.041666668
       value: {fileID: -2708386759792347292, guid: 9d9ea72345e4f33449b51954ea03cb6c, type: 3}
-    - time: 0.16666667
+    - time: 0.083333336
       value: {fileID: -2184420476989874426, guid: 9d9ea72345e4f33449b51954ea03cb6c, type: 3}
-    - time: 0.25
+    - time: 0.125
       value: {fileID: 2838701123492766386, guid: 9d9ea72345e4f33449b51954ea03cb6c, type: 3}
-    - time: 0.33333334
+    - time: 0.20833333
       value: {fileID: -7893818371957508084, guid: 9d9ea72345e4f33449b51954ea03cb6c, type: 3}
-    - time: 0.375
+    - time: 0.25
       value: {fileID: -7058989938792392837, guid: 9d9ea72345e4f33449b51954ea03cb6c, type: 3}
-    - time: 0.45833334
+    - time: 0.33333334
       value: {fileID: 8851942253490214863, guid: 9d9ea72345e4f33449b51954ea03cb6c, type: 3}
-    - time: 0.5416667
+    - time: 0.41666666
       value: {fileID: -7557700418832034130, guid: 9d9ea72345e4f33449b51954ea03cb6c, type: 3}
-    - time: 0.5833333
+    - time: 0.45833334
       value: {fileID: -5489003726193094419, guid: 9d9ea72345e4f33449b51954ea03cb6c, type: 3}
-    - time: 0.625
+    - time: 0.5
       value: {fileID: -7853924308945283070, guid: 9d9ea72345e4f33449b51954ea03cb6c, type: 3}
-    - time: 0.6666667
+    - time: 0.5416667
       value: {fileID: -1765698584995271539, guid: 9d9ea72345e4f33449b51954ea03cb6c, type: 3}
-    - time: 0.7083333
+    - time: 0.5833333
       value: {fileID: -1345427834589362890, guid: 9d9ea72345e4f33449b51954ea03cb6c, type: 3}
-    - time: 0.75
+    - time: 0.625
       value: {fileID: 8536636444419080650, guid: 9d9ea72345e4f33449b51954ea03cb6c, type: 3}
     attribute: m_Sprite
     path: Body
@@ -86,7 +86,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.7916667
+    m_StopTime: 0.6666667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -106,21 +106,35 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.16666667
+  - time: 0.083333336
     functionName: DisableFlipInput
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.33333334
+  - time: 0.20833333
     functionName: StartAttackAnimationEvent
     data: PlayerSkill1
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.7083333
+  - time: 0.25
+    functionName: CallCastStartAnimationEvent
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5416667
+    functionName: CallCastEndAnimationEvent
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5833333
     functionName: EnableFlipInput
     data: 
     objectReferenceParameter: {fileID: 0}

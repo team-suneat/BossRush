@@ -49,7 +49,7 @@ MonoBehaviour:
   _name: "3\uC5F0\uC18D \uC810\uD504 \uD328\uD134 (\uD328\uB9C1\uC2DC \uC911\uB2E8)"
   _cooldownTime: 0.02
   _waitDuration: 1.34
-  _probabilityToPicked: 0.2
+  _probabilityToPicked: 0
 --- !u!1 &205437105075656770
 GameObject:
   m_ObjectHideFlags: 0
@@ -1239,7 +1239,7 @@ MonoBehaviour:
   _name: "\uAE30\uC220 \uD328\uB9C1 \uACF5\uACA9 \uD328\uD134"
   _cooldownTime: 0.02
   _waitDuration: 1.09
-  _probabilityToPicked: 0.1
+  _probabilityToPicked: 1
 --- !u!1 &2528712602095307911
 GameObject:
   m_ObjectHideFlags: 0
@@ -2198,7 +2198,7 @@ MonoBehaviour:
   _name: "3\uC5F0\uC18D \uACF5\uACA9 \uD328\uD134"
   _cooldownTime: 0.02
   _waitDuration: 2.17
-  _probabilityToPicked: 0.4
+  _probabilityToPicked: 0
 --- !u!1 &4525691892929354126
 GameObject:
   m_ObjectHideFlags: 0
@@ -2871,7 +2871,7 @@ MonoBehaviour:
   _name: "\uC810\uD504 \uD328\uD134"
   _cooldownTime: 1
   _waitDuration: 1.2
-  _probabilityToPicked: 0.2
+  _probabilityToPicked: 0
 --- !u!1 &6028425113610153870
 GameObject:
   m_ObjectHideFlags: 0
@@ -2980,6 +2980,7 @@ GameObject:
   - component: {fileID: 3707251357929549467}
   - component: {fileID: 8492246583962239467}
   - component: {fileID: 1379345214086189731}
+  - component: {fileID: 2806590679285657323}
   m_Layer: 11
   m_Name: Vital
   m_TagString: Vital
@@ -3072,6 +3073,7 @@ MonoBehaviour:
   Barrier: {fileID: 0}
   Mana: {fileID: 0}
   Pulse: {fileID: 0}
+  Poise: {fileID: 2806590679285657323}
   DieEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -3109,6 +3111,22 @@ MonoBehaviour:
   DeathFeedbacks: {fileID: 0}
   KilledFeedbacks: {fileID: 0}
   SuicideFeedbacks: {fileID: 0}
+--- !u!114 &2806590679285657323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6172564968502640533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65e25f7820a9aec45922bc24b8d3577b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Vital: {fileID: 8492246583962239467}
+  Current: 0
+  Max: 100
+  DamageTextPoint: {fileID: 0}
 --- !u!1 &7501304289396171216
 GameObject:
   m_ObjectHideFlags: 0
@@ -3226,7 +3244,7 @@ MonoBehaviour:
   _name: "\uD328\uB9C1 \uBD88\uAC00 \uC810\uD504 \uACF5\uACA9 \uD328\uD134"
   _cooldownTime: 0.02
   _waitDuration: 2.26
-  _probabilityToPicked: 0.1
+  _probabilityToPicked: 0
 --- !u!1 &7673553204906463162
 GameObject:
   m_ObjectHideFlags: 0

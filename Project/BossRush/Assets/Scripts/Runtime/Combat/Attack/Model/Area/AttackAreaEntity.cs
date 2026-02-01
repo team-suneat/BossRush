@@ -460,13 +460,32 @@ namespace TeamSuneat
             }
 
             // 패링 불가능한 공격인지 확인
-            if (parryType != ParryTypes.Parryable)
+            if (parryType != ParryTypes.Parryable && parryType != ParryTypes.CounterParryable)
             {
                 return false;
             }
 
             Character targetCharacter = targetVital.Owner;
-            if (!targetCharacter.CharacterAnimator.IsParrying)
+
+            // 일반 패링: 패리 상태일 때만 가능
+            bool canParry = false;
+            if (parryType == ParryTypes.Parryable)
+            {
+                canParry = targetCharacter.CharacterAnimator.IsParrying;
+            }
+            // 반격 패링: 스킬 시전 중 반격 패링 가능 상태일 때만 가능 (기본 패링 상태에서는 불가)
+            else if (parryType == ParryTypes.CounterParryable)
+            {
+                // 기본 패링 상태가 아닐 때만 체크
+                if (!targetCharacter.CharacterAnimator.IsParrying &&
+                    targetCharacter.CharacterAnimator is PlayerCharacterAnimator playerAnimator &&
+                    playerAnimator.CanCounterParryWhileCasting)
+                {
+                    canParry = true;
+                }
+            }
+
+            if (!canParry)
             {
                 return false;
             }
@@ -541,6 +560,12 @@ namespace TeamSuneat
                 LogError("공격 독립체의 피해 결과값이 설정되지 않았습니다. {0}", Name.ToLogString());
             }
 
+            // 공격 성공 시 피격자(몬스터)의 포이즈 증가
+            if (_isApplyAnyDamage && IsPlayerAttackingMonster(Owner, targetVital))
+            {
+                targetVital.Poise?.OnAttackSuccess();
+            }
+
             return _isApplyAnyDamage;
         }
 
@@ -583,6 +608,15 @@ namespace TeamSuneat
             }
 
             return false;
+        }
+
+        private bool IsPlayerAttackingMonster(Character attacker, Vital targetVital)
+        {
+            return attacker != null &&
+                   attacker.IsPlayer &&
+                   targetVital != null &&
+                   targetVital.Owner != null &&
+                   !targetVital.Owner.IsPlayer;
         }
 
         #endregion Collider

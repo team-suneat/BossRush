@@ -6,7 +6,10 @@ namespace TeamSuneat.UserInterface
     public class HUDBossGauge : XBehaviour
     {
         [FoldoutGroup("#HUDBossGauge")]
-        [SerializeField] private UIGauge _gauge;
+        [SerializeField] private UIGauge _lifeGauge;
+
+        [FoldoutGroup("#HUDBossGauge")]
+        [SerializeField] private UIGauge _poiseGauge;
 
         private BossCharacter _bossCharacter;
         private Vital _vital;
@@ -14,12 +17,15 @@ namespace TeamSuneat.UserInterface
         public override void AutoGetComponents()
         {
             base.AutoGetComponents();
-            _gauge ??= GetComponentInChildren<UIGauge>();
+
+            _lifeGauge = this.FindComponent<UIGauge>("UIGauge(Life)");
+            _poiseGauge = this.FindComponent<UIGauge>("UIGauge(Poise)");
         }
 
         private void Update()
         {
-            _gauge?.LogicUpdate();
+            _lifeGauge?.LogicUpdate();
+            _poiseGauge?.LogicUpdate();
         }
 
         public void Bind(BossCharacter bossCharacter)
@@ -45,6 +51,12 @@ namespace TeamSuneat.UserInterface
                 _vital.Life.OnValueChanged += OnLifeChanged;
                 SetLife(_vital.Life);
             }
+
+            if (_vital.Poise != null)
+            {
+                _vital.Poise.OnValueChanged += OnPoiseChanged;
+                SetPoise(_vital.Poise);
+            }
         }
 
         public void Unbind()
@@ -55,6 +67,11 @@ namespace TeamSuneat.UserInterface
                 {
                     _vital.Life.OnValueChanged -= OnLifeChanged;
                 }
+
+                if (_vital.Poise != null)
+                {
+                    _vital.Poise.OnValueChanged -= OnPoiseChanged;
+                }
             }
 
             _bossCharacter = null;
@@ -64,7 +81,7 @@ namespace TeamSuneat.UserInterface
 
         private void SetLife(Life life)
         {
-            if (_gauge == null)
+            if (_lifeGauge == null)
             {
                 return;
             }
@@ -75,24 +92,56 @@ namespace TeamSuneat.UserInterface
                 return;
             }
 
-            _gauge.SetValueText(life.Current, life.Max);
-            _gauge.SetFrontValue(life.Rate);
+            _lifeGauge.SetValueText(life.Current, life.Max);
+            _lifeGauge.SetFrontValue(life.Rate);
         }
 
-        private void ClearGauge()
+        private void SetPoise(Poise poise)
         {
-            if (_gauge == null)
+            if (_poiseGauge == null)
             {
                 return;
             }
 
-            _gauge.ResetValueText();
-            _gauge.ResetFrontValue();
+            if (poise == null)
+            {
+                ClearPoiseGauge();
+                return;
+            }
+
+            _poiseGauge.SetFrontValue(poise.Rate);
+        }
+
+        private void ClearGauge()
+        {
+            if (_lifeGauge == null)
+            {
+                return;
+            }
+
+            _lifeGauge.ResetValueText();
+            _lifeGauge.ResetFrontValue();
+            ClearPoiseGauge();
+        }
+
+        private void ClearPoiseGauge()
+        {
+            if (_poiseGauge == null)
+            {
+                return;
+            }
+
+            _poiseGauge.ResetFrontValue();
         }
 
         private void OnLifeChanged(int current, int max)
         {
             SetLife(_vital?.Life);
+        }
+
+        private void OnPoiseChanged(int current, int max)
+        {
+            SetPoise(_vital?.Poise);
         }
 
         private void OnDestroy()

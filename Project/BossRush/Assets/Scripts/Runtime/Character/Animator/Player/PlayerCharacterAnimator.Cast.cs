@@ -72,6 +72,7 @@ namespace TeamSuneat
 
             UnlockMovement();
             SetCasting(false);
+            SetCanCounterParryWhileCasting(false);
             AnimatorLog.LogInfo("시전 상태의 애니메이션에서 퇴장했습니다.");
         }
     }

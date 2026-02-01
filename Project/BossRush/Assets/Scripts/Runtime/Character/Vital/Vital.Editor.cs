@@ -15,6 +15,8 @@ namespace TeamSuneat
             Life = GetComponent<Life>();
             Barrier = GetComponent<Barrier>();
             Mana = GetComponent<Mana>();
+            Pulse = GetComponent<Pulse>();
+            Poise = GetComponent<Poise>();
         }
 
         public override void AutoNaming()
@@ -26,7 +28,7 @@ namespace TeamSuneat
         }
 
         [FoldoutGroup("#Buttons", 999)]
-        [Button("Resize Coliider", ButtonSizes.Medium)]
+        [Button("Resize Collider", ButtonSizes.Medium)]
         [Conditional("UNITY_EDITOR")]
         private void ResizeColliderForEditor()
         {

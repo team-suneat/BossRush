@@ -37,6 +37,9 @@ namespace TeamSuneat
         [FoldoutGroup("#Vital-Battle Resource")]
         public Pulse Pulse;
 
+        [FoldoutGroup("#Vital-Battle Resource")]
+        public Poise Poise;
+
         //--------------------------------------------------------------------------------------------------------=
 
         [FoldoutGroup("#Vital-Event")]

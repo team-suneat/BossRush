@@ -76,7 +76,6 @@ namespace TeamSuneat
         protected int ANIMATOR_DAMAGE_PARAMETER_ID;
         protected int ANIMATOR_KNOCKBACK_PARAMETER_ID;
         protected int ANIMATOR_DEATH_PARAMETER_ID;
-        private int ANIMATOR_DISABLE_PARAMETER_ID;
         private int ANIMATOR_JUMP_PARAMETER_ID;
 
         private int ANIMATOR_ATTACK_SPEED_PARAMETER_ID;
@@ -110,7 +109,6 @@ namespace TeamSuneat
             _animator.AddAnimatorParameterIfExists(ANIMATOR_IS_CASTING_PARAMETER_NAME, out ANIMATOR_IS_CASTING_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_IS_STUNNED_PARAMETER_NAME, out ANIMATOR_IS_STUNNED_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_USE_WALL_SLIDING_PARAMETER_NAME, out ANIMATOR_USE_WALL_SLIDING_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);
-            _animator.AddAnimatorParameterIfExists(ANIMATOR_DISABLE_PARAMETER_NAME, out ANIMATOR_DISABLE_PARAMETER_ID, AnimatorControllerParameterType.Bool, AnimatorParameters);
 
             _animator.AddAnimatorParameterIfExists(ANIMATOR_SPAWN_PARAMETER_NAME, out ANIMATOR_SPAWN_PARAMETER_ID, AnimatorControllerParameterType.Trigger, AnimatorParameters);
             _animator.AddAnimatorParameterIfExists(ANIMATOR_DASH_PARAMETER_NAME, out ANIMATOR_DASH_PARAMETER_ID, AnimatorControllerParameterType.Trigger, AnimatorParameters);

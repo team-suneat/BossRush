@@ -81,6 +81,7 @@ namespace TeamSuneat
 
             ApplyParryPenaltyToAttacker(data.Attacker, data.ParryType);
             ApplyPatternInterruptToAttacker(data.Attacker);
+            ApplyPoiseToAttacker(data.Attacker, data.ParryType);
             ApplyPulseReward();
             ApplySound();
             ApplySlowMotion();
@@ -123,6 +124,23 @@ namespace TeamSuneat
             if (attacker is MonsterCharacter monster)
             {
                 monster.Pattern?.InterruptCurrentPattern();
+            }
+        }
+
+        private void ApplyPoiseToAttacker(Character attacker, ParryTypes parryType)
+        {
+            if (attacker == null || attacker.MyVital == null || attacker.MyVital.Poise == null)
+            {
+                return;
+            }
+
+            if (parryType == ParryTypes.CounterParryable)
+            {
+                attacker.MyVital.Poise.OnCounterParrySuccess();
+            }
+            else if (parryType == ParryTypes.Parryable)
+            {
+                attacker.MyVital.Poise.OnParrySuccess();
             }
         }
 
