@@ -405,7 +405,7 @@ GameObject:
   m_Component:
   - component: {fileID: 201788690454396825}
   - component: {fileID: 2966433193010373657}
-  - component: {fileID: 1295390809305771360}
+  - component: {fileID: 4059742716668672346}
   - component: {fileID: 1672818782181657154}
   m_Layer: 5
   m_Name: Back Button
@@ -480,7 +480,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1295390809305771360
+--- !u!114 &4059742716668672346
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -489,10 +489,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 226524133866130145}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: b2864834919104241b1e077743b4ac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
+  PadClickType: 0
   Clickable: {fileID: 1522663935174892106}
   Selectable: {fileID: 4383947303571387688}
   LockTrigger: 0
@@ -520,7 +520,6 @@ MonoBehaviour:
   _button: {fileID: 2966433193010373657}
   _interactive: {fileID: 1672818782181657154}
   _currentState: 3
-  _buttonType: 1
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -531,9 +530,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnImmediateClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &1672818782181657154
@@ -562,7 +558,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1840322430076416196}
   - component: {fileID: 9094021630095269314}
-  - component: {fileID: 5635358422007657227}
+  - component: {fileID: 409247139921474604}
   - component: {fileID: 4652125311608343692}
   m_Layer: 5
   m_Name: Traditional Chinese Button
@@ -639,7 +635,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5635358422007657227
+--- !u!114 &409247139921474604
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -648,12 +644,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 707290468683944781}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: b2864834919104241b1e077743b4ac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
-  Clickable: {fileID: 0}
-  Selectable: {fileID: 0}
+  PadClickType: 0
+  Clickable: {fileID: 217563746463915437}
+  Selectable: {fileID: 5569309182944148582}
   LockTrigger: 0
   SelectIndex: 0
   SelectOrderIndex: 0
@@ -679,7 +675,6 @@ MonoBehaviour:
   _button: {fileID: 9094021630095269314}
   _interactive: {fileID: 4652125311608343692}
   _currentState: 3
-  _buttonType: 2
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -690,9 +685,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnImmediateClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &4652125311608343692
@@ -1596,7 +1588,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3833596670394524391}
   - component: {fileID: 3141593474358139421}
-  - component: {fileID: 1363021537333043574}
+  - component: {fileID: 7928662561463057135}
   - component: {fileID: 4286944195801969096}
   m_Layer: 5
   m_Name: Spanish Button
@@ -1673,7 +1665,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1363021537333043574
+--- !u!114 &7928662561463057135
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1682,12 +1674,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1858014983870395336}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: b2864834919104241b1e077743b4ac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
-  Clickable: {fileID: 0}
-  Selectable: {fileID: 0}
+  PadClickType: 0
+  Clickable: {fileID: 2326261225246327687}
+  Selectable: {fileID: 1412106660513485820}
   LockTrigger: 0
   SelectIndex: 0
   SelectOrderIndex: 0
@@ -1713,7 +1705,6 @@ MonoBehaviour:
   _button: {fileID: 3141593474358139421}
   _interactive: {fileID: 4286944195801969096}
   _currentState: 3
-  _buttonType: 2
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -1724,9 +1715,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnImmediateClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &4286944195801969096
@@ -1755,7 +1743,7 @@ GameObject:
   m_Component:
   - component: {fileID: 763868220094749065}
   - component: {fileID: 1134577240069231259}
-  - component: {fileID: 941301934431309269}
+  - component: {fileID: 4336490289189605622}
   - component: {fileID: 4463805647932983225}
   m_Layer: 5
   m_Name: Italian Button
@@ -1832,7 +1820,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &941301934431309269
+--- !u!114 &4336490289189605622
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1841,12 +1829,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1998016204727584218}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: b2864834919104241b1e077743b4ac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
-  Clickable: {fileID: 0}
-  Selectable: {fileID: 0}
+  PadClickType: 0
+  Clickable: {fileID: 2522520857116319550}
+  Selectable: {fileID: 8041466717801626948}
   LockTrigger: 0
   SelectIndex: 0
   SelectOrderIndex: 0
@@ -1872,7 +1860,6 @@ MonoBehaviour:
   _button: {fileID: 1134577240069231259}
   _interactive: {fileID: 4463805647932983225}
   _currentState: 3
-  _buttonType: 2
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -1883,9 +1870,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnImmediateClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &4463805647932983225
@@ -2100,7 +2084,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3898471124881879242}
   - component: {fileID: 4746152839249663495}
-  - component: {fileID: 5537446534225277939}
+  - component: {fileID: 8402067745048603425}
   - component: {fileID: 7998507360944511960}
   m_Layer: 5
   m_Name: French Button
@@ -2177,7 +2161,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5537446534225277939
+--- !u!114 &8402067745048603425
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2186,12 +2170,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2790340320596258986}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: b2864834919104241b1e077743b4ac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
-  Clickable: {fileID: 0}
-  Selectable: {fileID: 0}
+  PadClickType: 0
+  Clickable: {fileID: 3283599232547810661}
+  Selectable: {fileID: 8198993402430610698}
   LockTrigger: 0
   SelectIndex: 0
   SelectOrderIndex: 0
@@ -2217,7 +2201,6 @@ MonoBehaviour:
   _button: {fileID: 4746152839249663495}
   _interactive: {fileID: 7998507360944511960}
   _currentState: 3
-  _buttonType: 2
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -2228,9 +2211,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnImmediateClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &7998507360944511960
@@ -2508,9 +2488,9 @@ MonoBehaviour:
     RightIndex: -1
   _fixedLastSelectElement: {fileID: 0}
   Elements:
-  - {fileID: 2963617937922186737}
-  - {fileID: 3470281023255310664}
-  - {fileID: 1295390809305771360}
+  - {fileID: 4756877114613741859}
+  - {fileID: 3595607697696217228}
+  - {fileID: 4059742716668672346}
 --- !u!1 &3730771270837983438
 GameObject:
   m_ObjectHideFlags: 0
@@ -2565,15 +2545,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _indexer: {fileID: 6071795419252713330}
-  _englishButton: {fileID: 2963617937922186737}
-  _koreanButton: {fileID: 3470281023255310664}
-  _simplifiedChineseButton: {fileID: 1036686361656404304}
-  _traditionalChineseButton: {fileID: 5635358422007657227}
-  _frenchButton: {fileID: 5537446534225277939}
-  _germanButton: {fileID: 283348662968458405}
-  _italianButton: {fileID: 941301934431309269}
-  _spanishButton: {fileID: 1363021537333043574}
-  _backButton: {fileID: 1295390809305771360}
+  _englishButton: {fileID: 4756877114613741859}
+  _koreanButton: {fileID: 3595607697696217228}
+  _simplifiedChineseButton: {fileID: 3056760101162905133}
+  _traditionalChineseButton: {fileID: 409247139921474604}
+  _frenchButton: {fileID: 8402067745048603425}
+  _germanButton: {fileID: 8116803048098044722}
+  _italianButton: {fileID: 4336490289189605622}
+  _spanishButton: {fileID: 7928662561463057135}
+  _backButton: {fileID: 4059742716668672346}
 --- !u!114 &4553522780984349923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3089,7 +3069,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1545609805390639258}
   - component: {fileID: 8653675655671410319}
-  - component: {fileID: 1036686361656404304}
+  - component: {fileID: 3056760101162905133}
   - component: {fileID: 7126000213586047157}
   m_Layer: 5
   m_Name: Simplified Chinese Button
@@ -3166,7 +3146,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1036686361656404304
+--- !u!114 &3056760101162905133
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3175,12 +3155,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4570084416969310424}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: b2864834919104241b1e077743b4ac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
-  Clickable: {fileID: 0}
-  Selectable: {fileID: 0}
+  PadClickType: 0
+  Clickable: {fileID: 2648576084006481415}
+  Selectable: {fileID: 5682277549009008662}
   LockTrigger: 0
   SelectIndex: 0
   SelectOrderIndex: 0
@@ -3206,7 +3186,6 @@ MonoBehaviour:
   _button: {fileID: 8653675655671410319}
   _interactive: {fileID: 7126000213586047157}
   _currentState: 3
-  _buttonType: 2
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -3217,9 +3196,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnImmediateClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &7126000213586047157
@@ -3884,7 +3860,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1982900388182034542}
   - component: {fileID: 3567922801600045758}
-  - component: {fileID: 2963617937922186737}
+  - component: {fileID: 4756877114613741859}
   - component: {fileID: 2920856177543759434}
   m_Layer: 5
   m_Name: English Button
@@ -3961,7 +3937,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2963617937922186737
+--- !u!114 &4756877114613741859
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3970,10 +3946,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5391400624689863614}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: b2864834919104241b1e077743b4ac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
+  PadClickType: 0
   Clickable: {fileID: 8850908057526165255}
   Selectable: {fileID: 5534780129339395072}
   LockTrigger: 0
@@ -4001,7 +3977,6 @@ MonoBehaviour:
   _button: {fileID: 3567922801600045758}
   _interactive: {fileID: 2920856177543759434}
   _currentState: 3
-  _buttonType: 2
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -4012,9 +3987,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnImmediateClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &2920856177543759434
@@ -7144,7 +7116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6847274352908089582}
   - component: {fileID: 1553747269935830274}
-  - component: {fileID: 283348662968458405}
+  - component: {fileID: 8116803048098044722}
   - component: {fileID: 464993858949087930}
   m_Layer: 5
   m_Name: German Button
@@ -7221,7 +7193,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &283348662968458405
+--- !u!114 &8116803048098044722
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7230,12 +7202,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8475243273005552762}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: b2864834919104241b1e077743b4ac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
-  Clickable: {fileID: 0}
-  Selectable: {fileID: 0}
+  PadClickType: 0
+  Clickable: {fileID: 3928506685146909898}
+  Selectable: {fileID: 6808567709985641476}
   LockTrigger: 0
   SelectIndex: 0
   SelectOrderIndex: 0
@@ -7261,7 +7233,6 @@ MonoBehaviour:
   _button: {fileID: 1553747269935830274}
   _interactive: {fileID: 464993858949087930}
   _currentState: 3
-  _buttonType: 2
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -7272,9 +7243,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnImmediateClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &464993858949087930
@@ -7303,7 +7271,7 @@ GameObject:
   m_Component:
   - component: {fileID: 591814208543777420}
   - component: {fileID: 3170521802411067935}
-  - component: {fileID: 3470281023255310664}
+  - component: {fileID: 3595607697696217228}
   - component: {fileID: 1865877822403566575}
   m_Layer: 5
   m_Name: Korean Button
@@ -7380,7 +7348,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3470281023255310664
+--- !u!114 &3595607697696217228
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7389,10 +7357,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8650000761288535575}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: b2864834919104241b1e077743b4ac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
+  PadClickType: 0
   Clickable: {fileID: 699231328841096774}
   Selectable: {fileID: 6123531181857105235}
   LockTrigger: 0
@@ -7420,7 +7388,6 @@ MonoBehaviour:
   _button: {fileID: 3170521802411067935}
   _interactive: {fileID: 1865877822403566575}
   _currentState: 3
-  _buttonType: 2
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -7431,9 +7398,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnImmediateClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &1865877822403566575

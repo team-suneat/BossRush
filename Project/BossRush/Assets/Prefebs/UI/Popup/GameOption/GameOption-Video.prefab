@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1252880748975162620}
   - component: {fileID: 230665783591793532}
-  - component: {fileID: 7572785065031149101}
+  - component: {fileID: 6913129060352582857}
   - component: {fileID: 7588965992414227097}
   m_Layer: 5
   m_Name: Next Resolution Button
@@ -83,7 +83,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7572785065031149101
+--- !u!114 &6913129060352582857
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,10 +92,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 95604343351434977}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: b2864834919104241b1e077743b4ac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
+  PadClickType: 0
   Clickable: {fileID: 0}
   Selectable: {fileID: 0}
   LockTrigger: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
   SelectRightIndex: 0
   SelectUpIndex: 0
   SelectDownIndex: 0
-  SelectFrameSizeDelta: {x: 32, y: 32}
+  SelectFrameSizeDelta: {x: 0, y: 0}
   SelectFrameOffset: {x: 0, y: 0, z: 0}
   CustomMoveWaitTime: -1
   OnPointerPressLeftEvent:
@@ -123,7 +123,6 @@ MonoBehaviour:
   _button: {fileID: 230665783591793532}
   _interactive: {fileID: 7588965992414227097}
   _currentState: 3
-  _buttonType: 1
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -134,9 +133,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnImmediateClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &7588965992414227097
@@ -165,7 +161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4695384016839130003}
   - component: {fileID: 3844142194378993836}
-  - component: {fileID: 4414094286500399605}
+  - component: {fileID: 2138034835813405403}
   - component: {fileID: 2540828934279711520}
   m_Layer: 5
   m_Name: Prev Resolution Button
@@ -238,7 +234,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4414094286500399605
+--- !u!114 &2138034835813405403
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -247,10 +243,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 232534912430399021}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: b2864834919104241b1e077743b4ac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
+  PadClickType: 0
   Clickable: {fileID: 0}
   Selectable: {fileID: 0}
   LockTrigger: 0
@@ -260,7 +256,7 @@ MonoBehaviour:
   SelectRightIndex: 0
   SelectUpIndex: 0
   SelectDownIndex: 0
-  SelectFrameSizeDelta: {x: 32, y: 32}
+  SelectFrameSizeDelta: {x: 0, y: 0}
   SelectFrameOffset: {x: 0, y: 0, z: 0}
   CustomMoveWaitTime: -1
   OnPointerPressLeftEvent:
@@ -278,7 +274,6 @@ MonoBehaviour:
   _button: {fileID: 3844142194378993836}
   _interactive: {fileID: 2540828934279711520}
   _currentState: 3
-  _buttonType: 1
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -289,9 +284,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnImmediateClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &2540828934279711520
@@ -722,7 +714,7 @@ GameObject:
   m_Component:
   - component: {fileID: 654601079835553487}
   - component: {fileID: 1277186151457483422}
-  - component: {fileID: 4004359851901608835}
+  - component: {fileID: 4477468415389028651}
   - component: {fileID: 7448161126204364410}
   m_Layer: 5
   m_Name: Borderless Button
@@ -799,7 +791,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4004359851901608835
+--- !u!114 &4477468415389028651
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -808,20 +800,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1180143794714419476}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d260dc1758352543aaf67e0f043a9f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
-  Clickable: {fileID: 0}
-  Selectable: {fileID: 0}
+  PadClickType: 0
+  Clickable: {fileID: 6547399132286743533}
+  Selectable: {fileID: 1789080524507180696}
   LockTrigger: 0
-  SelectIndex: 0
+  SelectIndex: 16001
   SelectOrderIndex: 0
   SelectLeftIndex: 0
   SelectRightIndex: 0
-  SelectUpIndex: 0
-  SelectDownIndex: 0
-  SelectFrameSizeDelta: {x: 1068, y: 60}
+  SelectUpIndex: 16000
+  SelectDownIndex: 16002
+  SelectFrameSizeDelta: {x: 0, y: 0}
   SelectFrameOffset: {x: 0, y: 0, z: 0}
   CustomMoveWaitTime: -1
   OnPointerPressLeftEvent:
@@ -839,7 +831,6 @@ MonoBehaviour:
   _button: {fileID: 1277186151457483422}
   _interactive: {fileID: 7448161126204364410}
   _currentState: 3
-  _buttonType: 2
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -847,9 +838,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  OnImmediateClick:
     m_PersistentCalls:
       m_Calls: []
   OnToggleChanged:
@@ -867,10 +855,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07eaab39efb532341bd1855e5494aa68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _frameImage: {fileID: 0}
-  _buttonImage: {fileID: 0}
-  _nameText: {fileID: 0}
-  _selectedImage: {fileID: 0}
+  _frameImage: {fileID: 7594707921131022552}
+  _buttonImage: {fileID: 7860241798683776678}
+  _nameText: {fileID: 4683767830731110271}
+  _selectedImage: {fileID: 1625299527278424870}
 --- !u!1 &1663474040597225418
 GameObject:
   m_ObjectHideFlags: 0
@@ -1067,7 +1055,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6794930207929685806}
   - component: {fileID: 5086362116126191352}
-  - component: {fileID: 7548559598555830821}
+  - component: {fileID: 3846498343404228897}
   - component: {fileID: 590468197431213858}
   m_Layer: 5
   m_Name: Default Display Button
@@ -1143,7 +1131,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7548559598555830821
+--- !u!114 &3846498343404228897
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1152,20 +1140,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1716089842440442909}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: b2864834919104241b1e077743b4ac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
-  Clickable: {fileID: 0}
-  Selectable: {fileID: 0}
+  PadClickType: 0
+  Clickable: {fileID: 6913812732771599597}
+  Selectable: {fileID: 1750723503115110879}
   LockTrigger: 0
-  SelectIndex: 0
+  SelectIndex: 16004
   SelectOrderIndex: 0
   SelectLeftIndex: 0
   SelectRightIndex: 0
-  SelectUpIndex: 0
-  SelectDownIndex: 0
-  SelectFrameSizeDelta: {x: 1068, y: 60}
+  SelectUpIndex: 16003
+  SelectDownIndex: 16005
+  SelectFrameSizeDelta: {x: 0, y: 0}
   SelectFrameOffset: {x: 0, y: 0, z: 0}
   CustomMoveWaitTime: -1
   OnPointerPressLeftEvent:
@@ -1183,7 +1171,6 @@ MonoBehaviour:
   _button: {fileID: 5086362116126191352}
   _interactive: {fileID: 590468197431213858}
   _currentState: 3
-  _buttonType: 1
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -1194,9 +1181,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnImmediateClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &590468197431213858
@@ -1211,8 +1195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07eaab39efb532341bd1855e5494aa68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _frameImage: {fileID: 0}
-  _buttonImage: {fileID: 0}
+  _frameImage: {fileID: 6571749585329411054}
+  _buttonImage: {fileID: 5835500007263214867}
   _nameText: {fileID: 6803573332904463567}
   _selectedImage: {fileID: 0}
 --- !u!1 &2003200747770076147
@@ -1533,7 +1517,7 @@ GameObject:
   - component: {fileID: 7017775954672854421}
   - component: {fileID: 9129852646441557493}
   - component: {fileID: 368779803689868233}
-  - component: {fileID: 4773927811116971516}
+  - component: {fileID: 7272710995103563298}
   - component: {fileID: 8091950622363251812}
   m_Layer: 5
   m_Name: Default Values Button
@@ -1616,7 +1600,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4773927811116971516
+--- !u!114 &7272710995103563298
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1625,20 +1609,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 2054400382271382654}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: b2864834919104241b1e077743b4ac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
-  Clickable: {fileID: 0}
-  Selectable: {fileID: 0}
+  PadClickType: 0
+  Clickable: {fileID: 8588790890857643562}
+  Selectable: {fileID: 2250638344264120026}
   LockTrigger: 0
-  SelectIndex: 0
+  SelectIndex: 16005
   SelectOrderIndex: 0
   SelectLeftIndex: 0
   SelectRightIndex: 0
-  SelectUpIndex: 0
-  SelectDownIndex: 0
-  SelectFrameSizeDelta: {x: 1068, y: 60}
+  SelectUpIndex: 16004
+  SelectDownIndex: 16006
+  SelectFrameSizeDelta: {x: 0, y: 0}
   SelectFrameOffset: {x: 0, y: 0, z: 0}
   CustomMoveWaitTime: -1
   OnPointerPressLeftEvent:
@@ -1656,7 +1640,6 @@ MonoBehaviour:
   _button: {fileID: 368779803689868233}
   _interactive: {fileID: 8091950622363251812}
   _currentState: 3
-  _buttonType: 1
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -1667,9 +1650,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnImmediateClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &8091950622363251812
@@ -1684,8 +1664,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07eaab39efb532341bd1855e5494aa68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _frameImage: {fileID: 0}
-  _buttonImage: {fileID: 0}
+  _frameImage: {fileID: 2119483682469454009}
+  _buttonImage: {fileID: 589172875328528746}
   _nameText: {fileID: 7904948156474425397}
   _selectedImage: {fileID: 0}
 --- !u!1 &2227482955344018738
@@ -2795,21 +2775,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _indexer: {fileID: 8726337666676350474}
-  _fullScreenButton: {fileID: 498427679724986636}
-  _borderlessButton: {fileID: 4004359851901608835}
-  _resolutionButton: {fileID: 367397466443304754}
-  _vSyncButton: {fileID: 6799225640517292006}
-  _defaultValuesButton: {fileID: 4773927811116971516}
-  _backButton: {fileID: 1100857153693634885}
+  _fullScreenButton: {fileID: 3274149541389187643}
+  _borderlessButton: {fileID: 4477468415389028651}
+  _vSyncButton: {fileID: 3853844186643643688}
+  _resolutionButton: {fileID: 3506581073164691446}
+  _defaultValuesButton: {fileID: 7272710995103563298}
+  _backButton: {fileID: 2373321899094000468}
   _borderlessButton2Object: {fileID: 7836738576717570853}
-  _prevResolutionButton: {fileID: 4414094286500399605}
-  _nextResolutionButton: {fileID: 7572785065031149101}
-  _applyResolutionButton: {fileID: 6144810903928476101}
-  _prevDisplayButton: {fileID: 7990730238566183927}
-  _nextDisplayButton: {fileID: 104289013645915221}
-  _resolutionText: {fileID: 0}
-  _displayText: {fileID: 0}
-  _applyText: {fileID: 0}
+  _prevResolutionButton: {fileID: 2138034835813405403}
+  _nextResolutionButton: {fileID: 6913129060352582857}
+  _applyResolutionButton: {fileID: 8573278979331293327}
+  _prevDisplayButton: {fileID: 3880431182603370139}
+  _nextDisplayButton: {fileID: 4990407571741859251}
+  _resolutionText: {fileID: 1923411784153118098}
+  _displayText: {fileID: 1385255311183083514}
+  _applyText: {fileID: 6865339756614660278}
 --- !u!114 &6396183963454520060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2832,7 +2812,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1256350568728107423}
   - component: {fileID: 5406174682628813031}
-  - component: {fileID: 1100857153693634885}
+  - component: {fileID: 2373321899094000468}
   - component: {fileID: 6132693754701168118}
   m_Layer: 5
   m_Name: Back Button
@@ -2907,7 +2887,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1100857153693634885
+--- !u!114 &2373321899094000468
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2916,20 +2896,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 4131283539909930164}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: b2864834919104241b1e077743b4ac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
-  Clickable: {fileID: 0}
-  Selectable: {fileID: 0}
+  PadClickType: 0
+  Clickable: {fileID: 4098918571471881948}
+  Selectable: {fileID: 1158619117629725173}
   LockTrigger: 0
-  SelectIndex: 0
+  SelectIndex: 16006
   SelectOrderIndex: 0
   SelectLeftIndex: 0
   SelectRightIndex: 0
-  SelectUpIndex: 0
-  SelectDownIndex: 0
-  SelectFrameSizeDelta: {x: 1068, y: 60}
+  SelectUpIndex: 16005
+  SelectDownIndex: 16000
+  SelectFrameSizeDelta: {x: 0, y: 0}
   SelectFrameOffset: {x: 0, y: 0, z: 0}
   CustomMoveWaitTime: -1
   OnPointerPressLeftEvent:
@@ -2947,7 +2927,6 @@ MonoBehaviour:
   _button: {fileID: 5406174682628813031}
   _interactive: {fileID: 6132693754701168118}
   _currentState: 3
-  _buttonType: 1
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -2958,9 +2937,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnImmediateClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &6132693754701168118
@@ -2975,8 +2951,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07eaab39efb532341bd1855e5494aa68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _frameImage: {fileID: 0}
-  _buttonImage: {fileID: 0}
+  _frameImage: {fileID: 3664219834012309362}
+  _buttonImage: {fileID: 8796432385620668884}
   _nameText: {fileID: 2706584979183625759}
   _selectedImage: {fileID: 0}
 --- !u!1 &4189388179786263250
@@ -4222,13 +4198,13 @@ MonoBehaviour:
     RightIndex: -1
   _fixedLastSelectElement: {fileID: 0}
   Elements:
-  - {fileID: 498427679724986636}
-  - {fileID: 4004359851901608835}
-  - {fileID: 6799225640517292006}
-  - {fileID: 367397466443304754}
-  - {fileID: 7548559598555830821}
-  - {fileID: 4773927811116971516}
-  - {fileID: 1100857153693634885}
+  - {fileID: 3274149541389187643}
+  - {fileID: 4477468415389028651}
+  - {fileID: 3853844186643643688}
+  - {fileID: 3506581073164691446}
+  - {fileID: 3846498343404228897}
+  - {fileID: 7272710995103563298}
+  - {fileID: 2373321899094000468}
 --- !u!1 &5805547101188759730
 GameObject:
   m_ObjectHideFlags: 0
@@ -4314,7 +4290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5204410841823681835}
   - component: {fileID: 2459651262993422962}
-  - component: {fileID: 104289013645915221}
+  - component: {fileID: 4990407571741859251}
   - component: {fileID: 2142114915882715173}
   m_Layer: 5
   m_Name: Next Display Button
@@ -4387,7 +4363,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &104289013645915221
+--- !u!114 &4990407571741859251
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4396,10 +4372,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5852460757131812963}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: b2864834919104241b1e077743b4ac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
+  PadClickType: 0
   Clickable: {fileID: 0}
   Selectable: {fileID: 0}
   LockTrigger: 0
@@ -4409,7 +4385,7 @@ MonoBehaviour:
   SelectRightIndex: 0
   SelectUpIndex: 0
   SelectDownIndex: 0
-  SelectFrameSizeDelta: {x: 32, y: 32}
+  SelectFrameSizeDelta: {x: 0, y: 0}
   SelectFrameOffset: {x: 0, y: 0, z: 0}
   CustomMoveWaitTime: -1
   OnPointerPressLeftEvent:
@@ -4427,7 +4403,6 @@ MonoBehaviour:
   _button: {fileID: 2459651262993422962}
   _interactive: {fileID: 2142114915882715173}
   _currentState: 3
-  _buttonType: 1
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -4438,9 +4413,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnImmediateClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &2142114915882715173
@@ -5072,7 +5044,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8263957453093736669}
   - component: {fileID: 2828674119094250102}
-  - component: {fileID: 6144810903928476101}
+  - component: {fileID: 8573278979331293327}
   - component: {fileID: 5239811487398410291}
   m_Layer: 5
   m_Name: Apply Resolution Button
@@ -5145,7 +5117,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6144810903928476101
+--- !u!114 &8573278979331293327
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5154,10 +5126,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6550667449828964218}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: b2864834919104241b1e077743b4ac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
+  PadClickType: 0
   Clickable: {fileID: 0}
   Selectable: {fileID: 0}
   LockTrigger: 0
@@ -5167,7 +5139,7 @@ MonoBehaviour:
   SelectRightIndex: 0
   SelectUpIndex: 0
   SelectDownIndex: 0
-  SelectFrameSizeDelta: {x: 200, y: 60}
+  SelectFrameSizeDelta: {x: 0, y: 0}
   SelectFrameOffset: {x: 0, y: 0, z: 0}
   CustomMoveWaitTime: -1
   OnPointerPressLeftEvent:
@@ -5185,7 +5157,6 @@ MonoBehaviour:
   _button: {fileID: 2828674119094250102}
   _interactive: {fileID: 5239811487398410291}
   _currentState: 3
-  _buttonType: 1
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -5196,9 +5167,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnImmediateClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &5239811487398410291
@@ -6561,7 +6529,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5590265132004654464}
   - component: {fileID: 8392852526385015813}
-  - component: {fileID: 367397466443304754}
+  - component: {fileID: 3506581073164691446}
   - component: {fileID: 3011304359445616484}
   m_Layer: 5
   m_Name: Resolution Button
@@ -6637,7 +6605,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &367397466443304754
+--- !u!114 &3506581073164691446
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6646,20 +6614,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 8321635571900118014}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: b2864834919104241b1e077743b4ac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
-  Clickable: {fileID: 0}
-  Selectable: {fileID: 0}
+  PadClickType: 0
+  Clickable: {fileID: 143743690401611834}
+  Selectable: {fileID: 8614112915783001560}
   LockTrigger: 0
-  SelectIndex: 0
+  SelectIndex: 16003
   SelectOrderIndex: 0
   SelectLeftIndex: 0
   SelectRightIndex: 0
-  SelectUpIndex: 0
-  SelectDownIndex: 0
-  SelectFrameSizeDelta: {x: 1068, y: 60}
+  SelectUpIndex: 16002
+  SelectDownIndex: 16004
+  SelectFrameSizeDelta: {x: 0, y: 0}
   SelectFrameOffset: {x: 0, y: 0, z: 0}
   CustomMoveWaitTime: -1
   OnPointerPressLeftEvent:
@@ -6677,7 +6645,6 @@ MonoBehaviour:
   _button: {fileID: 8392852526385015813}
   _interactive: {fileID: 3011304359445616484}
   _currentState: 3
-  _buttonType: 1
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -6688,9 +6655,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnImmediateClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &3011304359445616484
@@ -6705,8 +6669,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07eaab39efb532341bd1855e5494aa68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _frameImage: {fileID: 0}
-  _buttonImage: {fileID: 0}
+  _frameImage: {fileID: 2977764155787568119}
+  _buttonImage: {fileID: 6641556124454804707}
   _nameText: {fileID: 3561742805578329797}
   _selectedImage: {fileID: 0}
 --- !u!1 &8446350355974445161
@@ -6906,7 +6870,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8061886226231801613}
   - component: {fileID: 2510661790821657779}
-  - component: {fileID: 6799225640517292006}
+  - component: {fileID: 3853844186643643688}
   - component: {fileID: 2721927139894095344}
   m_Layer: 5
   m_Name: VSync Button
@@ -6983,7 +6947,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6799225640517292006
+--- !u!114 &3853844186643643688
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6992,20 +6956,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 8653591129237955545}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d260dc1758352543aaf67e0f043a9f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
-  Clickable: {fileID: 0}
-  Selectable: {fileID: 0}
+  PadClickType: 0
+  Clickable: {fileID: 246144810631130106}
+  Selectable: {fileID: 2681284783709715736}
   LockTrigger: 0
-  SelectIndex: 0
+  SelectIndex: 16002
   SelectOrderIndex: 0
   SelectLeftIndex: 0
   SelectRightIndex: 0
-  SelectUpIndex: 0
-  SelectDownIndex: 0
-  SelectFrameSizeDelta: {x: 1068, y: 60}
+  SelectUpIndex: 16001
+  SelectDownIndex: 16003
+  SelectFrameSizeDelta: {x: 0, y: 0}
   SelectFrameOffset: {x: 0, y: 0, z: 0}
   CustomMoveWaitTime: -1
   OnPointerPressLeftEvent:
@@ -7023,7 +6987,6 @@ MonoBehaviour:
   _button: {fileID: 2510661790821657779}
   _interactive: {fileID: 2721927139894095344}
   _currentState: 3
-  _buttonType: 2
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -7031,9 +6994,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  OnImmediateClick:
     m_PersistentCalls:
       m_Calls: []
   OnToggleChanged:
@@ -7051,10 +7011,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07eaab39efb532341bd1855e5494aa68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _frameImage: {fileID: 0}
-  _buttonImage: {fileID: 0}
-  _nameText: {fileID: 0}
-  _selectedImage: {fileID: 0}
+  _frameImage: {fileID: 2763803014080268155}
+  _buttonImage: {fileID: 1541992876319707360}
+  _nameText: {fileID: 830997014060070805}
+  _selectedImage: {fileID: 7777487668833163017}
 --- !u!1 &8662114551616960205
 GameObject:
   m_ObjectHideFlags: 0
@@ -7140,7 +7100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8776115833449455274}
   - component: {fileID: 8673959792646383766}
-  - component: {fileID: 7990730238566183927}
+  - component: {fileID: 3880431182603370139}
   - component: {fileID: 5615662079080461851}
   m_Layer: 5
   m_Name: Prev Display Button
@@ -7213,7 +7173,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7990730238566183927
+--- !u!114 &3880431182603370139
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7222,10 +7182,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8740812650821596156}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: b2864834919104241b1e077743b4ac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
+  PadClickType: 0
   Clickable: {fileID: 0}
   Selectable: {fileID: 0}
   LockTrigger: 0
@@ -7235,7 +7195,7 @@ MonoBehaviour:
   SelectRightIndex: 0
   SelectUpIndex: 0
   SelectDownIndex: 0
-  SelectFrameSizeDelta: {x: 32, y: 32}
+  SelectFrameSizeDelta: {x: 0, y: 0}
   SelectFrameOffset: {x: 0, y: 0, z: 0}
   CustomMoveWaitTime: -1
   OnPointerPressLeftEvent:
@@ -7253,7 +7213,6 @@ MonoBehaviour:
   _button: {fileID: 8673959792646383766}
   _interactive: {fileID: 5615662079080461851}
   _currentState: 3
-  _buttonType: 1
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -7264,9 +7223,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnImmediateClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &5615662079080461851
@@ -7295,7 +7251,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4027718463572116910}
   - component: {fileID: 649745584629379481}
-  - component: {fileID: 498427679724986636}
+  - component: {fileID: 3274149541389187643}
   - component: {fileID: 6337699016474824307}
   m_Layer: 5
   m_Name: FullScreen Button
@@ -7372,7 +7328,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &498427679724986636
+--- !u!114 &3274149541389187643
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7381,20 +7337,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 9120497502880721615}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d260dc1758352543aaf67e0f043a9f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
-  Clickable: {fileID: 0}
-  Selectable: {fileID: 0}
+  PadClickType: 0
+  Clickable: {fileID: 8150666084247406741}
+  Selectable: {fileID: 5422971905817734739}
   LockTrigger: 0
-  SelectIndex: 0
+  SelectIndex: 16000
   SelectOrderIndex: 0
   SelectLeftIndex: 0
   SelectRightIndex: 0
-  SelectUpIndex: 0
-  SelectDownIndex: 0
-  SelectFrameSizeDelta: {x: 1068, y: 60}
+  SelectUpIndex: 16006
+  SelectDownIndex: 16001
+  SelectFrameSizeDelta: {x: 0, y: 0}
   SelectFrameOffset: {x: 0, y: 0, z: 0}
   CustomMoveWaitTime: -1
   OnPointerPressLeftEvent:
@@ -7412,7 +7368,6 @@ MonoBehaviour:
   _button: {fileID: 649745584629379481}
   _interactive: {fileID: 6337699016474824307}
   _currentState: 3
-  _buttonType: 2
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -7420,9 +7375,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  OnImmediateClick:
     m_PersistentCalls:
       m_Calls: []
   OnToggleChanged:
@@ -7440,10 +7392,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07eaab39efb532341bd1855e5494aa68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _frameImage: {fileID: 0}
-  _buttonImage: {fileID: 0}
-  _nameText: {fileID: 0}
-  _selectedImage: {fileID: 0}
+  _frameImage: {fileID: 7822568054251100674}
+  _buttonImage: {fileID: 4564045701687684063}
+  _nameText: {fileID: 9050670917246277807}
+  _selectedImage: {fileID: 6927373807883304405}
 --- !u!1 &9182703328126628230
 GameObject:
   m_ObjectHideFlags: 0

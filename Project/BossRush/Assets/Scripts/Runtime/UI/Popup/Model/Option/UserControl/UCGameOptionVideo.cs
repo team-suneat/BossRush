@@ -9,40 +9,40 @@ namespace TeamSuneat.UserInterface
     public class UCGameOptionVideo : UCGameOptionBase
     {
         [FoldoutGroup("#Video")]
-        [SerializeField] private UISelectButton _fullScreenButton;
+        [SerializeField] private UIToggleButton _fullScreenButton;
 
         [FoldoutGroup("#Video")]
-        [SerializeField] private UISelectButton _borderlessButton;
+        [SerializeField] private UIToggleButton _borderlessButton;
 
         [FoldoutGroup("#Video")]
-        [SerializeField] private UISelectButton _resolutionButton;
+        [SerializeField] private UIToggleButton _vSyncButton;
 
         [FoldoutGroup("#Video")]
-        [SerializeField] private UISelectButton _vSyncButton;
+        [SerializeField] private UIImmediateButton _resolutionButton;
 
         [FoldoutGroup("#Video")]
-        [SerializeField] private UISelectButton _defaultValuesButton;
+        [SerializeField] private UIImmediateButton _defaultValuesButton;
 
         [FoldoutGroup("#Video")]
-        [SerializeField] private UISelectButton _backButton;
+        [SerializeField] private UIImmediateButton _backButton;
 
         [FoldoutGroup("#Video/Buttons")]
         [SerializeField] private GameObject _borderlessButton2Object;
 
         [FoldoutGroup("#Video/Buttons")]
-        [SerializeField] private UISelectButton _prevResolutionButton;
+        [SerializeField] private UIImmediateButton _prevResolutionButton;
 
         [FoldoutGroup("#Video/Buttons")]
-        [SerializeField] private UISelectButton _nextResolutionButton;
+        [SerializeField] private UIImmediateButton _nextResolutionButton;
 
         [FoldoutGroup("#Video/Buttons")]
-        [SerializeField] private UISelectButton _applyResolutionButton;
+        [SerializeField] private UIImmediateButton _applyResolutionButton;
 
         [FoldoutGroup("#Video/Buttons")]
-        [SerializeField] private UISelectButton _prevDisplayButton;
+        [SerializeField] private UIImmediateButton _prevDisplayButton;
 
         [FoldoutGroup("#Video/Buttons")]
-        [SerializeField] private UISelectButton _nextDisplayButton;
+        [SerializeField] private UIImmediateButton _nextDisplayButton;
 
         [FoldoutGroup("#Video/Text")]
         [SerializeField] private UILocalizedText _resolutionText;
@@ -66,19 +66,23 @@ namespace TeamSuneat.UserInterface
 
             _indexer ??= GetComponentInChildren<UISelectElementIndexer>();
 
-            _fullScreenButton = this.FindComponent<UISelectButton>("#Content/FullScreen Button");
-            _borderlessButton = this.FindComponent<UISelectButton>("#Content/Borderless Button");
-            _resolutionButton = this.FindComponent<UISelectButton>("#Content/Resolution Button");
-            _vSyncButton = this.FindComponent<UISelectButton>("#Content/VSync Button");
-            _defaultValuesButton = this.FindComponent<UISelectButton>("#Content/Default Values Button");
-            _backButton = this.FindComponent<UISelectButton>("#Content/Back Button");
+            _fullScreenButton = this.FindComponent<UIToggleButton>("#Content/FullScreen Button");
+            _borderlessButton = this.FindComponent<UIToggleButton>("#Content/Borderless Button");
+            _resolutionButton = this.FindComponent<UIImmediateButton>("#Content/Resolution Button");
+            _vSyncButton = this.FindComponent<UIToggleButton>("#Content/VSync Button");
+            _defaultValuesButton = this.FindComponent<UIImmediateButton>("#Content/Default Values Button");
+            _backButton = this.FindComponent<UIImmediateButton>("#Content/Back Button");
 
             _borderlessButton2Object = this.FindGameObject("#Content2/#Borderless");
-            _prevResolutionButton = this.FindComponent<UISelectButton>("#Content2/#Resolution/Prev Resolution Button");
-            _nextResolutionButton = this.FindComponent<UISelectButton>("#Content2/#Resolution/Next Resolution Button");
-            _applyResolutionButton = this.FindComponent<UISelectButton>("#Content2/#Resolution/Apply Resolution Button");
-            _prevDisplayButton = this.FindComponent<UISelectButton>("#Content2/#Default Display/Prev Display Button");
-            _nextDisplayButton = this.FindComponent<UISelectButton>("#Content2/#Default Display/Next Display Button");
+            _prevResolutionButton = this.FindComponent<UIImmediateButton>("#Content2/#Resolution/Prev Resolution Button");
+            _nextResolutionButton = this.FindComponent<UIImmediateButton>("#Content2/#Resolution/Next Resolution Button");
+            _applyResolutionButton = this.FindComponent<UIImmediateButton>("#Content2/#Resolution/Apply Resolution Button");
+            _prevDisplayButton = this.FindComponent<UIImmediateButton>("#Content2/#Default Display/Prev Display Button");
+            _nextDisplayButton = this.FindComponent<UIImmediateButton>("#Content2/#Default Display/Next Display Button");
+
+            _resolutionText = this.FindComponent<UILocalizedText>("#Content/Resolution Button/Button Value Text");
+            _displayText = this.FindComponent<UILocalizedText>("#Content/Default Display Button/Button Value Text");
+            _applyText = this.FindComponent<UILocalizedText>("#Content2/#Resolution/Apply Resolution Button/Button Name Text");
         }
 
         protected override void OnStart()

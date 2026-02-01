@@ -8,6 +8,7 @@ namespace TeamSuneat.UserInterface
     {
         [FoldoutGroup("#Base")]
         [SerializeField] protected UISelectElementIndexer _indexer;
+
         public UISelectElementIndexer Indexer => _indexer;
 
         public UnityAction HideCallback { get; set; }
@@ -54,7 +55,12 @@ namespace TeamSuneat.UserInterface
             _indexer?.DeactivateRaycastAll();
         }
 
-        protected void SetButtonSelected(UISelectButton element, bool isActive)
+        protected void SetButtonSelected(UIToggleButton element, bool isActive)
+        {
+            element.SetUnlocked(true, isActive);
+        }
+
+        protected void SetButtonSelected(UIImmediateButton element, bool isActive)
         {
             element.SetUnlocked(true, isActive);
         }

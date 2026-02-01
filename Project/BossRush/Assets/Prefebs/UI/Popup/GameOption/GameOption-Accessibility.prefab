@@ -392,7 +392,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8783069922820894921}
   - component: {fileID: 8929511754271889652}
-  - component: {fileID: 3326879177752025952}
+  - component: {fileID: 2285784412555173581}
   - component: {fileID: 8376537148494322924}
   m_Layer: 5
   m_Name: Back Button
@@ -467,7 +467,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3326879177752025952
+--- !u!114 &2285784412555173581
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -476,10 +476,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2149340143699638219}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: b2864834919104241b1e077743b4ac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
+  PadClickType: 0
   Clickable: {fileID: 2298169935747783945}
   Selectable: {fileID: 1161263733842155902}
   LockTrigger: 0
@@ -489,8 +489,8 @@ MonoBehaviour:
   SelectRightIndex: 0
   SelectUpIndex: 11002
   SelectDownIndex: 11000
-  SelectFrameSizeDelta: {x: 400, y: 60}
-  SelectFrameOffset: {x: -350, y: 0, z: 0}
+  SelectFrameSizeDelta: {x: 0, y: 0}
+  SelectFrameOffset: {x: 0, y: 0, z: 0}
   CustomMoveWaitTime: -1
   OnPointerPressLeftEvent:
     m_PersistentCalls:
@@ -507,7 +507,6 @@ MonoBehaviour:
   _button: {fileID: 8929511754271889652}
   _interactive: {fileID: 8376537148494322924}
   _currentState: 3
-  _buttonType: 1
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -518,9 +517,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnImmediateClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &8376537148494322924
@@ -549,7 +545,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9136885247179320832}
   - component: {fileID: 3281802785056562150}
-  - component: {fileID: 5880961615763925555}
+  - component: {fileID: 627659824851262780}
   - component: {fileID: 4205701352986209183}
   m_Layer: 5
   m_Name: CameraShake Button
@@ -626,7 +622,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5880961615763925555
+--- !u!114 &627659824851262780
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -635,21 +631,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 2378870890073740266}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d260dc1758352543aaf67e0f043a9f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
+  PadClickType: 0
   Clickable: {fileID: 1548380582735261465}
   Selectable: {fileID: 636580887958786609}
   LockTrigger: 0
-  SelectIndex: 11001
+  SelectIndex: 0
   SelectOrderIndex: 0
   SelectLeftIndex: 0
   SelectRightIndex: 0
-  SelectUpIndex: 11000
-  SelectDownIndex: 11002
-  SelectFrameSizeDelta: {x: 400, y: 60}
-  SelectFrameOffset: {x: -350, y: 0, z: 0}
+  SelectUpIndex: 0
+  SelectDownIndex: 0
+  SelectFrameSizeDelta: {x: 0, y: 0}
+  SelectFrameOffset: {x: 0, y: 0, z: 0}
   CustomMoveWaitTime: -1
   OnPointerPressLeftEvent:
     m_PersistentCalls:
@@ -666,7 +662,6 @@ MonoBehaviour:
   _button: {fileID: 3281802785056562150}
   _interactive: {fileID: 4205701352986209183}
   _currentState: 3
-  _buttonType: 2
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -674,9 +669,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  OnImmediateClick:
     m_PersistentCalls:
       m_Calls: []
   OnToggleChanged:
@@ -1395,12 +1387,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _indexer: {fileID: 8464122114572950113}
-  _vibrationButton: {fileID: 4567198130474484255}
-  _cameraShakeButton: {fileID: 5880961615763925555}
+  _vibrationButton: {fileID: 2932683209211847628}
+  _cameraShakeButton: {fileID: 627659824851262780}
   _damageTextButton: {fileID: 0}
   _stateEffectTextButton: {fileID: 0}
-  _defaultValuesButton: {fileID: 855080244056013679}
-  _backButton: {fileID: 3326879177752025952}
+  _defaultValuesButton: {fileID: 172270225067906475}
+  _backButton: {fileID: 2285784412555173581}
   _descriptionText: {fileID: 2708326434029436425}
 --- !u!1 &4051259012932572698
 GameObject:
@@ -2186,10 +2178,10 @@ MonoBehaviour:
     RightIndex: -1
   _fixedLastSelectElement: {fileID: 0}
   Elements:
-  - {fileID: 4567198130474484255}
-  - {fileID: 5880961615763925555}
-  - {fileID: 855080244056013679}
-  - {fileID: 3326879177752025952}
+  - {fileID: 2932683209211847628}
+  - {fileID: 627659824851262780}
+  - {fileID: 172270225067906475}
+  - {fileID: 2285784412555173581}
 --- !u!1 &5058451433819941625
 GameObject:
   m_ObjectHideFlags: 0
@@ -3610,7 +3602,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1815079388180084887}
   - component: {fileID: 5215127720490109543}
-  - component: {fileID: 6228448685372770352}
+  - component: {fileID: 2858479847462348882}
   - component: {fileID: 6329212208867938391}
   m_Layer: 5
   m_Name: DamageText Button
@@ -3687,7 +3679,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6228448685372770352
+--- !u!114 &2858479847462348882
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3696,21 +3688,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 7343427348310140839}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: b2864834919104241b1e077743b4ac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
+  PadClickType: 0
   Clickable: {fileID: 5904080063395258769}
   Selectable: {fileID: 9031159988864055924}
   LockTrigger: 0
-  SelectIndex: 11002
+  SelectIndex: 0
   SelectOrderIndex: 0
   SelectLeftIndex: 0
   SelectRightIndex: 0
-  SelectUpIndex: 11001
-  SelectDownIndex: 11003
-  SelectFrameSizeDelta: {x: 400, y: 60}
-  SelectFrameOffset: {x: -350, y: 0, z: 0}
+  SelectUpIndex: 0
+  SelectDownIndex: 0
+  SelectFrameSizeDelta: {x: 0, y: 0}
+  SelectFrameOffset: {x: 0, y: 0, z: 0}
   CustomMoveWaitTime: -1
   OnPointerPressLeftEvent:
     m_PersistentCalls:
@@ -3727,7 +3719,6 @@ MonoBehaviour:
   _button: {fileID: 5215127720490109543}
   _interactive: {fileID: 6329212208867938391}
   _currentState: 3
-  _buttonType: 2
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -3738,9 +3729,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnImmediateClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &6329212208867938391
@@ -3955,7 +3943,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8606841392872523410}
   - component: {fileID: 2615452934990606254}
-  - component: {fileID: 855080244056013679}
+  - component: {fileID: 172270225067906475}
   - component: {fileID: 7096832508563813166}
   m_Layer: 5
   m_Name: Default Values Button
@@ -4030,7 +4018,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &855080244056013679
+--- !u!114 &172270225067906475
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4039,10 +4027,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8725854852046718387}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: b2864834919104241b1e077743b4ac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
+  PadClickType: 0
   Clickable: {fileID: 4502166213281354926}
   Selectable: {fileID: 3948971097790210300}
   LockTrigger: 0
@@ -4052,8 +4040,8 @@ MonoBehaviour:
   SelectRightIndex: 0
   SelectUpIndex: 11001
   SelectDownIndex: 11003
-  SelectFrameSizeDelta: {x: 400, y: 60}
-  SelectFrameOffset: {x: -350, y: 0, z: 0}
+  SelectFrameSizeDelta: {x: 0, y: 0}
+  SelectFrameOffset: {x: 0, y: 0, z: 0}
   CustomMoveWaitTime: -1
   OnPointerPressLeftEvent:
     m_PersistentCalls:
@@ -4070,7 +4058,6 @@ MonoBehaviour:
   _button: {fileID: 2615452934990606254}
   _interactive: {fileID: 7096832508563813166}
   _currentState: 3
-  _buttonType: 1
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -4081,9 +4068,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnImmediateClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnToggleChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &7096832508563813166
@@ -4187,7 +4171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2006268088916000387}
   - component: {fileID: 9190674523820091461}
-  - component: {fileID: 4567198130474484255}
+  - component: {fileID: 2932683209211847628}
   - component: {fileID: 5243948611716690791}
   m_Layer: 5
   m_Name: Vibration Button
@@ -4264,7 +4248,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4567198130474484255
+--- !u!114 &2932683209211847628
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4273,21 +4257,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 8876183086451935193}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a3e4ac2613e214ea3cb03d37a084f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d260dc1758352543aaf67e0f043a9f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PadClickType: 1
+  PadClickType: 0
   Clickable: {fileID: 1823810275724095258}
   Selectable: {fileID: 1554069370010695369}
   LockTrigger: 0
-  SelectIndex: 11000
+  SelectIndex: 0
   SelectOrderIndex: 0
   SelectLeftIndex: 0
   SelectRightIndex: 0
-  SelectUpIndex: 11003
-  SelectDownIndex: 11001
-  SelectFrameSizeDelta: {x: 400, y: 60}
-  SelectFrameOffset: {x: -350, y: 0, z: 0}
+  SelectUpIndex: 0
+  SelectDownIndex: 0
+  SelectFrameSizeDelta: {x: 0, y: 0}
+  SelectFrameOffset: {x: 0, y: 0, z: 0}
   CustomMoveWaitTime: -1
   OnPointerPressLeftEvent:
     m_PersistentCalls:
@@ -4304,7 +4288,6 @@ MonoBehaviour:
   _button: {fileID: 9190674523820091461}
   _interactive: {fileID: 5243948611716690791}
   _currentState: 3
-  _buttonType: 2
   OnClickSuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -4312,9 +4295,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  OnImmediateClick:
     m_PersistentCalls:
       m_Calls: []
   OnToggleChanged:

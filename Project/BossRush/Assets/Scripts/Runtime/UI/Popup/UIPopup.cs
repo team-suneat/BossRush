@@ -17,7 +17,7 @@ namespace TeamSuneat.UserInterface
         public UILocalizedText TitleText;
 
         [FoldoutGroup("#UIPopup")]
-        public UISelectButton CancelButton;
+        public UIImmediateButton CancelButton;
 
         [FoldoutGroup("#UIPopup")]
         public Button BackdropButton;
@@ -52,7 +52,7 @@ namespace TeamSuneat.UserInterface
             base.AutoGetComponents();
 
             TitleText ??= this.FindComponent<UILocalizedText>("Rect/Title Text");
-            CancelButton ??= this.FindComponent<UISelectButton>("Rect/Cancel Button");
+            CancelButton ??= this.FindComponent<UIImmediateButton>("Rect/Cancel Button");
             BackdropButton ??= this.FindComponent<Button>("Backdrop Button");
 
             PointerEvents = GetComponentsInChildren<UISelectElement>();

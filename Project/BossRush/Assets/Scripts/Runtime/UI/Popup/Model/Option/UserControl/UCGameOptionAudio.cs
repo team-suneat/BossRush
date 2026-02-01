@@ -8,25 +8,25 @@ namespace TeamSuneat.UserInterface
     public class UCGameOptionAudio : UCGameOptionBase
     {
         [FoldoutGroup("#Audio/Buttons")]
-        [SerializeField] private UISelectButton _muteMusicButton;
+        [SerializeField] private UIImmediateButton _muteMusicButton;
 
         [FoldoutGroup("#Audio/Buttons")]
-        [SerializeField] private UISelectButton _muteSFXButton;
+        [SerializeField] private UIImmediateButton _muteSFXButton;
 
         [FoldoutGroup("#Audio/Buttons")]
-        [SerializeField] private UISelectButton _masterVolumeButton;
+        [SerializeField] private UIImmediateButton _masterVolumeButton;
 
         [FoldoutGroup("#Audio/Buttons")]
-        [SerializeField] private UISelectButton _musicVolumeButton;
+        [SerializeField] private UIImmediateButton _musicVolumeButton;
 
         [FoldoutGroup("#Audio/Buttons")]
-        [SerializeField] private UISelectButton _sfxVolumeButton;
+        [SerializeField] private UIImmediateButton _sfxVolumeButton;
 
         [FoldoutGroup("#Audio/Buttons")]
-        [SerializeField] private UISelectButton _defaultValuesButton;
+        [SerializeField] private UIImmediateButton _defaultValuesButton;
 
         [FoldoutGroup("#Audio/Buttons")]
-        [SerializeField] private UISelectButton _backButton;
+        [SerializeField] private UIImmediateButton _backButton;
 
         [FoldoutGroup("#Audio")]
         [SerializeField] private UILocalizedText _masterVolumeText;
@@ -53,13 +53,13 @@ namespace TeamSuneat.UserInterface
             base.AutoGetComponents();
 
             _indexer ??= this.GetComponentInChildren<UISelectElementIndexer>();
-            _muteMusicButton = this.FindComponent<UISelectButton>("#Content/MuteMusic Button");
-            _muteSFXButton = this.FindComponent<UISelectButton>("#Content/MuteSFX Button");
-            _masterVolumeButton = this.FindComponent<UISelectButton>("#Content/MasterVolume Button");
-            _musicVolumeButton = this.FindComponent<UISelectButton>("#Content/MusicVolume Button");
-            _sfxVolumeButton = this.FindComponent<UISelectButton>("#Content/SFXVolume Button");
-            _defaultValuesButton = this.FindComponent<UISelectButton>("#Content/Default Values Button");
-            _backButton = this.FindComponent<UISelectButton>("#Content/Back Button");
+            _muteMusicButton = this.FindComponent<UIImmediateButton>("#Content/MuteMusic Button");
+            _muteSFXButton = this.FindComponent<UIImmediateButton>("#Content/MuteSFX Button");
+            _masterVolumeButton = this.FindComponent<UIImmediateButton>("#Content/MasterVolume Button");
+            _musicVolumeButton = this.FindComponent<UIImmediateButton>("#Content/MusicVolume Button");
+            _sfxVolumeButton = this.FindComponent<UIImmediateButton>("#Content/SFXVolume Button");
+            _defaultValuesButton = this.FindComponent<UIImmediateButton>("#Content/Default Values Button");
+            _backButton = this.FindComponent<UIImmediateButton>("#Content/Back Button");
 
             _masterVolumeText = this.FindComponent<UILocalizedText>("#Content/MasterVolume Button/Volume Text");
             _musicVolumeText = this.FindComponent<UILocalizedText>("#Content/MusicVolume Button/Volume Text");

@@ -7,31 +7,31 @@ namespace TeamSuneat.UserInterface
     public class UCGameOptionLanguage : UCGameOptionBase
     {
         [FoldoutGroup("#Language")]
-        [SerializeField] private UISelectButton _englishButton;
+        [SerializeField] private UIImmediateButton _englishButton;
 
         [FoldoutGroup("#Language")]
-        [SerializeField] private UISelectButton _koreanButton;
+        [SerializeField] private UIImmediateButton _koreanButton;
 
         [FoldoutGroup("#Language")]
-        [SerializeField] private UISelectButton _simplifiedChineseButton;
+        [SerializeField] private UIImmediateButton _simplifiedChineseButton;
 
         [FoldoutGroup("#Language")]
-        [SerializeField] private UISelectButton _traditionalChineseButton;
+        [SerializeField] private UIImmediateButton _traditionalChineseButton;
 
         [FoldoutGroup("#Language")]
-        [SerializeField] private UISelectButton _frenchButton;
+        [SerializeField] private UIImmediateButton _frenchButton;
 
         [FoldoutGroup("#Language")]
-        [SerializeField] private UISelectButton _germanButton;
+        [SerializeField] private UIImmediateButton _germanButton;
 
         [FoldoutGroup("#Language")]
-        [SerializeField] private UISelectButton _italianButton;
+        [SerializeField] private UIImmediateButton _italianButton;
 
         [FoldoutGroup("#Language")]
-        [SerializeField] private UISelectButton _spanishButton;
+        [SerializeField] private UIImmediateButton _spanishButton;
 
         [FoldoutGroup("#Language")]
-        [SerializeField] private UISelectButton _backButton;
+        [SerializeField] private UIImmediateButton _backButton;
 
         public override void AutoGetComponents()
         {
@@ -39,15 +39,15 @@ namespace TeamSuneat.UserInterface
 
             _indexer ??= GetComponentInChildren<UISelectElementIndexer>();
 
-            _englishButton = this.FindComponent<UISelectButton>("#Content/English Button");
-            _koreanButton = this.FindComponent<UISelectButton>("#Content/Korean Button");
-            _simplifiedChineseButton = this.FindComponent<UISelectButton>("#Content/Simplified Chinese Button");
-            _traditionalChineseButton = this.FindComponent<UISelectButton>("#Content/Traditional Chinese Button");
-            _frenchButton = this.FindComponent<UISelectButton>("#Content/French Button");
-            _germanButton = this.FindComponent<UISelectButton>("#Content/German Button");
-            _italianButton = this.FindComponent<UISelectButton>("#Content/Italian Button");
-            _spanishButton = this.FindComponent<UISelectButton>("#Content/Spanish Button");
-            _backButton = this.FindComponent<UISelectButton>("#Content/Back Button");
+            _englishButton = this.FindComponent<UIImmediateButton>("#Content/English Button");
+            _koreanButton = this.FindComponent<UIImmediateButton>("#Content/Korean Button");
+            _simplifiedChineseButton = this.FindComponent<UIImmediateButton>("#Content/Simplified Chinese Button");
+            _traditionalChineseButton = this.FindComponent<UIImmediateButton>("#Content/Traditional Chinese Button");
+            _frenchButton = this.FindComponent<UIImmediateButton>("#Content/French Button");
+            _germanButton = this.FindComponent<UIImmediateButton>("#Content/German Button");
+            _italianButton = this.FindComponent<UIImmediateButton>("#Content/Italian Button");
+            _spanishButton = this.FindComponent<UIImmediateButton>("#Content/Spanish Button");
+            _backButton = this.FindComponent<UIImmediateButton>("#Content/Back Button");
         }
 
         protected override void OnStart()

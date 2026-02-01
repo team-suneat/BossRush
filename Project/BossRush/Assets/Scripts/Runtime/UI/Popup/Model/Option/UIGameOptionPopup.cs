@@ -28,7 +28,7 @@ namespace TeamSuneat.UserInterface
 
             Indexers = GetComponentsInChildren<UISelectElementIndexer>();
 
-            CancelButton ??= this.FindComponent<UISelectButton>("Rect/#Content/#Buttons/Back Button");
+            CancelButton ??= this.FindComponent<UIImmediateButton>("Rect/#Content/#Buttons/Back Button");
         }
 
         protected override void OnStart()
@@ -70,7 +70,7 @@ namespace TeamSuneat.UserInterface
         {
             base.SelectFirstSlotEvent();
 
-            UISelectButton firstSlot = OptionButtons?.AccessibilityButton;
+            UIImmediateButton firstSlot = OptionButtons?.AccessibilityButton;
             if (firstSlot != null)
             {
                 UIManager.Instance.SelectController.Select(firstSlot.SelectIndex);

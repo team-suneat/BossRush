@@ -8,22 +8,22 @@ namespace TeamSuneat.UserInterface
     public class UCGameOptionAccessibility : UCGameOptionBase
     {
         [FoldoutGroup("#Accessibility/Buttons")]
-        [SerializeField] private UISelectButton _vibrationButton;
+        [SerializeField] private UIToggleButton _vibrationButton;
 
         [FoldoutGroup("#Accessibility/Buttons")]
-        [SerializeField] private UISelectButton _cameraShakeButton;
+        [SerializeField] private UIToggleButton _cameraShakeButton;
 
         [FoldoutGroup("#Accessibility/Buttons")]
-        [SerializeField] private UISelectButton _damageTextButton;
+        [SerializeField] private UIToggleButton _damageTextButton;
 
         [FoldoutGroup("#Accessibility/Buttons")]
-        [SerializeField] private UISelectButton _stateEffectTextButton;
+        [SerializeField] private UIToggleButton _stateEffectTextButton;
 
         [FoldoutGroup("#Accessibility/Buttons")]
-        [SerializeField] private UISelectButton _defaultValuesButton;
+        [SerializeField] private UIImmediateButton _defaultValuesButton;
 
         [FoldoutGroup("#Accessibility/Buttons")]
-        [SerializeField] private UISelectButton _backButton;
+        [SerializeField] private UIImmediateButton _backButton;
 
         [FoldoutGroup("#Accessibility")]
         [SerializeField] private UILocalizedText _descriptionText;
@@ -34,12 +34,12 @@ namespace TeamSuneat.UserInterface
 
             _indexer ??= GetComponentInChildren<UISelectElementIndexer>();
 
-            _vibrationButton = this.FindComponent<UISelectButton>("#Content/Vibration Button");
-            _cameraShakeButton = this.FindComponent<UISelectButton>("#Content/CameraShake Button");
-            _damageTextButton = this.FindComponent<UISelectButton>("#Content/DamageText Button");
-            _stateEffectTextButton = this.FindComponent<UISelectButton>("#Content/StateEffectText Button");
-            _defaultValuesButton = this.FindComponent<UISelectButton>("#Content/Default Values Button");
-            _backButton = this.FindComponent<UISelectButton>("#Content/Back Button");
+            _vibrationButton = this.FindComponent<UIToggleButton>("#Content/Vibration Button");
+            _cameraShakeButton = this.FindComponent<UIToggleButton>("#Content/CameraShake Button");
+            _damageTextButton = this.FindComponent<UIToggleButton>("#Content/DamageText Button");
+            _stateEffectTextButton = this.FindComponent<UIToggleButton>("#Content/StateEffectText Button");
+            _defaultValuesButton = this.FindComponent<UIImmediateButton>("#Content/Default Values Button");
+            _backButton = this.FindComponent<UIImmediateButton>("#Content/Back Button");
             _descriptionText = this.FindComponent<UILocalizedText>("Description Text");
         }
 

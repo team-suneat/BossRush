@@ -6,16 +6,16 @@ namespace TeamSuneat.UserInterface
     public class UCGameOptionButtons : XBehaviour
     {
         [FoldoutGroup("#Buttons")]
-        [SerializeField] private UISelectButton _accessibilityButton;
+        [SerializeField] private UIImmediateButton _accessibilityButton;
 
         [FoldoutGroup("#Buttons")]
-        [SerializeField] private UISelectButton _languageButton;
+        [SerializeField] private UIImmediateButton _languageButton;
 
         [FoldoutGroup("#Buttons")]
-        [SerializeField] private UISelectButton _videoButton;
+        [SerializeField] private UIImmediateButton _videoButton;
 
         [FoldoutGroup("#Buttons")]
-        [SerializeField] private UISelectButton _audioButton;
+        [SerializeField] private UIImmediateButton _audioButton;
 
         [FoldoutGroup("#Options")]
         [SerializeField] private UCGameOptionAccessibility _accessibility;
@@ -31,16 +31,16 @@ namespace TeamSuneat.UserInterface
 
         private bool _isPausePopup;
 
-        public UISelectButton AccessibilityButton => _accessibilityButton;
+        public UIImmediateButton AccessibilityButton => _accessibilityButton;
 
         public override void AutoGetComponents()
         {
             base.AutoGetComponents();
 
-            _accessibilityButton = this.FindComponent<UISelectButton>("#Buttons/Accessibility Button");
-            _languageButton = this.FindComponent<UISelectButton>("#Buttons/Language Button");
-            _videoButton = this.FindComponent<UISelectButton>("#Buttons/Video Button");
-            _audioButton = this.FindComponent<UISelectButton>("#Buttons/Audio Button");
+            _accessibilityButton = this.FindComponent<UIImmediateButton>("#Buttons/Accessibility Button");
+            _languageButton = this.FindComponent<UIImmediateButton>("#Buttons/Language Button");
+            _videoButton = this.FindComponent<UIImmediateButton>("#Buttons/Video Button");
+            _audioButton = this.FindComponent<UIImmediateButton>("#Buttons/Audio Button");
 
             _accessibility = GetComponentInChildren<UCGameOptionAccessibility>();
             _language = GetComponentInChildren<UCGameOptionLanguage>();
@@ -91,7 +91,7 @@ namespace TeamSuneat.UserInterface
             _audioButton?.DeactivateRaycast();
         }
 
-        private void ShowOption(UCGameOptionBase option, UISelectButton button)
+        private void ShowOption(UCGameOptionBase option, UIImmediateButton button)
         {
             if (option == null) return;
 
@@ -104,7 +104,7 @@ namespace TeamSuneat.UserInterface
             }
         }
 
-        private void OnHideOption(UCGameOptionBase option, UISelectButton button)
+        private void OnHideOption(UCGameOptionBase option, UIImmediateButton button)
         {
             if (option == null || button == null) return;
 
